@@ -3,8 +3,9 @@
 <img src="logoDkampus.svg" alt=""></a>
 
 <div class="border-2 w-72 h-10 border-[#F9832A]/40 pl-3 gap-3 rounded-md overflow-hidden flex flex-row justify-between items-center">
-
- <img src="serach.svg" alt="" class="w-6 h-full">
+ <button class="w-6 h-full">
+    <img src="serach.svg" alt="" class="w-full h-full">
+ </button>
  <input type="" class="w-60 h-full outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A]" placeholder="Cari Menu">
 </div>
 
