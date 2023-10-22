@@ -2,19 +2,20 @@
 <a href="/">
 <img src="logoDkampus.svg" alt=""></a>
 
-<div class="border-2 w-72 h-10 border-[#F9832A]/40 pl-3 gap-3 rounded-md overflow-hidden flex flex-row justify-between items-center">
+<div class="border-2 relative w-72 h-10 grid grid-cols-3 place-content-center place-items-center border-[#F9832A]/40 px-2 gap-24 rounded-md overflow-hidden">
  <button class="w-6 h-full">
     <img src="serach.svg" alt="" class="w-full h-full">
  </button>
- <input type="" class="w-60 h-full outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A]" placeholder="Cari Menu">
+ @include('components.search')
 </div>
 
 <div class="flex flex-row items-center gap-5">
     <button>
-    <img src="chat.svg" alt="">
+    <img src="chat.svg" alt="" class="w-7">
     </button>
-    <button>
-    <img src="menu.svg" alt="">
-    </button>
+    @include('components.menu')
 </div>
 </nav>
+<script>
+
+</script>
