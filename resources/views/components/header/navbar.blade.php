@@ -6,14 +6,14 @@
  <button class="w-6 h-full">
     <img src="serach.svg" alt="" class="w-full h-full">
  </button>
- @include('components.search')
+ @include('components.header.search')
 </div>
 
 <div class="flex flex-row items-center gap-5">
     <button>
     <img src="chat.svg" alt="" class="w-7">
     </button>
-    @include('components.menu')
+    @include('components.header.menu')
 </div>
 </nav>
 <script>

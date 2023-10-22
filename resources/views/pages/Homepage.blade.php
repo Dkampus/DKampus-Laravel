@@ -1,7 +1,7 @@
 @extends('layouts.HomeLayout')
 @section('content')
     {{-- Navbar --}}
-    @include('components.navbar')
+    @include('components.header.navbar')
 
     {{-- Carousel Banner --}}
     <x-carousel>
