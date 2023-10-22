@@ -13,7 +13,8 @@ class UserController extends Controller
     public function index()
     {
         return view('pages.Homepage',[
-            'Banner' => HomeModel::bannerData()
+            'Banner' => HomeModel::bannerData(),
+            'Carousel' => HomeModel::carouselData()
         ]);
     }
 
