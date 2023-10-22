@@ -20,6 +20,34 @@ class HomeModel
             'Img' => 'banner.jpg'
         ],
     ];
+
+    private static $Carousel = [
+        [
+            'Icon' => 'ramen.svg',
+            'Title' => 'Makanan'
+        ],
+        [
+            'Icon' => 'coke.svg',
+            'Title' => 'Minuman'
+        ],
+        [
+            'Icon' => 'breakfast.svg',
+            'Title' => 'Roti'
+        ],
+        [
+            'Icon' => 'cookies.svg',
+            'Title' => 'Biskuit'
+        ],
+        [
+            'Icon' => 'fries.svg',
+            'Title' => 'Cemilan'
+        ],
+    ];
+
+    public static function carouselData(){
+        return collect(self::$Carousel);
+    }
+
     public static function bannerData(){
         return collect(self::$Banner);
     }
