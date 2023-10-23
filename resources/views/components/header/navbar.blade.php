@@ -1,4 +1,4 @@
-<nav class="flex flex-row items-center justify-between pt-7 pb-3 px-10">
+<nav class="flex flex-row items-center justify-between pt-7 pb-3 px-5">
 <a href="/">
 <img src="logoDkampus.svg" alt="" class="scale-125"></a>
 

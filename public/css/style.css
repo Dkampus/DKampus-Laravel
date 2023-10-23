@@ -3,3 +3,8 @@ swiper-container .swiper-button-disabled {
     display: none;
     transition: all;
 }
+.text-wrapper{
+  max-width: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
