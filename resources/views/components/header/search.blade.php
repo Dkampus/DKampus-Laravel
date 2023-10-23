@@ -17,7 +17,7 @@
 <div onclick="hide()" id="overlay-results" class="fixed bg-black/20 invisible transition-all duration-300 opacity-0 w-screen h-screen z-40 top-0"></div>
 <script>
 const searchResults = document.getElementById('search-results');
-const overlayResults = document.getElementById('overlay-results')
+const overlayResults = document.getElementById('overlay-results');
 function show(){
     if(searchResults.style.display === 'none' || searchResults.style.display === ''){
         searchResults.style.height = '24rem';
@@ -25,20 +25,28 @@ function show(){
         searchResults.style.opacity = '100';
         searchResults.style.boxShadow = "0px 10px 15px -3px rgba(0,0,0,0.1)";
 
+        // style body
+        document.body.style.overflow = 'hidden';
+
         overlayResults.style.opacity = '100';
         overlayResults.style.display = 'block';
         overlayResults.style.visibility = 'visible';
     }
 }
+
 function hide(){
     searchResults.style.height = '0rem';
     searchResults.style.visibility = 'invisible';
     searchResults.style.opacity = '0';
     searchResults.style.boxShadow = "0px";
 
+    // style body
+    document.body.style.overflow = 'auto';
+
     overlayResults.style.display = 'none';
     overlayResults.style.opacity = '0';
 }
+
 const searchInput = document.getElementById('search-input');
 const clearInput = document.getElementById('clear-input');
 clearInput.addEventListener("click",function(){

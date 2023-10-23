@@ -1,4 +1,4 @@
-<nav class="flex flex-row items-center justify-center pt-7 pb-3 px-5">
+<div class="flex flex-row items-center justify-center pt-7 pb-3 px-5">
 <a href="/">
 <img src="logoDkampus.svg" alt="" class="scale-110"></a>
 @include('components.header.search')
@@ -8,6 +8,6 @@
     </button>
     @include('components.header.menu')
 </div>
-</nav>
+</div>
 <script>
 </script>

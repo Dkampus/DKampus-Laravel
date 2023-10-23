@@ -45,6 +45,7 @@
 <body>
 <div>
 @yield('content')
+@include('components.navbar.navbar')
 </div> 
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script> 
 <script>
@@ -92,7 +93,6 @@
     });
 
 Object.assign(swiperEl, params)
-
 swiperEl.initialize();
 </script>
 </body>
