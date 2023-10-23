@@ -76,6 +76,37 @@ class HomeModel
             'Title' => 'Ayam Goreng Baghdad'
         ]
     ];
+
+    private static $rekomendasiMakanan = [
+        [
+            'Img' => 'geprek.jpg',
+            'Title' => 'Ayam Geprekasvakelia',
+            'Warung' => 'Warung Ayam Geprek',
+            'Ratings' => '4.7/350 rating',
+            'Price' => 'Rp15.000'
+        ],
+        [
+            'Img' => 'geprek.jpg',
+            'Title' => 'Ayam Geprekasvakelia',
+            'Warung' => 'Warung Ayam Geprek',
+            'Ratings' => '4.7/350 rating',
+            'Price' => 'Rp15.000'
+        ],
+        [
+            'Img' => 'geprek.jpg',
+            'Title' => 'Ayam Geprekasvakelia',
+            'Warung' => 'Warung Ayam Geprek',
+            'Ratings' => '4.7/350 rating',
+            'Price' => 'Rp15.000'
+        ],
+        [
+            'Img' => 'geprek.jpg',
+            'Title' => 'Ayam Geprekasvakelia',
+            'Warung' => 'Warung Ayam Geprek',
+            'Ratings' => '4.7/350 rating',
+            'Price' => 'Rp15.000'
+        ]
+    ];
     public static function carouselData(){
         return collect(self::$Carousel);
     }
@@ -86,5 +117,9 @@ class HomeModel
     
     public static function rekomendasiWarung(){
         return collect(self::$rekomendasiWarung);
+    }
+
+    public static function rekomendasiMakanan(){
+        return collect(self::$rekomendasiMakanan);
     }
 }
