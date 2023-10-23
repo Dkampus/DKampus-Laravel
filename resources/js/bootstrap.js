@@ -30,3 +30,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
 // });
+
+import Swiper from 'swiper/swiper-bundle.min';
+
+// Optionally, you can import Swiper styles here as well.
+// import 'swiper/swiper-bundle.min.css';
+
+window.Swiper = Swiper;

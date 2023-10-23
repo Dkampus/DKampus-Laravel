@@ -51,6 +51,8 @@
     const swiperEl = document.querySelector('swiper-container')
     const params = {
       injectStyles: [`
+      'path/to/navigation-element.min.css',
+      'path/to/pagination-element.min.css',
       .swiper-pagination-bullet {
         width: 8px;
         height: 8px;
@@ -84,6 +86,10 @@
       }
       `],
     }
+    const buttonEl = document.querySelector('button');
+    buttonEl.addEventListener('click', () => {
+    swiperEl.swiper.slideNext();
+    });
 
 Object.assign(swiperEl, params)
 

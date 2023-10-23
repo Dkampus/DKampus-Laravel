@@ -14,32 +14,43 @@
 
     {{-- Carousel Category --}}
     <div class="flex flex-row items-start relative">
-    <div class="bg-gradient-to-r from-white from-[10%] to-transparent w-14 z-50 h-28 fixed  left-0"></div>
+    {{-- <div class="bg-gradient-to-r from-white from-[30%] to-transparent w-14 z-50 h-28 fixed  left-0"></div> --}}
     <x-carousel.slider-category>
         @foreach ($Carousel as $item)
-            <swiper-slide class="w-32 h-24 border shadow-md rounded-xl flex flex-col justify-center items-center">
+            <swiper-slide class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center">
                 <div class="flex flex-col justify-center items-center">
                 <img src={{$item['Icon']}} alt="" class="scale-150">
                 <h1 class="font-normal">{{$item['Title']}}</h1>
                 </div>
             </swiper-slide>
         @endforeach
-        <div class="swiper-button-next relative z-[70]"></div>
-        <div class="swiper-button-prev relative z-[70]"></div>
     </x-carousel.slider-category>
-    <div class="bg-gradient-to-l from-white from-[10%] to-transparent w-14 z-50 h-28 fixed right-0"></div>
+    {{-- <div class="bg-gradient-to-l from-white from-[30%] to-transparent w-14 z-50 h-28 fixed right-0"></div> --}}
     </div>
 
     {{-- Rekomendasi Warung --}}
-    <div class="flex flex-row justify-between items-center px-5 my-3">
-    <h1 class="font-semibold text-xl">Rekomendasi Warung</h1>
-    <a href="" class="text-[#F9832A] font-semibold">Lihat Semua</a>
+    <div class="flex flex-row justify-between items-center px-6 my-5">
+    <h1 class="font-semibold text-2xl">Rekomendasi Warung</h1>
+    <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
     </div>
     <x-list-food.slider>
         @foreach ($RekomendasiWarung as $Item)
-            <swiper-slide>
-                <img src={{$Item['Img']}} alt="">
+            <swiper-slide class="w-32 h-[17rem] bg-white border-2 rounded-xl overflow-hidden">
+                <img src={{$Item['Img']}} alt="" class="w-[40rem] h-40">
+                <div class="flex flex-col px-3 h-24 justify-center">
+                <div class="flex flex-row gap-1">
+                <img src={{$Item['IconTime']}} alt="" class="w-5">
+                <h1 class="text-[#F9832A]">{{$Item['Time']}}</h1>
+                </div>
+                <h1 class="font-semibold text-xl">{{$Item['Title']}}</h1>
+                </div>
             </swiper-slide>
         @endforeach
     </x-list-food.slider>
+
+    {{-- Rekomendasi Makanan --}}
+    <div class="flex flex-row justify-between items-center px-6 my-5">
+    <h1 class="font-semibold text-2xl">Rekomendasi Makanan</h1>
+    <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
+    </div>
 @endsection
