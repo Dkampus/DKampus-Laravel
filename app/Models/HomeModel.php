@@ -44,11 +44,47 @@ class HomeModel
         ],
     ];
 
+    private static $rekomendasiWarung = [
+        [
+            'Img' => 'bagdhag.jpg',
+            'IconTime' => 'clock.svg',
+            'Time' => '09:00 - 21:00',
+            'Title' => 'Ayam Goreng Baghdad'
+        ],
+        [
+            'Img' => 'bagdhag.jpg',
+            'IconTime' => 'clock.svg',
+            'Time' => '09:00 - 21:00',
+            'Title' => 'Ayam Goreng Baghdad'
+        ],
+        [
+            'Img' => 'bagdhag.jpg',
+            'IconTime' => 'clock.svg',
+            'Time' => '09:00 - 21:00',
+            'Title' => 'Ayam Goreng Baghdad'
+        ],
+        [
+            'Img' => 'bagdhag.jpg',
+            'IconTime' => 'clock.svg',
+            'Time' => '09:00 - 21:00',
+            'Title' => 'Ayam Goreng Baghdad'
+        ],
+        [
+            'Img' => 'bagdhag.jpg',
+            'IconTime' => 'clock.svg',
+            'Time' => '09:00 - 21:00',
+            'Title' => 'Ayam Goreng Baghdad'
+        ]
+    ];
     public static function carouselData(){
         return collect(self::$Carousel);
     }
 
     public static function bannerData(){
         return collect(self::$Banner);
+    }
+    
+    public static function rekomendasiWarung(){
+        return collect(self::$rekomendasiWarung);
     }
 }
