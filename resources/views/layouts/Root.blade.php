@@ -39,7 +39,7 @@
     <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
-    <title>Home - Welcome & Enjoy what you need</title>
+    <title>{{$Title}} - Welcome & Enjoy what you need</title>
     @vite('resources/css/app.css')
 </head>
 <body>

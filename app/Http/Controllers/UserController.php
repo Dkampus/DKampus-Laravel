@@ -16,12 +16,15 @@ class UserController extends Controller
             'Banner' => HomeModel::bannerData(),
             'Carousel' => HomeModel::carouselData(),
             'RekomendasiWarung' => HomeModel::rekomendasiWarung(),
-            'RekomendasiMakanan' => HomeModel::rekomendasiMakanan()
+            'RekomendasiMakanan' => HomeModel::rekomendasiMakanan(),
+            'Title' => 'Home'
         ]);
     }
 
     public function promo(){
-        return view('pages.Promopage');
+        return view('pages.Promopage',[
+            'Title' => 'Promo'
+        ]);
     }
 
 
