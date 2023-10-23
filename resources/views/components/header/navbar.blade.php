@@ -1,21 +1,13 @@
-<nav class="flex flex-row items-center justify-between pt-7 pb-3 px-5">
+<nav class="flex flex-row items-center justify-center pt-7 pb-3 px-5">
 <a href="/">
-<img src="logoDkampus.svg" alt="" class="scale-125"></a>
-
-<div class="border-2 relative w-72 h-10 grid grid-cols-3 place-content-center place-items-center border-[#F9832A]/40 px-2 gap-24 rounded-md overflow-hidden">
- <button class="w-6 h-full">
-    <img src="serach.svg" alt="" class="w-full h-full">
- </button>
- @include('components.header.search')
-</div>
-
+<img src="logoDkampus.svg" alt="" class="scale-110"></a>
+@include('components.header.search')
 <div class="flex flex-row items-center gap-5">
     <button>
-    <img src="chat.svg" alt="" class="w-9">
+    <img src="chat.svg" alt="" class="w-8">
     </button>
     @include('components.header.menu')
 </div>
 </nav>
 <script>
-
 </script>

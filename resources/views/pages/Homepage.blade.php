@@ -54,15 +54,15 @@
     <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
     </div>
     <x-list-food.slider>
-        @foreach ($RekomendasiWarung as $Item)
+        @foreach ($RekomendasiMakanan as $Item)
             <div class="w-[29rem] h-[17rem] bg-white border-2 rounded-xl overflow-hidden">
                 <img src={{$Item['Img']}} alt="" class="w-[40rem] h-40 object-cover">
                 <div class="flex flex-col px-3 h-24 justify-center">
                 <div class="flex flex-row gap-1">
-                <img src={{$Item['IconTime']}} alt="" class="w-5">
-                <h1 class="text-wrapper text-[#F9832A]">{{$Item['Time']}}</h1>
+                <img src='' alt="" class="w-5">
+                <h1 class="text-wrapper text-[#F9832A]"></h1>
                 </div>
-                <h1 class="font-semibold text-xl">{{$Item['Title']}}</h1>
+                <h1 style="max-width: 10px; text-overflow: ellipsis; white-space: nowrap;" class="font-semibold text-xl">{{$Item['Title']}}</h1>
                 </div>
             </div>
         @endforeach
