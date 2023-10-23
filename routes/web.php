@@ -14,8 +14,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/',[UserController::class,'index']);
-Route::get('/promo',[UserController::class,'promo']);
+Route::get('/', [UserController::class, 'index']);
+Route::get('/promo', [UserController::class, 'promo']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -27,4 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::get('uhuy', function () {
+    return view('uhuy');
+});
+
+require __DIR__ . '/auth.php';

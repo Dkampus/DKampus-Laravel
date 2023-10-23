@@ -1,4 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'node_modules/swiper/swiper-bundle.min.css';
+@import "node_modules/swiper/swiper-bundle.min.css";
+
+.swiper {
+    width: 600px;
+    height: 300px;
+}
