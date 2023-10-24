@@ -4,7 +4,6 @@ function showMenu(){
     if(barMenu.style.display === 'none' || barMenu.style.display === ''){
         barMenu.style.width = '23rem';
         barMenu.style.right = '0rem';
-        barMenu.style.height = '100vh';
         barMenu.style.visibility = 'visible';
         barMenu.style.opacity = '100';
         barMenu.style.boxShadow = "0px 10px 15px -3px rgba(0,0,0,0.1)";
@@ -19,7 +18,6 @@ function showMenu(){
 }
 
 function hideMenu(){
-    barMenu.style.height = '0rem';
     barMenu.style.visibility = 'invisible';
     barMenu.style.opacity = '0';
     barMenu.style.boxShadow = "0px";
