@@ -4,7 +4,7 @@
     <button class="w-6 h-full">
         <img src="serach.svg" alt="" class="w-full h-full">
     </button>
-    <input onclick="show()" id="search-input" name="value" type="" class="w-[12.5rem] h-full self-start outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A]" placeholder="Cari Menu">
+    <input onclick="showResults()" id="search-input" name="value" type="" class="w-[12.5rem] h-full self-start outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A]" placeholder="Cari Menu">
 
     {{-- Clear Button --}}
     <button id="clear-input" class="invisible font-bold group flex flex-row justify-center items-center text-[#F9832A] self-center rounded-lg w-5 h-5 mr-1">
@@ -15,7 +15,4 @@
     
 </div>
 </div>
-<div onclick="hide()" id="overlay-results" class="fixed bg-black/20 invisible transition-all duration-300 opacity-0 w-screen h-screen z-40 top-0"></div>
-<script>
-
-</script>
+<div onclick="hideResults()" id="overlay-results" class="fixed bg-black/20 invisible transition-all duration-300 opacity-0 w-screen h-screen z-40 top-0"></div>

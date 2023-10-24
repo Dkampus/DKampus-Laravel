@@ -9,3 +9,6 @@ swiper-container .swiper-button-disabled {
   white-space: nowrap;
   overflow: hidden;
 }
+.swiper{
+  width: 100px;
+}
