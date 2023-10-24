@@ -1,1 +1,4 @@
-<h1>hello world</h1>
+@extends('layouts.Root')
+@section('content')
+    
+@endsection
