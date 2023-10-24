@@ -42,11 +42,17 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-<div class="">
+<div id="containerLayout">
   @yield('content')
 </div>
 @include('components.navbar.navbar')
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script> 
-<script src="{{asset('js/script.js')}}"></script>
+@if ($Title === 'Home')
+<script src="{{asset('js/homepage-script.js')}}"></script>  
+@else
+{{-- <script src="{{asset('js/homepage-script.js')}}"></script>   --}}
+@endif
+<script src="{{asset('js/swiper.js')}}"></script>
+{{-- <script src="{{asset('js/gsap.js')}}"></script> --}}
 </body>
 </html>

@@ -1,6 +1,6 @@
 <div class="flex flex-col items-center mx-auto w-max">
     {{-- Search Input --}}
-    <div class="border-2 relative bg-white z-[60] w-80 h-10 grid grid-cols-3 place-content-center place-items-center border-[#F9832A]/40 px-2 gap-24 rounded-md overflow-hidden">
+    <div onclick class="border-2 relative bg-white z-[60] w-80 h-10 grid grid-cols-3 place-content-center place-items-center border-[#F9832A]/40 px-2 gap-24 rounded-md overflow-hidden focus:border-[#F9832A]">
     <button class="w-6 h-full">
         <img src="serach.svg" alt="" class="w-full h-full">
     </button>
