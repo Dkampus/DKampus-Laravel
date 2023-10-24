@@ -59,9 +59,10 @@
     </div>
     <x-list-food.slider>
         @foreach ($RekomendasiMakanan as $Item)
-            <div class="w-[29rem] h-[16.5rem] bg-white border-2 rounded-xl overflow-hidden">
-                <img src={{$Item['Img']}} alt="" class="w-[40rem] h-40 object-cover">
-                <div class="flex flex-col h-[6rem] items-end justify-around px-3">
+            <div class="w-[29rem] h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden">
+                <img src={{$Item['Img']}} alt="" class="w-[40rem] h-60 object-cover relative top-0">
+                {{-- Description Card --}}
+                <div class="flex flex-col items-center justify-around px-3 gap-2 py-4">
                 {{-- Title & Ratings --}}
                 <div class="flex flex-row justify-between w-full items-center h-full">
                     <h1 class="text-wrapper font-semibold text-2xl">{{$Item['Title']}}</h1>
@@ -84,4 +85,5 @@
         @endforeach
     </x-list-food.slider>
     </main>
+    @include('components.scrollBehaviourr.scroll-behaviour')
 @endsection

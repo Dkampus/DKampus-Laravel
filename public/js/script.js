@@ -1,3 +1,10 @@
+document.addEventListener('scroll',function(){
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = window.scrollY;
+    const scrollButton = document.querySelector('#scrollBehaviour')
+})
+
+
 const barMenu = document.getElementById('bar-menu');
 const overlayMenu = document.getElementById('overlay-menu');
 function showMenu(){
