@@ -6,8 +6,8 @@
     {{-- Carousel Banner --}}
     <x-banner.carousel>
         @foreach ($Banner as $item)
-        <swiper-slide>
-           <img src={{$item['Img']}} alt="" class="h-full"> 
+        <swiper-slide class="w-full">
+           <img src={{$item['Img']}} alt="" class="h-full w-full"> 
         </swiper-slide>
         @endforeach
     </x-banner.carousel>
@@ -34,9 +34,9 @@
     <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
     </div>
     <x-list-warung.slider>
-        @foreach ($RekomendasiWarung as $Item)
+        @forelse ($RekomendasiWarung as $Item)
             <swiper-slide class="w-32 h-[17rem] bg-white border-2 rounded-xl overflow-hidden">
-                <img src={{$Item['Img']}} alt="" class="w-[40rem] h-40">
+                <img src={{$Item['Img']}} alt="" class="w-[40rem] h-40 object-cover">
                 <div class="flex flex-col px-3 h-24 justify-center">
                 <div class="flex flex-row gap-1">
                 <img src={{$Item['IconTime']}} alt="" class="w-5">
@@ -45,7 +45,9 @@
                 <h1 class="font-semibold text-xl">{{$Item['Title']}}</h1>
                 </div>
             </swiper-slide>
-        @endforeach
+        @empty
+        <p>Data is not Found</p>
+        @endforelse
     </x-list-warung.slider>
 
     {{-- Rekomendasi Makanan --}}
@@ -60,9 +62,9 @@
                 <div class="flex flex-col px-3 h-24 justify-center">
                 <div class="flex flex-row gap-1">
                 <img src='' alt="" class="w-5">
-                <h1 class="text-wrapper text-[#F9832A]"></h1>
+                <h1 class="text-[#F9832A]"></h1>
                 </div>
-                <h1 style="max-width: 10px; text-overflow: ellipsis; white-space: nowrap;" class="font-semibold text-xl">{{$Item['Title']}}</h1>
+                <h1 class="text-wrapper font-semibold text-xl">{{$Item['Title']}}</h1>
                 </div>
             </div>
         @endforeach

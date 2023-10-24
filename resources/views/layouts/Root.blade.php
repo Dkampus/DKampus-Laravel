@@ -34,8 +34,8 @@
     <link rel="icon" type="image/png" href={{asset('logoDkampus.png')}} sizes="32x32" />
     <link rel="icon" type="image/png" href={{asset('logoDkampus.png')}} sizes="192x192" />
     <link rel="icon" type="image/png" href={{asset('logoDkampus.png')}} sizes="16x16" />
-    <script type="module" src={{asset('js/script.js')}}></script>
-    <script src={{asset('css/style.css')}}></script>
+    <script src="{{asset('js/script.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
