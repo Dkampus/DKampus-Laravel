@@ -3,4 +3,4 @@ slides-per-view="1" id="Banner" class="h-52 mb-5 mt-3 w-[29rem] mx-auto rounded-
     {{$slot}}
     <div class="swiper-pagination"></div>
     <div class="swiper-button-disabled"></div>
-</div>
+</swiper-container>

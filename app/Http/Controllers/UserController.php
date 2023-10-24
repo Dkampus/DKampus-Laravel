@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\HomeModel;
+use App\Models\PromoModel;
 
 class UserController extends Controller
 {
@@ -23,7 +24,8 @@ class UserController extends Controller
 
     public function promo(){
         return view('pages.Promopage',[
-            'Title' => 'Promo'
+            'Title' => 'Promo',
+            'CarouselPromo' => PromoModel::carouselPromo()
         ]);
     }
 
