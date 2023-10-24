@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // User Route
-Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () {
+Route::middleware(['auth', 'UserAccess:user,admin'])->group(function () {
     Route::name('.user')->group(function () {
         // insert route here
         Route::get('/uhuy', function () {
