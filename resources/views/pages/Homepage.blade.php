@@ -37,7 +37,7 @@
     </div>
     <x-list-warung.slider>
         @forelse ($RekomendasiWarung as $Item)
-            <swiper-slide class="w-32 h-[17rem] bg-white border-2 rounded-xl overflow-hidden">
+            <swiper-slide class="w-32 h-[17rem] bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
                 <img src={{$Item['Img']}} alt="" class="w-[40rem] h-40 object-cover">
                 <div class="flex flex-col px-3 h-24 justify-center">
                 <div class="flex flex-row gap-1">
@@ -59,7 +59,7 @@
     </div>
     <x-list-food.slider>
         @foreach ($RekomendasiMakanan as $Item)
-            <div class="w-[29rem] h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden">
+            <div class="w-[29rem] h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
                 <img src={{$Item['Img']}} alt="" class="w-[40rem] h-60 object-cover relative top-0">
                 {{-- Description Card --}}
                 <div class="flex flex-col items-center justify-around px-3 gap-2 py-4">
