@@ -1,7 +1,17 @@
 document.addEventListener('scroll',function(){
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = window.scrollY;
-    const scrollButton = document.querySelector('#scrollBehaviour')
+    const scrollButton = document.querySelector('#scrollBehaviour');
+    if(scrolled > 100){
+        scrollButton.style.opacity = "100";
+        scrollButton.style.bottom = "7rem";
+    } else if (scrolled < 100){
+        scrollButton.style.opacity = "0";
+        scrollButton.style.bottom = "-99rem"
+    }
+    scrollButton.addEventListener("click", function(){
+        window.scrollTo({top: 0,behavior: "smooth"});
+     })
 })
 
 
