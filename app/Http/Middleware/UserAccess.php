@@ -15,13 +15,13 @@ class UserAccess
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
         $uuid = Auth::user()->uid;
         $user = Firebase::auth()->getUser($uuid);
         $userClaims = $user->customClaims;
 
-        if ($userClaims['role'] == $role || $userClaims['role'] == 'admin') {
+        if (in_array($userClaims['role'], $roles)) {
             return $next($request);
         }
 
