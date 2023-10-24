@@ -31,9 +31,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     enabledTransports: ['ws', 'wss'],
 // });
 
-import Swiper from 'swiper/swiper-bundle.min';
+// import Swiper from 'swiper/swiper-bundle.min';
 
-// Optionally, you can import Swiper styles here as well.
-// import 'swiper/swiper-bundle.min.css';
+// // Optionally, you can import Swiper styles here as well.
+// // import 'swiper/swiper-bundle.min.css';
 
-window.Swiper = Swiper;
+// window.Swiper = Swiper;
