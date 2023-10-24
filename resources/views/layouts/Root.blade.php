@@ -42,10 +42,10 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-<div>
-@yield('content')
+<div class="">
+  @yield('content')
+</div>
 @include('components.navbar.navbar')
-</div> 
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script> 
 <script src="{{asset('js/script.js')}}"></script>
 </body>

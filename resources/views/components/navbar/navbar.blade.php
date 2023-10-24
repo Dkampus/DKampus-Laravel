@@ -1,4 +1,4 @@
-<nav class="flex flex-row justify-center gap-20 mx-auto w-screen z-30 h-24 border-2 rounded-tl-3xl rounded-tr-3xl items-center fixed bottom-0 bg-white">
+<nav class="flex flex-row justify-center gap-20 mx-auto fixed w-screen z-30 h-24 border-2 rounded-tl-3xl rounded-tr-3xl items-center bottom-0 bg-white">
 <a href="/" class="flex flex-col items-center gap-1.5">
     <svg class="w-[1.7rem]" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M7.68238 20.6507V17.2872C7.68238 16.4286 8.42041 15.7325 9.33082 15.7325H12.6588C13.096 15.7325 13.5153 15.8963 13.8244 16.1879C14.1336 16.4794 14.3073 16.8749 14.3073 17.2872V20.6507C14.3045 21.0076 14.4529 21.3509 14.7196 21.6042C14.9863 21.8575 15.3491 22 15.7276 22H17.9981C19.0585 22.0026 20.0764 21.6071 20.8272 20.9009C21.578 20.1946 22 19.2357 22 18.2356V8.65354C22 7.8457 21.6203 7.07942 20.9632 6.56113L13.2394 0.743456C11.8958 -0.276582 9.97076 -0.243648 8.66729 0.821676L1.1197 6.56113C0.431594 7.06414 0.0203237 7.8327 0 8.65354V18.2258C0 20.3102 1.7917 22 4.00188 22H6.22055C7.00668 22 7.64558 21.4018 7.65127 20.6604L7.68238 20.6507Z" fill='{{$Title === 'Home' ? '#F9832A' : '#AAAAAA'}}'/>
