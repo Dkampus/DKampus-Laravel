@@ -47,7 +47,7 @@
 </div>
 @include('components.navbar.navbar')
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script> 
-@if ($Title === 'Home')
+@if ($Title === 'Home' && $Title === 'Promo')
 <script src="{{asset('js/homepage-script.js')}}"></script> 
 <script src="{{asset('js/swiper.js')}}"></script>
 <script src="{{asset('js/gsap.js')}}"></script>

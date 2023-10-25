@@ -12,7 +12,7 @@
         </div>
         <x-promo-carousel.carousel>
             @foreach ($CarouselPromo as $Item)
-                <swiper-slide style="background-image: url('{{$Item['Img']}}')" class="w-52 h-full bg-no-repeat rounded-2xl mx-auto bg-cover">
+                <swiper-slide style="background-image: url('/{{$Item['Img']}}')" class="w-52 h-full bg-no-repeat rounded-2xl mx-auto bg-cover">
                 <div class="bg-[#D83F31] w-60 h-full flex flex-col justify-center items-center rounded-2xl">
                     <div class="flex flex-col gap-2">
                     <h1 class="text-white font-semibold text-2xl text-left w-[8.5rem]">{{$Item['Desc']}}</h1>
@@ -31,9 +31,9 @@
         </x-promo-carousel.carousel>
     </header>
     <main>
-    <nav>
+    <nav class="px-5 my-3 flex flex-row gap-10">
     <a href="/promo" class="{{$NavPromo === 'Semua' ? 'text-[#F9832A]' : 'text-black'}}">Semua</a>
-    <a href="/promo/Makanan" class="{{$NavPromo === 'Makanan' ? 'text-[#F9832A]' : 'text-black'}}">Makanan</a>
+    <a href="/promo/makanan" class="{{$NavPromo === 'Makanan' ? 'text-[#F9832A]' : 'text-black'}}">Makanan</a>
     <a href="/promo/Minuman">Minuman</a>
     <a href="">Cemilan</a>
     </nav>

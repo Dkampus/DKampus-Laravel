@@ -36,6 +36,44 @@ class PromoModel
             'Warung' => 'Warung Spagetti Tante Ayu'
         ]
     ];
+
+    private static $PromoTerlaris = [
+        [
+            'Img' => 'geprek.jpg',
+            'Discount' => 'diskon.svg',
+            'Title' => 'Ayam Geprekasvakalia',
+            'PriceDiscount' => 'Rp15.000',
+            'PriceOri' => 'Rp30.000',
+            'Ratings' => '4.7/350 Rating'
+        ],
+        [
+            'Img' => 'geprek.jpg',
+            'Discount' => 'diskon.svg',
+            'Title' => 'Ayam Geprekasvakalia',
+            'PriceDiscount' => 'Rp15.000',
+            'PriceOri' => 'Rp30.000',
+            'Ratings' => '4.7/350 Rating'
+        ],
+        [
+            'Img' => 'geprek.jpg',
+            'Discount' => 'diskon.svg',
+            'Title' => 'Ayam Geprekasvakalia',
+            'PriceDiscount' => 'Rp15.000',
+            'PriceOri' => 'Rp30.000',
+            'Ratings' => '4.7/350 Rating'
+        ],
+        [
+            'Img' => 'geprek.jpg',
+            'Discount' => 'diskon.svg',
+            'Title' => 'Ayam Geprekasvakalia',
+            'PriceDiscount' => 'Rp15.000',
+            'PriceOri' => 'Rp30.000',
+            'Ratings' => '4.7/350 Rating'
+        ]
+    ];
+    public static function promoTerlaris(){
+        return collect(self::$PromoTerlaris);
+    }
     public static function carouselPromo(){
         return collect(self::$CarouselPromo);
     } 

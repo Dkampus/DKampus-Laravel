@@ -9,6 +9,14 @@ swiper-container .swiper-button-disabled {
   white-space: nowrap;
   overflow: hidden;
 }
+
+.text-wrapper-promo-terlaris{
+  max-width: 170px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .text-promo-warung-carousel{
   max-width: 170px;
   text-overflow: ellipsis;

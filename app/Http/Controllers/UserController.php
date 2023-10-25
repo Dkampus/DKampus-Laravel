@@ -22,8 +22,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function promo(){
-        return view('pages.Promopage',[
+    public function promoLayout(){
+        return view('layouts.PromoLayout',[
             'Title' => 'Promo',
             'CarouselPromo' => PromoModel::carouselPromo(),
             'NavPromo' => 'Semua'
@@ -33,8 +33,16 @@ class UserController extends Controller
     public function makanan(){
         return view('pages.MakananPage',[
             'Title' => 'Promo',
+            'NavPromo' => 'Makanan',
             'CarouselPromo' => PromoModel::carouselPromo(),
-            'NavPromo' => 'Makanan'
+        ]);
+    }
+    public function semua(){
+        return view('pages.SemuaPage',[
+            'Title' => 'Promo',
+            'NavPromo' => 'Semua',
+            'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+            'CarouselPromo' => PromoModel::carouselPromo(),
         ]);
     }
 
