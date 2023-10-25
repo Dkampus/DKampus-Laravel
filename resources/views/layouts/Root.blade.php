@@ -42,7 +42,7 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-<div id="containerLayout">
+<div id="containerLayout" class="max-w-xl">
   @yield('content')
 </div>
 @if ($Title === 'Detail')
