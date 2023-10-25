@@ -57,6 +57,7 @@
 <script src="{{asset('js/homepage-script.js')}}"></script> 
 <script src="{{asset('js/swiper.js')}}"></script>
 @else
+<script src="{{asset('js/DetailWarung-script.js')}}"></script> 
 {{-- <script src="{{asset('js/homepage-script.js')}}"></script>   --}}
 {{-- <script src="{{asset('js/swiper.js')}}"></script> --}}
 {{-- <script src="{{asset('js/gsap.js')}}"></script> --}}

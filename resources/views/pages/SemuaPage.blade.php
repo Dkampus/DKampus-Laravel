@@ -6,7 +6,7 @@
 </div>
 <x-promo-slider.carousel>
    @forelse ($PromoTerlarisSlider as $Item)
-    <swiper-slide class="border w-40 h-60 rounded-xl overflow-hidden shadow-md mb-2">
+    <swiper-slide class="border transition-all duration-300 w-40 h-60 rounded-xl overflow-hidden shadow-md mb-2">
         <div id="headerCard" class="w-full">
             <img src="{{$Item['Discount']}}" alt="" class="absolute">
             <img src="{{$Item['Img']}}" alt="" class="w-full h-32">
