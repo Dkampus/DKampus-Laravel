@@ -15,9 +15,12 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [UserController::class, 'index'])->name('homepage');
+
 Route::get('/promo', [UserController::class, 'promoLayout']);
 Route::get('/promo/makanan', [UserController::class, 'makanan']);
 Route::get('/promo', [UserController::class, 'semua']);
+
+Route::get('/detail-warung',[UserController::class,'detailWarung']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

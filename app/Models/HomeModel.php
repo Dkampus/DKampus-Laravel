@@ -127,4 +127,6 @@ class HomeModel
     public static function rekomendasiMakanan(){
         return collect(self::$rekomendasiMakanan);
     }
+
+    
 }

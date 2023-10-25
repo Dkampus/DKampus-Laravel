@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\HomeModel;
 use App\Models\PromoModel;
+use App\Models\DetailWarungModel;
+
 
 class UserController extends Controller
 {
@@ -19,6 +21,14 @@ class UserController extends Controller
             'RekomendasiWarung' => HomeModel::rekomendasiWarung(),
             'RekomendasiMakanan' => HomeModel::rekomendasiMakanan(),
             'Title' => 'Home'
+        ]);
+    }
+
+    public function detailWarung(){
+        return view('pages.DetailWarung',[
+            'CardFood' => DetailWarungModel::listMakanan(), 
+            'BannerFade' => DetailWarungModel::bannerDetail(),
+            'Title' => 'Detail'
         ]);
     }
 

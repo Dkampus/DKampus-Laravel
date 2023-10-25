@@ -45,12 +45,17 @@
 <div id="containerLayout">
   @yield('content')
 </div>
+@if ($Title === 'Detail')
+{{-- @include('components.navbar.navbar') --}}
+@else
 @include('components.navbar.navbar')
+@endif
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script> 
 @if ($Title === 'Home')
 <script src="{{asset('js/homepage-script.js')}}"></script> 
 <script src="{{asset('js/swiper.js')}}"></script>
-<script src="{{asset('js/gsap.js')}}"></script>
 @else
 {{-- <script src="{{asset('js/homepage-script.js')}}"></script>   --}}
 {{-- <script src="{{asset('js/swiper.js')}}"></script> --}}
