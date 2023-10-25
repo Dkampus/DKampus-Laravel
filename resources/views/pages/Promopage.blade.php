@@ -30,4 +30,15 @@
             @endforeach
         </x-promo-carousel.carousel>
     </header>
+    <main>
+    <nav>
+    <a href="/promo" class="{{$NavPromo === 'Semua' ? 'text-[#F9832A]' : 'text-black'}}">Semua</a>
+    <a href="/promo/Makanan" class="{{$NavPromo === 'Makanan' ? 'text-[#F9832A]' : 'text-black'}}">Makanan</a>
+    <a href="/promo/Minuman">Minuman</a>
+    <a href="">Cemilan</a>
+    </nav>
+    <div>
+    @yield('contentPromo')
+    </div>
+    </main>
 @endsection

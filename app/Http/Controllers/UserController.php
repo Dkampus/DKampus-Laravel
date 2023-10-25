@@ -25,7 +25,16 @@ class UserController extends Controller
     public function promo(){
         return view('pages.Promopage',[
             'Title' => 'Promo',
-            'CarouselPromo' => PromoModel::carouselPromo()
+            'CarouselPromo' => PromoModel::carouselPromo(),
+            'NavPromo' => 'Semua'
+        ]);
+    }
+
+    public function makanan(){
+        return view('pages.MakananPage',[
+            'Title' => 'Promo',
+            'CarouselPromo' => PromoModel::carouselPromo(),
+            'NavPromo' => 'Makanan'
         ]);
     }
 
