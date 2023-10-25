@@ -29,4 +29,7 @@
        
    @endforelse
 </x-promo-slider.carousel>
+<div class="w-full h-60 px-4 mx-auto my-5 rounded-xl overflow-hidden">
+<img src="promote.jpg" alt="" class="w-full h-full object-cover rounded-xl">
+</div>
 @endsection

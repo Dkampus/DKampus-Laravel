@@ -30,12 +30,12 @@
             @endforeach
         </x-promo-carousel.carousel>
     </header>
-    <main>
-    <nav class="px-5 my-3 flex flex-row items-center gap-7">
-    <a href="/promo" class="transition-all duration-300 {{$NavPromo === 'Semua' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg'}}">Semua</a>
-    <a href="/promo/makanan" class="{{$NavPromo === 'Makanan' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg'}}">Makanan</a>
-    <a href="/promo/minuman" class="{{$NavPromo === 'Minuman' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg'}}">Minuman</a>
-    <a href="/promo/cemilan" class="{{$NavPromo === 'Camilan' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg'}}">Cemilan</a>
+    <main class="mb-28">
+    <nav class="px-5 my-3 flex flex-row items-center gap-4">
+    <a href="/promo" class="transition-all duration-300 font-semibold  {{$NavPromo === 'Semua' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg'}}">Semua</a>
+    <a href="/promo/makanan" class="transition-all duration-300 font-semibold {{$NavPromo === 'Makanan' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg'}}">Makanan</a>
+    <a href="/promo/minuman" class="transition-all duration-300 font-semibold {{$NavPromo === 'Minuman' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg'}}">Minuman</a>
+    <a href="/promo/cemilan" class="transition-all duration-300 font-semibold {{$NavPromo === 'Camilan' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-lg'}}">Cemilan</a>
     </nav>
     <div>
     @yield('contentPromo')
