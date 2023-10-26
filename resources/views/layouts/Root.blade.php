@@ -75,6 +75,10 @@
     @break
     @case('Register')
     <script src="{{asset('js/register.js')}}"></script>
+    @break
+    @case('Code Verification')
+    <script src="{{asset('js/codeVerification.js')}}"></script>
+    @break
     @default
     {{-- <script src="{{asset('js/DetailWarung-script.js')}}"></script> 
     <script src="{{asset('js/DetailMakanan-script.js')}}"></script>  --}}
