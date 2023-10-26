@@ -20,10 +20,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'uid',
         'name',
         'email',
         'password',
+        'role',
+        'no_telp'
     ];
 
     /**
@@ -45,4 +46,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function data_umkm()
+    {
+        return $this->hasMany(Data_umkm::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function delivery()
+    {
+        return $this->hasOne(Delivery::class);
+    }
 }
