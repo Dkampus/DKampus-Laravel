@@ -17,7 +17,32 @@ document.addEventListener('scroll',function(){
 
 const state = {
     condition: false,
+    count: 0
 }
+const number = document.getElementById('number')
+const decrement = document.getElementById('decrement');
+const increment = document.getElementById('increment')
+if(state.count !== 0){
+    decrement.classList.add('text-[#F9832A')
+}else if (state.count === 0){
+    decrement.classList.add('text-[#F9832A')
+}
+function renderCount(){
+    number.textContent = state.count
+    decrement.disabled = state.count === 0;
+}
+function incrementCounter(){
+    state.count += 1;
+    renderCount();
+}
+function decrementCounter(){
+    if(state.count > 0){
+        state.count -= 1;
+        renderCount();
+    }
+}
+increment.addEventListener('click',incrementCounter);
+decrement.addEventListener('click',decrementCounter);
 function render(){
     const fillButton = document.getElementById('iconLike');
     if(state.condition){

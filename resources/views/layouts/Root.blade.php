@@ -45,7 +45,7 @@
 <div id="containerLayout" class="max-w-xl">
   @yield('content')
 </div>
-@if ($Title === 'Detail')
+@if ($Title === 'Detail-Makanan' || $Title === 'Detail-Warung')
 {{-- @include('components.navbar.navbar') --}}
 @else
 @include('components.navbar.navbar')

@@ -34,7 +34,8 @@ class UserController extends Controller
 
     public function detailMakanan(){
         return view('pages.DetailMakanan',[
-            'Title' => 'Detail-Makanan'
+            'Title' => 'Detail-Makanan',
+            'CardFood' => DetailWarungModel::listMakanan(), 
         ]);
     }
 

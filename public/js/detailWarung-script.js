@@ -16,8 +16,9 @@ document.addEventListener('scroll',function(){
 })
 const state = {
     condition: false,
+    count: 0,
 }
-function render(){
+function renderCondition(){
     const fillButton = document.getElementById('iconLike');
     if(state.condition){
         fillButton.classList.add('fill-[#F9832A]')
@@ -30,7 +31,7 @@ function render(){
 }
 function toggleState(){
     state.condition = !state.condition;
-    render()
+    renderCondition()
 }
 document.getElementById('buttonLike').addEventListener('click',toggleState);
-render()
+renderCondition()
