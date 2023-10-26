@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('data_umkms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user');
+            $table->foreignUuid('id_user');
             // Nama User
             $table->string('nama_umkm');
             $table->string('alamat');
