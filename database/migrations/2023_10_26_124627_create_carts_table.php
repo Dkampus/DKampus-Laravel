@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('id_makanan');
             // Nama UMKM
             // Nama Makanan
-            $table->int('quantity');
-            $table->int('total_harga');
+            $table->integer('quantity');
+            $table->integer('total_harga');
             $table->timestamps();
         });
     }

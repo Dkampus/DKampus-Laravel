@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_makanan');
             // Nama UMKM
             $table->text('deskripsi');
-            $table->int('harga');
+            $table->integer('harga');
             $table->decimal('rating');
             $table->timestamps();
         });
