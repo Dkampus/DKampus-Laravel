@@ -28,13 +28,13 @@ class UserController extends Controller
         return view('pages.DetailWarung',[
             'CardFood' => DetailWarungModel::listMakanan(), 
             'BannerFade' => DetailWarungModel::bannerDetail(),
-            'Title' => 'Detail'
+            'Title' => 'Detail-Warung'
         ]);
     }
 
     public function detailMakanan(){
         return view('pages.DetailMakanan',[
-            'Title' => 'Detail'
+            'Title' => 'Detail-Makanan'
         ]);
     }
 

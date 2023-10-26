@@ -52,15 +52,33 @@
 @endif
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script> 
-@if ($Title === 'Home')
-<script src="{{asset('js/homepage-script.js')}}"></script> 
-<script src="{{asset('js/swiper.js')}}"></script>
-@else
-<script src="{{asset('js/DetailWarung-script.js')}}"></script> 
-{{-- <script src="{{asset('js/homepage-script.js')}}"></script>   --}}
-{{-- <script src="{{asset('js/swiper.js')}}"></script> --}}
-{{-- <script src="{{asset('js/gsap.js')}}"></script> --}}
-@endif
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+@switch($Title)
+    @case('Home')
+    <script src="{{asset('js/homepage-script.js')}}"></script> 
+    <script src="{{asset('js/swiper.js')}}"></script>
+    @break
+    @case('Promo')
+      
+    @break
+    @case('Pesanan')
+      
+    @break
+    @case('Favorit')
+      
+    @break
+    @case('Detail-Warung')
+    <script src="{{asset('js/DetailWarung-script.js')}}"></script> 
+    @break
+    @case('Detail-Makanan')
+    <script src="{{asset('js/DetailMakanan-script.js')}}"></script>
+    @break
+    @default
+    {{-- <script src="{{asset('js/DetailWarung-script.js')}}"></script> 
+    <script src="{{asset('js/DetailMakanan-script.js')}}"></script>  --}}
+    {{-- <script src="{{asset('js/homepage-script.js')}}"></script>   --}}
+    {{-- <script src="{{asset('js/swiper.js')}}"></script> --}}
+    {{-- <script src="{{asset('js/gsap.js')}}"></script> --}}
+@endswitch
 </body>
 </html>

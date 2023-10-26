@@ -14,3 +14,23 @@ document.addEventListener('scroll',function(){
         titleDetail.classList.remove('visible')
     }
 })
+const state = {
+    condition: false,
+}
+function render(){
+    const fillButton = document.getElementById('iconLike');
+    if(state.condition){
+        fillButton.classList.add('fill-[#F9832A]')
+        fillButton.classList.remove('fill-[#5e5e5e]')
+    }else{
+        fillButton.classList.add('fill-[#5e5e5e]')
+        fillButton.classList.remove('fill-[#F9832A]')
+    }
+    // fillButton.classList.add(`${state.condition ? 'fill-[#5e5e5e]' : 'fill-[#F9832A]'}`)
+}
+function toggleState(){
+    state.condition = !state.condition;
+    render()
+}
+document.getElementById('buttonLike').addEventListener('click',toggleState);
+render()
