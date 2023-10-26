@@ -32,6 +32,12 @@ class UserController extends Controller
         ]);
     }
 
+    public function detailMakanan(){
+        return view('pages.DetailMakanan',[
+            'Title' => 'Detail'
+        ]);
+    }
+
     public function promoLayout(){
         return view('layouts.PromoLayout',[
             'Title' => 'Promo',

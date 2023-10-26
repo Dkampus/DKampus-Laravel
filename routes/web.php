@@ -21,6 +21,7 @@ Route::get('/promo/makanan', [UserController::class, 'makanan']);
 Route::get('/promo', [UserController::class, 'semua']);
 
 Route::get('/detail-warung',[UserController::class,'detailWarung']);
+Route::get('/detail-makanan',[UserController::class,'detailMakanan']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
