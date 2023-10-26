@@ -73,6 +73,8 @@
     @case('Detail-Makanan')
     <script src="{{asset('js/DetailMakanan-script.js')}}"></script>
     @break
+    @case('Register')
+    <script src="{{asset('js/register.js')}}"></script>
     @default
     {{-- <script src="{{asset('js/DetailWarung-script.js')}}"></script> 
     <script src="{{asset('js/DetailMakanan-script.js')}}"></script>  --}}
