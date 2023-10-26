@@ -79,12 +79,17 @@
     @case('Code Verification')
     <script src="{{asset('js/codeVerification.js')}}"></script>
     @break
+    @case('Input Registrasi')
+    <script src="{{asset('js/inputRegistration.js')}}"></script>
+    @break
     @default
     {{-- <script src="{{asset('js/DetailWarung-script.js')}}"></script> 
     <script src="{{asset('js/DetailMakanan-script.js')}}"></script>  --}}
     {{-- <script src="{{asset('js/homepage-script.js')}}"></script>   --}}
     {{-- <script src="{{asset('js/swiper.js')}}"></script> --}}
     {{-- <script src="{{asset('js/gsap.js')}}"></script> --}}
+    {{-- <script src="{{asset('js/inputRegistration.js')}}"></script> --}}
+    {{-- <script src="{{asset('js/codeVerification.js')}}"></script> --}}
 @endswitch
 </body>
 </html>
