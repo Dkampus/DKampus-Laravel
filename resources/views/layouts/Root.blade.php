@@ -45,10 +45,10 @@
 <div id="containerLayout" class="max-w-xl">
   @yield('content')
 </div>
-@if ($Title === 'Detail-Makanan' || $Title === 'Detail-Warung')
-{{-- @include('components.navbar.navbar') --}}
-@else
+@if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit')
 @include('components.navbar.navbar')
+@else
+{{-- @include('components.navbar.navbar') --}}
 @endif
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
