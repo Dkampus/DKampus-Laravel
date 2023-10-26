@@ -35,6 +35,8 @@
             <h1 class="font-semibold text-2xl">Rekomendasi Warung</h1>
             <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
         </div>
+
+        {{-- Slider Rekomendasi Warung --}}
         <x-list-warung.slider>
             @forelse ($RekomendasiWarung as $Item)
                 <swiper-slide class="w-32 h-[17rem] bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
@@ -59,13 +61,15 @@
             <h1 class="font-semibold text-2xl">Rekomendasi Makanan</h1>
             <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
         </div>
+
+        {{-- Card list Rekomendasi Makanan --}}
         <x-list-food.slider>
             @foreach ($RekomendasiMakanan as $Item)
                 <div class="food-list-scrollTrigger w-[29rem] h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
                     <img src={{$Item['Img']}} alt="" class="w-[40rem] h-60 object-cover relative top-0">
                     {{-- Description Card --}}
                     <div class="flex flex-col items-center justify-around px-3 gap-2 py-4">
-                    {{-- Title & Ratings --}}
+                    {{-- Title & Warung --}}
                     <div class="flex flex-row justify-between w-full items-center h-full">
                         <h1 class="text-wrapper font-semibold text-2xl">{{$Item['Title']}}</h1>
                         <div class="flex flex-row gap-2 items-center">
@@ -74,7 +78,7 @@
                         </div>
                     </div>
 
-                    {{-- Warung & Price --}}
+                    {{-- Ratings & Price --}}
                     <div class="flex flex-row justify-between w-full items-center h-full">
                         <div class="flex flex-row items-center gap-1">
                             <img src='Iconly/Bold/Star.svg' alt="" class="w-5">
