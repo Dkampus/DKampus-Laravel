@@ -30,6 +30,8 @@ Route::get('/detail-makanan',[UserController::class,'detailMakanan']);
 // Login & Register Routes
 Route::get('/masuk', [UserController::class,'login']);
 Route::get('/daftar', [UserController::class,'register']);
+Route::get('/input-registrasi',[UserController::class,'input_register']);
+Route::get('/code-verification',[UserController::class,'code_verification']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
