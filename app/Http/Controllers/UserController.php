@@ -47,6 +47,18 @@ class UserController extends Controller
         ]);
     }
 
+    public function login(){
+        return view('pages.Login',[
+            'Title' => 'Log in',
+        ]);
+    }
+
+    public function register(){
+        return view('pages.Register',[
+            'Title' => 'Register',
+        ]);
+    }
+
     public function makanan(){
         return view('pages.MakananPage',[
             'Title' => 'Promo',

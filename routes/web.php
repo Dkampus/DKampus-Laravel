@@ -14,14 +14,22 @@ use App\Http\Controllers\UserController;
 |
 */
 
+// Index Page
 Route::get('/', [UserController::class, 'index'])->name('homepage');
 
+// Promo Page
 Route::get('/promo', [UserController::class, 'promoLayout']);
 Route::get('/promo/makanan', [UserController::class, 'makanan']);
 Route::get('/promo', [UserController::class, 'semua']);
 
+// Detail Routes
 Route::get('/detail-warung',[UserController::class,'detailWarung']);
 Route::get('/detail-makanan',[UserController::class,'detailMakanan']);
+
+
+// Login & Register Routes
+Route::get('/masuk', [UserController::class,'login']);
+Route::get('/daftar', [UserController::class,'register']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
