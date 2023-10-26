@@ -59,6 +59,18 @@ class UserController extends Controller
         ]);
     }
 
+    public function code_verification(){
+        return view('pages.CodeVerification',[
+            'Title' => 'Code Verification'
+        ]);
+    }
+
+    public function input_register(){
+        return view('pages.InputRegister',[
+            'Title' => 'Input Registrasi',
+        ]);
+    }
+
     public function makanan(){
         return view('pages.MakananPage',[
             'Title' => 'Promo',

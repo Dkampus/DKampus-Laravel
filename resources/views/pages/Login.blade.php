@@ -16,7 +16,7 @@
     {{-- Password Input --}}
     <div class="flex flex-col gap-3 mx-auto w-96">
         <label for="sandi">Kata Sandi</label>
-        <input id="sandi" type="text" class="rounded-2xl border-2 transition-all duration-100 border-[#5e5e5e]/30 focus:border-[#F9832A] focus:ring-[#F9832A] w-full h-[3.4rem] placeholder:text-[#5e5e5e]/50 placeholder:" placeholder="********">
+        <input id="sandi" type="password" class="rounded-2xl border-2 transition-all duration-100 border-[#5e5e5e]/30 focus:border-[#F9832A] focus:ring-[#F9832A] w-full h-[3.4rem] placeholder:text-[#5e5e5e]/50 placeholder:" placeholder="********">
         <a href="/lupaSandi" class="ml-auto text-[#F9832A] font-medium">Lupa kata sandi?</a>
     </div>
 
