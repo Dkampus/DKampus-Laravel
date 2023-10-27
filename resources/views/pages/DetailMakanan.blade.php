@@ -13,7 +13,7 @@
             </a>
 
             {{-- Title --}}
-            <h1 id="titleDetail" class="text-white font-semibold uppercase invisible">Paha Ayam</h1>
+            <h1 id="titleDetail" class="text-white font-semibold text-lg uppercase invisible">Paha Ayam</h1>
 
             {{-- Favorit --}}
             <button id="buttonLike" href="" class="w-12 group h-12 bg-white flex flex-col justify-center items-center rounded-full">

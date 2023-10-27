@@ -2,14 +2,18 @@ document.addEventListener('scroll',function(){
     const navbarDetailMakanan = document.getElementById('navbar-detail-makanan')
     const titleDetail = document.getElementById('titleDetail');
     const scrolled = window.scrollY;
-    if(scrolled > 100){
+    if(scrolled > 100 && scrolled < 150){
         navbarDetailMakanan.style.marginTop = "0";
         navbarDetailMakanan.classList.add('backdrop-blur')
         titleDetail.classList.add('visible')
         titleDetail.classList.remove('invisible')
-    } else if (scrolled < 100){
+    } else if (scrolled > 400){
+        navbarDetailMakanan.classList.remove('backdrop-blur')
+        navbarDetailMakanan.classList.add('bg-[#F9832A]')
+    }else if (scrolled < 100){
         navbarDetailMakanan.style.marginTop = "2.5rem";
         navbarDetailMakanan.classList.remove('backdrop-blur')
+        navbarDetailMakanan.classList.remove('bg-[#F9832A]')
         titleDetail.classList.add('invisible')
         titleDetail.classList.remove('visible')
     }
@@ -23,9 +27,9 @@ const number = document.getElementById('number')
 const decrement = document.getElementById('decrement');
 const increment = document.getElementById('increment')
 if(state.count !== 0){
-    decrement.classList.add('text-[#F9832A')
+    decrement.classList.add('text-[#F9832A]')
 }else if (state.count === 0){
-    decrement.classList.add('text-[#F9832A')
+    decrement.classList.add('text-[#F9832A]')
 }
 function renderCount(){
     number.textContent = state.count
