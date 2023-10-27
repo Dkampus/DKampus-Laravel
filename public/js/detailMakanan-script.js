@@ -3,19 +3,23 @@ document.addEventListener('scroll',function(){
     const titleDetail = document.getElementById('titleDetail');
     const scrolled = window.scrollY;
     if(scrolled > 100 && scrolled < 150){
-        navbarDetailMakanan.style.marginTop = "0";
+        navbarDetailMakanan.style.marginTop = "0rem";
         navbarDetailMakanan.classList.add('backdrop-blur')
         titleDetail.classList.add('visible')
         titleDetail.classList.remove('invisible')
     } else if (scrolled > 400){
+        navbarDetailMakanan.style.marginTop = "0";
         navbarDetailMakanan.classList.remove('backdrop-blur')
         navbarDetailMakanan.classList.add('bg-[#F9832A]')
-    }else if (scrolled < 100){
+    } else if (scrolled <= 400 && scrolled > 400){
         navbarDetailMakanan.style.marginTop = "2.5rem";
-        navbarDetailMakanan.classList.remove('backdrop-blur')
+        navbarDetailMakanan.classList.add('backdrop-blur')
         navbarDetailMakanan.classList.remove('bg-[#F9832A]')
+    } else if (scrolled < 100){
+        navbarDetailMakanan.style.marginTop = "2.5rem";
         titleDetail.classList.add('invisible')
-        titleDetail.classList.remove('visible')
+        navbarDetailMakanan.classList.remove('bg-[#F9832A]')
+        navbarDetailMakanan.classList.remove('backdrop-blur')
     }
 })
 
