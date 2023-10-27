@@ -23,21 +23,25 @@ document.addEventListener('scroll',function(){
     }
 })
 
+
+const number = document.getElementById('number')
+const decrement = document.getElementById('decrement');
+const increment = document.getElementById('increment')
 const state = {
     condition: false,
     count: 0
 }
-const number = document.getElementById('number')
-const decrement = document.getElementById('decrement');
-const increment = document.getElementById('increment')
-if(state.count !== 0){
-    decrement.classList.add('text-[#F9832A]')
-}else if (state.count === 0){
-    decrement.classList.add('text-[#F9832A]')
-}
+
+
 function renderCount(){
-    number.textContent = state.count
+    number.value = state.count
     decrement.disabled = state.count === 0;
+    if(state.count > 0){
+        increment.style.color= '#F9832A'
+        decrement.style.color= '#F9832A'
+    }else if (state.count === 0){
+        decrement.style.color= 'gray'
+    }
 }
 function incrementCounter(){
     state.count += 1;

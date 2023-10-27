@@ -37,7 +37,7 @@
                 <h1 class="text-4xl font-semibold">Paha Ayam</h1>
 
                 {{-- Ratings, Time, & State Count --}}
-                <div class="flex flex-row items-center gap-8">
+                <div class="flex flex-row items-center justify-between gap-8">
                     {{-- Ratings --}}
                     <div id="Ratings" class="flex flex-row text-lg items-center gap-2">
                         <div id="averageRatings" class="flex flex-row items-center gap-2">
@@ -57,8 +57,8 @@
                     </div>
                     {{-- State Count --}}
                     <div id="count" class="flex flex-row items-center bg-black/10 justify-around px-1 border-2 rounded-lg w-28 h-12">
-                    <button id="decrement" class="text-3xl flex flex-col justify-center h-full font-bold text-[#F9832A]">-</button>
-                    <h1 id="number" class="font-semibold">0</h1>
+                    <button id="decrement" class="text-3xl flex flex-col justify-center h-full font-bold text-gray-500">-</button>
+                    <input id="number" type="number" class="font-semibold bg-transparent w-10 border-none text-center focus:border-none focus:ring-0" value="0" readonly/>
                     <button id="increment" class="text-xl flex flex-col justify-center h-full font-bold text-[#F9832A]">+</button>
                     </div>
                 </div>
