@@ -1,8 +1,15 @@
-const myCheckbox = document.getElementById('myCheckbox');
-const myButton = document.getElementById('myButton');
-myCheckbox.addEventListener('change', function () {
-    myButton.classList.toggle('active', myCheckbox.checked);
+const NavCheckbox = document.getElementById('NavCheckbox');
+const NavLikeButton = document.getElementById('NavLikeButton');
+NavCheckbox.addEventListener('change', function () {
+    NavLikeButton.classList.toggle('active', NavCheckbox.checked);
 });
+
+const CardCheckbox = document.getElementById('CardCheckbox');
+const CardLikeButton = document.getElementById('CardLikeButton');
+CardCheckbox.addEventListener('change', function () {
+    CardLikeButton.classList.toggle('active', CardCheckbox.checked);
+});
+
 document.addEventListener('scroll',function(){
     const navbarDetailMakanan = document.getElementById('navbar-detail-makanan')
     const titleDetail = document.getElementById('titleDetail');
