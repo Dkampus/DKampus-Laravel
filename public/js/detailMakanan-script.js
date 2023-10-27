@@ -55,6 +55,7 @@ function decrementCounter(){
 }
 increment.addEventListener('click',incrementCounter);
 decrement.addEventListener('click',decrementCounter);
+
 function render(){
     const fillButton = document.getElementById('iconLike');
     if(state.condition){

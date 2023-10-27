@@ -98,7 +98,7 @@
         <h1 class="font-semibold text-2xl my-5">Rekomendasi <span class="text-[#F9832A]">Menu</span> Lain</h1>
         <div class="grid grid-cols-2 relative gap-x-14 gap-y-5 mx-6 place-content-between place-items-center">
             @forelse ($CardFood as $Item)
-                <a href="/detail-makanan" class="w-[14.5rem] relative mb-2 border rounded-2xl transition-all duration-300 overflow-hidden hover:shadow-md">
+                <div href="/detail-makanan" class="w-[14.5rem] relative mb-2 border rounded-2xl transition-all duration-300 overflow-hidden hover:shadow-md">
                     <img src="{{$Item['Img']}}" alt="" class="w-full">
                     <div id="desc" class="flex flex-col gap-2 py-2 px-3">
                         <div id="ratings" class="flex flex-row items-center gap-1">
@@ -116,7 +116,7 @@
                             </button>
                         </div>
                     </div>
-                </a>
+                </div>
             @empty
                 
             @endforelse
