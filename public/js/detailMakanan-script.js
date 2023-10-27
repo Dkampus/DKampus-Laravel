@@ -1,3 +1,8 @@
+const myCheckbox = document.getElementById('myCheckbox');
+const myButton = document.getElementById('myButton');
+myCheckbox.addEventListener('change', function () {
+    myButton.classList.toggle('active', myCheckbox.checked);
+});
 document.addEventListener('scroll',function(){
     const navbarDetailMakanan = document.getElementById('navbar-detail-makanan')
     const titleDetail = document.getElementById('titleDetail');
@@ -57,7 +62,7 @@ increment.addEventListener('click',incrementCounter);
 decrement.addEventListener('click',decrementCounter);
 
 function render(){
-    const fillButton = document.getElementById('iconLike');
+    // const fillButton = document.getElementById('iconLike');
     if(state.condition){
         fillButton.classList.add('fill-[#F9832A]')
         fillButton.classList.remove('fill-[#5e5e5e]')
