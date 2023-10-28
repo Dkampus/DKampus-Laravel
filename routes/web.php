@@ -26,6 +26,10 @@ Route::get('/promo', [UserController::class, 'semua']);
 Route::get('/detail-warung',[UserController::class,'detailWarung']);
 Route::get('/detail-makanan',[UserController::class,'detailMakanan']);
 
+//Pesanan Routes
+Route::get('/pesanan',[UserController::class,'pesananLayout']);
+Route::get('/pesanan',[UserController::class,'pesanan']);
+Route::get('/pesanan/proses',[UserController::class,'proses']);
 
 // Login & Register Routes
 Route::get('/masuk', [UserController::class,'login']);

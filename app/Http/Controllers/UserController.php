@@ -15,7 +15,7 @@ class UserController extends Controller
     */
     public function index()
     {
-        return view('pages.Homepage',[
+        return view('pages.Users.Homepage',[
             'Banner' => HomeModel::bannerData(),
             'Carousel' => HomeModel::carouselData(),
             'RekomendasiWarung' => HomeModel::rekomendasiWarung(),
@@ -25,7 +25,7 @@ class UserController extends Controller
     }
 
     public function detailWarung(){
-        return view('pages.DetailWarung',[
+        return view('pages.Users.DetailWarung',[
             'CardFood' => DetailWarungModel::listMakanan(), 
             'BannerFade' => DetailWarungModel::bannerDetail(),
             'Title' => 'Detail-Warung'
@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     public function detailMakanan(){
-        return view('pages.DetailMakanan',[
+        return view('pages.Users.DetailMakanan',[
             'Title' => 'Detail-Makanan',
             'CardFood' => DetailWarungModel::listMakanan(), 
         ]);
@@ -48,44 +48,64 @@ class UserController extends Controller
     }
 
     public function login(){
-        return view('pages.Login',[
+        return view('pages.Users.Login',[
             'Title' => 'Log in',
         ]);
     }
 
     public function register(){
-        return view('pages.Register',[
+        return view('pages.Users.Register',[
             'Title' => 'Register',
         ]);
     }
 
     public function code_verification(){
-        return view('pages.CodeVerification',[
+        return view('pages.Users.CodeVerification',[
             'Title' => 'Code Verification'
         ]);
     }
 
     public function input_register(){
-        return view('pages.InputRegister',[
-            'Title' => 'Input Registrasi',
+        return view('pages.Users.InputRegister',[
+            'Title' => 'Pesanan',
+        ]);
+    }
+
+    public function pesananLayout(){
+        return view('layouts.PesananLayout',[
+            'Title' => 'Pesanan',
+        ]);
+    }
+
+    public function proses(){
+        return view('pages.Users.Proses',[
+            'Title' => 'Pesanan',
+            'NavPesanan' => 'Proses',
+        ]);
+    }
+
+    public function pesanan(){
+        return view('pages.Users.Pesanan',[
+            'Title' => 'Pesanan',
+            'NavPesanan' => 'Pesanan'
         ]);
     }
 
     public function atur_ulang_kata_sandi(){
-        return view('pages.AturUlangKataSandi',[
+        return view('pages.Users.AturUlangKataSandi',[
             'Title' => 'Atur Ulang Kata Sandi',
         ]);
     }
 
     public function makanan(){
-        return view('pages.MakananPage',[
+        return view('pages.Users.MakananPage',[
             'Title' => 'Promo',
             'NavPromo' => 'Makanan',
             'CarouselPromo' => PromoModel::carouselPromo(),
         ]);
     }
     public function semua(){
-        return view('pages.SemuaPage',[
+        return view('pages.Users.SemuaPage',[
             'Title' => 'Promo',
             'NavPromo' => 'Semua',
             'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
