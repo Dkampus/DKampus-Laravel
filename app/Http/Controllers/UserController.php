@@ -67,7 +67,27 @@ class UserController extends Controller
 
     public function input_register(){
         return view('pages.InputRegister',[
-            'Title' => 'Input Registrasi',
+            'Title' => 'Pesanan',
+        ]);
+    }
+
+    public function pesananLayout(){
+        return view('layouts.PesananLayout',[
+            'Title' => 'Pesanan',
+        ]);
+    }
+
+    public function proses(){
+        return view('pages.Proses',[
+            'Title' => 'Pesanan',
+            'NavPesanan' => 'Proses',
+        ]);
+    }
+
+    public function pesanan(){
+        return view('pages.Pesanan',[
+            'Title' => 'Pesanan',
+            'NavPesanan' => 'Pesanan'
         ]);
     }
 
