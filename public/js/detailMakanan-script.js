@@ -44,7 +44,6 @@ const state = {
     count: 0
 }
 
-
 function renderCount(){
     number.value = state.count
     decrement.disabled = state.count === 0;
