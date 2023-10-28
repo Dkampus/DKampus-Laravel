@@ -32,6 +32,7 @@ Route::get('/masuk', [UserController::class,'login']);
 Route::get('/daftar', [UserController::class,'register']);
 Route::get('/input-registrasi',[UserController::class,'input_register']);
 Route::get('/code-verification',[UserController::class,'code_verification']);
+Route::get('atur-ulang-kata-sandi',[UserController::class,'atur_ulang_kata_sandi']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

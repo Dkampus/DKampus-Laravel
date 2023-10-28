@@ -71,6 +71,12 @@ class UserController extends Controller
         ]);
     }
 
+    public function atur_ulang_kata_sandi(){
+        return view('pages.AturUlangKataSandi',[
+            'Title' => 'Atur Ulang Kata Sandi',
+        ]);
+    }
+
     public function makanan(){
         return view('pages.MakananPage',[
             'Title' => 'Promo',
