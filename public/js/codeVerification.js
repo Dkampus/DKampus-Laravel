@@ -27,7 +27,7 @@ function updateTimer() {
   if (countdown > 0) {
     countdown--;
     timerSeconds.textContent = countdown;
-  } else {
+  } else if (countdown === 0) {
     timer.classList.add('invisible');
     timer.classList.remove('visible');
     timerSeconds.textContent = countdown;
