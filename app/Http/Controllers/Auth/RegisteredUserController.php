@@ -37,38 +37,22 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $validatorsRegister = $request->validate([
+        $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', "min:4", Rules\Password::defaults()],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
-        try {
-            // for creating user in the authentication firebase
-            $createUser = $this->firebaseauth->createUserWithEmailAndPassword($validatorsRegister['email'], $validatorsRegister['password']);
+        event(new Registered($user));
 
-            // adding re$request to firebase authentication
-            $customClaims = [
-                'name' =>  $validatorsRegister['name'],
-                'role' => 'user',
-            ];
+        Auth::login($user);
 
-            // to set the customClaims or set the intial re$request in firebase authentication
-            $this->firebaseauth->setCustomUserClaims($createUser->uid, $customClaims);
-
-            $request['password'] = Hash::make($validatorsRegister['password']);
-            $request['uid'] = $createUser->uid;
-
-            User::create($request->all());
-
-            // flashing messageing use laracast/flash packagist for more info 
-            flash("Registrasi berhasil");
-        } catch (\Exception $errorRegister) {
-            flash("Registrasi gagal, mohon coba lagi");
-        }
-
-        // redirect to the login page
-        return redirect()->route('login');
+        return redirect(RouteServiceProvider::HOME);
     }
 }

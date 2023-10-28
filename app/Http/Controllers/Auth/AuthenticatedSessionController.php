@@ -26,35 +26,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        // $request->authenticate();
+        $request->authenticate();
 
-        // $request->session()->regenerate();
+        $request->session()->regenerate();
 
-        // return redirect()->intended(RouteServiceProvider::HOME);
-        $validatorsLogin = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+        return redirect()->intended(RouteServiceProvider::HOME);
 
-        try {
-            if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
-                $firebaseauth = Firebase::auth();
-                $signInResult = $firebaseauth->signInWithEmailAndPassword($validatorsLogin['email'], $validatorsLogin['password']);
-
-                // Get the user data from th authentication
-                $user = $signInResult->data();
-
-                $request->session()->regenerate();
-
-                flash('Login berhasil');
-                return redirect()->route('homepage');
-            } else {
-                throw new \Exception("Login gagal, mohon coba login kembali");
-            }
-        } catch (\Exception $errorsLogin) {
-            flash("Login gagal, mohon coba login kembali");
-            return redirect()->back();
-        }
     }
 
     /**
