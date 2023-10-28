@@ -11,19 +11,18 @@ class Cart extends Model
 
     protected $guarded = [
         'id',
-        'id_user',
-        'id_umkm',
-        'id_makanan'
+        'user_id',
+        'menu_id'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class);
     }
 
     public function menu()
     {
-        return $this->belongsToMany(Menu::class, 'id_makanan');
+        return $this->belongsTo(Menu::class);
     }
 
     public function payment()

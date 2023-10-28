@@ -22,8 +22,8 @@ class CartFactory extends Factory
         $rand_id = $users[$indeks]->id;
         
         return [
-            'id_user' => $rand_id,
-            'id_makanan' => mt_rand(1, 20),
+            'user_id' => $rand_id,
+            'menu_id' => mt_rand(1, 20),
             'quantity' => $this->faker->randomNumber(2, false),
             'total_harga' => mt_rand(10, 24). "000"
         ];

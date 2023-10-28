@@ -11,12 +11,12 @@ class Payment extends Model
 
     protected $guarded = [
         'id',
-        'id_cart',
+        'cart_id',
     ];
 
     public function cart()
     {
-        return $this->belongsTo(Cart::class, 'id_cart');
+        return $this->belongsTo(Cart::class);
     }
 
     public function orderDetail()

@@ -22,7 +22,7 @@ class Data_umkmFactory extends Factory
         $rand_id = $users[$indeks]->id;
         
         return [
-            'id_user' => $rand_id,
+            'user_id' => $rand_id,
             'nama_umkm' => $this->faker->company(),
             'alamat' => $this->faker->address(),
             'no_telp_umkm' => $this->faker->phoneNumber(),
