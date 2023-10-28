@@ -81,7 +81,7 @@
         @forelse ($CardFood as $Item)
             <div class="w-[15rem] relative mb-2 border rounded-2xl transition-all duration-300 overflow-hidden hover:shadow-md">
                 {{-- Discount Img --}}
-                <img src="discount50%.svg" alt="" class="top-5 -left-[0.5rem] z-50 absolute w-20">
+                <img src="discount50%.svg" alt="" class="top-5 -left-[0.65rem] overflow-auto z-50 absolute w-[5rem]">
                 <a href="/detail-makanan"><img src="{{$Item['Img']}}" alt="" class="w-full"></a>
                 <div id="desc" class="flex flex-col gap-2 py-2 px-3">
                     <div id="ratings" class="flex flex-row items-center gap-1">
