@@ -18,7 +18,7 @@ class Menu extends Model
 
     public function data_umkm()
     {
-        return $this->belongsTo(Data_umkm::class);
+        return $this->belongsTo(Data_umkm::class, 'umkm_id');
     }
 
     public function cart()

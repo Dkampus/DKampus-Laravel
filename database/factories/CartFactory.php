@@ -24,8 +24,7 @@ class CartFactory extends Factory
         return [
             'user_id' => $rand_id,
             'menu_id' => mt_rand(1, 20),
-            'quantity' => $this->faker->randomNumber(2, false),
-            'total_harga' => mt_rand(10, 24). "000"
+            'quantity' => mt_rand(1, 10),
         ];
     }
 }

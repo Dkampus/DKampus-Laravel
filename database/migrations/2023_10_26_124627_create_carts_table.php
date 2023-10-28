@@ -18,7 +18,7 @@ return new class extends Migration
             // Nama UMKM
             // Nama Makanan
             $table->integer('quantity');
-            $table->integer('total_harga');
+            // total_harga += (menu->quantity * menu->harga)
             $table->timestamps();
         });
     }

@@ -22,6 +22,6 @@ class Delivery extends Model
 
     public function orderDetail()
     {
-        return $this->belongsTo(OrderDetail::class);
+        return $this->belongsTo(OrderDetail::class, 'orderDetail_id');
     }
 }
