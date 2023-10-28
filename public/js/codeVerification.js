@@ -20,14 +20,20 @@
 
 
 let countdown = 30;
+const timer = document.getElementById('timer');
+const timerSeconds = document.getElementById('timerSeconds');
+const link = document.getElementById('link')
 function updateTimer() {
   if (countdown > 0) {
     countdown--;
-    document.getElementById("timerSeconds").textContent = countdown;
+    timerSeconds.textContent = countdown;
   } else {
-    document.getElementById("timer").classList.add('invisible')
-    document.getElementById("timerSeconds").textContent = countdown;
-    document.getElementById("link").classList.add('visible')
+    timer.classList.add('invisible');
+    timer.classList.remove('visible');
+    timerSeconds.textContent = countdown;
+    timerSeconds.classList.add('invisible')
+    link.classList.add('visible');
+    link.classList.remove('invisible');
   }
 }
 

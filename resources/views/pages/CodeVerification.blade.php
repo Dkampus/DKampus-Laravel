@@ -12,6 +12,6 @@
 <div id="timer" class="flex flex-col items-center visible transition-all duration-300">
     <h1>mohon tunggu dalam <span id="timerSeconds">30 </span> detik untuk kirim ulang</h1>
 </div>
-<a href="" class="invisible">Kirim Ulang</a>
+<a id="link" class="invisible">Kirim Ulang</a>
 </div>
 @endsection
