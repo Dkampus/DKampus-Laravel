@@ -48,8 +48,12 @@ increment.addEventListener('click',incrementCounter);
 decrement.addEventListener('click',decrementCounter);
 
 const cardPesanan = document.getElementById('cardPesanan');
+const cardPesanan01 = document.getElementById('cardPesanan01')
 function DeleteItem(){
-    cardPesanan.style.display = 'none';
+    cardPesanan.remove()
+}
+function DeleteItem2(){
+    cardPesanan01.remove()
 }
 
 
