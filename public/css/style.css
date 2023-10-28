@@ -49,3 +49,7 @@ input[type="number"] {
 #CardLikeButton.active #CardLikeIcon {
   fill: #F9832A; /* Color when the checkbox is checked */
 }
+
+#CardPesananLikeButton.active #CardPesananLikeIcon {
+  fill: #F9832A; /* Color when the checkbox is checked */
+}
