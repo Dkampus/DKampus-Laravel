@@ -29,5 +29,12 @@
     </a>
     </div>
 
-    @include('components.modals.modal')
+    <x-modals.modal>
+    <h1 class="font-semibold">email@gmail.com</h1>
+    <p class="text-[#5C5C5C]">Apakah email anda sudah benar?</p>
+    <div class="flex flex-row gap-2">
+        <button class="bg-[#F9832A] w-28 h-9 rounded-lg text-white">Ya</button>
+        <button onclick="hideModal()" class="bg-white border-2 w-28 h-9 rounded-lg text-[#F9832A] border-[#F9832A]">Salah</button>
+    </div>
+    </x-modals.modal>
 @endsection
