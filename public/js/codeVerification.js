@@ -1,33 +1,42 @@
-const timerElement = document.getElementById('timerSeconds')
-let timeLeft = 30;
-
-function updateTimer() {
-    timerElement.textContent = timeLeft;
-}
-
-function runTimer() {
-    updateTimer();
-    const intervalId = setInterval(function() {
-        if (timeLeft > 0) {
-            timeLeft--;
-            updateTimer();
-        } else {
-            clearInterval(intervalId);
-            timeLeft = 30; 
-            runTimer(); 
-        }
-    }, 1000); 
-}
-runTimer();
-
-// const verificationInput = document.getElementById('verificationInput')
-// function validateVerificationCode(input){
-//     const code = input.value
-
-//     if(/^\d{6}$/.test(code)){
-
-//     }
+// const timerElement = document.getElementById('timerSeconds')
+// let timeLeft = 30;
+// function updateTimer() {
+//     timerElement.textContent = timeLeft;
 // }
+// function runTimer() {
+//     updateTimer();
+//     const intervalId = setInterval(function() {
+//         if (timeLeft > 0) {
+//             timeLeft--;
+//             updateTimer();
+//         } else {
+//             clearInterval(intervalId);
+//             timeLeft = 30; 
+//             runTimer(); 
+//         }
+//     }, 1000); 
+// }
+// runTimer();
+
+
+let countdown = 30;
+function updateTimer() {
+  if (countdown > 0) {
+    countdown--;
+    document.getElementById("timerSeconds").textContent = countdown;
+  } else {
+    document.getElementById("timer").classList.add('invisible')
+    document.getElementById("timerSeconds").textContent = countdown;
+    document.getElementById("link").classList.add('visible')
+  }
+}
+
+const timerInterval = setInterval(updateTimer, 1000);
+setTimeout(() => {
+  clearInterval(timerInterval);
+}, 30000);
+
+
 
 const disableSpaceKeyboard = document.getElementById('verificationInput');
 
