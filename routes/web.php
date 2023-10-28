@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Models\Message;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,16 +26,16 @@ Route::get('/promo/makanan', [UserController::class, 'makanan']);
 Route::get('/promo', [UserController::class, 'semua']);
 
 // Detail Routes
-Route::get('/detail-warung',[UserController::class,'detailWarung']);
-Route::get('/detail-makanan',[UserController::class,'detailMakanan']);
+Route::get('/detail-warung', [UserController::class, 'detailWarung']);
+Route::get('/detail-makanan', [UserController::class, 'detailMakanan']);
 
 
 // Login & Register Routes
-Route::get('/masuk', [UserController::class,'login']);
-Route::get('/daftar', [UserController::class,'register']);
-Route::get('/input-registrasi',[UserController::class,'input_register']);
-Route::get('/code-verification',[UserController::class,'code_verification']);
-Route::get('atur-ulang-kata-sandi',[UserController::class,'atur_ulang_kata_sandi']);
+Route::get('/masuk', [UserController::class, 'login']);
+Route::get('/daftar', [UserController::class, 'register']);
+Route::get('/input-registrasi', [UserController::class, 'input_register']);
+Route::get('/code-verification', [UserController::class, 'code_verification']);
+Route::get('atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sandi']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -71,6 +74,15 @@ Route::middleware(['auth', 'UserAccess:courier,admin'])->group(function () {
         });
     });
 });
+
+// development testing route livechat
+Route::get('test', [MessageController::class, 'index'])->name('test');
+Route::post('private', [MessageController::class, 'store'])->name('privateRoom');
+Route::get('live-chat/{id}', function ($id) {
+    $chatRoom = Message::where('chat_room_id', $id)->get();
+    // dd($chatRoom);
+    return view('live-chat', compact('chatRoom'));
+})->name('testView');
 
 
 require __DIR__ . '/auth.php';
