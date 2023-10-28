@@ -11,16 +11,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\View\View;
-use Kreait\Laravel\Firebase\Facades\Firebase;
+// use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class RegisteredUserController extends Controller
 {
 
-    private $firebaseauth;
+    // private $firebaseauth;
     public function __construct()
     {
-        $this->firebaseauth = Firebase::auth();
+        // $this->firebaseauth = Firebase::auth();
     }
     /**
      * Display the registration view.
