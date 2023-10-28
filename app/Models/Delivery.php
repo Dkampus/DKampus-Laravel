@@ -11,12 +11,17 @@ class Delivery extends Model
 
     protected $guarded = [
         'id',
-        'id_user',
-        'id_orderDetail',
+        'user_id',
+        'orderDetail_id',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class);
+    }
+
+    public function orderDetail()
+    {
+        return $this->belongsTo(OrderDetail::class);
     }
 }

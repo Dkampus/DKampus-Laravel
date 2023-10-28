@@ -17,7 +17,7 @@ class menuFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_umkm' => mt_rand(1,5),
+            'umkm_id' => mt_rand(1,5),
             'nama_makanan' => $this->faker->words(2, true),
             'deskripsi' => $this->faker->paragraphs(3, true),
             'harga' => mt_rand(3, 20). "000",

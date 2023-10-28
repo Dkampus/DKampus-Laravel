@@ -22,8 +22,8 @@ class DeliveryFactory extends Factory
         $rand_id = $users[$indeks]->id;
         
         return [
-            'id_user' => $rand_id,
-            'id_orderDetail' => mt_rand(1, 5)
+            'user_id' => $rand_id,
+            'orderDetail_id' => mt_rand(1, 5)
         ];
     }
 }

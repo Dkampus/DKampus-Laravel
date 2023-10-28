@@ -17,7 +17,7 @@ class PaymentFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_cart' => mt_rand(1,7),
+            'cart_id' => mt_rand(1,7),
             'catatan' => $this->faker->sentence()
         ];
     }

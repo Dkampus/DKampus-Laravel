@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('id_user');
-            $table->foreignId('id_orderDetail');
+            $table->foreignUuid('user_id');
+            $table->foreignId('orderDetail_id');
             // Nama User(kurir)
             $table->timestamps();
         });

@@ -17,7 +17,7 @@ class OrderDetailFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_pembayaran' => mt_rand(1,7)
+            'payment_id' => mt_rand(1,7)
         ];
     }
 }

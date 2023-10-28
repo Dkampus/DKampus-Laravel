@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_umkm');
+            $table->foreignId('umkm_id');
             $table->string('nama_makanan');
             // Nama UMKM
             $table->text('deskripsi');

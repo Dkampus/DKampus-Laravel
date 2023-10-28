@@ -18,6 +18,11 @@ class Menu extends Model
 
     public function data_umkm()
     {
-        return $this->belongsTo(Data_umkm::class, 'id_umkm');
+        return $this->belongsTo(Data_umkm::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
     }
 }

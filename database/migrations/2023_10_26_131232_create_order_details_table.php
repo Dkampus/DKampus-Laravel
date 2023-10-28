@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pembayaran');
+            $table->foreignId('payment_id');
             // Nama makanan
             // Quantity
             $table->timestamps();

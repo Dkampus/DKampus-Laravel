@@ -11,11 +11,16 @@ class OrderDetail extends Model
 
     protected $guarded = [
         'id',
-        'id_pembayaran'
+        'payment_id'
     ];
 
     public function payment()
     {
-        return $this->belongsTo(Payment::class, 'id_pembayaran');
+        return $this->belongsTo(Payment::class);
+    }
+
+    public function delivery()
+    {
+        return $this->hasOne(Delivery::class);
     }
 }
