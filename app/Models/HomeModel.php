@@ -112,8 +112,59 @@ class HomeModel
             'Price' => 'Rp15.000'
         ]
     ];
+
+    private static $pengaturanAkun = [
+        [
+            'Icon' => 'daftarAlamat.svg',
+            'Title' => 'Daftar Alamat',
+            'Desc' => 'Atur daftar alamat anda',
+            'Url' => '/daftar-alamat'
+        ],
+        [
+            'Icon' => 'ubahKataSandi.svg',
+            'Title' => 'Ubah Kata Sandi',
+            'Desc' => 'Amankan akun dengan mengganti kata sandi.',
+            'Url' => '/ubah-kata-sandi'
+        ],
+        [
+            'Icon' => 'bersihkanCache.svg',
+            'Title' => 'Bersihkan Cache',
+            'Desc' => 'Menghapus data sementara untuk meningkatkan kinerja.',
+            'Url' => '/bersihkan-cache'
+        ],
+    ];
+
+    private static $seputarDkampus = [
+        [
+            'Icon' => 'tentangKami.svg',
+            'Title' => 'Tentang Kami',
+            'Desc' => 'Ayo! lebih kenal kami',
+            'Url' => '/tentang-kami'
+        ],
+        [
+            'Icon' => 'syaratKetentuan.svg',
+            'Title' => 'Syarat dan Ketentuan',
+            'Desc' => 'Syarat dan ketentuan adalah peraturan yang harus diikuti oleh pengguna kami',
+            'Url' => '/syarat-ketentuan'
+        ],
+        [
+            'Icon' => 'ulasan.svg',
+            'Title' => 'Beri Kami Ulasan',
+            'Desc' => 'Bagikan pendapat Anda dengan memberikan ulasan.',
+            'Url' => '/beri-ulasan'
+        ],
+    ];
+
     public static function carouselData(){
         return collect(self::$Carousel);
+    }
+
+    public static function pengaturanAkun(){
+        return collect(self::$pengaturanAkun);
+    }
+
+    public static function seputarDkampus(){
+        return collect(self::$seputarDkampus);
     }
 
     public static function bannerData(){
