@@ -8,7 +8,7 @@
             <div class="flex flex-row justify-start items-center gap-4 rounded-xl">
             <input type="checkbox" name="" id="checkboxWarung" class="text-[#F9832A] border-2 rounded-md border-[#F9832A] w-8  h-8 transition-all duration-300 checked:fill-[#F9832A] checked:border-[#F9832A] checked:ring-[#F9832A] focus:fill-[#F9832A] focus:border-[#F9832A] focus:ring-[#F9832A]">
             <label for="checkboxWarung" for="" class="flex flex-row gap-2 items-center">
-                <img src="{{$carts->find(1)->menu->data_umkm->logo_umkm}}" alt="" class="w-10">
+                <img src="{{$carts->find(1)->menu->data_umkm->logo_umkm}}" alt="" class="w-24">
                 <h1 class="text-xl font-semibold">{{ $carts->find(1)->menu->data_umkm->nama_umkm }}</h1>
             </label>
             </div>
@@ -38,7 +38,7 @@
                 {{-- content card pesanan --}}
                 <div id="contentPesanan{{$c->id}}" class="shadow-md w-[27rem] rounded-xl border">
                     <div for="checkboxMakanan" class="flex flex-row items-center">
-                        <div class="h-32 w-40">
+                        <div class="h-32 w-60">
                             <img src="{{$c->menu->image}}" alt="" class="rounded-lg h-full w-full object-cover">
                         </div>
                         {{-- <img src="{{$c->menu->image}}" alt="" class="rounded-lg h-max" width="100px"> --}}
