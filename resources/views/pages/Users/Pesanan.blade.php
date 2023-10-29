@@ -79,5 +79,24 @@
     </section>
     {{-- <div class="bg-[#F0F3F8] w-full h-5"></div> --}}
 </div>
-
+<div id="totalAndAddress" class="fixed border-2 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full bottom-0 bg-white shadow-top-for-total-harga">
+    <button id="alamat" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
+        <img src="Map.svg" alt="">
+        <div id="desc" class="flex flex-row gap-2 items-center">
+        <h1 class="text-[#5e5e5e] font-medium">Masukkan alamat Anda</h1>
+        <img src="ArrowTop.svg" alt="">
+        </div>
+    </button>
+    <div id="totalHarga" class="flex flex-row gap-5">
+    <div id="descTotalHarga" class="text-center">
+        <h1>Total Harga</h1>
+        <p class="font-semibold border-b-2 border-[#F9832A]">Rp22.000</p>
+    </div>
+    <div id="buttonTotalHarga">
+    <button class="bg-[#F9832A] h-10 w-24 text-white font-semibold rounded-xl">
+        Pesan
+    </button>
+    </div>
+    </div>
+</div>
 @endsection
