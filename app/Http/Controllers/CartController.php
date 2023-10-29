@@ -20,8 +20,8 @@ class CartController extends Controller
         ]);
     }
 
-    public function proses(){
-        return view('pages.Users.Proses',[
+    public function status(){
+        return view('pages.Users.Status',[
             'Title' => 'Pesanan',
             'NavPesanan' => 'Proses',
         ]);

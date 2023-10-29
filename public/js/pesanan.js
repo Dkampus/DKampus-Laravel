@@ -5,6 +5,20 @@ CardPesananCheckbox.addEventListener('change', function () {
 });
 
 
+const listAddNewAddress = document.getElementById('addNewAddress');
+const overlayAddNewAddress = document.getElementById('overlayAddNewAddress')
+function hideListAddress (){
+
+}
+function showListAddress (){
+    if(listAddNewAddress.style.display === 'none' || listAddNewAddress.style.display === ''){
+        listAddNewAddress.style.height = '24rem'
+        listAddNewAddress.style.bottom = '10rem'
+
+        
+    }
+}
+
 const number = document.getElementById('number')
 const decrement = document.getElementById('decrement');
 const increment = document.getElementById('increment');

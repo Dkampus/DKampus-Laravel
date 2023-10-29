@@ -7,7 +7,7 @@
         <div id="titleWarung" class="flex flex-row items-center mb-4">
             <div class="flex flex-row justify-start items-center gap-4 rounded-xl">
             <input type="checkbox" name="" id="checkboxWarung" class="text-[#F9832A] border-2 rounded-md border-[#F9832A] w-8  h-8 transition-all duration-300 checked:fill-[#F9832A] checked:border-[#F9832A] checked:ring-[#F9832A] focus:fill-[#F9832A] focus:border-[#F9832A] focus:ring-[#F9832A]">
-            <label for="checkboxWarung" for="" class="flex flex-row gap-2 items-center">
+            <label for="checkboxWarung" for="" class="flex flex-row gap-5 items-center">
                 <img src="{{$carts->find(1)->menu->data_umkm->logo_umkm}}" alt="" class="w-24">
                 <h1 class="text-xl font-semibold">{{ $carts->find(1)->menu->data_umkm->nama_umkm }}</h1>
             </label>
@@ -79,8 +79,16 @@
     </section>
     {{-- <div class="bg-[#F0F3F8] w-full h-5"></div> --}}
 </div>
-<div id="totalAndAddress" class="fixed border-2 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full bottom-0 bg-white shadow-top-for-total-harga">
-    <button id="alamat" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
+
+<div id="overlayAddNewAddress" class="bg-black/10 invisible opacity-0 -z-10 h-screen w-full absolute top-0 left-0">
+
+</div>
+<div id="addNewAddress" class="w-full border fixed h-0 bg-white rounded-3xl -bottom-96 transition-all duration-300 shadow-top-for-total-harga">
+
+</div>
+
+<div id="totalAndAddress" class="fixed border-[2.5px] border-black/10 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full bottom-0 bg-white shadow-top-for-total-harga">
+    <button id="alamat" onclick="showListAddress()" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
         <img src="Map.svg" alt="" class="w-6">
         <div id="desc" class="flex flex-row gap-2 items-center">
         <h1 class="text-[#5e5e5e] font-medium">Masukkan alamat Anda</h1>

@@ -29,7 +29,7 @@ Route::get('/detail-makanan',[UserController::class,'detailMakanan']);
 
 //Pesanan Routes
 Route::get('/pesanan',[CartController::class,'index']);
-Route::get('/pesanan/proses',[CartController::class,'proses']);
+Route::get('/pesanan/status',[CartController::class,'status']);
 
 // Login & Register Routes
 Route::get('/masuk', [UserController::class,'login']);
