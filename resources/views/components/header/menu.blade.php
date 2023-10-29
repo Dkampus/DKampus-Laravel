@@ -3,7 +3,7 @@
 </button>
 
 <div id="bar-menu"
-    class="h-screen invisible bg-white shadow-xl transition-all duration-500 fixed w-0 top-0 right-0 z-[70]">
+    class="h-screen invisible bg-white shadow-xl transition-all duration-500 absolute w-0 top-0 right-0 z-[70]">
 
     <div class="flex flex-row items-center justify-between w-full px-10 absolute top-5">
         @guest
@@ -27,5 +27,5 @@
     </div>
 </div>
 <div onclick="hideMenu()" id="overlay-menu"
-    class="fixed bg-black/20 invisible transition-all duration-500 opacity-0 w-screen h-screen z-[60] top-0 left-0">
+    class="absolute bg-black/20 invisible transition-all duration-500 opacity-0 w-full h-screen z-[60] top-0 left-0">
 </div>

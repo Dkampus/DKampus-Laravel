@@ -42,7 +42,7 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-<div id="containerLayout" class="max-w-xl">
+<div id="containerLayout" class="max-w-xl relative overflow-hidden">
 @yield('content')
 @if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit')
 <div class="w-full flex justify-center">
