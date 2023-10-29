@@ -15,6 +15,8 @@ function showListAddress(){
         listAddNewAddress.style.height = '24rem'
         listAddNewAddress.style.bottom = '10rem'
 
+        document.body.style.overflow = 'hidden';
+
         overlayAddNewAddress.style.visibility = 'visible';
         overlayAddNewAddress.style.opacity = '100';
         overlayAddNewAddress.style.zIndex = '0';
@@ -23,6 +25,8 @@ function showListAddress(){
 function hideListAddress(){
     listAddNewAddress.style.height = '0rem'
     listAddNewAddress.style.bottom = '-99rem'
+
+    document.body.style.overflow = 'auto';
 
     overlayAddNewAddress.style.visibility = 'invisible';
     overlayAddNewAddress.style.opacity = '0';

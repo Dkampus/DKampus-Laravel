@@ -1,4 +1,6 @@
 @extends('layouts.PesananLayout')
 @section('pesananContent')
-    <h1>ini Proses</h1>
+   <div class="flex flex-col gap-5 items-center justify-start bg-[#F0F3F8]">
+
+   </div>
 @endsection
