@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,9 +28,8 @@ Route::get('/detail-warung',[UserController::class,'detailWarung']);
 Route::get('/detail-makanan',[UserController::class,'detailMakanan']);
 
 //Pesanan Routes
-Route::get('/pesanan',[UserController::class,'pesananLayout']);
-Route::get('/pesanan',[UserController::class,'pesanan']);
-Route::get('/pesanan/proses',[UserController::class,'proses']);
+Route::get('/pesanan',[CartController::class,'index']);
+Route::get('/pesanan/proses',[CartController::class,'proses']);
 
 // Login & Register Routes
 Route::get('/masuk', [UserController::class,'login']);

@@ -71,26 +71,6 @@ class UserController extends Controller
         ]);
     }
 
-    public function pesananLayout(){
-        return view('layouts.PesananLayout',[
-            'Title' => 'Pesanan',
-        ]);
-    }
-
-    public function proses(){
-        return view('pages.Users.Proses',[
-            'Title' => 'Pesanan',
-            'NavPesanan' => 'Proses',
-        ]);
-    }
-
-    public function pesanan(){
-        return view('pages.Users.Pesanan',[
-            'Title' => 'Pesanan',
-            'NavPesanan' => 'Pesanan'
-        ]);
-    }
-
     public function atur_ulang_kata_sandi(){
         return view('pages.Users.AturUlangKataSandi',[
             'Title' => 'Atur Ulang Kata Sandi',
