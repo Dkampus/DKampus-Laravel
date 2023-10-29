@@ -10,13 +10,23 @@ const overlayAddNewAddress = document.getElementById('overlayAddNewAddress')
 function hideListAddress (){
 
 }
-function showListAddress (){
+function showListAddress(){
     if(listAddNewAddress.style.display === 'none' || listAddNewAddress.style.display === ''){
         listAddNewAddress.style.height = '24rem'
         listAddNewAddress.style.bottom = '10rem'
 
-        
+        overlayAddNewAddress.style.visibility = 'visible';
+        overlayAddNewAddress.style.opacity = '100';
+        overlayAddNewAddress.style.zIndex = '0';
     }
+}
+function hideListAddress(){
+    listAddNewAddress.style.height = '0rem'
+    listAddNewAddress.style.bottom = '-99rem'
+
+    overlayAddNewAddress.style.visibility = 'invisible';
+    overlayAddNewAddress.style.opacity = '0';
+    overlayAddNewAddress.style.zIndex = '-10';
 }
 
 const number = document.getElementById('number')

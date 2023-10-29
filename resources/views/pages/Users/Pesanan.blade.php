@@ -80,11 +80,24 @@
     {{-- <div class="bg-[#F0F3F8] w-full h-5"></div> --}}
 </div>
 
-<div id="overlayAddNewAddress" class="bg-black/10 invisible opacity-0 -z-10 h-screen w-full absolute top-0 left-0">
-
+<div id="overlayAddNewAddress" onclick="hideListAddress()" class="bg-black/10 transition-all duration-500 invisible opacity-0 -z-10 h-screen w-full absolute top-0 left-0">
 </div>
-<div id="addNewAddress" class="w-full border fixed h-0 bg-white rounded-3xl -bottom-96 transition-all duration-300 shadow-top-for-total-harga">
 
+<div id="addNewAddress" class="w-full pt-5 pb-14 flex flex-col items-center gap-5 border overflow-auto fixed h-0 bg-white rounded-3xl -bottom-96 transition-all duration-500 shadow-top-for-total-harga">
+@forelse ($AddressList as $Item)
+    <div class="flex flex-row items-end gap-10 border-b-2 pb-2">
+        <div class="flex flex-col gap-2">
+            <h1 class="font-semibold text-lg">{{$Item['Title']}}</h1>
+            <div id="location" class="flex flex-row gap-2 items-center">
+                <img src="markLocation.svg" alt="" class="w-5">
+                <h1 class="text-wrapper-location">{{$Item['Alamat']}}</h1>
+            </div>
+        </div>
+        <img src="edit.svg" alt="" class="w-5">
+    </div>
+@empty
+    
+@endforelse
 </div>
 
 <div id="totalAndAddress" class="fixed border-[2.5px] border-black/10 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full bottom-0 bg-white shadow-top-for-total-harga">

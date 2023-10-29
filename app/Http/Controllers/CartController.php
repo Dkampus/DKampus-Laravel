@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\PesananModel;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -16,7 +17,8 @@ class CartController extends Controller
         return view('pages.Users.Pesanan',[
             'Title' => 'Pesanan',
             'NavPesanan' => 'Pesanan',
-            'carts' => $carts
+            'carts' => $carts,
+            'AddressList' => PesananModel::alamatUser()
         ]);
     }
 
