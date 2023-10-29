@@ -28,7 +28,7 @@
 
         <main class="mt-24 w-full">
 
-        <div id="profile" class="relative shadow-md w-[22rem] h-28 flex flex-row items-start border rounded-lg mx-auto px-3 pt-4">
+        <div id="profile" class="relative shadow-md w-[22rem] h-28 flex flex-row items-start border rounded-lg mx-auto px-3 pt-5">
             <button>
                 <img src="Avatar/Large.svg" alt="" class="w-[4.5rem]">
             </button>
