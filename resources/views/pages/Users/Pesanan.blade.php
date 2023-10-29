@@ -18,7 +18,7 @@
         <div class="bg-[#5e5e5e]/40 w-[30rem] h-0.5"></div>
 
         {{-- Card List Pesanan --}}
-        <div id="cardList" class="flex flex-col items-start gap-y-7 mt-10">
+        <div id="cardList" class="flex flex-col transition-all duration-300 items-start gap-y-7 mt-10">
 
             <div id="cardPesanan" class="flex flex-row items-center justify-start gap-4 rounded-xl">
                 {{-- Favorite and Checkbox --}}

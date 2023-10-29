@@ -20,6 +20,7 @@ function renderCount(){
         decrement.style.visibility = 'visible';
         decrement.style.position = 'relative';
         decrement.style.opacity = '100';
+        decrement.style.display = 'flex'
         Delete.style.visibility = 'invisible';
         Delete.style.position = 'absolute';
         Delete.style.opacity = '0';
@@ -28,6 +29,7 @@ function renderCount(){
         decrement.style.visibility = 'invisible';
         decrement.style.position = 'absolute';
         decrement.style.opacity = '0';
+        decrement.style.display = 'none'
         Delete.style.visibility = 'visible';
         Delete.style.position = 'relative';
         Delete.style.opacity = '100';
@@ -56,6 +58,17 @@ function DeleteItem2(){
     cardPesanan01.remove()
 }
 
+const cardList = document.getElementById('cardList');
+const contentCard = document.getElementById('contentCard');
+const titleWarung = document.getElementById('titleWarung');
+if(cardList.children.length === 0){
+    titleWarung.remove();
+
+    const imageElement = document.createElement('div');
+    imageElement.innerHTML = "<h1>HElllo </h1>"
+
+    contentCard.appendChild(imageElement)
+}
 
 const checkAllCheckbox = document.getElementById("checkboxWarung");
 const checkboxes = document.querySelectorAll("#checkboxMakanan");
