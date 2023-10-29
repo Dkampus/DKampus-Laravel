@@ -17,6 +17,8 @@ class UserController extends Controller
     {
         return view('pages.Users.Homepage',[
             'Banner' => HomeModel::bannerData(),
+            'PengaturanAkun' => HomeModel::pengaturanAkun(),
+            'SeputarDkampus' => HomeModel::seputarDkampus(),
             'Carousel' => HomeModel::carouselData(),
             'RekomendasiWarung' => HomeModel::rekomendasiWarung(),
             'RekomendasiMakanan' => HomeModel::rekomendasiMakanan(),

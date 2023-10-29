@@ -15,6 +15,17 @@ swiper-container .swiper-button-disabled {
   overflow: hidden;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+.text-wrapper-location-profile{
+  max-width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .text-wrapper-promo-terlaris{
   max-width: 170px;
   text-overflow: ellipsis;
