@@ -38,7 +38,10 @@
                 {{-- content card pesanan --}}
                 <div id="contentPesanan{{$c->id}}" class="shadow-md w-[27rem] rounded-xl border">
                     <div for="checkboxMakanan" class="flex flex-row items-center">
-                        <img src="{{$c->menu->image}}" alt="" class="rounded-lg h-full" width="100px">
+                        <div class="h-32 w-40">
+                            <img src="{{$c->menu->image}}" alt="" class="rounded-lg h-full w-full object-cover">
+                        </div>
+                        {{-- <img src="{{$c->menu->image}}" alt="" class="rounded-lg h-max" width="100px"> --}}
                         <div id="desc" class="flex flex-row justify-between w-full">
                             <div class="flex flex-col justify-center gap-3 px-5">
                                 <h1 class="font-semibold text-xl">{{$c->menu->nama_makanan}}</h1>
@@ -76,4 +79,5 @@
     </section>
     {{-- <div class="bg-[#F0F3F8] w-full h-5"></div> --}}
 </div>
+
 @endsection
