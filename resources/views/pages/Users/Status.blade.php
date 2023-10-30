@@ -65,6 +65,70 @@
         </button>
 
     </section>
+    <section id="warung-ayam-baghdad" class="bg-white w-full flex flex-col transition-all duration-500 justify-center items-center">
+        <div id="contentStatus" class="w-[29.5rem] transition-all duration-500 relative h-80 overflow-hidden border-b-[3px] px-4 my-3 mx-auto flex flex-col items-center py-5">
+            <div id="Title" class="border-b-[3px] pb-5 mx-auto flex flex-row justify-between items-center w-full">
+                <div id="title" class="flex flex-row items-center gap-5">
+                    <svg height="30" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1.50596 0.214355C1.35633 0.214355 1.22294 0.318064 1.17148 0.474022L0.257897 3.24921C0.229051 3.33697 0.214353 3.42877 0.214355 3.52115V4.62513C0.214355 5.24936 0.66996 5.75602 1.23204 5.75602C1.79413 5.75602 2.25013 5.24936 2.25013 4.62513C2.25013 5.24975 2.70573 5.75602 3.26781 5.75602C3.8299 5.75602 4.2859 5.24936 4.2859 4.62513C4.2859 5.24975 4.7415 5.75602 5.30359 5.75602C5.86567 5.75602 6.32088 5.25015 6.32167 4.62592C6.32167 5.25015 6.77727 5.75602 7.33936 5.75602C7.90144 5.75602 8.35704 5.24936 8.35704 4.62513C8.35704 5.24975 8.81304 5.75602 9.37513 5.75602C9.93721 5.75602 10.3924 5.25015 10.3928 4.62592C10.3932 5.25015 10.8488 5.75602 11.4109 5.75602C11.973 5.75602 12.4286 5.24936 12.4286 4.62513C12.4286 5.24975 12.8842 5.75602 13.4467 5.75602C14.0088 5.75602 14.4644 5.24936 14.4644 4.62513V3.52115C14.4644 3.42877 14.4497 3.33697 14.4208 3.24921L13.5072 0.474418C13.4558 0.318064 13.3224 0.214355 13.1728 0.214355H1.50596Z" fill="#F9832A"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1.79761 6.24282V9.31844H0.808024C0.755533 9.31844 0.705192 9.33929 0.668076 9.37641C0.630959 9.41353 0.610107 9.46387 0.610107 9.51636V9.91219C0.610107 9.96468 0.630959 10.015 0.668076 10.0521C0.705192 10.0893 0.755533 10.1101 0.808024 10.1101H13.8705C13.923 10.1101 13.9734 10.0893 14.0105 10.0521C14.0476 10.015 14.0684 9.96468 14.0684 9.91219V9.51636C14.0684 9.46387 14.0476 9.41353 14.0105 9.37641C13.9734 9.33929 13.923 9.31844 13.8705 9.31844H12.8809V6.24282C12.7152 6.17678 12.5622 6.08264 12.4285 5.96455C12.3259 6.05505 12.2118 6.1317 12.0893 6.19255V9.31844H2.58927V6.19255C2.46671 6.1317 2.35267 6.05505 2.25004 5.96455C2.11704 6.08132 1.96504 6.17632 1.79761 6.24282ZM12.0893 5.46817C12.1229 5.43452 12.1546 5.3985 12.1843 5.36011H12.0893V5.46817ZM12.6727 5.36011C12.7326 5.43764 12.8026 5.50674 12.8809 5.56554V5.36011H12.6727ZM1.79761 5.56554C1.87633 5.50721 1.94643 5.43804 2.00582 5.36011H1.79761V5.56554ZM2.49427 5.36011H2.58927V5.46817C2.55527 5.43427 2.52354 5.39817 2.49427 5.36011ZM1.20386 10.9018C1.15137 10.9018 1.10103 10.9226 1.06391 10.9597C1.02679 10.9969 1.00594 11.0472 1.00594 11.0997V14.0684C1.00594 14.1734 1.04764 14.2741 1.12188 14.3483C1.19611 14.4226 1.29679 14.4643 1.40177 14.4643H13.2768C13.3818 14.4643 13.4824 14.4226 13.5567 14.3483C13.6309 14.2741 13.6726 14.1734 13.6726 14.0684V11.0997C13.6726 11.0472 13.6518 10.9969 13.6146 10.9597C13.5775 10.9226 13.5272 10.9018 13.4747 10.9018H1.20386Z" fill="#F9832A"/>
+                        <path d="M3.3811 8.32902C3.3811 8.27653 3.40196 8.22619 3.43907 8.18907C3.47619 8.15196 3.52653 8.1311 3.57902 8.1311H4.76652C4.81901 8.1311 4.86935 8.15196 4.90647 8.18907C4.94359 8.22619 4.96444 8.27653 4.96444 8.32902V9.12069C4.96444 9.17318 4.94359 9.22352 4.90647 9.26064C4.86935 9.29775 4.81901 9.3186 4.76652 9.3186H3.57902C3.52653 9.3186 3.47619 9.29775 3.43907 9.26064C3.40196 9.22352 3.3811 9.17318 3.3811 9.12069V8.32902Z" fill="#F9832A"/>
+                        <path d="M4.17261 8.72485C4.17261 8.67236 4.19346 8.62202 4.23058 8.58491C4.26769 8.54779 4.31803 8.52694 4.37052 8.52694H5.55802C5.61051 8.52694 5.66086 8.54779 5.69797 8.58491C5.73509 8.62202 5.75594 8.67236 5.75594 8.72485V9.12069C5.75594 9.17318 5.73509 9.22352 5.69797 9.26064C5.66086 9.29775 5.61051 9.3186 5.55802 9.3186H4.37052C4.31803 9.3186 4.26769 9.29775 4.23058 9.26064C4.19346 9.22352 4.17261 9.17318 4.17261 9.12069V8.72485ZM7.33927 8.72485C7.33927 8.88233 7.27672 9.03335 7.16537 9.1447C7.05402 9.25605 6.903 9.3186 6.74552 9.3186C6.58805 9.3186 6.43703 9.25605 6.32568 9.1447C6.21433 9.03335 6.15177 8.88233 6.15177 8.72485C6.15177 8.56738 6.21433 8.41636 6.32568 8.30501C6.43703 8.19366 6.58805 8.1311 6.74552 8.1311C6.903 8.1311 7.05402 8.19366 7.16537 8.30501C7.27672 8.41636 7.33927 8.56738 7.33927 8.72485Z" fill="#F9832A"/>
+                    </svg>
+                    <div>
+                        <h1 class="font-semibold text-lg">Warung Ayam Baghdad</h1>
+                        <p id="date">9 April 2023</p>
+                    </div>
+                </div>
+                <div id="status" class="bg-[#FFEEE1] rounded-2xl text-center flex flex-col justify-center text-[#FF6E00] text-sm font-semibold py-2.5 px-3">
+                    Sedang diantar
+                </div>
+            </div>
+            <div id="Content" class="w-full grid grid-cols-2 grid-rows-2 gap-y-6 gap-x-5 my-5 place-items-center place-content-between">
+                <div id="makananSatuan" class="flex flex-row items-center gap-2">
+                    <img src="/pahaAyam.jpg" alt="pahaAyam" class="w-24 rounded-xl">
+                    <div id="desc">
+                        <h1 class="font-semibold">Paha Ayam</h1>
+                        <p>1 buah</p>
+                    </div>
+                </div>
+                <div id="makananSatuan" class="flex flex-row items-center gap-2">
+                    <img src="/pahaAyam.jpg" alt="pahaAyam" class="w-24 rounded-xl">
+                    <div id="desc">
+                        <h1 class="font-semibold">Paha Ayam</h1>
+                        <p>1 buah</p>
+                    </div>
+                </div>
+                <div id="makananSatuan" class="flex flex-row items-center gap-2">
+                    <img src="/pahaAyam.jpg" alt="pahaAyam" class="w-24 rounded-xl">
+                    <div id="desc">
+                        <h1 class="font-semibold">Paha Ayam</h1>
+                        <p>1 buah</p>
+                    </div>
+                </div>
+                <div id="makananSatuan" class="flex flex-row items-center gap-2">
+                    <img src="/pahaAyam.jpg" alt="pahaAyam" class="w-24 rounded-xl">
+                    <div id="desc">
+                        <h1 class="font-semibold">Paha Ayam</h1>
+                        <p>1 buah</p>
+                    </div>
+                </div>
+                <div id="makananSatuan" class="flex flex-row items-center gap-2">
+                    <img src="/pahaAyam.jpg" alt="pahaAyam" class="w-24 rounded-xl">
+                    <div id="desc">
+                        <h1 class="font-semibold">Paha Ayam</h1>
+                        <p>1 buah</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="toggleShowMore" class="relative shadow-md mb-5 rounded-full w-9 h-9 flex mx-auto bottom-0 flex-col items-center justify-center bg-[#FF6E00] py-3">
+            <svg id="iconToggle" class="rotate-0 transition-all duration-500" height="10" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.74911 0.624208C4.94833 0.425237 5.21838 0.313477 5.49995 0.313477C5.78151 0.313477 6.05156 0.425237 6.25078 0.624208L10.2585 4.63054C10.3572 4.72924 10.4354 4.84639 10.4888 4.97533C10.5422 5.10426 10.5696 5.24244 10.5696 5.38198C10.5695 5.52152 10.542 5.65969 10.4886 5.7886C10.4352 5.9175 10.3569 6.03462 10.2582 6.13327C10.1595 6.23192 10.0423 6.31016 9.91339 6.36353C9.78446 6.4169 9.64628 6.44435 9.50674 6.44432C9.3672 6.44429 9.22903 6.41677 9.10012 6.36334C8.97121 6.30991 8.85409 6.23161 8.75545 6.13292L5.49995 2.87742L2.24445 6.13292C2.14648 6.23444 2.02928 6.31544 1.89968 6.37118C1.77007 6.42693 1.63067 6.4563 1.48959 6.4576C1.34851 6.45889 1.20859 6.43207 1.07799 6.37871C0.947386 6.32535 0.82872 6.24651 0.728912 6.1468C0.629104 6.04708 0.550155 5.92849 0.49667 5.79794C0.443185 5.66739 0.416235 5.52749 0.417394 5.38641C0.418553 5.24533 0.447797 5.1059 0.50342 4.97624C0.559043 4.84659 0.63993 4.72931 0.741362 4.63125L4.7484 0.6235L4.74911 0.624208Z" fill="#fff"/>
+            </svg>
+        </button>
+
+    </section>
     {{-- <section id="warung-ayam-baghdad" class="bg-white w-full flex flex-col justify-center items-center">
         <div id="contentStatus" class="w-[29.5rem] relative h-80 overflow-hidden border-b-[3px] px-4 my-3 mx-auto flex flex-col items-center py-5">
             <div id="Title" class="border-b-[3px] pb-5 mx-auto flex flex-row justify-between items-center w-full">

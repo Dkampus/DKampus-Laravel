@@ -5,19 +5,18 @@ const iconToggle = document.getElementById('iconToggle');
 const state = {
     condition: false,
 }
-function render(){
+function render01(){
     if(state.condition){
-        listMakananSatuan.style.height = '20rem';
+        listMakananSatuan.style.height = 'max-content';
         iconToggle.style.transform = 'rotate(0deg)';
     }else{
-        listMakananSatuan.style.height = '27rem';
+        listMakananSatuan.style.height = '20rem';
         iconToggle.style.transform = 'rotate(180deg)';
     }
 }
-state.condition = !state.condition
 function toggleState(){
     state.condition = !state.condition;
-    render()
+    render01()
 }
 toggleShowMore.addEventListener('click',toggleState);
-render()
+render01()
