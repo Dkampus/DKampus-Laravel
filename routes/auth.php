@@ -13,7 +13,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
+    Route::get('register', [UserController::class, 'register'])
         ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
