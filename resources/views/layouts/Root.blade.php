@@ -44,7 +44,7 @@
 <body>
 <div id="containerLayout" class="max-w-xl relative overflow-hidden">
 @yield('content')
-@if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit')
+@if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit' || $Title === 'Status')
 <div class="w-full flex justify-center">
   @include('components.navbar.navbar')
 </div>
