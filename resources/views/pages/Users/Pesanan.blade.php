@@ -80,7 +80,7 @@
     {{-- <div class="bg-[#F0F3F8] w-full h-5"></div> --}}
 </div>
 
-<div id="overlayAddNewAddress" onclick="hideListAddress()" class="bg-black/10 transition-all duration-500 invisible opacity-0 -z-10 h-screen w-full absolute top-0 left-0">
+<div id="overlayAddNewAddress" onclick="renderHideListAddress()" class="bg-black/10 transition-all duration-500 invisible opacity-0 -z-10 h-screen w-full absolute top-0 left-0">
 </div>
 
 <div id="addNewAddress" class="w-full pt-5 pb-14 flex flex-col items-center gap-5 border overflow-auto fixed h-0 bg-white rounded-3xl -bottom-96 transition-all duration-500 shadow-top-for-total-harga">
@@ -101,7 +101,7 @@
 </div>
 
 <div id="totalAndAddress" class="fixed border-[2.5px] border-black/10 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full bottom-0 bg-white shadow-top-for-total-harga">
-    <button id="alamat" onclick="showListAddress()" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
+    <button id="alamat" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
         <img src="Map.svg" alt="" class="w-6">
         <div id="desc" class="flex flex-row gap-2 items-center">
         <h1 class="text-[#5e5e5e] font-medium">Masukkan alamat Anda</h1>
