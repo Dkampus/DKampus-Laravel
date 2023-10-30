@@ -66,6 +66,9 @@
     @case('Pesanan')
     <script src="{{asset('js/pesanan.js')}}"></script> 
     @break
+    @case('Status')
+      
+    @break
     @case('Favorit')
       
     @break

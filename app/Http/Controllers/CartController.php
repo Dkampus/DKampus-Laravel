@@ -24,8 +24,8 @@ class CartController extends Controller
 
     public function status(){
         return view('pages.Users.Status',[
-            'Title' => 'Pesanan',
-            'NavPesanan' => 'Proses',
+            'Title' => 'Status',
+            'NavPesanan' => 'Status',
         ]);
     }
 
