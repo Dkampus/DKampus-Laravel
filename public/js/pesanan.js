@@ -124,31 +124,32 @@ function decrementCounter(){
 increment.addEventListener('click',incrementCounter);
 decrement.addEventListener('click',decrementCounter);
 
-const cardPesanan = document.getElementById('cardPesanan');
-const cardPesanan01 = document.getElementById('cardPesanan01')
-function DeleteItem(){
-    cardPesanan.remove()
+function renderModals(){
+    
 }
-function DeleteItem2(){
-    cardPesanan01.remove()
-}
+// const cardPesanan = document.getElementById('cardPesanan');
+// const cardPesanan01 = document.getElementById('cardPesanan01')
+// function DeleteItem(){
+//     cardPesanan.remove()
+// }
+// function DeleteItem2(){
+//     cardPesanan01.remove()
+// }
 
-const cardList = document.getElementById('cardList');
-const contentCard = document.getElementById('contentCard');
-const titleWarung = document.getElementById('titleWarung');
-if(cardList.children.length === 0){
-    titleWarung.remove();
+// const cardList = document.getElementById('cardList');
+// const contentCard = document.getElementById('contentCard');
+// const titleWarung = document.getElementById('titleWarung');
+// if(cardList.children.length === 0){
+//     titleWarung.remove();
 
-    const imageElement = document.createElement('div');
-    imageElement.innerHTML = "<h1>HElllo </h1>"
+//     const imageElement = document.createElement('div');
+//     imageElement.innerHTML = "<h1>HElllo </h1>"
 
-    contentCard.appendChild(imageElement)
-}
+//     contentCard.appendChild(imageElement)
+// }
 
 const checkAllCheckbox = document.getElementById("checkboxWarung");
 const checkboxes = document.querySelectorAll("#checkboxMakanan");
-
-// Add an event listener to the "Check All" checkbox
 checkAllCheckbox.addEventListener("change", function () {
   checkboxes.forEach(function (checkbox) {
     checkbox.checked = checkAllCheckbox.checked;
