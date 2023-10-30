@@ -1,14 +1,4 @@
-const NavCheckbox = document.getElementById('NavCheckbox');
-const NavLikeButton = document.getElementById('NavLikeButton');
-NavCheckbox.addEventListener('change', function () {
-    NavLikeButton.classList.toggle('active', NavCheckbox.checked);
-});
 
-const CardCheckbox = document.getElementById('CardCheckbox');
-const CardLikeButton = document.getElementById('CardLikeButton');
-CardCheckbox.addEventListener('change', function () {
-    CardLikeButton.classList.toggle('active', CardCheckbox.checked);
-});
 
 document.addEventListener('scroll',function(){
     const navbarDetailMakanan = document.getElementById('navbar-detail-makanan')
@@ -43,6 +33,7 @@ const state = {
     condition: false,
     count: 0
 }
+
 
 function renderCount(){
     number.value = state.count
