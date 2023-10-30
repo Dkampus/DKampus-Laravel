@@ -49,4 +49,24 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    function loginApi(Request $request)
+    {
+        $loginData = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt($loginData)) {
+            $token = $request->user()->createToken('authToken')->plainTextToken;
+            return response()->json([
+                'data' => Auth::user(),
+                'token' => $token,
+            ], 200);
+        }
+
+        return response()->json([
+            'message' => "Email atau password salah",
+        ], 401);
+    }
 }
