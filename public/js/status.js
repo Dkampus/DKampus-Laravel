@@ -8,10 +8,10 @@ const state = {
 function render01(){
     if(state.condition){
         listMakananSatuan.style.height = 'max-content';
-        iconToggle.style.transform = 'rotate(0deg)';
+        iconToggle.style.transform = 'rotate(180deg)';
     }else{
         listMakananSatuan.style.height = '20rem';
-        iconToggle.style.transform = 'rotate(180deg)';
+        iconToggle.style.transform = 'rotate(0deg)';
     }
 }
 function toggleState(){
