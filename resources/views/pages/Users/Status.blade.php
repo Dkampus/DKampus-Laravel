@@ -1,7 +1,7 @@
 @extends('layouts.PesananLayout')
 @section('pesananContent')
    <div class="flex flex-col gap-5 items-center justify-start bg-[#F0F3F8]">
-    <section id="warung-ayam-baghdad" class="bg-white w-full flex flex-col transition-all duration-500 justify-center items-center">
+    <section id="warung-ayam-baghdad" class="bg-white w-full flex flex-col shadow-md transition-all duration-500 justify-center items-center">
         <div id="contentStatus" class="w-[29.5rem] transition-all duration-500 relative h-80 overflow-hidden border-b-[3px] px-4 my-3 mx-auto flex flex-col items-center py-5">
             <div id="Title" class="border-b-[3px] pb-5 mx-auto flex flex-row justify-between items-center w-full">
                 <div id="title" class="flex flex-row items-center gap-5">
