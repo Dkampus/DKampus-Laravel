@@ -94,6 +94,20 @@ class UserController extends Controller
             'CarouselPromo' => PromoModel::carouselPromo(),
         ]);
     }
+    public function minuman(){
+        return view('pages.Users.MinumanPage',[
+            'Title' => 'Promo',
+            'NavPromo' => 'Minuman',
+            'CarouselPromo' => PromoModel::carouselPromo(),
+        ]);
+    }
+    public function cemilan(){
+        return view('pages.Users.CemilanPage',[
+            'Title' => 'Promo',
+            'NavPromo' => 'Cemilan',
+            'CarouselPromo' => PromoModel::carouselPromo(),
+        ]);
+    }
 
 
     /**

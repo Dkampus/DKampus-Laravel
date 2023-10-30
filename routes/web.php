@@ -21,6 +21,8 @@ Route::get('/', [UserController::class, 'index'])->name('homepage');
 // Promo Page
 Route::get('/promo', [UserController::class, 'promoLayout']);
 Route::get('/promo/makanan', [UserController::class, 'makanan']);
+Route::get('/promo/minuman', [UserController::class, 'minuman']);
+Route::get('/promo/cemilan', [UserController::class, 'cemilan']);
 Route::get('/promo', [UserController::class, 'semua']);
 
 // Detail Routes
