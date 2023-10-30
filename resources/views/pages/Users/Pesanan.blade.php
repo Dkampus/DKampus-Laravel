@@ -20,7 +20,13 @@
         {{-- Card List Pesanan --}}
         <div id="cardList" class="flex flex-col transition-all duration-300 items-start gap-y-7 mt-10">
             
+            @php $total_harga = 0; @endphp
             @foreach ($carts as $c)
+            @php
+                $harga = number_format($c->menu->harga, 0, ',','.');
+                $total_harga += ($c->quantity * $c->menu->harga);
+            @endphp
+
             <div id="cardPesanan{{$c->id}}" class="flex flex-row items-center justify-start gap-4 rounded-xl">
                 {{-- Favorite and Checkbox --}}
                 <div id="favoriteAndCheckbox" class="flex flex-col gap-3 items-start mb-auto">
@@ -46,7 +52,7 @@
                             <div class="flex flex-col justify-center gap-3 px-5">
                                 <h1 class="font-semibold text-xl">{{$c->menu->nama_makanan}}</h1>
                                 <a href="" class="text-sm text-gray-500">Tambahkan catatan</a>
-                                <h2 class="text-[#F9832A] font-semibold text-lg">Rp22.000</h2>
+                                <h2 class="text-[#F9832A] font-semibold text-lg">Rp. {{$harga}}</h2>
                             </div>
                             <div id="count" class="flex flex-col items-center bg-white shadow-lg justify-between mr-2 my-auto rounded-lg w-[2.5rem] h-full">
                                 <button id="increment" class="bg-[#EEEEEE] transition-all duration-300 rounded-xl scale-100 shadow-md flex w-[2.5rem] flex-col justify-center items-center h-[2.5rem] font-bold">
@@ -55,7 +61,7 @@
                                         <path d="M3.40259 7.36157H10.9335" stroke="#F9832A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </button>
-                                <input id="number" type="number" name="quantity" class="font-semibold bg-transparent w-[2.5rem] border-none text-center focus:border-none focus:ring-0" value="1" readonly/>
+                                <input id="number" type="number" name="quantity" class="font-semibold bg-transparent w-[2.5rem] border-none text-center focus:border-none focus:ring-0" value="{{$c->quantity}}" readonly/>
                                 <button id="decrement" class="invisible absolute transition-all duration-300 bg-[#EEE] rounded-xl scale-100 shadow-md flex w-[2.5rem] flex-col justify-center items-center h-[2.5rem] font-bold">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3.53027 8H12.0151" stroke="#2B2B2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -108,10 +114,12 @@
         <img src="ArrowTop.svg" alt="">
         </div>
     </button>
+
+    @php $total_harga = number_format($total_harga,0,',','.'); @endphp
     <div id="totalHarga" class="flex flex-row gap-5">
     <div id="descTotalHarga" class="text-center">
         <h1>Total Harga</h1>
-        <p class="font-semibold border-b-2 border-[#F9832A]">Rp22.000</p>
+        <p class="font-semibold border-b-2 border-[#F9832A]">Rp. {{$total_harga}}</p>
     </div>
     <div id="buttonTotalHarga">
     <button class="bg-[#F9832A] h-10 w-24 text-white font-semibold rounded-xl">
