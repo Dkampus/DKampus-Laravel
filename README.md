@@ -15,8 +15,11 @@
 
 Project Description
 
-Page per Role
- - [User](resources\views\pages)
+## Rules/Peraturan :
+- Penulisan variabel dengan camelCase
+- Variabel dan Tabel di tulis dengan bahasa Inggris
+
+Utamakan Clean Code, dan selalu berikan comment tiap fungsi dan tampilan html
 
 ## Learning Laravel
 

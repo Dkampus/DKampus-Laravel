@@ -40,9 +40,12 @@ Route::get('/input-registrasi',[UserController::class,'input_register']);
 Route::get('/code-verification',[UserController::class,'code_verification']);
 Route::get('atur-ulang-kata-sandi',[UserController::class,'atur_ulang_kata_sandi']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+    Route::view('/dashboard', 'pages/admin/dashboard')->name('dashboard');
+    Route::view('/umkm', 'pages/admin/UMKM')->name('umkm');
+});
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
