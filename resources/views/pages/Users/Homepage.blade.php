@@ -40,17 +40,18 @@
         {{-- Slider Rekomendasi Warung --}}
         <x-list-warung.slider>
             @forelse ($RekomendasiWarung as $Item)
-                <swiper-slide class="w-32 h-[17rem] bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
-                <a href="/detail-warung">
-                    <img src={{$Item['Img']}} alt="" class="w-[40rem] h-40 object-cover">
-                    <div class="flex flex-col px-3 h-24 justify-center">
-                    <div class="flex flex-row gap-1">
-                    <img src={{$Item['IconTime']}} alt="" class="w-5">
-                    <h1 class="text-[#F9832A]">{{$Item['Time']}}</h1>
-                    </div>
-                    <h1 class="font-semibold text-xl">{{$Item['Title']}}</h1>
-                    </div>
-                </a>
+                <swiper-slide class="w-32 h-[17rem] my-2 relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
+                    <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5">
+                    <a href="/detail-warung" class="w-full h-full bg-white overflow-hidden">
+                        <img src={{$Item['Img']}} alt="" class="w-[45rem] h-40 object-cover rounded-xl">
+                        <div class="flex flex-col px-3 h-24 justify-center">
+                        <div class="flex flex-row gap-1">
+                        <img src={{$Item['IconTime']}} alt="" class="w-5">
+                        <h1 class="text-[#F9832A]">{{$Item['Time']}}</h1>
+                        </div>
+                        <h1 class="font-semibold text-xl">{{$Item['Title']}}</h1>
+                        </div>
+                    </a>
                 </swiper-slide>
             @empty
             <p>Data is not Found</p>
