@@ -51,7 +51,7 @@
         </div>
 
         {{-- Submit & Daftar --}}
-        <div id="submitAndDaftar" class="flex flex-col gap-2 mt-3 mx-auto w-96 items-center">
+        <div id="submitAndDaftar" class="flex flex-col gap-3.5 mt-3 mx-auto w-96 items-center">
             {!! Form::submit('Masuk', [
                 'class' => 'bg-[#F9832A] w-full h-[3.4rem] rounded-2xl text-white font-semibold text-lg',
                 'onclick' => 'showModal()',
