@@ -1,6 +1,6 @@
 @extends('layouts.Root')
     @section('content')
-    <header>
+    <header class="">
         {{-- Topbar --}}
         @include('components.header.topbar')
     </header>

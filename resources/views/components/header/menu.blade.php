@@ -1,7 +1,7 @@
 @guest
     <a href="/masuk"
-    class="bg-white w-10 h-[1.8rem] rounded-2xl text-center text-white flex items-center justify-center font-semibold text-base">
-    <img src="/login.svg" alt="" class="w-ful h-full">
+    class="text-white w-20 h-[2.5rem] rounded-xl text-center bg-[#F9832A] flex items-center gap-2 justify-center font-semibold text-base">
+    Masuk
     </a>
 @endguest
 
@@ -10,7 +10,7 @@
     <img src="menu.svg" alt="" class="w-8">
 </button>
 @endauth
-{{-- <button onclick="showMenu()" class="relative hidden z-[30]">
+{{-- <button onclick="showMenu()" class="relative z-[30]">
     <img src="menu.svg" alt="" class="w-8">
 </button> --}}
 
