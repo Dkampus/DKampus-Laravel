@@ -1,9 +1,11 @@
-const CardPesananCheckbox = document.getElementById('CardPesananCheckbox');
-const CardPesananLikeButton = document.getElementById('CardPesananLikeButton');
-CardPesananCheckbox.addEventListener('change', function () {
-    CardPesananLikeButton.classList.toggle('active', CardPesananCheckbox.checked);
+const CardPesananCheckbox = document.getElementById("CardPesananCheckbox");
+const CardPesananLikeButton = document.getElementById("CardPesananLikeButton");
+CardPesananCheckbox.addEventListener("change", function () {
+    CardPesananLikeButton.classList.toggle(
+        "active",
+        CardPesananCheckbox.checked
+    );
 });
-
 
 // const listAddNewAddress = document.getElementById('addNewAddress');
 // const overlayAddNewAddress = document.getElementById('overlayAddNewAddress');
@@ -30,128 +32,161 @@ CardPesananCheckbox.addEventListener('change', function () {
 //     overlayAddNewAddress.style.zIndex = '-10';
 // }
 
-const number = document.getElementById('number')
-const decrement = document.getElementById('decrement');
-const increment = document.getElementById('increment');
+// const Delete = document.getElementById("delete");
 
-const Delete = document.getElementById('delete');
-
-const listAddNewAddress = document.getElementById('addNewAddress');
-const overlayAddNewAddress = document.getElementById('overlayAddNewAddress');
-const ToggleAddress = document.getElementById('alamat');
+const listAddNewAddress = document.getElementById("addNewAddress");
+const overlayAddNewAddress = document.getElementById("overlayAddNewAddress");
+const ToggleAddress = document.getElementById("alamat");
 
 const state = {
     condition: false,
-    count: 1
+    count: 1,
+};
+
+function renderHideListAddress() {
+    listAddNewAddress.style.height = "0rem";
+    listAddNewAddress.style.bottom = "-99rem";
+
+    document.body.style.overflow = "auto";
+
+    overlayAddNewAddress.style.visibility = "invisible";
+    overlayAddNewAddress.style.opacity = "0";
+    overlayAddNewAddress.style.zIndex = "-10";
 }
 
-function renderHideListAddress(){
-    listAddNewAddress.style.height = '0rem'
-    listAddNewAddress.style.bottom = '-99rem'
+function renderShowListAddress() {
+    if (state.condition) {
+        listAddNewAddress.style.height = "24rem";
+        listAddNewAddress.style.bottom = "10rem";
 
-    document.body.style.overflow = 'auto';
+        document.body.style.overflow = "hidden";
 
-    overlayAddNewAddress.style.visibility = 'invisible';
-    overlayAddNewAddress.style.opacity = '0';
-    overlayAddNewAddress.style.zIndex = '-10';
-} 
+        overlayAddNewAddress.style.visibility = "visible";
+        overlayAddNewAddress.style.opacity = "100";
+        overlayAddNewAddress.style.zIndex = "0";
+    } else {
+        listAddNewAddress.style.height = "0rem";
+        listAddNewAddress.style.bottom = "-99rem";
 
-function renderShowListAddress(){
-    if(state.condition){
-        listAddNewAddress.style.height = '24rem'
-        listAddNewAddress.style.bottom = '10rem'
+        document.body.style.overflow = "auto";
 
-        document.body.style.overflow = 'hidden';
-
-        overlayAddNewAddress.style.visibility = 'visible';
-        overlayAddNewAddress.style.opacity = '100';
-        overlayAddNewAddress.style.zIndex = '0';
-    }else{
-        listAddNewAddress.style.height = '0rem'
-        listAddNewAddress.style.bottom = '-99rem'
-
-        document.body.style.overflow = 'auto';
-
-        overlayAddNewAddress.style.visibility = 'invisible';
-        overlayAddNewAddress.style.opacity = '0';
-        overlayAddNewAddress.style.zIndex = '-10';
+        overlayAddNewAddress.style.visibility = "invisible";
+        overlayAddNewAddress.style.opacity = "0";
+        overlayAddNewAddress.style.zIndex = "-10";
     }
 }
 
-function toggleState(){
+function toggleState() {
     state.condition = !state.condition;
-    renderShowListAddress()
+    renderShowListAddress();
 }
 
-overlayAddNewAddress.addEventListener('click',toggleState);
-ToggleAddress.addEventListener('click',toggleState);
-renderShowListAddress()
-
-
-function renderCount(){
-    number.value = state.count
-    decrement.disabled = state.count === 1;
-    if(state.count > 1){
-        decrement.style.visibility = 'visible';
-        decrement.style.position = 'relative';
-        decrement.style.opacity = '100';
-        decrement.style.display = 'flex'
-        Delete.style.visibility = 'invisible';
-        Delete.style.position = 'absolute';
-        Delete.style.opacity = '0';
-        Delete.style.display = 'none';
-    }else if (state.count === 1){
-        decrement.style.visibility = 'invisible';
-        decrement.style.position = 'absolute';
-        decrement.style.opacity = '0';
-        decrement.style.display = 'none'
-        Delete.style.visibility = 'visible';
-        Delete.style.position = 'relative';
-        Delete.style.opacity = '100';
-        Delete.style.display = 'flex';
-    }
-}
-function incrementCounter(){
-    state.count += 1;
-    renderCount();
-}
-function decrementCounter(){
-    if(state.count > 0){
-        state.count -= 1;
-        renderCount();
-    }
-}
-increment.addEventListener('click',incrementCounter);
-decrement.addEventListener('click',decrementCounter);
-
-function renderModals(){
-    
-}
-// const cardPesanan = document.getElementById('cardPesanan');
-// const cardPesanan01 = document.getElementById('cardPesanan01')
-// function DeleteItem(){
-//     cardPesanan.remove()
-// }
-// function DeleteItem2(){
-//     cardPesanan01.remove()
-// }
-
-// const cardList = document.getElementById('cardList');
-// const contentCard = document.getElementById('contentCard');
-// const titleWarung = document.getElementById('titleWarung');
-// if(cardList.children.length === 0){
-//     titleWarung.remove();
-
-//     const imageElement = document.createElement('div');
-//     imageElement.innerHTML = "<h1>HElllo </h1>"
-
-//     contentCard.appendChild(imageElement)
-// }
+overlayAddNewAddress.addEventListener("click", toggleState);
+ToggleAddress.addEventListener("click", toggleState);
+renderShowListAddress();
 
 const checkAllCheckbox = document.getElementById("checkboxWarung");
 const checkboxes = document.querySelectorAll("#checkboxMakanan");
 checkAllCheckbox.addEventListener("change", function () {
-  checkboxes.forEach(function (checkbox) {
-    checkbox.checked = checkAllCheckbox.checked;
-  });
+    checkboxes.forEach(function (checkbox) {
+        checkbox.checked = checkAllCheckbox.checked;
+    });
+});
+
+const incrementBtns = document.querySelectorAll("#increment");
+const decrementBtns = document.querySelectorAll("#decrement");
+const quantityInputs = document.querySelectorAll("#number");
+const deleteBtn = document.querySelectorAll("#delete");
+
+console.log("memek");
+
+function calculateTotal() {
+    const quantities = document.querySelectorAll(
+        'input[name="items[quantity][]"]'
+    );
+    const prices = document.querySelectorAll('input[name="items[harga][]"]');
+
+    let totalPrice = 0;
+
+    quantities.forEach((input, index) => {
+        const quantity = parseInt(input.value);
+        const price = parseInt(prices[index].value);
+        const itemTotal = price * quantity;
+        totalPrice += itemTotal;
+    });
+
+    // Format totalPrice as Indonesian Rupiah
+    const formatter = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    });
+    const formattedTotalPrice = formatter.format(totalPrice);
+
+    const totalPriceInput = document.getElementById("total_harga");
+    totalPriceInput.textContent = formattedTotalPrice;
+}
+
+// Loop through all quantity inputs
+quantityInputs.forEach(function (quantityInput, index) {
+    const itemQuantity = parseInt(quantityInput.value);
+    const decrementBtn = decrementBtns[index];
+    const incrementBtn = incrementBtns[index];
+
+    // Show or hide decrement button based on quantity value
+    if (itemQuantity === 1) {
+        decrementBtn.style.display = "0";
+        decrementBtn.style.pointerEvents = "none";
+    }
+
+    // Show or hide increment button based on quantity value
+    if (itemQuantity === 100) {
+        incrementBtn.style.opacity = "0";
+        incrementBtn.style.pointerEvents = "none";
+    }
+
+    // Add click event listener to decrement button
+    decrementBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        let currentQuantity = parseInt(quantityInput.value);
+
+        if (currentQuantity > 1) {
+            decrementBtn.style.display = "absolute";
+            decrementBtn.style.pointerEvents = "auto";
+            quantityInput.value = currentQuantity - 1;
+            currentQuantity--;
+        }
+
+        if (currentQuantity == 1) {
+            decrementBtn.style.display = "none";
+            decrementBtn.style.pointerEvents = "none";
+            incrementBtn.style.pointerEvents = "auto";
+            deleteBtn[index].style.display = "flex";
+        }
+
+        calculateTotal();
+    });
+
+    // Add click event listener to increment button
+    incrementBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        let currentQuantity = parseInt(quantityInput.value);
+
+        if (currentQuantity < 100) {
+            currentQuantity++;
+            quantityInput.value = currentQuantity;
+            incrementBtn.style.opacity = currentQuantity === 100 ? "0" : "1";
+            incrementBtn.style.pointerEvents =
+                currentQuantity === 100 ? "none" : "auto";
+        }
+
+        if (currentQuantity == 2) {
+            deleteBtn[index].style.display = "none";
+            decrementBtn.style.display = "flex";
+            decrementBtn.style.pointerEvents = "auto";
+        }
+
+        calculateTotal();
+    });
 });
