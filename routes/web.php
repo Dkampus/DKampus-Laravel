@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +21,8 @@ Route::get('/', [UserController::class, 'index'])->name('homepage');
 // Promo Page
 Route::get('/promo', [UserController::class, 'promoLayout']);
 Route::get('/promo/makanan', [UserController::class, 'makanan']);
+Route::get('/promo/minuman', [UserController::class, 'minuman']);
+Route::get('/promo/cemilan', [UserController::class, 'cemilan']);
 Route::get('/promo', [UserController::class, 'semua']);
 
 // Detail Routes
@@ -27,9 +30,8 @@ Route::get('/detail-warung',[UserController::class,'detailWarung']);
 Route::get('/detail-makanan',[UserController::class,'detailMakanan']);
 
 //Pesanan Routes
-Route::get('/pesanan',[UserController::class,'pesananLayout']);
-Route::get('/pesanan',[UserController::class,'pesanan']);
-Route::get('/pesanan/proses',[UserController::class,'proses']);
+Route::get('/pesanan',[CartController::class,'index']);
+Route::get('/pesanan/status',[CartController::class,'status']);
 
 // Login & Register Routes
 Route::get('/masuk', [UserController::class,'login']);

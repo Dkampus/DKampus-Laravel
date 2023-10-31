@@ -8,8 +8,31 @@ swiper-container .swiper-button-disabled {
   box-shadow: 0px -3px 30px -15px rgba(0,0,0,0.1);
 }
 
+.shadow-top-for-total-harga{
+  /* box-shadow: 0px 2px 15px -3px rgba(0,0,0,0.1); */
+  box-shadow: 0px -2px 15px -3px rgba(0,0,0,0.1);
+}
+
 .text-wrapper{
   max-width: 220px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.text-wrapper-location-profile{
+  max-width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.text-wrapper-location{
+  max-width: 350px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

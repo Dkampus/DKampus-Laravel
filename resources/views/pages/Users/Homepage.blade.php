@@ -4,6 +4,7 @@
         {{-- Topbar --}}
         @include('components.header.topbar')
     </header>
+
     <main class="">
         {{-- Carousel Banner --}}
         <x-banner.carousel>
@@ -90,6 +91,9 @@
                 </div>
             @endforeach
         </x-list-food.slider>
+
     </main>
+    
+    {{-- Scroll Behaviour --}}
     @include('components.scrollBehaviourr.scroll-behaviour')
 @endsection

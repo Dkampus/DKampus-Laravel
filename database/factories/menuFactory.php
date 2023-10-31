@@ -16,10 +16,15 @@ class menuFactory extends Factory
      */
     public function definition(): array
     {
+        $menu_makanan = ['friedChicken.jpeg', 'ayamGoyeng.jpg', 'geprek.jpg', 'goyengAyam.jpeg', 'pahaAyam.jpeg', 'pahaAyam.jpg', 'spagetti.jpg'];
+        $indeks = rand(0, count($menu_makanan) - 1);
+        $rand_image = $menu_makanan[$indeks];
+
         return [
-            'umkm_id' => mt_rand(1,5),
+            'umkm_id' => mt_rand(1,3),
             'nama_makanan' => $this->faker->words(2, true),
             'deskripsi' => $this->faker->paragraphs(3, true),
+            'image' => $rand_image,
             'harga' => mt_rand(3, 20). "000",
             'rating' => mt_rand(2, 10)
         ];

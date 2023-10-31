@@ -29,7 +29,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('homepage');
+        if (Auth::user()->role == 'Admin') {
+            return redirect()->route('dashboard');
+        } else {
+            return redirect()->route('homepage');
+        }
     }
 
     /**
@@ -44,5 +48,25 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    function loginApi(Request $request)
+    {
+        $loginData = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt($loginData)) {
+            $token = $request->user()->createToken('authToken')->plainTextToken;
+            return response()->json([
+                'data' => Auth::user(),
+                'token' => $token,
+            ], 200);
+        }
+
+        return response()->json([
+            'message' => "Email atau password salah",
+        ], 401);
     }
 }

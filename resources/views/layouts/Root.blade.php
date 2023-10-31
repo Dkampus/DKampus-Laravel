@@ -42,14 +42,16 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-<div id="containerLayout" class="max-w-xl">
-  @yield('content')
+<div id="containerLayout" class="max-w-xl relative overflow-hidden">
+@yield('content')
+@if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit' || $Title === 'Status')
+<div class="w-full flex justify-center">
+  @include('components.navbar.navbar')
 </div>
-@if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit')
-@include('components.navbar.navbar')
 @else
 {{-- @include('components.navbar.navbar') --}}
 @endif
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
@@ -63,6 +65,9 @@
     @break
     @case('Pesanan')
     <script src="{{asset('js/pesanan.js')}}"></script> 
+    @break
+    @case('Status')
+    <script src="{{asset('js/status.js')}}"></script> 
     @break
     @case('Favorit')
       

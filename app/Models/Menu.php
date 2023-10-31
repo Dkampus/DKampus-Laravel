@@ -9,11 +9,9 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nama_makanan',
-        'deskripsi',
-        'harga',
-        'rating'
+    protected $guarded = [
+        'id',
+        'umkm_id'
     ];
 
     public function data_umkm()

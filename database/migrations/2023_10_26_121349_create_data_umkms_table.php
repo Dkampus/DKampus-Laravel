@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignUuid('user_id');
             // Nama User
             $table->string('nama_umkm');
+            $table->string('logo_umkm');
             $table->string('alamat');
             $table->string('no_telp_umkm');
             $table->boolean('vip');
