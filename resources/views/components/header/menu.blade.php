@@ -6,7 +6,7 @@
 @endguest
 
 @auth
-<button onclick="showMenu()" class="relative hidden z-[30]">
+<button onclick="showMenu()" class="relative z-[30]">
     <img src="menu.svg" alt="" class="w-8">
 </button>
 @endauth
