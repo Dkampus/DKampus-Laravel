@@ -1,6 +1,18 @@
-<button onclick="showMenu()" class="relative z-[30]">
+@guest
+    <a href="/masuk"
+    class="bg-white w-10 h-[1.8rem] rounded-2xl text-center text-white flex items-center justify-center font-semibold text-base">
+    <img src="/login.svg" alt="" class="w-ful h-full">
+    </a>
+@endguest
+
+@auth
+<button onclick="showMenu()" class="relative hidden z-[30]">
     <img src="menu.svg" alt="" class="w-8">
 </button>
+@endauth
+{{-- <button onclick="showMenu()" class="relative hidden z-[30]">
+    <img src="menu.svg" alt="" class="w-8">
+</button> --}}
 
 <div id="bar-menu"
     class="h-screen invisible bg-white shadow-xl overflow-auto transition-all duration-500 absolute w-0 top-0 right-0 z-[70]">
@@ -82,10 +94,6 @@
             <img src="copyright.svg" alt="" class="w-4">
             <h1>Copyright Dkampus 2042</h1>
         </div>
-        @guest
-            <a href="/masuk"
-                class="bg-[#F9832A] w-20 h-[1.8rem] rounded-2xl text-center text-white flex items-center justify-center font-semibold text-base">Masuk</a>
-        @endguest
         @auth
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

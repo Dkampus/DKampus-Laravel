@@ -1,7 +1,7 @@
 @extends('layouts.Login&Register')
 @section('loginregister-content')
     <form id="formRegister" action="{{ route('register') }}" method="POST"
-        class="w-[27rem] h-[32rem] border-2 flex flex-col py-10 mx-auto my-10 rounded-2xl text-[#5E5E5E]">
+        class="w-[27rem] h-[35rem] border-2 flex flex-col py-10 mx-auto my-10 rounded-2xl text-[#5E5E5E]">
         @csrf
         {{-- Title --}}
         <h1 class="font-semibold text-xl text-center mb-10 text-black">Daftar <span class="text-[#F9832A]">Sekarang</span>
