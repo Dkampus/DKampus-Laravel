@@ -3,7 +3,7 @@
     {!! Form::open([
         'route' => 'login',
         'method' => 'POST',
-        'class' => 'w-[27rem] h-[32rem] border-2 flex flex-col py-10 mx-auto my-10 rounded-2xl text-[#5E5E5E]',
+        'class' => 'w-[27rem] h-[33rem] border-2 flex flex-col py-10 mx-auto my-10 rounded-2xl text-[#5E5E5E]',
     ]) !!}
 
     {{-- Title --}}
@@ -51,14 +51,15 @@
         </div>
 
         {{-- Submit & Daftar --}}
-        <div id="submitAndDaftar" class="flex flex-col gap-2 mt-3 mx-auto w-96 items-center">
+        <div id="submitAndDaftar" class="flex flex-col gap-3.5 mt-3 mx-auto w-96 items-center">
             {!! Form::submit('Masuk', [
                 'class' => 'bg-[#F9832A] w-full h-[3.4rem] rounded-2xl text-white font-semibold text-lg',
                 'onclick' => 'showModal()',
             ]) !!}
-            <div class="flex flex-row items-center gap-1 ml-auto mt-3">
+            <button class="bg-white border-2 border-[#F9832A] w-full h-[3.4rem] rounded-2xl text-[#F9832A] font-semibold text-lg">Daftar</button>
+            {{-- <div class="flex flex-row items-center gap-1 ml-auto mt-3">
                 <h2>Belum punya akun?</h2><a href="/daftar" class="text-[#F9832A]">Daftar</a>
-            </div>
+            </div> --}}
         </div>
 
         {{-- Modal Jika Email belum terdaftar --}}

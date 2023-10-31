@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'knalpotbaja@mail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('12345'), // password
-            'role' => 'kurir',
+            'role' => 'courier',
             'no_telp' => '827-986-5852'
         ]);
 

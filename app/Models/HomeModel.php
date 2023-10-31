@@ -56,7 +56,7 @@ class HomeModel
             'Img' => 'warmingUp.svg',
             'IconTime' => 'clock.svg',
             'Time' => '09:00 - 21:00',
-            'Title' => 'Warming Up - KoLab',
+            'Title' => 'WarmingUP - Ko+Lab',
             'MarkPromo' => 'promoMark.svg'
         ],
         [

@@ -40,19 +40,18 @@ class RegisteredUserController extends Controller
         DB::beginTransaction();
         try {
             $request->validate([
-                'name' => ['nullable', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
 
             $user = User::create([
-                'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => "Admin"
+                'role' => "customer"
             ]);
             DB::commit();
         } catch (\Exception $e) {
+            // dd($e);
             DB::rollback();
             flash('Gagal mendaftar, silahkan coba lagi')->error();
             return redirect()->back();
