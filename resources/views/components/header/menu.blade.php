@@ -1,6 +1,6 @@
 @guest
     <a href="/masuk"
-    class="text-white w-20 h-[2.5rem] rounded-xl text-center bg-[#F9832A] flex items-center gap-2 justify-center font-semibold text-base">
+    class="text-white w-20 h-[2.5rem] rounded-lg text-center bg-[#F9832A] flex items-center gap-2 justify-center font-semibold text-base">
     Masuk
     </a>
 @endguest
