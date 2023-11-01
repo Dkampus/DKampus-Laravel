@@ -8,7 +8,6 @@ use App\Models\DetailWarungModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +81,7 @@ Route::get('/detail-warung/{umkm:slug}', function(Data_umkm $umkm){
         'nama_umkm' => $umkm->nama_umkm,
         'alamat' => $umkm->alamat,
         'rating' => $umkm->rating,
-        'CardFood' => $umkm->menu, 
+        'CardFood' => $umkm->menu,
         'BannerFade' => DetailWarungModel::bannerDetail(),
         'Title' => 'Detail-Warung'
     ]);
@@ -91,7 +90,7 @@ Route::get('/detail-warung/{umkm:slug}', function(Data_umkm $umkm){
 Route::get('/detail-makanan', function(){
     return view('pages.Users.DetailMakanan',[
         'Title' => 'Detail-Makanan',
-        'CardFood' => DetailWarungModel::listMakanan(), 
+        'CardFood' => DetailWarungModel::listMakanan(),
     ]);
 });
 
@@ -109,9 +108,8 @@ Route::get('atur-ulang-kata-sandi',[UserController::class,'atur_ulang_kata_sandi
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::view('/dashboard', 'pages/admin/dashboard')->name('dashboard');
     Route::view('/umkm', 'pages/admin/UMKM')->name('umkm');
+    Route::post('/umkm', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
 });
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
