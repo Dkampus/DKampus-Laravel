@@ -62,7 +62,7 @@
                                             <div class="flex flex-col justify-center gap-3 px-5">
                                                 <h1 class="font-semibold text-xl">{{ $c->menu->nama_makanan }}</h1>
                                                 <a href="" class="text-sm text-gray-500">Tambahkan catatan</a>
-                                                <h2 class="text-[#F9832A] font-semibold text-lg">Rp. {{ $harga }}
+                                                <h2 class="text-[#F9832A] font-semibold text-lg">Rp{{ $harga }}
                                                 </h2>
                                             </div>
                                             <div id="count"
@@ -154,7 +154,7 @@
         <div id="totalHarga" class="flex flex-row gap-5">
             <div id="descTotalHarga" class="text-center">
                 <h1>Total Harga</h1>
-                <p id="total_harga" class=" font-semibold border-b-2 border-[#F9832A]">Rp. {{ $total_harga }}</p>
+                <p id="total_harga" class=" font-semibold border-b-2 border-[#F9832A]">Rp{{ $total_harga }}</p>
             </div>
             <div id="buttonTotalHarga">
                 <button class="bg-[#F9832A] h-10 w-24 text-white font-semibold rounded-xl">

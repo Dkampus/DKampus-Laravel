@@ -6,14 +6,14 @@
         <nav id="navbar-detail-makanan" class="fixed transition-all duration-200 z-[60] py-3.5 w-full flex flex-row justify-between items-center px-6 mt-10 mb-5">
 
             {{-- Kembali --}}
-            <a href="/detail-warung" class="font-semibold text-2xl h-12 w-12 bg-white flex flex-col justify-center items-center rounded-full">
+            <a href="/detail-warung/{{$umkm_slug}}" class="font-semibold text-2xl h-12 w-12 bg-white flex flex-col justify-center items-center rounded-full">
                 <svg height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20 11.7746C20 12.1543 19.7178 12.4681 19.3518 12.5178L19.25 12.5246L6.066 12.524L10.829 17.2675C11.1225 17.5598 11.1235 18.0347 10.8313 18.3282C10.5656 18.595 10.149 18.6201 9.85489 18.4029L9.77061 18.3305L3.72061 12.3065C3.68192 12.2679 3.64832 12.2263 3.61979 12.1822C3.61174 12.169 3.60354 12.1554 3.59576 12.1416C3.58861 12.1297 3.58215 12.1174 3.57606 12.105C3.56759 12.0869 3.55932 12.0681 3.55181 12.0491C3.5457 12.0343 3.54061 12.02 3.53596 12.0056C3.53043 11.9877 3.52506 11.9686 3.52045 11.9493C3.51701 11.9358 3.51429 11.9227 3.51192 11.9097C3.50859 11.8903 3.50575 11.8701 3.50372 11.8498C3.50197 11.8343 3.50092 11.8189 3.50034 11.8035C3.50019 11.7942 3.5 11.7844 3.5 11.7746L3.50038 11.7455C3.50095 11.7308 3.50196 11.7161 3.50339 11.7014L3.5 11.7746C3.5 11.7273 3.50438 11.681 3.51277 11.6361C3.51471 11.6253 3.51703 11.6143 3.51959 11.6034C3.52492 11.5808 3.53108 11.5591 3.53817 11.5377C3.54165 11.5272 3.5457 11.5158 3.55003 11.5046C3.5588 11.482 3.56832 11.4605 3.5788 11.4396C3.58367 11.4297 3.58913 11.4194 3.59484 11.4092C3.60421 11.3925 3.61386 11.3767 3.62407 11.3613C3.63128 11.3504 3.63925 11.339 3.64758 11.3278L3.65407 11.3192C3.67428 11.2928 3.6962 11.2677 3.71967 11.2443L3.72057 11.2436L9.77057 5.21857C10.0641 4.92629 10.5389 4.92727 10.8312 5.22077C11.0969 5.48759 11.1203 5.9043 10.9018 6.19746L10.829 6.28143L6.068 11.024L19.25 11.0246C19.6642 11.0246 20 11.3604 20 11.7746Z" fill="#003049"/>
                 </svg>                
             </a>
 
             {{-- Title --}}
-            <h1 id="titleDetail" class="text-white font-semibold text-lg uppercase invisible">Paha Ayam</h1>
+            <h1 id="titleDetail" class="text-white font-semibold text-lg uppercase invisible">{{$nama_makanan}}</h1>
 
             {{-- Favorit --}}
             <label for="NavCheckbox" id="NavLikeButton" class="w-12 h-12 bg-white flex flex-col justify-center items-center rounded-full">
@@ -28,14 +28,14 @@
         {{-- header content --}}
         <div>
             {{-- Banner Food --}}
-            <img src="pahaAyam.jpeg" alt="" class="w-full h-[30rem] object-cover">
+            <img src="../pahaAyam.jpeg" alt="" class="w-full h-[30rem] object-cover">
 
             {{-- Gradient Image --}}
             <div class="bg-gradient-to-t from-black/70 to-transparent h-full w-full absolute z-50 top-0"></div>
 
             {{-- Description --}}
             <div id="desc" class="absolute z-50 bottom-0 text-white px-5 flex flex-col gap-3.5 py-5">
-                <h1 class="text-4xl font-semibold">Paha Ayam</h1>
+                <h1 class="text-4xl font-semibold">{{$nama_makanan}}</h1>
 
                 {{-- Ratings, Time, & State Count --}}
                 <div class="flex flex-row items-center justify-between gap-8">
@@ -45,7 +45,7 @@
                             <svg height="20" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.55008 7.96476C9.3947 8.12328 9.32331 8.35253 9.3587 8.57735L9.89203 11.6845C9.93703 11.9479 9.83144 12.2144 9.62207 12.3666C9.4169 12.5245 9.14393 12.5434 8.92016 12.4171L6.26311 10.9582C6.17072 10.9065 6.06813 10.8787 5.96315 10.8755H5.80057C5.74417 10.8844 5.68898 10.9033 5.63859 10.9324L2.98094 12.3982C2.84955 12.4676 2.70077 12.4923 2.55499 12.4676C2.19984 12.3969 1.96287 12.0407 2.02106 11.6649L2.55499 8.55778C2.59039 8.33106 2.519 8.10054 2.36362 7.9395L0.1973 5.72912C0.0161234 5.54408 -0.0468684 5.26621 0.0359208 5.01549C0.11631 4.7654 0.321483 4.58288 0.569251 4.54184L3.55086 4.0865C3.77763 4.06187 3.97681 3.91661 4.07879 3.70189L5.39262 0.866291C5.42382 0.803138 5.46401 0.745036 5.51261 0.695776L5.5666 0.651569C5.59479 0.618729 5.62719 0.591573 5.66319 0.569469L5.72858 0.544208L5.83056 0.5H6.08313C6.3087 0.52463 6.50728 0.666726 6.61106 0.878922L7.94229 3.70189C8.03828 3.9084 8.22485 4.05176 8.44022 4.0865L11.4218 4.54184C11.6738 4.57973 11.8844 4.76287 11.9678 5.01549C12.0464 5.26873 11.9786 5.54661 11.7938 5.72912L9.55008 7.96476Z" fill="#Fff"/>
                             </svg>
-                            <h3>4.7</h3>
+                            <h3>{{$rating}}</h3>
                         </div>
                         <h3 id="countRatings">560 Rating</h3>
                     </div>
@@ -72,7 +72,7 @@
     {{-- Harga --}}
     <div class="flex flex-row justify-between items-center mx-5 my-7">
         <h1 class="text-2xl font-semibold">Harga</h1>
-        <h2 class="text-xl font-semibold text-[#F9832A]">Rp16.000</h2>
+        <h2 class="text-xl font-semibold text-[#F9832A]">Rp{{$harga}}</h2>
     </div>
 
     {{-- line --}}
@@ -81,7 +81,7 @@
     {{-- deskripsi --}}
     <div class="mx-5 my-7 flex flex-col gap-2">
         <h1 class="text-2xl font-semibold">Deskripsi</h1>
-        <p class="text-lg font-light">Potongan paha ayam dibalut dengan campuran tepung bumbu dan rempah-rempah segar, digoreng hingga kulitnya keemasan dan renyah Memadukan gurih dan daging paha ayam yang lembut.</p>
+        <p class="text-lg font-light">{{$deskripsi}}</p>
     </div>
 
     {{-- line --}}
@@ -98,18 +98,19 @@
     <div id="listRekomendasi" class="mx-5">
         <h1 class="font-semibold text-2xl my-5">Rekomendasi <span class="text-[#F9832A]">Menu</span> Lain</h1>
         <div class="grid grid-cols-2 relative gap-x-14 gap-y-5 mx-6 place-content-between place-items-center">
-            @forelse ($CardFood as $Item)
+            @forelse ($CardFood as $food)
+            @php $harga = number_format($food->harga, 0, ',', '.'); @endphp
                 <div href="/detail-makanan" class="w-[14.5rem] relative mb-2 border rounded-2xl transition-all duration-300 overflow-hidden hover:shadow-md">
-                    <img src="{{$Item['Img']}}" alt="" class="w-full">
+                    <img src="../{{$food->image}}" alt="" class="w-full">
                     <div id="desc" class="flex flex-col gap-2 py-2 px-3">
                         <div id="ratings" class="flex flex-row items-center gap-1">
-                            <img src="Iconly/Bold/Star.svg" alt="">
-                            <h2>{{$Item['Ratings']}}</h2>
+                            <img src="../Iconly/Bold/Star.svg" alt="">
+                            <h2>{{$food->rating}}</h2>
                         </div>
-                        <h1 class="font-semibold text-xl">{{$Item['Title']}}</h1>
-                        <h2 class="font-medium">{{$Item['Price']}}</h2>
+                        <h1 class="font-semibold text-xl">{{$food->nama_makanan}}</h1>
+                        <h2 class="font-medium">Rp{{$harga}}</h2>
                         <div id="buttons" class="flex flex-row mb-auto gap-2">
-                            <button class="bg-[#F9832A] w-[80%] h-10 rounded-xl font-semibold text-white">Beli</button>
+                            <button onclick="location.href='/detail-makanan/{{$food->slug}}'" class="bg-[#F9832A] w-[80%] h-10 rounded-xl font-semibold text-white">Beli</button>
                             <div>
                                 <label for="CardCheckbox" id="CardLikeButton" class="w-11 h-10 bg-white border-2 flex flex-col justify-center items-center rounded-xl">
                                     <svg id="CardLikeIcon" height="25" class="fill-[#5e5e5e] transition-all duration-300" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">

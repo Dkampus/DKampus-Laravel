@@ -6,6 +6,7 @@ use App\Models\HomeModel;
 use App\Models\PromoModel;
 use App\Models\DetailWarungModel;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -86,10 +87,15 @@ Route::get('/detail-warung/{umkm:slug}', function(Data_umkm $umkm){
     ]);
 });
 
-Route::get('/detail-makanan', function () {
+Route::get('/detail-makanan/{menu:slug}', function (Menu $menu) {
     return view('pages.Users.DetailMakanan', [
         'Title' => 'Detail-Makanan',
-        'CardFood' => DetailWarungModel::listMakanan(),
+        'umkm_slug' => $menu->data_umkm->slug,
+        'nama_makanan' => $menu->nama_makanan,
+        'rating' => $menu->rating,
+        'harga' => number_format($menu->harga, 0, ',', '.'),
+        'deskripsi' => $menu->deskripsi,
+        'CardFood' => Menu::where('data_umkm_id', $menu->id)->get(),
     ]);
 });
 
