@@ -17,21 +17,16 @@ class Data_umkmFactory extends Factory
      */
     public function definition(): array
     {
-        $users = User::all();
-        $indeks = rand(0, count($users) - 1);
-        $rand_id = $users[$indeks]->id;
-
         $logo = ['bagdhag.jpg', 'tehpoci.jpg', 'warmingUp.svg'];
         $indeks = rand(0, count($logo) - 1);
         $rand_logo = $logo[$indeks];
         
         return [
-            'user_id' => $rand_id,
             'nama_umkm' => $this->faker->company(),
             'logo_umkm' => $rand_logo,
             'alamat' => $this->faker->address(),
             'no_telp_umkm' => $this->faker->phoneNumber(),
-            'vip' => $this->faker->boolean()
+            'vip' => strval(mt_rand(0, 1))
         ];
     }
 }

@@ -1,11 +1,14 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Models\Menu;
+use App\Models\Data_umkm;
+use App\Models\HomeModel;
+use App\Models\PromoModel;
+use App\Models\DetailWarungModel;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\UmkmController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,18 +21,78 @@ use App\Http\Controllers\UmkmController;
 */
 
 // Index Page
-Route::get('/', [UserController::class, 'index'])->name('homepage');
+Route::get('/', function(){
+    return view('pages.Users.Homepage',[
+        'Banner' => HomeModel::bannerData(),
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
+        'Carousel' => HomeModel::carouselData(),
+        'RekomendasiWarung' => Data_umkm::all(),
+        'RekomendasiMakanan' => Menu::take(5)->get(), // tampilkan menu yang 5 pertama (tidak semua)
+        'Title' => 'Home'
+    ]);
+})->name('homepage');
 
 // Promo Page
-Route::get('/promo', [UserController::class, 'promoLayout']);
-Route::get('/promo/makanan', [UserController::class, 'makanan']);
-Route::get('/promo/minuman', [UserController::class, 'minuman']);
-Route::get('/promo/cemilan', [UserController::class, 'cemilan']);
-Route::get('/promo', [UserController::class, 'semua']);
+Route::get('/promo', function(){
+    return view('layouts.PromoLayout',[
+        'Title' => 'Promo',
+        'CarouselPromo' => PromoModel::carouselPromo(),
+        'NavPromo' => 'Semua'
+    ]);
+});
+
+Route::get('/promo/makanan', function(){
+    return view('pages.Users.MakananPage',[
+        'Title' => 'Promo',
+        'NavPromo' => 'Makanan',
+        'CarouselPromo' => PromoModel::carouselPromo(),
+    ]);
+});
+
+Route::get('/promo/minuman', function(){
+    return view('pages.Users.MinumanPage',[
+        'Title' => 'Promo',
+        'NavPromo' => 'Minuman',
+        'CarouselPromo' => PromoModel::carouselPromo(),
+    ]);
+});
+
+Route::get('/promo/cemilan', function(){
+    return view('pages.Users.CemilanPage',[
+        'Title' => 'Promo',
+        'NavPromo' => 'Cemilan',
+        'CarouselPromo' => PromoModel::carouselPromo(),
+    ]);
+});
+
+Route::get('/promo', function(){
+    return view('pages.Users.SemuaPage',[
+        'Title' => 'Promo',
+        'NavPromo' => 'Semua',
+        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+        'CarouselPromo' => PromoModel::carouselPromo(),
+    ]);
+});
 
 // Detail Routes
-Route::get('/detail-warung',[UserController::class,'detailWarung']);
-Route::get('/detail-makanan',[UserController::class,'detailMakanan']);
+Route::get('/detail-warung/{umkm:id}', function(Data_umkm $umkm){
+    return view('pages.Users.DetailWarung',[
+        'nama_umkm' => $umkm->nama_umkm,
+        'alamat' => $umkm->alamat,
+        'rating' => $umkm->rating,
+        'CardFood' => $umkm->menu,
+        'BannerFade' => DetailWarungModel::bannerDetail(),
+        'Title' => 'Detail-Warung'
+    ]);
+});
+
+Route::get('/detail-makanan', function(){
+    return view('pages.Users.DetailMakanan',[
+        'Title' => 'Detail-Makanan',
+        'CardFood' => DetailWarungModel::listMakanan(),
+    ]);
+});
 
 //Pesanan Routes
 Route::get('/pesanan',[CartController::class,'index']);

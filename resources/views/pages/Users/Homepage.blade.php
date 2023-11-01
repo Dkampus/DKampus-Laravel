@@ -39,17 +39,17 @@
 
         {{-- Slider Rekomendasi Warung --}}
         <x-list-warung.slider>
-            @forelse ($RekomendasiWarung as $Item)
+            @forelse ($RekomendasiWarung as $item)
                 <swiper-slide class="w-32 h-[17rem] my-2 relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
                     <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5">
-                    <a href="/detail-warung" class="w-full h-full bg-white overflow-hidden">
-                        <img src={{$Item['Img']}} alt="" class="w-[45rem] h-40 object-cover rounded-xl">
+                    <a href="/detail-warung/{{$item->id}}" class="w-full h-full bg-white overflow-hidden">
+                        <img src={{$item->logo_umkm}} alt="" class="w-[45rem] h-40 object-cover rounded-xl">
                         <div class="flex flex-col px-3 h-24 justify-center">
                         <div class="flex flex-row gap-1">
-                        <img src={{$Item['IconTime']}} alt="" class="w-5">
-                        <h1 class="text-[#F9832A]">{{$Item['Time']}}</h1>
+                        <img src=clock.svg alt="" class="w-5">
+                        <h1 class="text-[#F9832A]">09:00 - 21:00</h1>
                         </div>
-                        <h1 class="font-semibold text-xl">{{$Item['Title']}}</h1>
+                        <h1 class="font-semibold text-xl">{{$item->nama_umkm}}</h1>
                         </div>
                     </a>
                 </swiper-slide>
@@ -66,17 +66,18 @@
 
         {{-- Card list Rekomendasi Makanan --}}
         <x-list-food.slider>
-            @foreach ($RekomendasiMakanan as $Item)
+            @foreach ($RekomendasiMakanan as $menu)
+            @php $harga = number_format($menu->harga, 0, ',', '.'); @endphp
                 <div class="food-list-scrollTrigger w-[29rem] h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
-                    <img src={{$Item['Img']}} alt="" class="w-[40rem] h-60 object-cover relative top-0">
+                    <img src={{$menu->image}} alt="" class="w-[40rem] h-60 object-cover relative top-0">
                     {{-- Description Card --}}
                     <div class="flex flex-col items-center justify-around px-3 gap-2 py-4">
                     {{-- Title & Warung --}}
                     <div class="flex flex-row justify-between w-full items-center h-full">
-                        <h1 class="text-wrapper font-semibold text-2xl">{{$Item['Title']}}</h1>
+                        <h1 class="text-wrapper font-semibold text-2xl">{{$menu->nama_makanan}}</h1>
                         <div class="flex flex-row gap-2 items-center">
                             <img src="shop.svg" alt="" class="w-4">
-                            <h1 class="text-[#787878]">{{$Item['Warung']}}</h1>
+                            <h1 class="text-[#787878]">{{$menu->data_umkm->nama_umkm}}</h1>
                         </div>
                     </div>
 
@@ -84,9 +85,9 @@
                     <div class="flex flex-row justify-between w-full items-center h-full">
                         <div class="flex flex-row items-center gap-1">
                             <img src='Iconly/Bold/Star.svg' alt="" class="w-5">
-                            <h1 class="text-black font-light">{{$Item['Ratings']}}</h1>
+                            <h1 class="text-black font-light">{{$menu->rating}}</h1>
                         </div>
-                        <h1 class="text-[#F9832A] font-semibold text-2xl">{{$Item['Price']}}</h1>
+                        <h1 class="text-[#F9832A] font-semibold text-2xl">Rp. {{$harga}}</h1>
                     </div>
                     </div>
                 </div>

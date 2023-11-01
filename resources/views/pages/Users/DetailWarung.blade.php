@@ -29,7 +29,7 @@
     <x-bannerfade.banner-fade>
         @forelse ($BannerFade as $Item)
         <swiper-slide class="relative">
-                <img src={{$Item['Img']}} alt="" class="w-full h-full object-cover">
+                <img src=../{{$Item['Img']}} alt="" class="w-full h-full object-cover">
                 <div class="bg-gradient-to-t from-black/70 to-transparent h-full w-full absolute z-50 top-0"></div>
         </swiper-slide>
         @empty
@@ -41,10 +41,10 @@
     <div id="desc" class="absolute text-white bottom-0 z-50 mx-5 my-5">
 
         {{-- Judul Warung --}}
-        <h1 class="font-bold text-4xl mb-2">Baghdad Fried Chicken</h1>
+        <h1 class="font-bold text-4xl mb-2">{{$nama_umkm}}</h1>
 
         {{-- Judul Tempat --}}
-        <h2 class="mb-5 text-lg">Gate 4 Telkom University</h2>
+        <h2 class="mb-5 text-lg">{{$alamat}}</h2>
 
         {{-- Ratings & Clock --}}
         <div id="ratings&clock" class="flex flex-row gap-5">
@@ -54,7 +54,7 @@
                     <svg height="20" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.55008 7.96476C9.3947 8.12328 9.32331 8.35253 9.3587 8.57735L9.89203 11.6845C9.93703 11.9479 9.83144 12.2144 9.62207 12.3666C9.4169 12.5245 9.14393 12.5434 8.92016 12.4171L6.26311 10.9582C6.17072 10.9065 6.06813 10.8787 5.96315 10.8755H5.80057C5.74417 10.8844 5.68898 10.9033 5.63859 10.9324L2.98094 12.3982C2.84955 12.4676 2.70077 12.4923 2.55499 12.4676C2.19984 12.3969 1.96287 12.0407 2.02106 11.6649L2.55499 8.55778C2.59039 8.33106 2.519 8.10054 2.36362 7.9395L0.1973 5.72912C0.0161234 5.54408 -0.0468684 5.26621 0.0359208 5.01549C0.11631 4.7654 0.321483 4.58288 0.569251 4.54184L3.55086 4.0865C3.77763 4.06187 3.97681 3.91661 4.07879 3.70189L5.39262 0.866291C5.42382 0.803138 5.46401 0.745036 5.51261 0.695776L5.5666 0.651569C5.59479 0.618729 5.62719 0.591573 5.66319 0.569469L5.72858 0.544208L5.83056 0.5H6.08313C6.3087 0.52463 6.50728 0.666726 6.61106 0.878922L7.94229 3.70189C8.03828 3.9084 8.22485 4.05176 8.44022 4.0865L11.4218 4.54184C11.6738 4.57973 11.8844 4.76287 11.9678 5.01549C12.0464 5.26873 11.9786 5.54661 11.7938 5.72912L9.55008 7.96476Z" fill="#Fff"/>
                     </svg>
-                    <h3>4.7</h3>
+                    <h3>{{$rating}}</h3>
                 </div>
                 <h3 id="countRatings">560 Rating</h3>
             </div>
@@ -78,18 +78,20 @@
     {{-- List Makanan --}}
     <div class="grid grid-cols-2 relative gap-x-10 gap-y-5 mx-6 place-content-center place-items-center">
         {{-- Card Makanan --}}
-        @forelse ($CardFood as $Item)
+        {{-- @dd($CardFood) --}}
+        @forelse ($CardFood as $food)
+        @php $harga = number_format($food->harga, 0, ',', '.'); @endphp
             <div class="w-[15rem] relative mb-2 border rounded-2xl transition-all duration-300 overflow-hidden hover:shadow-md">
                 {{-- Discount Img --}}
-                <img src="discount50%.svg" alt="" class="top-5 -left-[0.65rem] overflow-auto z-50 absolute w-[5rem]">
-                <a href="/detail-makanan"><img src="{{$Item['Img']}}" alt="" class="w-full"></a>
+                <img src="../discount50%.svg" alt="" class="top-5 -left-[0.65rem] overflow-auto z-50 absolute w-[5rem]">
+                <a href="/detail-makanan"><img src="../{{$food->image}}" alt="" class="w-full"></a>
                 <div id="desc" class="flex flex-col gap-2 py-2 px-3">
                     <div id="ratings" class="flex flex-row items-center gap-1">
-                        <img src="Iconly/Bold/Star.svg" alt="">
-                        <h2>{{$Item['Ratings']}}</h2>
+                        <img src="../Iconly/Bold/Star.svg" alt="">
+                        <h2>{{$food->rating}}</h2>
                     </div>
-                    <a href="/detail-makanan" class="font-semibold text-xl">{{$Item['Title']}}</a>
-                    <h2 class="font-medium">{{$Item['Price']}}</h2>
+                    <a href="/detail-makanan" class="font-semibold text-xl">{{$food->nama_makanan}}</a>
+                    <h2 class="font-medium">Rp. {{$harga}}</h2>
                     <div id="buttons" class="flex flex-row gap-2 items-center">
                         <a href="/detail-makanan" class="bg-[#F9832A] w-[80%] h-10 rounded-xl font-semibold text-white flex flex-col justify-center items-center">Beli</a>
                         <label for="CardCheckbox" id="CardLikeButton" class="w-11 h-11 cursor-pointer bg-white border-2 flex flex-col justify-center items-center rounded-xl">
