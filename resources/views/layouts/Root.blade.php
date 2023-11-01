@@ -25,7 +25,7 @@
     <div id="containerLayout" class="max-w-xl relative mx-auto overflow-hidden">
         @yield('content')
         @if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit' || $Title === 'Status')
-            <div class="w-full flex justify-center">
+            <div class="w-full relative flex justify-center">
                 @include('components.navbar.navbar')
             </div>
         @else
