@@ -56,7 +56,10 @@
                 'class' => 'bg-[#F9832A] w-full h-[3.4rem] rounded-2xl text-white font-semibold text-lg',
                 'onclick' => 'showModal()',
             ]) !!}
-            <button class="bg-white border-2 border-[#F9832A] w-full h-[3.4rem] rounded-2xl text-[#F9832A] font-semibold text-lg">Daftar</button>
+            <a href="{{ route('register') }}"
+                class="bg-white border-2 border-[#F9832A] w-full flex justify-center items-center h-[3.4rem] rounded-2xl text-[#F9832A] font-semibold text-lg">
+                <button>Daftar</button>
+            </a>
             {{-- <div class="flex flex-row items-center gap-1 ml-auto mt-3">
                 <h2>Belum punya akun?</h2><a href="/daftar" class="text-[#F9832A]">Daftar</a>
             </div> --}}

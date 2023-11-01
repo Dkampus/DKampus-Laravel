@@ -6,7 +6,6 @@ use App\Models\HomeModel;
 use App\Models\PromoModel;
 use App\Models\DetailWarungModel;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 /*
@@ -21,8 +20,8 @@ use App\Http\Controllers\CartController;
 */
 
 // Index Page
-Route::get('/', function(){
-    return view('pages.Users.Homepage',[
+Route::get('/', function () {
+    return view('pages.Users.Homepage', [
         'Banner' => HomeModel::bannerData(),
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
@@ -34,40 +33,40 @@ Route::get('/', function(){
 })->name('homepage');
 
 // Promo Page
-Route::get('/promo', function(){
-    return view('layouts.PromoLayout',[
+Route::get('/promo', function () {
+    return view('layouts.PromoLayout', [
         'Title' => 'Promo',
         'CarouselPromo' => PromoModel::carouselPromo(),
         'NavPromo' => 'Semua'
     ]);
 });
 
-Route::get('/promo/makanan', function(){
-    return view('pages.Users.MakananPage',[
+Route::get('/promo/makanan', function () {
+    return view('pages.Users.MakananPage', [
         'Title' => 'Promo',
         'NavPromo' => 'Makanan',
         'CarouselPromo' => PromoModel::carouselPromo(),
     ]);
 });
 
-Route::get('/promo/minuman', function(){
-    return view('pages.Users.MinumanPage',[
+Route::get('/promo/minuman', function () {
+    return view('pages.Users.MinumanPage', [
         'Title' => 'Promo',
         'NavPromo' => 'Minuman',
         'CarouselPromo' => PromoModel::carouselPromo(),
     ]);
 });
 
-Route::get('/promo/cemilan', function(){
-    return view('pages.Users.CemilanPage',[
+Route::get('/promo/cemilan', function () {
+    return view('pages.Users.CemilanPage', [
         'Title' => 'Promo',
         'NavPromo' => 'Cemilan',
         'CarouselPromo' => PromoModel::carouselPromo(),
     ]);
 });
 
-Route::get('/promo', function(){
-    return view('pages.Users.SemuaPage',[
+Route::get('/promo', function () {
+    return view('pages.Users.SemuaPage', [
         'Title' => 'Promo',
         'NavPromo' => 'Semua',
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
@@ -76,8 +75,8 @@ Route::get('/promo', function(){
 });
 
 // Detail Routes
-Route::get('/detail-warung/{umkm:id}', function(Data_umkm $umkm){
-    return view('pages.Users.DetailWarung',[
+Route::get('/detail-warung/{umkm:id}', function (Data_umkm $umkm) {
+    return view('pages.Users.DetailWarung', [
         'nama_umkm' => $umkm->nama_umkm,
         'alamat' => $umkm->alamat,
         'rating' => $umkm->rating,
@@ -87,23 +86,23 @@ Route::get('/detail-warung/{umkm:id}', function(Data_umkm $umkm){
     ]);
 });
 
-Route::get('/detail-makanan', function(){
-    return view('pages.Users.DetailMakanan',[
+Route::get('/detail-makanan', function () {
+    return view('pages.Users.DetailMakanan', [
         'Title' => 'Detail-Makanan',
         'CardFood' => DetailWarungModel::listMakanan(),
     ]);
 });
 
 //Pesanan Routes
-Route::get('/pesanan',[CartController::class,'index']);
-Route::get('/pesanan/status',[CartController::class,'status']);
+Route::get('/pesanan', [CartController::class, 'index']);
+Route::get('/pesanan/status', [CartController::class, 'status']);
 
 // Login & Register Routes
-Route::get('/masuk', [UserController::class,'login']);
-Route::get('/daftar', [UserController::class,'register']);
-Route::get('/input-registrasi',[UserController::class,'input_register']);
-Route::get('/code-verification',[UserController::class,'code_verification']);
-Route::get('atur-ulang-kata-sandi',[UserController::class,'atur_ulang_kata_sandi']);
+Route::get('/masuk', [UserController::class, 'login']);
+Route::get('/daftar', [UserController::class, 'register']);
+Route::get('/input-registrasi', [UserController::class, 'input_register']);
+Route::get('/code-verification', [UserController::class, 'code_verification']);
+Route::get('atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sandi']);
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::view('/dashboard', 'pages/admin/dashboard')->name('dashboard');
