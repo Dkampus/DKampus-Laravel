@@ -11,12 +11,12 @@ class Menu extends Model
 
     protected $guarded = [
         'id',
-        'umkm_id'
+        'data_umkm_id'
     ];
 
     public function data_umkm()
     {
-        return $this->belongsTo(Data_umkm::class, 'umkm_id');
+        return $this->belongsTo(Data_umkm::class);
     }
 
     public function cart()

@@ -77,9 +77,12 @@ Route::get('/promo', function(){
 });
 
 // Detail Routes
-Route::get('/detail-warung', function(){
+Route::get('/detail-warung/{umkm:id}', function(Data_umkm $umkm){
     return view('pages.Users.DetailWarung',[
-        'CardFood' => DetailWarungModel::listMakanan(), 
+        'nama_umkm' => $umkm->nama_umkm,
+        'alamat' => $umkm->alamat,
+        'rating' => $umkm->rating,
+        'CardFood' => $umkm->menu, 
         'BannerFade' => DetailWarungModel::bannerDetail(),
         'Title' => 'Detail-Warung'
     ]);

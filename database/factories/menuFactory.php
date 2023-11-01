@@ -21,7 +21,7 @@ class menuFactory extends Factory
         $rand_image = $menu_makanan[$indeks];
 
         return [
-            'umkm_id' => mt_rand(1,3),
+            'data_umkm_id' => mt_rand(1,3),
             'nama_makanan' => $this->faker->words(2, true),
             'deskripsi' => $this->faker->paragraphs(3, true),
             'image' => $rand_image,
