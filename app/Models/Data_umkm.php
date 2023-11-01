@@ -16,11 +16,6 @@ class Data_umkm extends Model
         'vip'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function menu()
     {
         return $this->hasMany(Menu::class);
