@@ -3,10 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\HomeModel;
-use App\Models\PromoModel;
-use App\Models\DetailWarungModel;
-
 
 class UserController extends Controller
 {
@@ -15,38 +11,7 @@ class UserController extends Controller
     */
     public function index()
     {
-        return view('pages.Users.Homepage',[
-            'Banner' => HomeModel::bannerData(),
-            'PengaturanAkun' => HomeModel::pengaturanAkun(),
-            'SeputarDkampus' => HomeModel::seputarDkampus(),
-            'Carousel' => HomeModel::carouselData(),
-            'RekomendasiWarung' => HomeModel::rekomendasiWarung(),
-            'RekomendasiMakanan' => HomeModel::rekomendasiMakanan(),
-            'Title' => 'Home'
-        ]);
-    }
-
-    public function detailWarung(){
-        return view('pages.Users.DetailWarung',[
-            'CardFood' => DetailWarungModel::listMakanan(), 
-            'BannerFade' => DetailWarungModel::bannerDetail(),
-            'Title' => 'Detail-Warung'
-        ]);
-    }
-
-    public function detailMakanan(){
-        return view('pages.Users.DetailMakanan',[
-            'Title' => 'Detail-Makanan',
-            'CardFood' => DetailWarungModel::listMakanan(), 
-        ]);
-    }
-
-    public function promoLayout(){
-        return view('layouts.PromoLayout',[
-            'Title' => 'Promo',
-            'CarouselPromo' => PromoModel::carouselPromo(),
-            'NavPromo' => 'Semua'
-        ]);
+        // dipindah ke web.php
     }
 
     public function login(){
@@ -78,37 +43,6 @@ class UserController extends Controller
             'Title' => 'Atur Ulang Kata Sandi',
         ]);
     }
-
-    public function makanan(){
-        return view('pages.Users.MakananPage',[
-            'Title' => 'Promo',
-            'NavPromo' => 'Makanan',
-            'CarouselPromo' => PromoModel::carouselPromo(),
-        ]);
-    }
-    public function semua(){
-        return view('pages.Users.SemuaPage',[
-            'Title' => 'Promo',
-            'NavPromo' => 'Semua',
-            'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
-            'CarouselPromo' => PromoModel::carouselPromo(),
-        ]);
-    }
-    public function minuman(){
-        return view('pages.Users.MinumanPage',[
-            'Title' => 'Promo',
-            'NavPromo' => 'Minuman',
-            'CarouselPromo' => PromoModel::carouselPromo(),
-        ]);
-    }
-    public function cemilan(){
-        return view('pages.Users.CemilanPage',[
-            'Title' => 'Promo',
-            'NavPromo' => 'Cemilan',
-            'CarouselPromo' => PromoModel::carouselPromo(),
-        ]);
-    }
-
 
     /**
      * Show the form for creating a new resource.
