@@ -77,7 +77,7 @@ Route::get('/promo', function(){
 });
 
 // Detail Routes
-Route::get('/detail-warung/{umkm:id}', function(Data_umkm $umkm){
+Route::get('/detail-warung/{umkm:slug}', function(Data_umkm $umkm){
     return view('pages.Users.DetailWarung',[
         'nama_umkm' => $umkm->nama_umkm,
         'alamat' => $umkm->alamat,

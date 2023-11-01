@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_umkm');
             $table->string('logo_umkm');
+            $table->string('slug');
             $table->string('alamat');
             $table->string('no_telp_umkm');
             $table->enum('vip', ['0', '1']);

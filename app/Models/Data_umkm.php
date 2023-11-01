@@ -9,11 +9,8 @@ class Data_umkm extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nama_umkm',
-        'alamat',
-        'no_telp_umkm',
-        'vip'
+    protected $guarded = [
+        'id'
     ];
 
     public function menu()

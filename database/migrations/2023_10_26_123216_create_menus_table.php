@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('data_umkm_id');
             $table->string('nama_makanan');
+            $table->string('slug');
             // Nama UMKM
             $table->text('deskripsi');
             $table->string('image');
