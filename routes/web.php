@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UmkmController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,9 +45,8 @@ Route::get('atur-ulang-kata-sandi',[UserController::class,'atur_ulang_kata_sandi
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::view('/dashboard', 'pages/admin/dashboard')->name('dashboard');
     Route::view('/umkm', 'pages/admin/UMKM')->name('umkm');
+    Route::post('/umkm', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
 });
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

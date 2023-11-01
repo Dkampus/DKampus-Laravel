@@ -11,6 +11,7 @@ class Data_umkm extends Model
 
     protected $fillable = [
         'nama_umkm',
+        'logo_umkm',
         'alamat',
         'no_telp_umkm',
         'vip'

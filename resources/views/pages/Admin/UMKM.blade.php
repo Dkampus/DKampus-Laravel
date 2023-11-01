@@ -10,11 +10,12 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h1 class="text-2xl font-bold mb-4">Form UMKM</h1>
-                    <form method="POST" action="" enctype="multipart/form-data" class="space-y-4">
+                    <form method="POST" action="{{ route('umkm.store') }}" enctype="multipart/form-data" class="space-y-4">
                         @csrf
 
                         <!-- Input fields for UMKM data -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="hidden" name="user_id" id="" value="{{ Auth::id() }}">
                             <div>
                                 <label for="nama_umkm">Nama UMKM:</label>
                                 <input type="text" name="nama_umkm" id="nama_umkm" placeholder="Nama UMKM" class="w-full px-3 py-2 border rounded-md">
@@ -42,9 +43,9 @@
                         <div>
                             <div class="flex items-center">
                                 <label for="vip">VIP: &nbsp;</label>
-                                <input type="radio" name="vip" value="Ya" id="vip-ya">
+                                <input type="radio" name="vip" value="0" id="vip-ya">
                                 <label for="vip-ya" class="ml-1">Ya</label>
-                                <input type="radio" name="vip" value="Tidak" id="vip-tidak" class="ml-4">
+                                <input type="radio" name="vip" value="1" id="vip-tidak" class="ml-4">
                                 <label for="vip-tidak" class="ml-1">Tidak</label>
                             </div>
                         </div>
