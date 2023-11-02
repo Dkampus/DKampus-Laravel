@@ -17,7 +17,7 @@ return new class extends Migration
             // Nama makanan
             // quantity
             // total_harga
-            $table->string('catatan');
+            // catatan
             $table->timestamps();
         });
     }

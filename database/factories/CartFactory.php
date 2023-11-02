@@ -25,6 +25,7 @@ class CartFactory extends Factory
             'user_id' => $rand_id,
             'menu_id' => mt_rand(1, 20),
             'quantity' => mt_rand(1, 10),
+            'catatan' => $this->faker->sentence(),
         ];
     }
 }
