@@ -42,7 +42,14 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $carts = Cart::create([
+            'user_id' => $request->user_id,
+            'menu_id' => $request->menu_id,
+            'quantity' => $request->quantity,
+            'catatan' => $request->catatan
+        ]);
+
+        return redirect('/pesanan');
     }
 
     /**

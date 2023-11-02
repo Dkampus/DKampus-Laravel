@@ -95,12 +95,13 @@ Route::get('/detail-makanan/{menu:slug}', function (Menu $menu) {
         'rating' => $menu->rating,
         'harga' => number_format($menu->harga, 0, ',', '.'),
         'deskripsi' => $menu->deskripsi,
-        'CardFood' => Menu::where('data_umkm_id', $menu->id)->get(),
+        'CardFood' => Menu::where('data_umkm_id', $menu->data_umkm_id)->get(),
     ]);
 });
 
 //Pesanan Routes
 Route::get('/pesanan', [CartController::class, 'index']);
+Route::post('/pesananStore', [CartController::class, 'store']);
 Route::get('/pesanan/status', [CartController::class, 'status']);
 
 // Login & Register Routes
