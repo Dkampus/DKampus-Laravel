@@ -143,7 +143,8 @@
         @endforelse
     </div>
 
-    <div id="totalAndAddress"
+    <div id="totalAndAddress">
+    <div id="content"
         class="fixed border-[2.5px] border-black/10 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full bottom-0 bg-white shadow-top-for-total-harga">
         <button id="alamat" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
             <img src="Map.svg" alt="" class="w-6">
@@ -166,4 +167,5 @@
             </div>
         </div>
     </div>
+    </div>  
 @endsection
