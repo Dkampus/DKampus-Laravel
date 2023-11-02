@@ -1,22 +1,22 @@
-const BtnLikePesananCheckbox = document.querySelectorAll("#BtnLikePesananCheckbox");
-const BtnPesananLikeIcon = document.querySelectorAll("#BtnPesananLikeIcon");
+const BtnLikeCheckbox = document.querySelectorAll("#BtnLikeCheckbox");
+const BtnLikeIcon = document.querySelectorAll("#BtnLikeIcon");
+const BtnLikeButton = document.querySelectorAll('#BtnLikeButton')
+// BtnPesananLikeIcon.forEach((like,index)=>{
+//     const BtnLike = like[index]
+//     BtnLike.addEventListener("click",function(e){
+//         e.preventDefault()
+//         BtnLike.classList.toggle(
+//             "active", 
+//         )
+//     })
+// })
 
-BtnPesananLikeIcon.forEach((like,index)=>{
-    const BtnLike = like[index]
-    BtnLike.addEventListener("click",function(e){
-        e.preventDefault()
-        BtnLike.classList.toggle(
-            "active", 
-        )
-    })
-})
 
 
-
-CardPesananCheckbox.addEventListener("change", function () {
-    CardPesananLikeButton.classList.toggle(
+BtnLikeCheckbox.addEventListener("change", function () {
+    BtnLikeButton.classList.toggle(
         "active",
-        CardPesananCheckbox.checked
+        BtnLikeCheckbox.checked
     );
 });
 

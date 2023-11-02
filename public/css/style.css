@@ -69,10 +69,10 @@ input[type="number"] {
     fill: #F9832A; /* Color when the checkbox is checked */
 }
 
-#CardLikeButton.active #CardLikeIcon {
+#BtnLikeButton.active #BtnLikeIcon {
   fill: #F9832A; /* Color when the checkbox is checked */
 }
 
-#CardPesananLikeButton.active #CardPesananLikeIcon {
+#BtnLikeButton.active #BtnLikeIcon {
   fill: #F9832A; /* Color when the checkbox is checked */
 }
