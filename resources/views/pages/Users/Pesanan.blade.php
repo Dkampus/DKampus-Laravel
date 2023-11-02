@@ -32,12 +32,14 @@
                             class="flex flex-row items-center justify-start gap-4 rounded-xl">
                             {{-- Favorite and Checkbox --}}
                             <div id="favoriteAndCheckbox" class="flex flex-col gap-3 items-start mb-auto">
+
                                 <input type="checkbox" name="" id="checkboxMakanan"
                                     class="text-[#F9832A] border-2 rounded-md border-[#F9832A] w-8 h-8 transition-all duration-300 checked:fill-[#F9832A] checked:border-[#F9832A] checked:ring-[#F9832A] focus:fill-[#F9832A] focus:border-[#F9832A] focus:ring-[#F9832A]">
+
                                 <div id="like">
-                                    <label for="CardPesananCheckbox" id="CardPesananLikeButton"
+                                    <label for="BtnLikePesananCheckbox" id="CardPesananLikeButton"
                                         class="w-8 h-8 bg-white flex flex-col justify-center items-center border-2 border-[#5e5e5e]/40 rounded-md">
-                                        <svg id="CardPesananLikeIcon" height="20"
+                                        <svg id="BtnPesananLikeIcon" height="20"
                                             class="fill-[#5e5e5e]/60 transition-all duration-300" viewBox="0 0 19 18"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -45,8 +47,9 @@
                                         </svg>
                                     </label>
                                     <input class="invisible absolute" type="checkbox" name=""
-                                        id="CardPesananCheckbox">
+                                        id="BtnLikePesananCheckbox">
                                 </div>
+                                
                             </div>
 
                             {{-- content card pesanan --}}
