@@ -137,9 +137,11 @@ quantityInputs.forEach(function (quantityInput, index) {
     const incrementBtn = incrementBtns[index];
 
     // Show or hide decrement button based on quantity value
-    if (itemQuantity === 1) {
-        decrementBtn.style.display = "0";
+    if (itemQuantity == 1) {
+        decrementBtn.style.display = "none";
         decrementBtn.style.pointerEvents = "none";
+        incrementBtn.style.pointerEvents = "auto";
+        deleteBtn[index].style.display = "flex";
     }
 
     // Show or hide increment button based on quantity value
