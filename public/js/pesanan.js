@@ -1,5 +1,7 @@
-const CardPesananCheckbox = document.getElementById("CardPesananCheckbox");
-const CardPesananLikeButton = document.getElementById("CardPesananLikeButton");
+const BtnLikePesananCheckbox = document.querySelectorAll("#BtnLikePesananCheckbox");
+const BtnPesananLikeIcon = document.querySelectorAll("#BtnPesananLikeIcon");
+
+
 CardPesananCheckbox.addEventListener("change", function () {
     CardPesananLikeButton.classList.toggle(
         "active",
