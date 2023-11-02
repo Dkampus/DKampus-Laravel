@@ -1,6 +1,17 @@
 const BtnLikePesananCheckbox = document.querySelectorAll("#BtnLikePesananCheckbox");
 const BtnPesananLikeIcon = document.querySelectorAll("#BtnPesananLikeIcon");
 
+BtnPesananLikeIcon.forEach((like,index)=>{
+    const BtnLike = like[index]
+    BtnLike.addEventListener("click",function(e){
+        e.preventDefault()
+        BtnLike.classList.toggle(
+            "active", 
+        )
+    })
+})
+
+
 
 CardPesananCheckbox.addEventListener("change", function () {
     CardPesananLikeButton.classList.toggle(
