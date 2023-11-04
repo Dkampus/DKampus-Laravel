@@ -93,7 +93,6 @@ searchInput.addEventListener("input",function(){
         clearInput.style.visibility = 'visible';
        
     }else{
-        clearInput.style.display = 'none';
         clearInput.style.visibility = 'invisible';
        
     }
