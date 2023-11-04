@@ -14,7 +14,14 @@ swiper-container .swiper-button-disabled {
 }
 
 .text-wrapper{
-  max-width: 220px;
+  max-width: 150px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.text-wrapper-card-makanan{
+  max-width: 100px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

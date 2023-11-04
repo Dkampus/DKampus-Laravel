@@ -33,7 +33,7 @@
 
         {{-- Rekomendasi Warung --}}
         <div class="flex flex-row justify-between items-center  my-5">
-            <h1 class="font-semibold text-xl sm:text-2xl">Rekomendasi Warung</h1>
+            <h1 class="font-semibold w-max text-xl sm:text-2xl">Rekomendasi Warung</h1>
             <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
         </div>
 
@@ -60,34 +60,34 @@
 
         {{-- Rekomendasi Makanan --}}
         <div class="flex flex-row justify-between items-center mt-10 mb-5">
-            <h1 class="font-semibold text-2xl">Rekomendasi Makanan</h1>
-            <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
+            <h1 class="font-semibold text-xl sm:text-2xl">Rekomendasi Makanan</h1>
+            <a href="" class="text-[#F9832A] text-base sm:text-lg font-semibold">Lihat Semua</a>
         </div>
 
         {{-- Card list Rekomendasi Makanan --}}
         <x-list-food.slider>
             @foreach ($RekomendasiMakanan as $menu)
             @php $harga = number_format($menu->harga, 0, ',', '.'); @endphp
-                <div class="food-list-scrollTrigger w-[29rem] h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
+                <div class="food-list-scrollTrigger w-full h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
                     <img src={{$menu->image}} alt="" class="w-[40rem] h-60 object-cover relative top-0">
                     {{-- Description Card --}}
-                    <div class="flex flex-col items-center justify-around px-3 gap-2 py-4">
+                    <div class="w-full flex flex-row items-center justify-between px-3 py-4">
                     {{-- Title & Warung --}}
-                    <div class="flex flex-row justify-between w-full items-center h-full">
-                        <h1 class="text-wrapper font-semibold text-2xl">{{$menu->nama_makanan}}</h1>
-                        <div class="flex flex-row gap-2 items-center">
-                            <img src="shop.svg" alt="" class="w-4">
-                            <h1 class="text-[#787878]">{{$menu->data_umkm->nama_umkm}}</h1>
-                        </div>
-                    </div>
-
-                    {{-- Ratings & Price --}}
-                    <div class="flex flex-row justify-between w-full items-center h-full">
+                    <div class="flex flex-col justify-between items-start h-full">
+                        <h1 class="text-wrapper font-semibold text-lg sm:text-2xl">{{$menu->nama_makanan}}</h1>
                         <div class="flex flex-row items-center gap-1">
                             <img src='Iconly/Bold/Star.svg' alt="" class="w-5">
                             <h1 class="text-black font-light">{{$menu->rating}}</h1>
                         </div>
-                        <h1 class="text-[#F9832A] font-semibold text-2xl">Rp. {{$harga}}</h1>
+                    </div>
+
+                    {{-- Ratings & Price --}}
+                    <div class="flex flex-col justify-between items-end h-full">
+                        <div class="flex flex-row gap-2 items-center">
+                            <img src="shop.svg" alt="" class="w-4">
+                            <h1 class="text-[#787878] text-wrapper">{{$menu->data_umkm->nama_umkm}}</h1>
+                        </div>
+                        <h1 class="text-[#F9832A] font-semibold text-xl sm:text-2xl">Rp. {{$harga}}</h1>
                     </div>
                     </div>
                 </div>
