@@ -33,23 +33,23 @@
 
         {{-- Rekomendasi Warung --}}
         <div class="flex flex-row justify-between items-center  my-5">
-            <h1 class="font-semibold text-2xl">Rekomendasi Warung</h1>
+            <h1 class="font-semibold text-xl sm:text-2xl">Rekomendasi Warung</h1>
             <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
         </div>
 
         {{-- Slider Rekomendasi Warung --}}
         <x-list-warung.slider>
             @forelse ($RekomendasiWarung as $item)
-                <swiper-slide class="w-32 h-[17rem] my-2 relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
+                <swiper-slide class="w-96 h-[17rem] my-2 relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
                     <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5">
                     <a href="/detail-warung/{{$item->slug}}" class="w-full h-full bg-white overflow-hidden">
                         <img src={{$item->logo_umkm}} alt="" class="w-[45rem] h-40 object-cover rounded-xl">
                         <div class="flex flex-col px-3 h-24 justify-center">
-                        <div class="flex flex-row gap-1">
+                        <div class="flex w-max flex-row gap-1">
                         <img src=clock.svg alt="" class="w-5">
-                        <h1 class="text-[#F9832A]">09:00 - 21:00</h1>
+                        <h1 class="text-[#F9832A] text-sm sm:text-base">09:00 - 21:00</h1>
                         </div>
-                        <h1 class="font-semibold text-xl">{{$item->nama_umkm}}</h1>
+                        <h1 class="font-semibold text-base sm:text-xl">{{$item->nama_umkm}}</h1>
                         </div>
                     </a>
                 </swiper-slide>

@@ -1,5 +1,5 @@
 {{-- TopBar --}}
-<div class="flex flex-row w-[100%] items-center gap-2 pt-7 pb-3 mx-auto">
+<div class="flex flex-row w-[100%] items-center gap-0.5 pt-7 pb-3 mx-auto">
 {{-- Logo --}}
 <a href="/">
     <img src="logoDkampus.svg" alt="" class="min-w-[100%] max-w-[120%]">
