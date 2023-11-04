@@ -1,9 +1,9 @@
-const BtnLikeCheckbox = document.querySelectorAll("#BtnLikeCheckbox");
-const BtnLikeIcon = document.querySelectorAll("#BtnLikeIcon");
-const BtnLikeButton = document.querySelectorAll("#BtnLikeButton");
-// const BtnLikeCheckbox = document.querySelector("#BtnLikeCheckbox");
-// const BtnLikeIcon = document.querySelector("#BtnLikeIcon");
-// const BtnLikeButton = document.querySelector("#BtnLikeButton");
+// const BtnLikeCheckbox = document.querySelectorAll("#BtnLikeCheckbox");
+// const BtnLikeIcon = document.querySelectorAll("#BtnLikeIcon");
+// const BtnLikeButton = document.querySelectorAll("#BtnLikeButton");
+const BtnLikeCheckbox = document.querySelector("#BtnLikeCheckbox");
+const BtnLikeIcon = document.querySelector("#BtnLikeIcon");
+const BtnLikeButton = document.querySelector("#BtnLikeButton");
 // BtnPesananLikeIcon.forEach((like,index)=>{
 //     const BtnLike = like[index]
 //     BtnLike.addEventListener("click",function(e){
