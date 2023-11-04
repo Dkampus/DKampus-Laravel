@@ -1,4 +1,4 @@
-<div class="w-full flex flex-col items-center mx-auto">
+<div class="w-[75%] flex flex-col items-center mx-auto">
     {{-- Search Input --}}
     <div onclick class="border-2 relative bg-white z-[60] w-full h-10 flex flex-row justify-between items-center border-[#F9832A]/40 gap-2 px-2 rounded-md overflow-hidden focus:border-[#F9832A]">
         <div class="flex flex-row items-center gap-2">
