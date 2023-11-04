@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <div id="containerLayout" class="max-w-xl relative mx-auto overflow-hidden">
+    <div id="containerLayout" class="max-w-xl relative mx-auto px-3">
         @yield('content')
         @if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit' || $Title === 'Status')
             <div class="w-full relative flex justify-center">

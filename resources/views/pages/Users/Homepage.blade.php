@@ -9,7 +9,7 @@
         {{-- Carousel Banner --}}
         <x-banner.carousel>
             @foreach ($Banner as $item)
-            <swiper-slide class="w-full px-5 rounded-xl overflow-hidden">
+            <swiper-slide class="w-full rounded-xl overflow-hidden">
             <img src={{$item['Img']}} alt="" class="h-full w-full object-cover"> 
             </swiper-slide>
             @endforeach
@@ -32,7 +32,7 @@
         </div>
 
         {{-- Rekomendasi Warung --}}
-        <div class="flex flex-row justify-between items-center px-6 my-5">
+        <div class="flex flex-row justify-between items-center  my-5">
             <h1 class="font-semibold text-2xl">Rekomendasi Warung</h1>
             <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
         </div>
@@ -59,7 +59,7 @@
         </x-list-warung.slider>
 
         {{-- Rekomendasi Makanan --}}
-        <div class="flex flex-row justify-between items-center px-6 mt-10 mb-5">
+        <div class="flex flex-row justify-between items-center mt-10 mb-5">
             <h1 class="font-semibold text-2xl">Rekomendasi Makanan</h1>
             <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
         </div>
