@@ -22,12 +22,12 @@
 </head>
 
 <body>
-    <div id="containerLayout" class="max-w-xl relative mx-auto px-3">
+    <div id="containerLayout" class="max-w-xl relative mx-auto {{$Title === 'Home' ? 'px-3' :'px-0' }}">
         @yield('content')
         @if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit' || $Title === 'Status')
-            <div class="w-full relative flex justify-center">
+            {{-- <div class="w-full relative flex justify-center"> --}}
                 @include('components.navbar.navbar')
-            </div>
+            {{-- </div> --}}
         @else
             {{-- @include('components.navbar.navbar') --}}
         @endif

@@ -22,18 +22,18 @@
         <div id="contentCard" class="px-2 py-2 flex flex-col gap-1 justify-center h-[45%]">
 
             {{-- Prices --}}
-            <div id="prices" class="flex flex-row gap-2.5">
+            <div id="prices" class="flex flex-row items-center gap-2.5 mt-1 h-max overflow-x-auto">
                 <h1 class="text-[#F9832A] font-bold text-xl">{{$Item['PriceDiscount']}}</h1>
-                <h1 class="line-through text-[#BCBCBC] font-semibold">{{$Item['PriceOri']}}</h1>
+                <h1 class="line-through text-[#BCBCBC] text-sm sm:text-base font-semibold">{{$Item['PriceOri']}}</h1>
             </div>
 
             {{-- Desc --}}
             <div id="desc" class="flex flex-col gap-0.5">
                 <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['Title']}}</h1>
-                <div id="ratings" class="flex flex-row items-center gap-1.5">
+                <div id="ratings" class="w-max overflow-x-scroll flex flex-row items-center gap-1.5">
                 <img src="Iconly/Bold/Star.svg" alt="">
                 <h1>{{$Item['Ratings']}}</h1>
-            </div>
+                </div>
             </div>
         </div>
     </swiper-slide>
