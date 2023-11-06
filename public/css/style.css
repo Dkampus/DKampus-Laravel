@@ -76,10 +76,10 @@ input[type="number"] {
     fill: #F9832A; /* Color when the checkbox is checked */
 }
 
-#BtnLikeButton.active #BtnLikeIcon {
+#BtnLikes.active #BtnLikeIcon {
   fill: #F9832A; /* Color when the checkbox is checked */
 }
 
-#BtnLikeButton.active #BtnLikeIcon {
+#BtnLikes svg.active{
   fill: #F9832A; /* Color when the checkbox is checked */
 }
