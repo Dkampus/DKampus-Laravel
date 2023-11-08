@@ -3,7 +3,7 @@
 // const BtnLikeButton = document.querySelectorAll("#BtnLikeButton");
 const btnLikes =  document.querySelectorAll('#BtnLikes');
 btnLikes.forEach(function(like){
-    console.log(like);
+    //console.log(like);
     like.addEventListener("click", function() {
         like.children[0].classList.toggle("active");
     });
