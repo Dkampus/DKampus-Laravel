@@ -7,6 +7,7 @@ use App\Models\PromoModel;
 use App\Models\DetailWarungModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\UserController;
 
 /*

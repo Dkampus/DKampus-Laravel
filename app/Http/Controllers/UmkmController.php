@@ -58,12 +58,12 @@ class UmkmController extends Controller
             'vip' => 'required',
         ]);
         // dd
-        ($request->file('logo_umkm'));
+        // ($request->file('logo_umkm'));
         // Upload dan simpan gambar
-        if ($request->hasFile('logo_umkm')) {
-            $imagePath = $request->file('logo_umkm')->store('umkm_images', 'public');
-            $validatedData['logo_umkm'] = $imagePath;
-        }
+        // if ($request->hasFile('logo_umkm')) {
+        //     $imagePath = $request->file('logo_umkm')->store('umkm_images', 'public');
+        //     $validatedData['logo_umkm'] = $imagePath;
+        // }
 
         // Simpan data Umkm ke database
         // Data_umkm::create($validatedData);
@@ -71,7 +71,8 @@ class UmkmController extends Controller
         Data_umkm::create([
             'user_id' => $request->user_id,
             'nama_umkm' => $request->nama_umkm,
-            'logo_umkm' => $request->logo_umkm,
+             // Upload dan simpan gambar tidak usah di validasi karena sudah di validasi di atas kecuali nullable
+            'logo_umkm' => $request->logo_umkm->store('public/' . $request['nama_umkm']),
             'alamat' => $request->alamat,
             'no_telp_umkm' => $request->no_telp_umkm,
             'vip' => $request->vip,
@@ -80,7 +81,7 @@ class UmkmController extends Controller
         // } catch (\Exception $e){
             // dd($e);
         // }
-        return redirect()->route('umkm');
+        return redirect()->route('umkm')->with('success', 'Data UMKM berhasil ditambahkan');
     }
 
     /**
