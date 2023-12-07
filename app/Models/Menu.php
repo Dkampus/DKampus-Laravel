@@ -10,8 +10,7 @@ class Menu extends Model
     use HasFactory;
 
     protected $guarded = [
-        'id',
-        'data_umkm_id'
+        'id',        
     ];
 
     public function data_umkm()

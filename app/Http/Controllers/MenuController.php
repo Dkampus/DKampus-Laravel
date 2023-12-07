@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Data_umkm;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 
@@ -47,7 +48,17 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $findUmkm = Data_umkm::findOrFail($request->nama_umkm);
+        Menu::create([
+            "data_umkm_id" => $request->nama_umkm,
+            "nama_makanan" => $request->nama_makanan,
+            "deskripsi" => $request->deskripsi,
+            "harga" => $request->harga,             
+            "rating" => 0,             
+            "image" => $request->image->store('public/' . $findUmkm->nama_umkm)
+        ]);
+        return redirect()->back();
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Models\PromoModel;
 use App\Models\DetailWarungModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\UserController;
 
@@ -116,6 +117,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::view('/dashboard', 'pages/admin/dashboard')->name('dashboard');
     Route::view('/umkm', 'pages/admin/UMKM')->name('umkm');
     Route::post('/umkm', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
+    Route::get('/product', function() {
+        return view('pages/admin/product_form', [
+            'model' => new Menu(),
+            'umkm' => Data_umkm::pluck('nama_umkm', 'id'),            
+        ]);
+    })->name('product');
+    Route::post('/umkm', [MenuController::class, 'store'])->name('umkm.store');
 });
 
 Route::middleware('auth')->group(function () {
