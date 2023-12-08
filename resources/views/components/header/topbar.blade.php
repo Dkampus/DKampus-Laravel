@@ -9,7 +9,7 @@
 @include('components.header.search')
 
 {{-- Sidebar --}}
-<div class="flex flex-row items-center">
+<div class="flex flex-row items-center gap-3">
     {{-- <button>
     <img src="chat.svg" alt="" class="w-8 mr-5">
     </button> --}}
