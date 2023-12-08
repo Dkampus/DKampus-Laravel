@@ -77,7 +77,7 @@
                     <div class="w-full flex flex-row items-center justify-between px-3 py-4">
                     {{-- Title & Warung --}}
                     <div class="flex flex-col justify-between items-start h-full">
-                        <h1 class="text-wrapper font-semibold text-lg sm:text-2xl">{{$menu->nama_makanan}}</h1>
+                        <h1 class="text-wrapper font-semibold text-[4vw] sm:text-2xl">{{$menu->nama_makanan}}</h1>
                         <div class="flex flex-row items-center gap-1">
                             <img src='Iconly/Bold/Star.svg' alt="" class="w-5">
                             <h1 class="text-black font-light">{{$menu->rating}}</h1>
@@ -90,7 +90,7 @@
                             <img src="shop.svg" alt="" class="w-4">
                             <h1 class="text-[#787878] text-wrapper">{{$menu->data_umkm->nama_umkm}}</h1>
                         </div>
-                        <h1 class="text-[#F9832A] font-semibold text-xl sm:text-2xl">Rp. {{$harga}}</h1>
+                        <h1 class="text-[#F9832A] font-semibold text-[4vw] sm:text-2xl">Rp. {{$harga}}</h1>
                     </div>
                     </div>
                 </div>
