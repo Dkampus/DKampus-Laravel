@@ -55,6 +55,7 @@ function showResults(){
         searchResults.style.visibility = 'visible';
         searchResults.style.opacity = '100';
         searchResults.style.boxShadow = "0px 10px 15px -3px rgba(0,0,0,0.1)";
+        searchResults.style.bottom = "0rem";
 
         // style body
         document.body.style.overflow = 'hidden';
