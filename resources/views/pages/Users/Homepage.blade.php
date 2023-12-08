@@ -9,8 +9,11 @@
         {{-- Carousel Banner --}}
         <x-banner.carousel>
             @foreach ($Banner as $item)
-            <swiper-slide class="w-full rounded-xl overflow-hidden">
-            <img src={{$item['Img']}} alt="" class="h-full w-full object-cover"> 
+            <swiper-slide class="w-full flex flex-row items-center relative rounded-xl overflow-hidden">
+            <div class="absolute w-[50%] text-center">
+                <h1 class="text-white font-semibold text-3xl">Welcome to <br> Dkampus</h1>
+            </div>
+            <img src={{$item['Img']}} alt="" class="h-full w-full"> 
             </swiper-slide>
             @endforeach
         </x-banner.carousel>
