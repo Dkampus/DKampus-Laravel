@@ -1,6 +1,6 @@
 @extends('layouts.Root')
     @section('content')
-    <header class="">
+    <header class="md:border-b-2 md:border-[#F9832A]">
         {{-- Topbar --}}
         @include('components.header.topbar')
     </header>
