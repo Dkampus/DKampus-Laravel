@@ -52,7 +52,7 @@
                         <img src=clock.svg alt="" class="w-5">
                         <h1 class="text-[#F9832A] text-sm sm:text-base">09:00 - 21:00</h1>
                         </div>
-                        <h1 class="font-semibold text-base sm:text-xl">{{$item->nama_umkm}}</h1>
+                        <h1 class="font-semibold text-[3vw] text-base sm:text-xl">{{$item->nama_umkm}}</h1>
                         </div>
                     </a>
                 </swiper-slide>
