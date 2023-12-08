@@ -42,6 +42,10 @@ class HomeModel
             'Icon' => 'fries.svg',
             'Title' => 'Cemilan'
         ],
+        [
+            'Icon' => 'lainnya.svg',
+            'Title' => 'Lainnya'
+        ],
     ];
 
     private static $rekomendasiWarung = [
