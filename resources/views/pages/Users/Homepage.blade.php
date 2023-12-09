@@ -46,8 +46,8 @@
         </div>
 
         {{-- Rekomendasi Warung --}}
-        <div class="flex flex-row justify-between items-center  my-5">
-            <h1 class="font-semibold w-max text-xl sm:text-2xl">Rekomendasi Warung</h1>
+        <div class="flex flex-row justify-between items-center mb-5 mt-10">
+            <h1 class="font-semibold w-max text-[4.5vw] sm:text-2xl">Rekomendasi Warung</h1>
             <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
         </div>
 
@@ -74,8 +74,8 @@
 
 
         {{-- Rekomendasi Makanan --}}
-        <div class="flex flex-row justify-between items-center  my-5">
-            <h1 class="font-semibold w-max text-xl sm:text-2xl">Rekomendasi Makanan</h1>
+        <div class="flex flex-row justify-between items-center mt-10 mb-5">
+            <h1 class="font-semibold w-max text-[4.5vw] sm:text-2xl">Rekomendasi Makanan</h1>
             <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
         </div>
 
