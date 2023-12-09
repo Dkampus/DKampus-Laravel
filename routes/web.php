@@ -29,6 +29,7 @@ Route::get('/', function () {
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'Carousel' => HomeModel::carouselData(),
+        'CarouselDesktop' => HomeModel::carouselDesktopData(),
         'RekomendasiWarung' => Data_umkm::all(),
         'RekomendasiMakanan' => Menu::take(5)->get(), // tampilkan menu yang 5 pertama (tidak semua)
         'Title' => 'Home',

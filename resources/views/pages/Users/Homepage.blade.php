@@ -5,13 +5,13 @@
         @include('components.header.topbar')
     </header>
 
-    <main class="">
+    <main class="md:mx-14">
         {{-- Carousel Banner --}}
         <x-banner.carousel>
             @foreach ($Banner as $item)
             <swiper-slide class="w-full flex flex-row items-center relative rounded-xl overflow-hidden">
             <div class="absolute w-[50%] text-center">
-                <h1 class="text-white font-semibold text-3xl">Welcome to <br> Dkampus</h1>
+                <h1 class="text-white font-semibold leading-loose text-3xl md:text-6xl">Welcome to <br> Dkampus👋</h1>
             </div>
             <img src={{$item['Img']}} alt="" class="h-full w-full"> 
             </swiper-slide>
@@ -25,12 +25,23 @@
                 @foreach ($Carousel as $item)
                     <swiper-slide class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
                         <div class="flex flex-col justify-evenly h-full items-center">
-                        <img src={{$item['Icon']}} alt="" class="scale-[2]">
+                        <img src={{$item['Icon']}} alt="" class="scale-150 md:scale-[2]">
                         <h1 class="font-normal">{{$item['Title']}}</h1>
                         </div>
                     </swiper-slide>
                 @endforeach
             </x-carousel.slider-category>
+
+            <x-carousel.slider-category-desktop>
+                @foreach ($CarouselDesktop as $item)
+                    <swiper-slide id="category" class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
+                        <div class="flex flex-col justify-evenly h-full items-center">
+                        <img src={{$item['Icon']}} alt="" class="scale-150 md:scale-[2]">
+                        <h1 class="font-normal">{{$item['Title']}}</h1>
+                        </div>
+                    </swiper-slide>
+                @endforeach
+            </x-carousel.slider-category-desktop>
             {{-- <div class="bg-gradient-to-l from-white from-[30%] to-transparent w-14 z-50 h-28 fixed right-0"></div> --}}
         </div>
 
@@ -98,6 +109,8 @@
         </x-list-food.slider>
 
     </main>
+
+    <footer></footer>
     
     {{-- Scroll Behaviour --}}
     @include('components.scrollBehaviourr.scroll-behaviour')

@@ -22,20 +22,28 @@
 </head>
 
 <body>
-    <div id="containerLayout" class="relative mx-auto {{$Title === 'Home' ? 'px-3' :'px-0' }}">
+    <div id="containerLayout" class="relative mx-auto {{$Title === 'Home' ? 'px-3 md:px-0' :'px-0' }}">
         {{-- TopBar Desktop --}}
-        <div class="hidden md:flex md:flex-col">
-            <div class="hidden w-[100%] items-center gap-0.5 pt-7 pb-3 mx-auto md:flex md:flex-row md:px-5">
+        <div class="hidden md:flex md:flex-col md:justify-center">
+            <div class="hidden w-[100%] gap-0.5 pt-7 pb-8 mx-auto md:flex md:h-full md:flex-row md:items-center md:px-5">
                 {{-- Logo --}}
-                <div class="flex flex-row items-center md:gap-2">
+                <div class="flex flex-row my-auto h-max items-center md:gap-2">
                     <a href="/">
                         <img src="logoDkampus.svg" alt="" class="min-w-[100%] max-w-[120%] md:min-w-[2vw]">
                     </a>
                     <h1 class="font-bold text-[#F9832A] text-2xl hidden md:flex">Dkampus</h1>    
                 </div>
+
+                <a href="#" class="hidden font-normal text-xl w-max mx-auto text-[#F9832A] md:flex">
+                    Daftar Warung
+                </a>
             
                 {{-- Search --}}
                 @include('components.header.search')
+
+                <button class="hidden mx-auto md:flex">
+                    <img src="./cart.svg" alt="">
+                </button>
             
                 {{-- Sidebar --}}
                 <div class="flex flex-row items-center gap-3">
@@ -58,7 +66,9 @@
             {{-- @include('components.navbar.navbar') --}}
             @endif
         </div>
-        @yield('content')
+
+            @yield('content')
+        
         @if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit' || $Title === 'Status')
             {{-- <div class="w-full relative flex justify-center"> --}}
                 @include('components.navbar.navbar')

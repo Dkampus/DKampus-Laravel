@@ -48,6 +48,49 @@ class HomeModel
         ],
     ];
 
+    private static $CarouselDesktop = [
+        [
+            'Icon' => 'ramen.svg',
+            'Title' => 'Makanan'
+        ],
+        [
+            'Icon' => 'coke.svg',
+            'Title' => 'Minuman'
+        ],
+        [
+            'Icon' => 'breakfast.svg',
+            'Title' => 'Roti'
+        ],
+        [
+            'Icon' => 'cookies.svg',
+            'Title' => 'Biskuit'
+        ],
+        [
+            'Icon' => 'fries.svg',
+            'Title' => 'Cemilan'
+        ],
+        [
+            'Icon' => 'ramen.svg',
+            'Title' => 'Makanan'
+        ],
+        [
+            'Icon' => 'coke.svg',
+            'Title' => 'Minuman'
+        ],
+        [
+            'Icon' => 'breakfast.svg',
+            'Title' => 'Roti'
+        ],
+        [
+            'Icon' => 'cookies.svg',
+            'Title' => 'Biskuit'
+        ],
+        [
+            'Icon' => 'lainnya.svg',
+            'Title' => 'Lainnya'
+        ],
+    ];
+
     private static $rekomendasiWarung = [
         [
             'Img' => 'bagdhag.jpg',
@@ -161,6 +204,10 @@ class HomeModel
 
     public static function carouselData(){
         return collect(self::$Carousel);
+    }
+
+    public static function carouselDesktopData(){
+        return collect(self::$CarouselDesktop);
     }
 
     public static function pengaturanAkun(){

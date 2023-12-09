@@ -1,3 +1,89 @@
+ // swiper for banner
+ const banner = document.getElementById('banner')
+ // swiper parameters
+ const bannerParams = {
+    injectStyles: [`
+    'path/to/navigation-element.min.css',
+    'path/to/pagination-element.min.css',
+    .swiper-pagination-bullet {
+      width: 8px;
+      height: 8px;
+      text-align: center;
+      line-height: 20px;
+      font-size: 12px;
+      color: #000;
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.2);
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+    }
+
+    .swiper-pagination-bullet-active {
+      color: #fff;
+      background: #F9832A;
+      width: 20px;
+      height: 8px;
+      border-radius: 50px;
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+    }
+
+    .swiper-button-disabled{
+    position: absolute;
+    /* left: -2rem; */
+    display: none;
+    transition: all;
+    }
+    `],
+   slidesPerView: 1,
+   breakpoints: {
+     640: {
+       slidesPerView: 2,
+     },
+     1024: {
+       slidesPerView: 1,
+     },
+   },
+   on: {
+     init() {
+       // ...
+     },
+   },
+ };
+ // now we need to assign all parameters to Swiper element
+ Object.assign(banner, bannerParams);
+ // and now initialize it
+ banner.initialize();
+
+
+  // swiper for carousel category
+  const carouselCategory = document.getElementById('category-desktop')
+  // swiper parameters
+  const carouselCategoryParams = {
+    slidesPerView: 1,
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+      },
+      1024: {
+        slidesPerView: 10,
+      },
+    },
+    on: {
+      init() {
+        // ...
+      },
+    },
+  };
+  // now we need to assign all parameters to Swiper element
+  Object.assign(carouselCategory, carouselCategoryParams);
+  // and now initialize it
+  carouselCategory.initialize();
+
+
+
 document.addEventListener('scroll',function(){
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = window.scrollY;
