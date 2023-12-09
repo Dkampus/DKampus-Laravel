@@ -117,7 +117,7 @@
             slidesPerView: 2,
           },
           1024: {
-            slidesPerView: 10,
+            slidesPerView: 4.5,
           },
         },
         on: {

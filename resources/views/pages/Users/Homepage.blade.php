@@ -83,8 +83,8 @@
         <x-list.slider-makanan>
             @foreach ($RekomendasiMakanan as $menu)
             @php $harga = number_format($menu->harga, 0, ',', '.'); @endphp
-                <div class="food-list-scrollTrigger w-full h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
-                    <img src={{$menu->image}} alt="" class="w-[40rem] h-60 object-cover relative top-0">
+                <swiper-slide class="h-[20rem] flex flex-col relative justify-between bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
+                    <img src={{$menu->image}} alt="" class="w-full h-[14rem] object-cover relative">
                     {{-- Description Card --}}
                     <div class="w-full flex flex-row items-center justify-between px-3 py-4">
                     {{-- Title & Warung --}}
@@ -104,8 +104,9 @@
                         </div>
                         <h1 class="text-[#F9832A] font-semibold text-[4vw] sm:text-2xl">Rp. {{$harga}}</h1>
                     </div>
+                    
                     </div>
-                </div>
+                </swiper-slide>
             @endforeach
         </x-list.slider>
 
