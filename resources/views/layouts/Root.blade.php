@@ -24,7 +24,7 @@
 <body>
     <div id="containerLayout" class="relative mx-auto {{$Title === 'Home' ? 'px-3 md:px-0' :'px-0' }}">
         {{-- TopBar Desktop --}}
-        <div class="hidden md:flex md:flex-col md:justify-center">
+        <div class="hidden sticky top-0 z-10 bg-white md:flex md:flex-col md:justify-center md:border-b-2 md:border-[#F9832A]">
             <div class="hidden w-[100%] gap-0.5 pt-7 pb-8 mx-auto md:flex md:h-full md:flex-row md:items-center md:px-5">
                 {{-- Logo --}}
                 <div class="flex flex-row my-auto h-max items-center md:gap-2">
@@ -57,6 +57,7 @@
                     @endauth    
                     @include('components.header.menu')
                 </div>
+
             </div>
             @if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit' || $Title === 'Status')
             {{-- <div class="w-full relative flex justify-center"> --}}
@@ -67,8 +68,7 @@
             @endif
         </div>
 
-            @yield('content')
-        
+        @yield('content')
         @if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit' || $Title === 'Status')
             {{-- <div class="w-full relative flex justify-center"> --}}
                 @include('components.navbar.navbar')

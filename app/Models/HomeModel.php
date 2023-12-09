@@ -126,6 +126,41 @@ class HomeModel
             'Time' => '09:00 - 21:00',
             'Title' => 'Ayam Goreng Baghdad',
             'MarkPromo' => 'promoMark.svg'
+        ],
+        [
+            'Img' => 'bagdhag.jpg',
+            'IconTime' => 'clock.svg',
+            'Time' => '09:00 - 21:00',
+            'Title' => 'Ayam Goreng Baghdad',
+            'MarkPromo' => 'promoMark.svg'
+        ],
+        [
+            'Img' => 'warmingUp.svg',
+            'IconTime' => 'clock.svg',
+            'Time' => '09:00 - 21:00',
+            'Title' => 'WarmingUP - Ko+Lab',
+            'MarkPromo' => 'promoMark.svg'
+        ],
+        [
+            'Img' => 'tehpoci.jpg',
+            'IconTime' => 'clock.svg',
+            'Time' => '09:00 - 21:00',
+            'Title' => 'Es Teh Poci',
+            'MarkPromo' => 'promoMark.svg'
+        ],
+        [
+            'Img' => 'bagdhag.jpg',
+            'IconTime' => 'clock.svg',
+            'Time' => '09:00 - 21:00',
+            'Title' => 'Ayam Goreng Baghdad',
+            'MarkPromo' => 'promoMark.svg'
+        ],
+        [
+            'Img' => 'bagdhag.jpg',
+            'IconTime' => 'clock.svg',
+            'Time' => '09:00 - 21:00',
+            'Title' => 'Ayam Goreng Baghdad',
+            'MarkPromo' => 'promoMark.svg'
         ]
     ];
 

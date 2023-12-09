@@ -82,6 +82,55 @@
   // and now initialize it
   carouselCategory.initialize();
 
+  // swiper for Rekomendasi Warung
+  const RekomendasiWarung = document.getElementById('rekomendasiWarung')
+  // swiper parameters
+  const RekomendasiWarungParams = {
+      slidesPerView: 1,
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 10,
+        },
+      },
+      on: {
+        init() {
+          // ...
+        },
+      },
+  };
+  // now we need to assign all parameters to Swiper element
+  Object.assign(RekomendasiWarung, RekomendasiWarungParams);
+  // and now initialize it
+  RekomendasiWarung.initialize();
+
+
+    // swiper for Rekomendasi Makanan
+    const RekomendasiMakanan = document.getElementById('rekomendasiMakanan')
+    // swiper parameters
+    const RekomendasiMakananParams = {
+        slidesPerView: 1,
+        breakpoints: {
+          640: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 10,
+          },
+        },
+        on: {
+          init() {
+            // ...
+          },
+        },
+    };
+    // now we need to assign all parameters to Swiper element
+    Object.assign(RekomendasiMakanan, RekomendasiMakananParams);
+    // and now initialize it
+    RekomendasiMakanan.initialize();
+
 
 
 document.addEventListener('scroll',function(){
