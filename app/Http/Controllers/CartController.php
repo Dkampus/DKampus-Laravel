@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HomeModel;
 use App\Models\Cart;
 use App\Models\PesananModel;
 use Illuminate\Http\Request;
@@ -18,7 +19,9 @@ class CartController extends Controller
             'Title' => 'Pesanan',
             'NavPesanan' => 'Pesanan',
             'carts' => $carts,
-            'AddressList' => PesananModel::alamatUser()
+            'AddressList' => PesananModel::alamatUser(),
+            'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
         ]);
     }
 
@@ -26,6 +29,8 @@ class CartController extends Controller
         return view('pages.Users.Status',[
             'Title' => 'Status',
             'NavPesanan' => 'Status',
+            'PengaturanAkun' => HomeModel::pengaturanAkun(),
+            'SeputarDkampus' => HomeModel::seputarDkampus(),
         ]);
     }
 

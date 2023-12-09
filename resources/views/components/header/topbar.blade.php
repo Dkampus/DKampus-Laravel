@@ -1,8 +1,5 @@
-{{-- TopBar Desktop --}}
-<div class="md:px-8 md:flex md:flex-col">
-
 {{-- TopBar Mobile --}}
-<div class="flex flex-row w-[100%] items-center gap-0.5 pt-7 pb-3 mx-auto">
+<div class="flex flex-row w-[100%] items-center gap-0.5 pt-7 pb-3 mx-auto md:px-5 md:hidden">
     {{-- Logo --}}
     <div class="flex flex-row items-center md:gap-2">
         <a href="/">
@@ -26,7 +23,4 @@
         @endauth    
         @include('components.header.menu')
     </div>
-</div>
-
-
 </div>

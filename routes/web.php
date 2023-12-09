@@ -31,14 +31,17 @@ Route::get('/', function () {
         'Carousel' => HomeModel::carouselData(),
         'RekomendasiWarung' => Data_umkm::all(),
         'RekomendasiMakanan' => Menu::take(5)->get(), // tampilkan menu yang 5 pertama (tidak semua)
-        'Title' => 'Home'
+        'Title' => 'Home',
     ]);
 })->name('homepage');
+
 
 // Promo Page
 Route::get('/promo', function () {
     return view('layouts.PromoLayout', [
         'Title' => 'Promo',
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'NavPromo' => 'Semua'
     ]);
@@ -47,6 +50,8 @@ Route::get('/promo', function () {
 Route::get('/promo/makanan', function () {
     return view('pages.Users.MakananPage', [
         'Title' => 'Promo',
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Makanan',
         'CarouselPromo' => PromoModel::carouselPromo(),
     ]);
@@ -55,6 +60,8 @@ Route::get('/promo/makanan', function () {
 Route::get('/promo/minuman', function () {
     return view('pages.Users.MinumanPage', [
         'Title' => 'Promo',
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Minuman',
         'CarouselPromo' => PromoModel::carouselPromo(),
     ]);
@@ -63,6 +70,8 @@ Route::get('/promo/minuman', function () {
 Route::get('/promo/cemilan', function () {
     return view('pages.Users.CemilanPage', [
         'Title' => 'Promo',
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Cemilan',
         'CarouselPromo' => PromoModel::carouselPromo(),
     ]);
@@ -71,6 +80,8 @@ Route::get('/promo/cemilan', function () {
 Route::get('/promo', function () {
     return view('pages.Users.SemuaPage', [
         'Title' => 'Promo',
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Semua',
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
         'CarouselPromo' => PromoModel::carouselPromo(),
@@ -85,13 +96,17 @@ Route::get('/detail-warung/{umkm:slug}', function(Data_umkm $umkm){
         'rating' => $umkm->rating,
         'CardFood' => $umkm->menu,
         'BannerFade' => DetailWarungModel::bannerDetail(),
-        'Title' => 'Detail-Warung'
+        'Title' => 'Detail-Warung',
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
     ]);
 });
 
 Route::get('/detail-makanan/{menu:slug}', function (Menu $menu) {
     return view('pages.Users.DetailMakanan', [
         'Title' => 'Detail-Makanan',
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
         'umkm_slug' => $menu->data_umkm->slug,
         'nama_makanan' => $menu->nama_makanan,
         'rating' => $menu->rating,
