@@ -88,7 +88,7 @@
                     {{-- Description Card --}}
                     <div class="w-full flex flex-row items-center justify-between px-3 py-4">
                     {{-- Title & Warung --}}
-                    <div class="flex flex-col justify-between items-start h-full">
+                    <div class="flex flex-col justify-between gap-3 items-start h-full">
                         <h1 class="text-wrapper font-semibold text-[4vw] sm:text-2xl">{{$menu->nama_makanan}}</h1>
                         <div class="flex flex-row items-center gap-1">
                             <img src='Iconly/Bold/Star.svg' alt="" class="w-5">
