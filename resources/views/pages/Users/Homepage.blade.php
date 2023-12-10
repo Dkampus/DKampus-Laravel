@@ -140,7 +140,7 @@
             @endforeach
         </x-list-food.slider>
 
-        <div class="pt-10 pb-5">
+        <div class="pt-10 pb-5 hidden md:flex md:flex-col">
         <nav class="flex flex-row items-center gap-3">@include('components.navbar.subnavbar-homepage')</nav>
         @yield('subnav-homepage')
         </div>
