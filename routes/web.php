@@ -5,6 +5,7 @@ use App\Models\Data_umkm;
 use App\Models\HomeModel;
 use App\Models\PromoModel;
 use App\Models\DetailWarungModel;
+use App\Models\Footer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MenuController;
@@ -32,6 +33,11 @@ Route::get('/', function () {
         'CarouselDesktop' => HomeModel::carouselDesktopData(),
         'RekomendasiWarung' => Data_umkm::all(),
         'RekomendasiMakanan' => Menu::take(5)->get(), // tampilkan menu yang 5 pertama (tidak semua)
+        'FooterPart1' => Footer::footerPart1(),
+        'FooterPart2Beli' => Footer::footerPart2Beli(),
+        'FooterPart2Jual' => Footer::footerPart2Jual(),
+        'FooterPart3KeamananDanPrivasi' => Footer::footerPart3KeamananDanPrivasi(),
+        'FooterPart3IkutiKami' => Footer::footerPart3IkutiKami(),
         'Title' => 'Home',
     ]);
 })->name('homepage');

@@ -146,8 +146,70 @@
         </div>
     </main>
 
-    <footer>
-        
+    <footer class="md:grid hidden grid-cols-4 w-full bg-gradient-to-t from-[#ED6600] to-[#F9832A] text-white h-[40vh] place-content-evenly px-10 place-items-stretch">
+        <div id="part1" class="flex flex-col justify-between">
+            <h1 class="font-bold text-2xl">Dkampus</h1>
+            @forelse ($FooterPart1 as $part1)
+            <a href="{{$part1['url']}}">
+                {{$part1['title']}}
+            </a>
+            @empty
+                
+            @endforelse
+        </div>
+        <div id="part2" class="grid grid-rows-2 place-items-stretch place-content-stretch">
+            <div class="flex flex-col justify-center">
+                <h1 class="font-bold text-2xl">Beli</h1>
+                @forelse ($FooterPart2Beli as $part2Beli)
+                <a href="{{$part2Beli['url']}}">
+                    {{$part2Beli['title']}}
+                </a>
+                @empty
+                    
+                @endforelse
+            </div>
+            <div class="flex flex-col justify-center">
+                <h1 class="font-bold text-2xl">Jual</h1>
+                @forelse ($FooterPart2Jual as $part2Jual)
+                <a href="{{$part2Jual['url']}}">
+                    {{$part2Jual['title']}}
+                </a>
+                @empty
+                    
+                @endforelse
+            </div>
+        </div>
+        <div id="part3" class="grid grid-rows-2 place-items-stretch place-content-stretch">
+            <div class="flex flex-col justify-evenly">
+                <h1 class="font-bold text-2xl">Keamanan dan Privasi</h1>
+                @forelse ($FooterPart3KeamananDanPrivasi as $part3KeamananDanPrivasi)
+                <div class="flex flex-row items-center gap-1">
+                    <img src="{{$part3KeamananDanPrivasi['img']}}" alt="">
+                    <a href="{{$part3KeamananDanPrivasi['url']}}">
+                        {{$part3KeamananDanPrivasi['title']}}
+                    </a>
+                </div>
+                @empty
+                    
+                @endforelse
+            </div>
+            <div class="flex flex-col justify-evenly">
+                <h1 class="font-bold text-2xl">Ikuti Kami</h1>
+                <div class="flex flex-row items-center gap-2">
+                @forelse ($FooterPart3IkutiKami as $part3IkutiKami)
+                <a href="{{$part3IkutiKami['url']}}">
+                    <img src="{{$part3IkutiKami['img']}}" alt="">
+                </a>
+                @empty
+                    
+                @endforelse
+                </div>
+            </div>
+        </div>
+        <div id="part4" class="flex flex-col justify-center items-center gap-5">
+            <img src="logoFooter.svg" alt="" class="w-[15vw]">
+            <h1 class="font-semibold text-center">© 2021 - 2023,Dkampus Indonesia</h1>
+        </div>
     </footer>
     
     {{-- Scroll Behaviour --}}
