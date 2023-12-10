@@ -11,6 +11,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UntukKamuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::get('/', function () {
         'Title' => 'Home',
     ]);
 })->name('homepage');
+Route::get('/', [UntukKamuController::class, 'UntukKamu']);
 
 
 // Promo Page

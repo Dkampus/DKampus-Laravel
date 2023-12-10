@@ -140,10 +140,11 @@
             @endforeach
         </x-list-food.slider>
 
-        <div class="pt-10 pb-5 h-96 hidden md:flex md:flex-col">
+        <div class="pt-10 pb-5 hidden md:flex md:flex-col">
         <nav class="flex flex-row items-center gap-3">@include('components.navbar.subnavbar-homepage')</nav>
         @yield('subnav-homepage')
         </div>
+
     </main>
 
     <footer class="md:grid hidden grid-cols-4 w-full bg-gradient-to-t from-[#ED6600] to-[#F9832A] text-white h-[40vh] place-content-evenly px-10 place-items-stretch">

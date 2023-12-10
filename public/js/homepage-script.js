@@ -176,7 +176,6 @@ function showMenu(){
         overlayMenu.style.visibility = 'visible';
     }
 }
-
 function hideMenu(){
     barMenu.style.visibility = 'invisible';
     barMenu.style.opacity = '0';
@@ -189,6 +188,7 @@ function hideMenu(){
     overlayMenu.style.display = 'none';
     overlayMenu.style.opacity = '0';
 }
+
 
 const searchResults = document.getElementById('search-results');
 const overlayResults = document.getElementById('overlay-results');
@@ -222,6 +222,7 @@ function hideResults(){
     overlayResults.style.opacity = '0';
 }
 
+
 const searchInput = document.getElementById('search-input');
 const clearInput = document.getElementById('clear-input');
 clearInput.addEventListener("click",function(){
@@ -240,4 +241,13 @@ searchInput.addEventListener("input",function(){
         clearInput.style.visibility = 'invisible';
        
     }
+})
+
+const seeMore = document.getElementById('seeMore');
+const cardList = document.getElementById('cardList');
+const addRow = 2 //initial number
+seeMore.addEventListener('click',() => {
+   addRow += 1;
+   console.log('hello')
+   cardList.style.maxHeight = `${addRow * 110}px`;
 })
