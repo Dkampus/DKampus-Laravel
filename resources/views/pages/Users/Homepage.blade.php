@@ -54,8 +54,8 @@
         {{-- Slider Rekomendasi Warung --}}
         <x-list.slider>
             @forelse ($RekomendasiWarung as $item)
-                <swiper-slide class="w-96 h-[17rem] my-2 relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
-                    <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5">
+                <swiper-slide class="w-96 h-[17rem] mx-0.5 relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
+                    <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5 md:w-[4vw]">
                     <a href="/detail-warung/{{$item->slug}}" class="w-full h-full bg-white overflow-hidden">
                         <img src={{$item->logo_umkm}} alt="" class="w-[45rem] h-40 object-cover rounded-xl">
                         <div class="flex flex-col px-3 h-24 justify-center">
@@ -140,6 +140,10 @@
             @endforeach
         </x-list-food.slider>
 
+        <div class="pt-10 pb-5">
+        <nav class="flex flex-row items-center gap-3">@include('components.navbar.subnavbar-homepage')</nav>
+        @yield('subnav-homepage')
+        </div>
     </main>
 
     <footer></footer>

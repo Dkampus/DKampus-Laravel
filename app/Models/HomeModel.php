@@ -86,9 +86,9 @@ class HomeModel
             'Title' => 'Biskuit'
         ],
         [
-            'Icon' => 'lainnya.svg',
-            'Title' => 'Lainnya'
-        ],
+            'Icon' => 'ramen.svg',
+            'Title' => 'Makanan'
+        ]
     ];
 
     private static $rekomendasiWarung = [

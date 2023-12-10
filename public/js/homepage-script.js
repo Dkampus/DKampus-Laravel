@@ -89,10 +89,10 @@
       slidesPerView: 1,
       breakpoints: {
         640: {
-          slidesPerView: 2,
+          slidesPerView: 3,
         },
         1024: {
-          slidesPerView: 10,
+          slidesPerView: 7,
         },
       },
       on: {
@@ -134,12 +134,20 @@
 
 
 document.addEventListener('scroll',function(){
+
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = window.scrollY;
     const scrollButton = document.querySelector('#scrollBehaviour');
+
+    const viewportWidth = window.innerWidth;
+
     if(scrolled > 100){
         scrollButton.style.opacity = "100";
-        scrollButton.style.bottom = "7rem";
+        if(viewportWidth >= 768){
+          scrollButton.style.bottom = "4rem"; 
+        }else if(viewportWidth < 768){
+          scrollButton.style.bottom = "7rem"; 
+        }
     } else if (scrolled < 100){
         scrollButton.style.opacity = "0";
         scrollButton.style.bottom = "-99rem"

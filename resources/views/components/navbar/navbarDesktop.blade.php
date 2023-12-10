@@ -23,4 +23,4 @@
         </svg>        
         <h1 class="transition-all duration-300 {{$Title === 'Favorit' ? 'text-[#F9832A]' : 'text-[#AAAAAA]'}}">Favorit</h1>
     </a>
-    </nav>
+</nav>
