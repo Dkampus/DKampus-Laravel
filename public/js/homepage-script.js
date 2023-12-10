@@ -107,10 +107,10 @@
   RekomendasiWarung.initialize();
 
 
-    // swiper for Rekomendasi Makanan
-    const RekomendasiMakanan = document.getElementById('rekomendasiMakanan')
-    // swiper parameters
-    const RekomendasiMakananParams = {
+  // swiper for Rekomendasi Makanan
+  const RekomendasiMakanan = document.getElementById('rekomendasiMakanan')
+  // swiper parameters
+  const RekomendasiMakananParams = {
         slidesPerView: 1,
         breakpoints: {
           640: {
@@ -125,11 +125,11 @@
             // ...
           },
         },
-    };
-    // now we need to assign all parameters to Swiper element
-    Object.assign(RekomendasiMakanan, RekomendasiMakananParams);
-    // and now initialize it
-    RekomendasiMakanan.initialize();
+  };
+  // now we need to assign all parameters to Swiper element
+  Object.assign(RekomendasiMakanan, RekomendasiMakananParams);
+  // and now initialize it
+  RekomendasiMakanan.initialize();
 
 
 

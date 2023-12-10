@@ -24,7 +24,7 @@
 <body>
     <div id="containerLayout" class="relative mx-auto {{$Title === 'Home' ? 'px-3 md:px-0' :'px-0' }}">
         {{-- TopBar Desktop --}}
-        <div class="hidden sticky top-0 z-10 bg-white md:flex md:flex-col md:justify-center md:border-b-2 md:border-[#F9832A]">
+        <div id="topBarDekstop" class="hidden sticky top-0 z-10 bg-white md:flex md:flex-col md:justify-center md:border-b-2 md:border-[#F9832A]">
             <div class="hidden w-[100%] gap-0.5 pt-7 pb-8 mx-auto md:flex md:h-full md:flex-row md:items-center md:px-5">
                 {{-- Logo --}}
                 <div class="flex flex-row my-auto h-max items-center md:gap-2">
@@ -77,12 +77,12 @@
             {{-- @include('components.navbar.navbar') --}}
         @endif
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
     @switch($Title)
         @case('Home')
+            xxxx<script src="{{ asset('js/root.js') }}"></script>
             <script src="{{ asset('js/homepage-script.js') }}"></script>
             <script src="{{ asset('js/swiper.js') }}"></script>
         @break
@@ -127,7 +127,7 @@
 
         @default
             {{-- <script src="{{asset('js/DetailWarung-script.js')}}"></script> 
-    <script src="{{asset('js/DetailMakanan-script.js')}}"></script>  --}}
+            <script src="{{asset('js/DetailMakanan-script.js')}}"></script>  --}}
             {{-- <script src="{{asset('js/homepage-script.js')}}"></script>   --}}
             {{-- <script src="{{asset('js/swiper.js')}}"></script> --}}
             {{-- <script src="{{asset('js/gsap.js')}}"></script> --}}
