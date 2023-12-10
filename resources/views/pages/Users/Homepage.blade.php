@@ -147,7 +147,7 @@
     </main>
 
     <footer class="md:grid hidden grid-cols-4 w-full bg-gradient-to-t from-[#ED6600] to-[#F9832A] text-white h-[40vh] place-content-evenly px-10 place-items-stretch">
-        <div id="part1" class="flex flex-col justify-between">
+        <div id="part1" class="flex flex-col justify-between mx-auto">
             <h1 class="font-bold text-2xl">Dkampus</h1>
             @forelse ($FooterPart1 as $part1)
             <a href="{{$part1['url']}}">
@@ -157,7 +157,7 @@
                 
             @endforelse
         </div>
-        <div id="part2" class="grid grid-rows-2 place-items-stretch place-content-stretch">
+        <div id="part2" class="grid grid-rows-2 place-items-stretch place-content-stretch mx-auto">
             <div class="flex flex-col justify-center">
                 <h1 class="font-bold text-2xl">Beli</h1>
                 @forelse ($FooterPart2Beli as $part2Beli)
@@ -179,7 +179,7 @@
                 @endforelse
             </div>
         </div>
-        <div id="part3" class="grid grid-rows-2 place-items-stretch place-content-stretch">
+        <div id="part3" class="grid grid-rows-2 place-items-stretch place-content-stretch mx-auto">
             <div class="flex flex-col justify-evenly gap-3">
                 <h1 class="font-bold text-2xl">Keamanan dan Privasi</h1>
                 <div class="flex flex-col gap-3">
@@ -208,7 +208,7 @@
                 </div>
             </div>
         </div>
-        <div id="part4" class="flex flex-col justify-center items-center gap-5">
+        <div id="part4" class="flex flex-col justify-center items-center gap-5 mx-auto">
             <img src="logoFooter.svg" alt="" class="w-[15vw]">
             <h1 class="font-semibold text-center">© 2021 - 2023,Dkampus Indonesia</h1>
         </div>
