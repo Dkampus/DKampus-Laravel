@@ -140,7 +140,7 @@
             @endforeach
         </x-list-food.slider>
 
-        <div class="pt-10 pb-5 hidden md:flex md:flex-col">
+        <div class="pt-10 pb-5 h-96 hidden md:flex md:flex-col">
         <nav class="flex flex-row items-center gap-3">@include('components.navbar.subnavbar-homepage')</nav>
         @yield('subnav-homepage')
         </div>
@@ -168,7 +168,7 @@
                     
                 @endforelse
             </div>
-            <div class="flex flex-col justify-center">
+            <div class="flex flex-col justify-center self-end">
                 <h1 class="font-bold text-2xl">Jual</h1>
                 @forelse ($FooterPart2Jual as $part2Jual)
                 <a href="{{$part2Jual['url']}}">
@@ -180,25 +180,27 @@
             </div>
         </div>
         <div id="part3" class="grid grid-rows-2 place-items-stretch place-content-stretch">
-            <div class="flex flex-col justify-evenly">
+            <div class="flex flex-col justify-evenly gap-3">
                 <h1 class="font-bold text-2xl">Keamanan dan Privasi</h1>
-                @forelse ($FooterPart3KeamananDanPrivasi as $part3KeamananDanPrivasi)
-                <div class="flex flex-row items-center gap-1">
-                    <img src="{{$part3KeamananDanPrivasi['img']}}" alt="">
-                    <a href="{{$part3KeamananDanPrivasi['url']}}">
-                        {{$part3KeamananDanPrivasi['title']}}
-                    </a>
+                <div class="flex flex-col gap-3">
+                    @forelse ($FooterPart3KeamananDanPrivasi as $part3KeamananDanPrivasi)
+                    <div class="flex flex-row items-center gap-1">
+                        <img src="{{$part3KeamananDanPrivasi['img']}}" alt="" class="w-5">
+                        <a href="{{$part3KeamananDanPrivasi['url']}}">
+                            {{$part3KeamananDanPrivasi['title']}}
+                        </a>
+                    </div>
+                    @empty
+                        
+                    @endforelse
                 </div>
-                @empty
-                    
-                @endforelse
             </div>
-            <div class="flex flex-col justify-evenly">
+            <div class="flex flex-col justify-center gap-3 self-end">
                 <h1 class="font-bold text-2xl">Ikuti Kami</h1>
                 <div class="flex flex-row items-center gap-2">
                 @forelse ($FooterPart3IkutiKami as $part3IkutiKami)
                 <a href="{{$part3IkutiKami['url']}}">
-                    <img src="{{$part3IkutiKami['img']}}" alt="">
+                    <img src="{{$part3IkutiKami['img']}}" alt="" class="w-8">
                 </a>
                 @empty
                     
