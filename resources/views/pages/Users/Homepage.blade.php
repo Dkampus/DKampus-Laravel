@@ -146,7 +146,9 @@
         </div>
     </main>
 
-    <footer></footer>
+    <footer>
+        
+    </footer>
     
     {{-- Scroll Behaviour --}}
     @include('components.scrollBehaviourr.scroll-behaviour')
