@@ -3,7 +3,7 @@
     class="text-white w-16 text-sm h-[2.5rem] rounded-lg text-center px-3 bg-[#F9832A] flex items-center justify-center font-semibold md:text-base md:w-[5vw]">
     Masuk
     </a>
-    <a href="/masuk"
+    <a href="/daftar"
     class="text-[#F9832A] text-sm border-2 border-[#F9832A] w-16 h-[2.5rem] rounded-lg text-center px-3 bg-[#fff] flex items-center justify-center font-semibold md:text-base md:w-[5vw]">
     Daftar
     </a>
