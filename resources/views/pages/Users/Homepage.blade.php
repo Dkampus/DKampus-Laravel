@@ -5,7 +5,7 @@
         @include('components.header.topbar')
     </header>
 
-    <main class="md:mx-14">
+    <main class="md:mx-14 md:mb-40">
         {{-- Carousel Banner --}}
         <x-banner.carousel>
             @foreach ($Banner as $item)
@@ -140,7 +140,7 @@
             @endforeach
         </x-list-food.slider>
 
-        <div class="pt-10 pb-5 hidden md:flex md:flex-col">
+        <div class="pt-11 pb-5 hidden md:flex md:flex-col">
         <nav class="flex flex-row items-center gap-3">@include('components.navbar.subnavbar-homepage')</nav>
         @yield('subnav-homepage')
         </div>
