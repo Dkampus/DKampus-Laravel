@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\HomeModel;
 
 class UserController extends Controller
 {
@@ -17,6 +18,8 @@ class UserController extends Controller
     public function login(){
         return view('pages.Users.Login',[
             'Title' => 'Log in',
+            'PengaturanAkun' => HomeModel::pengaturanAkun(),
+            'SeputarDkampus' => HomeModel::seputarDkampus(),
         ]);
     }
 
