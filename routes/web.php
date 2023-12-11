@@ -123,7 +123,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             'umkm' => Data_umkm::pluck('nama_umkm', 'id'),            
         ]);
     })->name('product');
-    Route::post('/umkm', [MenuController::class, 'store'])->name('umkm.store');
+    Route::post('/product', [MenuController::class, 'store'])->name('product.store');
 });
 
 Route::middleware('auth')->group(function () {

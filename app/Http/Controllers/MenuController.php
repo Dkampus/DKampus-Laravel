@@ -49,15 +49,19 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $findUmkm = Data_umkm::findOrFail($request->nama_umkm);
-        Menu::create([
-            "data_umkm_id" => $request->nama_umkm,
-            "nama_makanan" => $request->nama_makanan,
-            "deskripsi" => $request->deskripsi,
-            "harga" => $request->harga,             
-            "rating" => 0,             
-            "image" => $request->image->store('public/' . $findUmkm->nama_umkm)
-        ]);
+        try{
+            $findUmkm = Data_umkm::findOrFail($request->nama_umkm);
+            Menu::create([
+                "data_umkm_id" => $request->nama_umkm,
+                "nama_makanan" => $request->nama_makanan,
+                "deskripsi" => $request->deskripsi,
+                "harga" => $request->harga,             
+                "rating" => 0,             
+                "image" => $request->image->store('public/' . $findUmkm->nama_umkm)
+            ]);
+        } catch(\Exception $e){
+         dd($e);
+        }
         return redirect()->back();
     }
 
