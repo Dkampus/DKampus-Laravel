@@ -47,7 +47,7 @@ class UmkmController extends Controller
      */
     public function storeUmkm(Request $request)
     {
-        // try{
+        try{
             // Validasi data input
         $validatedData = $request->validate([
             'user_id' => 'required',
@@ -78,9 +78,9 @@ class UmkmController extends Controller
             'vip' => $request->vip,
         ]);
 
-        // } catch (\Exception $e){
-            // dd($e);
-        // }
+        } catch (\Exception $e){
+            dd($e);
+        }
         return redirect()->route('umkm')->with('success', 'Data UMKM berhasil ditambahkan');
     }
 

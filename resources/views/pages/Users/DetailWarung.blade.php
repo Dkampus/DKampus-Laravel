@@ -9,11 +9,11 @@
         <a href="/" class="font-semibold text-2xl h-12 w-12 bg-white flex flex-col justify-center items-center rounded-full">
             <svg height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20 11.7746C20 12.1543 19.7178 12.4681 19.3518 12.5178L19.25 12.5246L6.066 12.524L10.829 17.2675C11.1225 17.5598 11.1235 18.0347 10.8313 18.3282C10.5656 18.595 10.149 18.6201 9.85489 18.4029L9.77061 18.3305L3.72061 12.3065C3.68192 12.2679 3.64832 12.2263 3.61979 12.1822C3.61174 12.169 3.60354 12.1554 3.59576 12.1416C3.58861 12.1297 3.58215 12.1174 3.57606 12.105C3.56759 12.0869 3.55932 12.0681 3.55181 12.0491C3.5457 12.0343 3.54061 12.02 3.53596 12.0056C3.53043 11.9877 3.52506 11.9686 3.52045 11.9493C3.51701 11.9358 3.51429 11.9227 3.51192 11.9097C3.50859 11.8903 3.50575 11.8701 3.50372 11.8498C3.50197 11.8343 3.50092 11.8189 3.50034 11.8035C3.50019 11.7942 3.5 11.7844 3.5 11.7746L3.50038 11.7455C3.50095 11.7308 3.50196 11.7161 3.50339 11.7014L3.5 11.7746C3.5 11.7273 3.50438 11.681 3.51277 11.6361C3.51471 11.6253 3.51703 11.6143 3.51959 11.6034C3.52492 11.5808 3.53108 11.5591 3.53817 11.5377C3.54165 11.5272 3.5457 11.5158 3.55003 11.5046C3.5588 11.482 3.56832 11.4605 3.5788 11.4396C3.58367 11.4297 3.58913 11.4194 3.59484 11.4092C3.60421 11.3925 3.61386 11.3767 3.62407 11.3613C3.63128 11.3504 3.63925 11.339 3.64758 11.3278L3.65407 11.3192C3.67428 11.2928 3.6962 11.2677 3.71967 11.2443L3.72057 11.2436L9.77057 5.21857C10.0641 4.92629 10.5389 4.92727 10.8312 5.22077C11.0969 5.48759 11.1203 5.9043 10.9018 6.19746L10.829 6.28143L6.068 11.024L19.25 11.0246C19.6642 11.0246 20 11.3604 20 11.7746Z" fill="#003049"/>
-            </svg>                
+            </svg>
         </a>
 
         {{-- Title --}}
-        <h1 id="titleDetail" class="text-white font-semibold text-lg uppercase invisible">{{$nama_umkm}}</h1>
+        <h1 id="titleDetail" class="text-white font-semibold text-lg">{{$nama_umkm}}</h1>
 
         {{-- Favorit --}}
         <label for="NavCheckbox" id="NavLikeButton" class="w-12 h-12 bg-white flex flex-col justify-center items-center rounded-full">
@@ -33,7 +33,7 @@
                 <div class="bg-gradient-to-t from-black/70 to-transparent h-full w-full absolute z-50 top-0"></div>
         </swiper-slide>
         @empty
-            
+
         @endforelse
     </x-bannerfade.banner-fade>
 
@@ -84,16 +84,16 @@
             <div class="w-[15rem] relative mb-2 border rounded-2xl transition-all duration-300 overflow-hidden hover:shadow-md">
                 {{-- Discount Img --}}
                 <img src="../discount50%.svg" alt="" class="top-5 -left-[0.65rem] overflow-auto z-50 absolute w-[5rem]">
-                <a href="/detail-makanan/{{$food->slug}}"><img src="../{{$food->image}}" alt="" class="w-full"></a>
+                <a href="/detail-makanan/{{$food->id}}"><img src="{{Storage::url($food->image)}}" alt="" class="w-full"></a>
                 <div id="desc" class="flex flex-col gap-2 py-2 px-3">
                     <div id="ratings" class="flex flex-row items-center gap-1">
                         <img src="../Iconly/Bold/Star.svg" alt="">
                         <h2>{{$food->rating}}</h2>
                     </div>
-                    <a href="/detail-makanan/{{$food->slug}}" class="font-semibold text-xl">{{$food->nama_makanan}}</a>
+                    <a href="/detail-makanan/{{$food->id}}" class="font-semibold text-xl">{{$food->nama_makanan}}</a>
                     <h2 class="font-medium">Rp{{$harga}}</h2>
                     <div id="buttons" class="flex flex-row gap-2 items-center">
-                        <a href="/detail-makanan/{{$food->slug}}" class="bg-[#F9832A] w-[80%] h-10 rounded-xl font-semibold text-white flex flex-col justify-center items-center">Beli</a>
+                        <a href="/detail-makanan/{{$food->id}}" class="bg-[#F9832A] w-[80%] h-10 rounded-xl font-semibold text-white flex flex-col justify-center items-center">Beli</a>
                         <label for="CardCheckbox" id="CardLikeButton" class="w-11 h-11 cursor-pointer bg-white border-2 flex flex-col justify-center items-center rounded-xl">
                             <svg id="CardLikeIcon" height="20" class="fill-[#5e5e5e]/50 transition-all duration-300" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.08993 0.292134C6.66743 0.309697 7.2266 0.41053 7.76835 0.59478H7.82243C7.8591 0.612197 7.8866 0.631447 7.90493 0.648864C8.10752 0.713947 8.2991 0.78728 8.48243 0.888114L8.83077 1.04395C8.96827 1.11728 9.13327 1.25386 9.22493 1.30978C9.3166 1.36386 9.41743 1.41978 9.49993 1.48303C10.5183 0.70478 11.7549 0.283114 13.0291 0.292134C13.6075 0.292134 14.185 0.373864 14.7341 0.558114C18.1175 1.65811 19.3367 5.37061 18.3183 8.61561C17.7408 10.2739 16.7966 11.7873 15.56 13.0239C13.7899 14.738 11.8475 16.2597 9.7566 17.5705L9.52743 17.7089L9.2891 17.5614C7.19085 16.2597 5.23743 14.738 3.45085 13.0147C2.22252 11.7781 1.27743 10.2739 0.690767 8.61561C-0.345066 5.37061 0.874101 1.65811 4.29418 0.538864C4.56002 0.447197 4.8341 0.38303 5.1091 0.34728H5.2191C5.47668 0.309697 5.73243 0.292134 5.9891 0.292134H6.08993ZM14.2574 3.18895C13.8816 3.0597 13.4691 3.26228 13.3316 3.64728C13.2033 4.03228 13.4049 4.45395 13.7899 4.59053C14.3775 4.81053 14.7708 5.38895 14.7708 6.0297V6.05811C14.7533 6.26803 14.8166 6.47061 14.9449 6.62645C15.0733 6.78228 15.2658 6.87303 15.4674 6.89228C15.8433 6.8822 16.1641 6.58061 16.1916 6.1947V6.08561C16.2191 4.80136 15.4408 3.63811 14.2574 3.18895Z"/>
@@ -104,7 +104,7 @@
                 </div>
             </div>
         @empty
-            
+
         @endforelse
     </div>
 </main>

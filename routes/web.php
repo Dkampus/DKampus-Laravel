@@ -42,7 +42,7 @@ Route::get('/', function () {
         'Title' => 'Home',
     ]);
 })->name('homepage');
-Route::get('/', [UntukKamuController::class, 'UntukKamu']);
+// Route::get('/', [UntukKamuController::class, 'UntukKamu']);
 
 
 // Promo Page
@@ -98,7 +98,7 @@ Route::get('/promo', function () {
 });
 
 // Detail Routes
-Route::get('/detail-warung/{umkm:slug}', function(Data_umkm $umkm){
+Route::get('/detail-warung/{umkm:id}', function(Data_umkm $umkm){
     return view('pages.Users.DetailWarung',[
         'nama_umkm' => $umkm->nama_umkm,
         'alamat' => $umkm->alamat,
@@ -111,12 +111,12 @@ Route::get('/detail-warung/{umkm:slug}', function(Data_umkm $umkm){
     ]);
 });
 
-Route::get('/detail-makanan/{menu:slug}', function (Menu $menu) {
+Route::get('/detail-makanan/{menu:id}', function (Menu $menu) {
     return view('pages.Users.DetailMakanan', [
         'Title' => 'Detail-Makanan',
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
-        'umkm_slug' => $menu->data_umkm->slug,
+        'umkm_slug' => $menu->data_umkm->id,
         'nama_makanan' => $menu->nama_makanan,
         'rating' => $menu->rating,
         'harga' => number_format($menu->harga, 0, ',', '.'),
@@ -137,6 +137,8 @@ Route::get('/input-registrasi', [UserController::class, 'input_register']);
 Route::get('/code-verification', [UserController::class, 'code_verification']);
 Route::get('atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sandi']);
 
+
+// Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::view('/dashboard', 'pages/admin/dashboard')->name('dashboard');
     Route::view('/umkm', 'pages/admin/UMKM')->name('umkm');
@@ -144,10 +146,22 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/product', function() {
         return view('pages/admin/product_form', [
             'model' => new Menu(),
-            'umkm' => Data_umkm::pluck('nama_umkm', 'id'),            
+            'umkm' => Data_umkm::pluck('nama_umkm', 'id'),
         ]);
     })->name('product');
-    Route::post('/umkm', [MenuController::class, 'store'])->name('umkm.store');
+    Route::post('/product', [MenuController::class, 'store'])->name('product.store');
+
+
+    // edit & delete product route
+    Route::get('/product/{menu}/edit', function(Menu $menu) {
+        return view('pages/admin/product_form', [
+            'model' => $menu,
+            'umkm' => Data_umkm::pluck('nama_umkm', 'id'),
+        ]);
+    })->name('product.edit');
+    Route::patch('/product/{menu}', [MenuController::class, 'update'])->name('product.update');
+    Route::delete('/product/{menu}', [MenuController::class, 'destroy'])->name('product.destroy');
+
 });
 
 Route::middleware('auth')->group(function () {

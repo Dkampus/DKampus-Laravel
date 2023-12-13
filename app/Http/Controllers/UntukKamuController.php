@@ -18,7 +18,7 @@ class UntukKamuController extends Controller
             'SeputarDkampus' => HomeModel::seputarDkampus(),
             'Carousel' => HomeModel::carouselData(),
             'CarouselDesktop' => HomeModel::carouselDesktopData(),
-            'RekomendasiWarung' => Data_umkm::all(),
+            // 'RekomendasiWarung' => Data_umkm::all(),
             'UntukKamu' => UntukKamuModel::untukKamu(),
             'RekomendasiMakanan' => Menu::take(5)->get(), // tampilkan menu yang 5 pertama (tidak semua)
             'FooterPart1' => Footer::footerPart1(),

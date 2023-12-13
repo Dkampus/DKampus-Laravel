@@ -14,6 +14,24 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <style>
+            .hidden-scrol::-webkit-scrollbar {
+                width: 7px;
+                background-color: rgb(2 6 23 / 0.7);
+
+            }
+
+            .hidden-scrol::-webkit-scrollbar-thumb {
+                background-color: #888;
+                border-radius: 5px;
+            }
+
+            .hidden-scrol::-webkit-scrollbar-thumb:hover {
+                background-color: #b3b3b3;
+            }
+        </style>
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">

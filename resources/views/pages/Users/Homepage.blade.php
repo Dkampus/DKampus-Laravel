@@ -13,7 +13,7 @@
             <div class="absolute w-[50%] text-center">
                 <h1 class="text-white font-semibold md:leading-snug text-3xl md:text-6xl">Welcome to <br> Dkampus👋</h1>
             </div>
-            <img src={{$item['Img']}} alt="" class="h-full w-full"> 
+            <img src={{$item['Img']}} alt="" class="h-full w-full">
             </swiper-slide>
             @endforeach
         </x-banner.carousel>
@@ -56,8 +56,8 @@
             @forelse ($RekomendasiWarung as $item)
                 <swiper-slide class="w-96 h-[17rem] mx-0.5 relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
                     <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5 md:w-[4vw]">
-                    <a href="/detail-warung/{{$item->slug}}" class="w-full h-full bg-white overflow-hidden">
-                        <img src={{$item->logo_umkm}} alt="" class="w-[45rem] h-40 object-cover rounded-xl">
+                    <a href="/detail-warung/{{$item->id}}" class="w-full h-full bg-white overflow-hidden">
+                        <img src="{{Storage::url($item->logo_umkm)}}" alt="" class="w-[45rem] h-40 object-cover rounded-xl">
                         <div class="flex flex-col px-3 h-24 justify-center">
                         <div class="flex w-max flex-row gap-1">
                         <img src=clock.svg alt="" class="w-5">
@@ -84,7 +84,7 @@
             @foreach ($RekomendasiMakanan as $menu)
             @php $harga = number_format($menu->harga, 0, ',', '.'); @endphp
                 <swiper-slide class="h-[20rem] flex flex-col relative justify-between bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
-                    <img src={{$menu->image}} alt="" class="w-full h-[14rem] object-cover relative">
+                    <img src="{{Storage::url($menu->image)}}" alt="" class="w-full h-[14rem] object-cover relative">
                     {{-- Description Card --}}
                     <div class="w-full flex flex-row items-center justify-between px-3 py-4">
                     {{-- Title & Warung --}}
@@ -104,7 +104,7 @@
                         </div>
                         <h1 class="text-[#F9832A] font-semibold text-[4vw] sm:text-2xl">Rp. {{$harga}}</h1>
                     </div>
-                    
+
                     </div>
                 </swiper-slide>
             @endforeach
@@ -115,7 +115,7 @@
             @foreach ($RekomendasiMakanan as $menu)
             @php $harga = number_format($menu->harga, 0, ',', '.'); @endphp
                 <div class="food-list-scrollTrigger w-full h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
-                    <img src={{$menu->image}} alt="" class="w-[40rem] h-60 object-cover relative top-0">
+                    <img src="{{Storage::url($menu->image)}}" alt="" class="w-[40rem] h-60 object-cover relative top-0">
                     {{-- Description Card --}}
                     <div class="w-full flex flex-row items-center justify-between px-3 py-4">
                     {{-- Title & Warung --}}
@@ -155,7 +155,7 @@
                 {{$part1['title']}}
             </a>
             @empty
-                
+
             @endforelse
         </div>
         <div id="part2" class="grid grid-rows-2 place-items-stretch place-content-stretch mx-auto">
@@ -166,7 +166,7 @@
                     {{$part2Beli['title']}}
                 </a>
                 @empty
-                    
+
                 @endforelse
             </div>
             <div class="flex flex-col justify-center self-end">
@@ -176,7 +176,7 @@
                     {{$part2Jual['title']}}
                 </a>
                 @empty
-                    
+
                 @endforelse
             </div>
         </div>
@@ -192,7 +192,7 @@
                         </a>
                     </div>
                     @empty
-                        
+
                     @endforelse
                 </div>
             </div>
@@ -204,7 +204,7 @@
                     <img src="{{$part3IkutiKami['img']}}" alt="" class="w-8">
                 </a>
                 @empty
-                    
+
                 @endforelse
                 </div>
             </div>
@@ -214,7 +214,7 @@
             <h1 class="font-semibold text-center">© 2021 - 2023,Dkampus Indonesia</h1>
         </div>
     </footer>
-    
+
     {{-- Scroll Behaviour --}}
     @include('components.scrollBehaviourr.scroll-behaviour')
 @endsection
