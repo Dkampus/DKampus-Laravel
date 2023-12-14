@@ -150,6 +150,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         return view('pages/admin/product_form', [
             'model' => new Menu(),
             'umkm' => Data_umkm::pluck('nama_umkm', 'id'),
+            'button' => 'SIMPAN',
+            'route' => "product.store",
+            'method' => 'POST'
         ]);
     })->name('product');
     Route::post('/product', [MenuController::class, 'store'])->name('product.store');
@@ -161,10 +164,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         return view('pages/admin/product_form', [
             'model' => $menu,
             'umkm' => Data_umkm::pluck('nama_umkm', 'id'),
+            'button' => 'UPDATE',
+            'route' => ['product.update', $menu->id],
+            'method' => 'PUT'
         ]);
     })->name('product.edit');
     //data from edit product form
-    Route::patch('/product/{menu}', [MenuController::class, 'update'])->name('product.update');
+    Route::put('/product/{menu}', [MenuController::class, 'update'])->name('product.update');
     //delete product
     Route::delete('/product/{menu}', [MenuController::class, 'destroy'])->name('product.destroy');
 
@@ -173,6 +179,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/umkm/{umkm}/edit', function(Data_umkm $umkm) {
         return view('pages/admin/umkm_update', [
             'umkm' => $umkm,
+            'products' => Menu::where('data_umkm_id', $umkm->id)->get(),
         ]);
     })->name('umkm.edit');
     //data from edit umkm form

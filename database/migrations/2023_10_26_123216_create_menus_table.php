@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('data_umkm_id');
+            $table->unsignedBigInteger('data_umkm_id');
             $table->string('nama_makanan');
             $table->string('slug');
             // Nama UMKM
@@ -22,6 +22,8 @@ return new class extends Migration
             $table->integer('harga');
             $table->decimal('rating');
             $table->timestamps();
+
+            $table->foreign('data_umkm_id')->references('id')->on('data_umkms')->onDelete('cascade');
         });
     }
 

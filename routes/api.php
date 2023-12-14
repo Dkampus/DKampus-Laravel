@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\UmkmController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthenticatedSessionController::class, 'loginApi']);
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('products', [MenuController::class, 'products']);
+Route::middleware('auth:sanctum')->group(function () {    
+    Route::get('products', [MenuController::class, "products"]);
     Route::get('shops', [UmkmController::class, "allDataUmkm"]);
 });

@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Data_umkm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UmkmController extends Controller
 {
 
     public function allDataUmkm()
     {
-        try {
+        try {                        
             $allUmkm = Data_umkm::with('menu')->all();
 
             return response()->json([
@@ -106,17 +108,23 @@ class UmkmController extends Controller
     public function update(Request $request, Data_umkm $umkm)
     {
         try {
-            $umkm->update([
-                'nama_umkm' => $request->nama_umkm,
-                'logo_umkm' => $request->logo_umkm->store('public/' . $umkm->nama_umkm),
-                'alamat' => $request->alamat,
-                'no_telp_umkm' => $request->no_telp_umkm,
-                'vip' => $request->vip,
-            ]);
+            $umkm = Data_umkm::findOrFail($umkm->id);
+          
+            if($request->hasFile('logo_umkm')){
+                $umkm->logo_umkm = $request->logo_umkm->store('public/' . $umkm->nama_umkm);              
+            }
+
+            $umkm->nama_umkm = $request->nama_umkm;
+            $umkm->alamat = $request->alamat;
+            $umkm->no_telp_umkm = $request->no_telp_umkm;
+            $umkm->vip = $request->vip;
+            $umkm->update();
+
+           
         } catch (\Exception $e) {
             dd($e);
         }
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data UMKM berhasil diupdate');
     }
 
     /**
@@ -124,11 +132,17 @@ class UmkmController extends Controller
      */
     public function destroy(Data_umkm $umkm)
     {
+        DB::beginTransaction();
         try {
-            $umkm->delete();
+            Data_umkm::findOrFail($umkm->id)->delete();
+            Storage::deleteDirectory("public/{$umkm->nama_umkm}");
+            DB::commit();
+            session()->flash('success', 'Umkm ' . $umkm->nama_umkm . ' Berhasil Dihapus');
+            return redirect()->back();
         } catch (\Exception $e) {
-            dd($e);
+            DB::rollback();
+            session()->flash('error2', 'Umkm ' . $umkm->nama_umkm . ' Gagal Dihapus');
+            return redirect()->back();
         }
-        return redirect()->back();
     }
 }

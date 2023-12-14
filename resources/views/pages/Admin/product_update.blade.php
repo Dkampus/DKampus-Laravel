@@ -9,10 +9,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h1 class="text-2xl font-bold mb-4">Form Edit Menu</h1>
-                    <form method="POST" action="{{ route('product.update', $model->id) }}" enctype="multipart/form-data" class="space-y-4">
-                        @csrf
-                        @method('PUT')
+                    <h1 class="text-2xl font-bold mb-4">Form Edit Menu</h1>                    
+                        {!! Form::model($model, [
+                            'route' => ['product.update', $model->id],
+                            'method' => 'put',
+                            'files' => true,
+                            'class' => 'space-y-4'
+                        ]) !!}                       
 
                         <!-- Input fields for UMKM data -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -41,15 +44,16 @@
                                 </div>
                             </div>
                             <div>
-                                <label for="harga">Harga:</label>
-                                <input type="number" name="harga" id="no_telp_umkm" placeholder="harga: 25000" class="text-black w-full px-3 py-2 border rounded-md">
+                                <label for="harga">Harga:</label>                               
+                               {!! Form::textarea("deskripsi", null, ["class" => "text-black w-full rounded-md "]) !!}
                             </div>
+                            
                         </div>
 
                         <button type="submit" class="w-full bg-blue-500 hover-bg-blue-600 text-white font-bold py-2 px-4 rounded">
                             Simpan UMKM
                         </button>
-                    </form>
+                    {!! Form::close() !!}
 
 
                 </div>
