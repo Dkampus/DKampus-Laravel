@@ -103,16 +103,32 @@ class UmkmController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Data_umkm $umkm)
     {
-        //
+        try {
+            $umkm->update([
+                'nama_umkm' => $request->nama_umkm,
+                'logo_umkm' => $request->logo_umkm->store('public/' . $umkm->nama_umkm),
+                'alamat' => $request->alamat,
+                'no_telp_umkm' => $request->no_telp_umkm,
+                'vip' => $request->vip,
+            ]);
+        } catch (\Exception $e) {
+            dd($e);
+        }
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Data_umkm $umkm)
     {
-        //
+        try {
+            $umkm->delete();
+        } catch (\Exception $e) {
+            dd($e);
+        }
+        return redirect()->back();
     }
 }

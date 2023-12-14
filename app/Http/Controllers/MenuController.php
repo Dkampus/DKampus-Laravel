@@ -84,16 +84,32 @@ class MenuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Menu $menu)
     {
-        //
+        try {
+            $menu->update([
+                'nama_makanan' => $request->nama_makanan,
+                'deskripsi' => $request->deskripsi,
+                'harga' => $request->harga,
+                'rating' => $request->rating,
+                'image' => $request->image->store('public/' . $menu->data_umkm->nama_umkm)
+            ]);
+        } catch (\Exception $e) {
+            dd($e);
+        }
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Menu $menu)
     {
-        //
+        try {
+            $menu->delete();
+        } catch (\Exception $e) {
+            dd($e);
+        }
+        return redirect()->back();
     }
 }

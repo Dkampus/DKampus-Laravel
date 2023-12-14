@@ -140,7 +140,10 @@ Route::get('atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_san
 
 // Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
-    Route::view('/dashboard', 'pages/admin/dashboard')->name('dashboard');
+    Route::view('/dashboard', 'pages/admin/dashboard', [
+        'data_umkm' => Data_umkm::all(),
+    ]
+    )->name('dashboard');
     Route::view('/umkm', 'pages/admin/UMKM')->name('umkm');
     Route::post('/umkm', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
     Route::get('/product', function() {
@@ -153,14 +156,30 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
 
     // edit & delete product route
+    //to edit product form
     Route::get('/product/{menu}/edit', function(Menu $menu) {
         return view('pages/admin/product_form', [
             'model' => $menu,
             'umkm' => Data_umkm::pluck('nama_umkm', 'id'),
         ]);
     })->name('product.edit');
+    //data from edit product form
     Route::patch('/product/{menu}', [MenuController::class, 'update'])->name('product.update');
+    //delete product
     Route::delete('/product/{menu}', [MenuController::class, 'destroy'])->name('product.destroy');
+
+    // edit & delete umkm route
+    //to edit umkm form
+    Route::get('/umkm/{umkm}/edit', function(Data_umkm $umkm) {
+        return view('pages/admin/umkm_update', [
+            'umkm' => $umkm,
+        ]);
+    })->name('umkm.edit');
+    //data from edit umkm form
+    Route::put('/umkm/{umkm}', [UmkmController::class, 'update'])->name('umkm.update');
+    //delete umkm
+    Route::delete('/umkm/{umkm}', [UmkmController::class, 'destroy'])->name('umkm.destroy');
+
 
 });
 
