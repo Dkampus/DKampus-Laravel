@@ -194,6 +194,7 @@ function hideMenu(){
 
 const barMenuDesktop = document.getElementById('bar-menu-desktop');
 const overlayMenuDesktop = document.getElementById('overlay-menu-desktop');
+const viewportWidthDesktop = window.innerWidth;
 function showMenuDesktop(){
     if(barMenuDesktop.style.display === 'none' || barMenuDesktop.style.display === ''){
         barMenuDesktop.style.width = '23rem';
@@ -204,7 +205,11 @@ function showMenuDesktop(){
         barMenuDesktop.style.boxShadow = "0px 10px 15px -3px rgba(0,0,0,0.1)";
 
         // style body
-        document.body.style.overflow = 'hidden';
+        if(viewportWidthDesktop >= 768 ){
+          document.body.style.overflow = 'hidden';
+        }else if (viewportWidthDesktop < 768){
+          document.body.style.overflow = 'auto';
+        }
 
         overlayMenuDesktop.style.opacity = '100';
         overlayMenuDesktop.style.display = 'block';
