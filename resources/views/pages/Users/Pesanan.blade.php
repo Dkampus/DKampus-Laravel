@@ -3,17 +3,21 @@
     <div class="flex flex-col gap-5 items-center justify-start bg-[#F0F3F8]">
         <section id="warungIbuPagi" class="flex flex-col bg-white w-full h-full py-10">
             <div id="contentCard" class="mx-auto">
+                @if($carts->count() > 0)
                 {{-- Title Warung --}}
                 <div id="titleWarung" class="flex flex-row items-center mb-4">
                     <div class="flex flex-row justify-start items-center gap-4 rounded-xl">
                         <input type="checkbox" name="" id="checkboxWarung"
                             class="text-[#F9832A] border-2 rounded-md border-[#F9832A] w-8  h-8 transition-all duration-300 checked:fill-[#F9832A] checked:border-[#F9832A] checked:ring-[#F9832A] focus:fill-[#F9832A] focus:border-[#F9832A] focus:ring-[#F9832A]">
                         <label for="checkboxWarung" for="" class="flex flex-row gap-5 items-center">
+                            
                             <img src="{{ $carts->first()->menu->data_umkm->logo_umkm }}" alt="" class="w-24">
                             <h1 class="text-xl font-semibold">{{ $carts->first()->menu->data_umkm->nama_umkm }}</h1>
+                            
                         </label>
                     </div>
                 </div>
+                @endif
 
                 {{-- Line Card Pesanan --}}
                 <div class="bg-[#5e5e5e]/40 w-[30rem] h-0.5"></div>
@@ -22,6 +26,7 @@
                 <div id="cardList" class="flex flex-col transition-all duration-300 items-start gap-y-7 mt-10">
 
                     @php $total_harga = 0; @endphp
+                    @if($carts->count() > 0)
                     @foreach ($carts as $c)
                         @php
                             $harga = number_format($c->menu->harga, 0, ',', '.');
@@ -110,6 +115,7 @@
                         <input type="hidden" name="items[harga][]" value="{{ $c->menu->harga }}">
                         <input type="hidden" name="items[id][]" value="{{ $c->id }}">
                     @endforeach
+                    @endif
                 </div>
                 </form>
                 <form action="{{ route("cart.delete") }}" method="POST" class="delete-form hidden">

@@ -14,7 +14,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        $carts = Cart::all();
+        $carts = Cart::where("user_id", auth()->user()->id)->get();
         return view('pages.Users.Pesanan',[
             'Title' => 'Pesanan',
             'NavPesanan' => 'Pesanan',
