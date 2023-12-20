@@ -13,7 +13,7 @@ class MenuController extends Controller
     public function products(Request $request)
     {
         try {
-            $products = Menu::with('data_umkm')->all();
+            $products = Menu::all();
 
             return response()->json([
                 'success' => true,

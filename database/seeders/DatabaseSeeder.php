@@ -20,25 +20,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
-
-        User::create([
-            'nama_user' => 'Ujang Bengkel',
-            'email' => 'ujangbutuhuang@mail.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('12345'), // password
-            'role' => 'admin',
-            'no_telp' => '827-986-5852'
-        ]);
-
-        User::create([
-            'nama_user' => 'Arif Kecap',
-            'email' => 'knalpotbaja@mail.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('12345'), // password
-            'role' => 'courier',
-            'no_telp' => '827-986-5852'
-        ]);
+       
 
         Data_umkm::factory(3)->create();
         Menu::factory(20)->create();

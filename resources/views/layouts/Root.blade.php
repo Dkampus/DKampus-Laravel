@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- icon title -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="apple-touch-icon" type="image/png" href={{ asset('logoDkampus.png') }} />
     <link rel="apple-touch-icon" type="image/png" sizes="76x76" href={{ asset('logoDkampus.png') }} />
     <link rel="apple-touch-icon" type="image/png" sizes="120x120" href={{ asset('logoDkampus.png') }} />
@@ -84,6 +86,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @switch($Title)
         @case('Home')
             <script src="{{ asset('js/homepage-script.js') }}"></script>
@@ -137,6 +140,49 @@
             {{-- <script src="{{asset('js/inputRegistration.js')}}"></script> --}}
             {{-- <script src="{{asset('js/codeVerification.js')}}"></script> --}}
     @endswitch
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('error2'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'error',
+                title: '{{ session('error2') }}'
+            })
+        </script>
+    @endif
+    @if (session('success'))
+        <script>
+            const ToastSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            ToastSuccess.fire({
+                icon: 'success',
+                title: '{{ session('success') }}'
+            })
+        </script>
+    @endif
+    @stack('js')
 </body>
 
 </html>

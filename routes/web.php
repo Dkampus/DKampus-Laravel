@@ -129,6 +129,8 @@ Route::get('/detail-makanan/{menu:id}', function (Menu $menu) {
 Route::get('/pesanan', [CartController::class, 'index']);
 Route::post('/pesananStore', [CartController::class, 'store']);
 Route::get('/pesanan/status', [CartController::class, 'status']);
+Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
+Route::patch("/pesanan/update-quantity", [CartController::class, 'updateQuantity']);
 
 // Login & Register Routes
 Route::get('/masuk', [UserController::class, 'login']);

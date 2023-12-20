@@ -13,7 +13,7 @@ class UmkmController extends Controller
     public function allDataUmkm()
     {
         try {                        
-            $allUmkm = Data_umkm::with('menu')->all();
+            $allUmkm = Data_umkm::all();
 
             return response()->json([
                 'success' => true,
