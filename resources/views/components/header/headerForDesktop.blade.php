@@ -14,7 +14,7 @@
         </a>
     
         {{-- Search --}}
-        @include('components.header.search')
+        @include('components.header.searchDesktop')
 
         <button class="hidden mx-auto md:flex">
             <img src="./cart.svg" alt="">
@@ -30,7 +30,7 @@
             <img src="chat.svg" alt="" class="w-8 mr-5">
             </button>
             @endauth    
-            @include('components.header.menu')
+            @include('components.header.menuDesktop')
         </div>
 
     </div>

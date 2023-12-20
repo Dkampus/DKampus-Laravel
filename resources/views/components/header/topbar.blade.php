@@ -1,5 +1,5 @@
 {{-- TopBar Mobile --}}
-<div class="flex flex-row w-[100%] items-center gap-0.5 pt-7 pb-3 mx-auto md:sticky md:top-0 md:px-5 md:hidden">
+<div class="flex flex-row w-[100%] px-3 sticky items-center gap-0.5 pt-7 pb-3 mx-auto md:top-0 md:px-5 md:hidden">
     {{-- Logo --}}
     <div class="flex flex-row items-center md:gap-2">
         <a href="/">

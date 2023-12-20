@@ -74,7 +74,7 @@
         
         @if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit' || $Title === 'Status')
             {{-- <div class="w-full relative flex justify-center"> --}}
-                @include('components.navbar.navbar')
+            @include('components.navbar.navbar')
             {{-- </div> --}}
         @else
             {{-- @include('components.navbar.navbar') --}}
