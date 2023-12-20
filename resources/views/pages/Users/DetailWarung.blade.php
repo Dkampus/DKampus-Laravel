@@ -13,7 +13,7 @@
         </a>
 
         {{-- Title --}}
-        <h1 id="titleDetail" class="text-white font-semibold text-lg">{{$nama_umkm}}</h1>
+        <h1 id="titleDetail" class="text-white font-semibold text-lg invisible">{{$nama_umkm}}</h1>
 
         {{-- Favorit --}}
         <label for="NavCheckbox" id="NavLikeButton" class="w-12 h-12 bg-white flex flex-col justify-center items-center rounded-full">
