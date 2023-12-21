@@ -13,7 +13,7 @@ class MenuController extends Controller
     public function products(Request $request)
     {
         try {
-            $products = Menu::with('data_umkm')->all();
+            $products = Menu::all();
 
             return response()->json([
                 'success' => true,
@@ -24,6 +24,25 @@ class MenuController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal menampilkan menu',
+                'data' => ''
+            ], 400);
+        }
+    }
+
+    public function shopData(Request $request)
+    {
+        try {
+            $shopData = Data_umkm::where('id', $request->id)->first();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Toko',
+                'data' => $shopData
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menampilkan data toko',
                 'data' => ''
             ], 400);
         }
@@ -93,13 +112,13 @@ class MenuController extends Controller
             $menu->data_umkm_id = $request->nama_umkm;
             $menu->nama_makanan = $request->nama_makanan;
             $menu->deskripsi = $request->deskripsi;
-            $menu->harga = $request->harga;            
+            $menu->harga = $request->harga;
 
             if ($request->hasFile('image')) {
                 $menu->image = $request->image->store('public/' . $menu->data_umkm->nama_umkm);
             }
 
-            $menu->update();            
+            $menu->update();
         } catch (\Exception $e) {
             dd($e);
         }
@@ -118,7 +137,7 @@ class MenuController extends Controller
                 session()->flash('error2', 'Product ' . $menu->nama_makanan . ' Gagal Dihapus, karena UMKM ' . $menu->data_umkm->nama_umkm . ' hanya memiliki 1 product');
             }
             Menu::findOrFail($menu->id)->delete();
-            Storage::delete("public/{$menu->data_umkm->nama_umkm}/{$menu->image}");            
+            Storage::delete("public/{$menu->data_umkm->nama_umkm}/{$menu->image}");
             DB::commit();
             session()->flash('success', 'Product ' . $menu->nama_makanan . ' Berhasil Dihapus');
             return redirect()->back();

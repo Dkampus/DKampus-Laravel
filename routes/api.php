@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthenticatedSessionController::class, 'loginApi']);
 
-Route::middleware('auth:sanctum')->group(function () {    
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('products', [MenuController::class, "products"]);
     Route::get('shops', [UmkmController::class, "allDataUmkm"]);
+    Route::post('shopData', [UmkmController::class, "shopData"]);
 });
