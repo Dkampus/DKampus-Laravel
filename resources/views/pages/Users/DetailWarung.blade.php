@@ -26,7 +26,7 @@
     </nav>
 
     {{-- Banner Fade --}}
-    <x-bannerfade.banner-fade>
+    {{-- <x-bannerfade.banner-fade>
         @forelse ($BannerFade as $Item)
         <swiper-slide class="relative">
                 <img src=../{{$Item['Img']}} alt="" class="w-full h-full object-cover">
@@ -35,9 +35,11 @@
         @empty
 
         @endforelse
-    </x-bannerfade.banner-fade>
-
-
+    </x-bannerfade.banner-fade> --}}
+    <div class="h-[30rem] max-w-full">
+        <img src="../goyengAyam.jpeg" alt="" class="object-cover">
+        <div class="bg-gradient-to-t from-black to-transparent h-full w-full absolute z-50 top-0"></div>
+    </div>
     <div id="desc" class="absolute text-white bottom-0 z-50 mx-5 my-5">
 
         {{-- Judul Warung --}}
