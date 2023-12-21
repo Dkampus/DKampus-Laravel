@@ -14,7 +14,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        $carts = Cart::all();
+        $carts = Cart::where("user_id", auth()->user()->id)->get();
         return view('pages.Users.Pesanan',[
             'Title' => 'Pesanan',
             'NavPesanan' => 'Pesanan',
@@ -57,6 +57,14 @@ class CartController extends Controller
         return redirect('/pesanan');
     }
 
+    public function updateQuantity(Request $request){
+        $carts = Cart::find($request->id);
+        $carts->quantity = $request->quantity;
+        $carts->save();
+
+        return redirect('/pesanan');
+    }
+
     /**
      * Display the specified resource.
      */
@@ -84,8 +92,15 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $carts = Cart::find($request->id);
+        $carts->delete();
+
+        if($carts){
+            return redirect()->back()->with('success', 'Menu berhasil dihapus');
+        } else {
+            return redirect()->back()->with('error2', 'Menu gagal dihapus');
+        }        
     }
 }

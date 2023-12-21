@@ -3,17 +3,21 @@
     <div class="flex flex-col gap-5 items-center justify-start bg-[#F0F3F8]">
         <section id="warungIbuPagi" class="flex flex-col bg-white w-full h-full py-10">
             <div id="contentCard" class="mx-auto">
+                @if($carts->count() > 0)
                 {{-- Title Warung --}}
                 <div id="titleWarung" class="flex flex-row items-center mb-4">
                     <div class="flex flex-row justify-start items-center gap-4 rounded-xl">
                         <input type="checkbox" name="" id="checkboxWarung"
                             class="text-[#F9832A] border-2 rounded-md border-[#F9832A] w-8  h-8 transition-all duration-300 checked:fill-[#F9832A] checked:border-[#F9832A] checked:ring-[#F9832A] focus:fill-[#F9832A] focus:border-[#F9832A] focus:ring-[#F9832A]">
                         <label for="checkboxWarung" for="" class="flex flex-row gap-5 items-center">
-                            <img src="{{ $carts->find(1)->menu->data_umkm->logo_umkm }}" alt="" class="w-24">
+                            
+                            <img src="{{ $carts->first()->menu->data_umkm->logo_umkm }}" alt="" class="w-24">
                             <h1 class="text-xl font-semibold">{{ $carts->first()->menu->data_umkm->nama_umkm }}</h1>
+                            
                         </label>
                     </div>
                 </div>
+                @endif
 
                 {{-- Line Card Pesanan --}}
                 <div class="bg-[#5e5e5e]/40 w-[30rem] h-0.5"></div>
@@ -22,6 +26,7 @@
                 <div id="cardList" class="flex flex-col transition-all duration-300 items-start gap-y-7 mt-10">
 
                     @php $total_harga = 0; @endphp
+                    @if($carts->count() > 0)
                     @foreach ($carts as $c)
                         @php
                             $harga = number_format($c->menu->harga, 0, ',', '.');
@@ -69,7 +74,7 @@
                                             </div>
                                             <div id="count"
                                                 class="flex flex-col items-center bg-white shadow-lg justify-between mr-2 my-auto rounded-lg w-[2.5rem] h-full">
-                                                <button id="increment" type="button"
+                                                <button id="increment" type="button" value="{{ $c->id }}"
                                                     class="bg-[#EEEEEE] transition-all duration-300 rounded-xl scale-100 shadow-md flex w-[2.5rem] flex-col justify-center items-center h-[2.5rem] font-bold">
                                                     <svg height="25" viewBox="0 0 14 15" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -84,7 +89,7 @@
                                                     class="font-semibold bg-transparent w-[2.5rem] border-none text-center focus:border-none focus:ring-0"
                                                     value="{{ $c->quantity }}" readonly />
 
-                                                <button id="decrement" type="button"
+                                                <button id="decrement" type="button" value="{{ $c->id }}"
                                                     class="bg-[#EEEEEE] transition-all duration-300 rounded-xl scale-100 shadow-md flex w-[2.5rem] flex-col justify-center items-center h-[2.5rem] font-bold">
                                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -92,18 +97,16 @@
                                                             stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </button>
-
-
-
-                                                <button onclick="DeleteItem()" id="delete"
-                                                    class="hidden delete transition-all duration-300 bg-[#FF8080] rounded-xl scale-100 shadow-md w-[2.5rem] flex-col justify-center items-center h-[2.5rem] font-bold">
-                                                    <svg height="23" viewBox="0 0 12 14" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M1.36136 12.1029C1.36136 12.4932 1.52167 12.8675 1.80702 13.1435C2.09236 13.4195 2.47938 13.5745 2.88292 13.5745H8.96914C9.37269 13.5745 9.7597 13.4195 10.045 13.1435C10.3304 12.8675 10.4907 12.4932 10.4907 12.1029V3.2731H1.36136V12.1029ZM2.88292 4.74473H8.96914V12.1029H2.88292V4.74473ZM8.58876 1.06565L7.82798 0.329834H4.02409L3.26331 1.06565H0.600586V2.53728H11.2515V1.06565H8.58876Z"
-                                                            fill="#EEEEEE" />
-                                                    </svg>
-                                                </button>
+                                               
+                                                <button id="delete" value="{{ $c->id }}"
+                                                class="hidden delete transition-all duration-300 bg-[#FF8080] rounded-xl scale-100 shadow-md w-[2.5rem] flex-col justify-center items-center h-[2.5rem] font-bold">
+                                                <svg height="23" viewBox="0 0 12 14" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                d="M1.36136 12.1029C1.36136 12.4932 1.52167 12.8675 1.80702 13.1435C2.09236 13.4195 2.47938 13.5745 2.88292 13.5745H8.96914C9.37269 13.5745 9.7597 13.4195 10.045 13.1435C10.3304 12.8675 10.4907 12.4932 10.4907 12.1029V3.2731H1.36136V12.1029ZM2.88292 4.74473H8.96914V12.1029H2.88292V4.74473ZM8.58876 1.06565L7.82798 0.329834H4.02409L3.26331 1.06565H0.600586V2.53728H11.2515V1.06565H8.58876Z"
+                                                fill="#EEEEEE" />
+                                            </svg>
+                                                </button>                                    
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +115,13 @@
                         <input type="hidden" name="items[harga][]" value="{{ $c->menu->harga }}">
                         <input type="hidden" name="items[id][]" value="{{ $c->id }}">
                     @endforeach
+                    @endif
                 </div>
+                </form>
+                <form action="{{ route("cart.delete") }}" method="POST" class="delete-form hidden">
+                    @csrf
+                    @method("DELETE")
+                    <input type="hidden" name="id" id="deleteInput">
                 </form>
                 {{-- End Card List Pesanan --}}
             </div>
@@ -143,28 +152,172 @@
     </div>
 
     <div id="totalAndAddress">
-    <div id="content"
-        class="fixed border-[2.5px] border-black/10 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full left-0 bottom-0 bg-white shadow-top-for-total-harga">
-        <button id="alamat" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
-            <img src="Map.svg" alt="" class="w-6">
-            <div id="desc" class="flex flex-row gap-2 items-center">
-                <h1 class="text-[#5e5e5e] font-medium">Masukkan alamat Anda</h1>
-                <img src="ArrowTop.svg" alt="">
-            </div>
-        </button>
+        <div id="content"
+            class="fixed border-[2.5px] border-black/10 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full left-0 bottom-0 bg-white shadow-top-for-total-harga">
+            <button id="alamat" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
+                <img src="Map.svg" alt="" class="w-6">
+                <div id="desc" class="flex flex-row gap-2 items-center">
+                    <h1 class="text-[#5e5e5e] font-medium">Masukkan alamat Anda</h1>
+                    <img src="ArrowTop.svg" alt="">
+                </div>
+            </button>
 
-        @php $total_harga = number_format($total_harga,0,',','.'); @endphp
-        <div id="totalHarga" class="flex flex-row gap-5">
-            <div id="descTotalHarga" class="text-center">
-                <h1>Total Harga</h1>
-                <p id="total_harga" class=" font-semibold border-b-2 border-[#F9832A]">Rp{{ $total_harga }}</p>
-            </div>
-            <div id="buttonTotalHarga">
-                <button class="bg-[#F9832A] h-10 w-24 text-white font-semibold rounded-xl">
-                    Pesan
-                </button>
+            @php $total_harga = number_format($total_harga,0,',','.'); @endphp
+            <div id="totalHarga" class="flex flex-row gap-5">
+                <div id="descTotalHarga" class="text-center">
+                    <h1>Total Harga</h1>
+                    <p id="total_harga" class=" font-semibold border-b-2 border-[#F9832A]">Rp{{ $total_harga }}</p>
+                </div>
+                <div id="buttonTotalHarga">
+                    <button class="bg-[#F9832A] h-10 w-24 text-white font-semibold rounded-xl">
+                        Pesan
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-    </div>  
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            // Loop through all quantity inputs
+            quantityInputs.forEach(function(quantityInput, index) {
+                    const itemQuantity = parseInt(quantityInput.value);
+                    const decrementBtn = decrementBtns[index];
+                    const incrementBtn = incrementBtns[index];
+
+                    // Show or hide decrement button based on quantity value
+                    if (itemQuantity == 1) {
+                        decrementBtn.style.display = "none";
+                        decrementBtn.style.pointerEvents = "none";
+                        incrementBtn.style.pointerEvents = "auto";
+                        deleteBtn[index].style.display = "flex";
+                    }
+
+                    // Show or hide increment button based on quantity value
+                    if (itemQuantity === 100) {
+                        incrementBtn.style.opacity = "0";
+                        incrementBtn.style.pointerEvents = "none";
+                    }
+
+                    // Add click event listener to decrement button
+                    decrementBtn.addEventListener("click", function(e) {
+                        e.preventDefault();
+                        let currentQuantity = parseInt(quantityInput.value);
+
+                        if (currentQuantity > 1) {
+                            decrementBtn.style.display = "absolute";
+                            decrementBtn.style.pointerEvents = "auto";
+                            quantityInput.value = currentQuantity - 1;
+                            currentQuantity--;
+
+                            const cartId = $(this).val();
+                           
+                            $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/pesanan/update-quantity",
+                                    data: {
+                                        _method: "PATCH", // Emulate PATCH request
+                                        id: cartId,
+                                        quantity: currentQuantity
+                                    },
+                                    success: function(response) {
+                                       
+                                    },
+                                    error: function(error) {
+                                        
+                                    }
+                                });
+                            }                                                
+
+                        if (currentQuantity == 1) {
+                            decrementBtn.style.display = "none";
+                            decrementBtn.style.pointerEvents = "none";
+                            incrementBtn.style.pointerEvents = "auto";
+                            deleteBtn[index].style.display = "flex";
+                        }
+
+                        calculateTotal();
+                    });
+
+                    // Add click event listener to increment button
+                    incrementBtn.addEventListener("click", function(e) {
+                            e.preventDefault();
+                            let currentQuantity = parseInt(quantityInput.value);
+
+                            if (currentQuantity < 100) {
+                                currentQuantity++;
+                                quantityInput.value = currentQuantity;
+                                incrementBtn.style.opacity = currentQuantity === 100 ? "0" : "1";
+                                incrementBtn.style.pointerEvents =
+                                    currentQuantity === 100 ? "none" : "auto";
+
+                                const cartId = $(this).val();
+
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/pesanan/update-quantity",
+                                    data: {
+                                        _method: "PATCH", // Emulate PATCH request
+                                        id: cartId,
+                                        quantity: currentQuantity
+                                    },
+                                    success: function(response) {
+                                       
+                                    },
+                                    error: function(error) {
+                                        
+                                    }
+                                });
+                            }                        
+
+                        if (currentQuantity == 2) {
+                            deleteBtn[index].style.display = "none";
+                            decrementBtn.style.display = "flex";
+                            decrementBtn.style.pointerEvents = "auto";
+                        }
+
+                        calculateTotal();
+                    });
+            });
+
+            $(document).on("click", "#delete" ,function (e) {
+                e.preventDefault();
+
+                // confirm delete
+                Swal.fire({
+                            title: 'Konfirmasi',
+                            text: 'Apakah Anda yakin ingin menghapus?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Ya, hapus!',
+                        }).then((result) => {
+                            // Jika pengguna menekan "Ya", submit form
+                            const cartId = $(this).val();
+                            console.log(cartId)
+                            $("#deleteInput").val(cartId);
+                            if (result.isConfirmed) {
+                                const form = $('.delete-form');
+                                console.log(form)
+                                form.submit();
+                            }
+                        });
+            });
+        });
+    </script>
+@endpush

@@ -10,7 +10,7 @@
 @endguest
 
 @auth
-<button onclick="showMenu()" class="relative z-[30]">
+<button onclick="showMenuDesktop()" class="relative z-[30]">
     <img src="menu.svg" alt="" class="w-8">
 </button>
 @endauth
@@ -18,7 +18,7 @@
     <img src="menu.svg" alt="" class="w-8">
 </button> --}}
 
-<div id="bar-menu"
+<div id="bar-menu-desktop"
     class="h-screen bg-white shadow-xl overflow-auto transition-all duration-500 fixed w-0 top-0 right-0 z-[80]">
     {{-- @guest
             <a href="/masuk"
@@ -33,7 +33,7 @@
         @endauth --}}
     <header class="flex flex-row absolute top-8 right-5 gap-10 justify-end items-center w-full">
         <h1 class="text-xl font-semibold">Menu Utama</h1>
-        <button onclick="hideMenu()" class="font-bold text-xl text-[#FF9240]">
+        <button onclick="hideMenuDesktop()" class="font-bold text-xl text-[#FF9240]">
             <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#FF9240]" height="1.5em"
                 viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                 <path
@@ -110,6 +110,6 @@
     </footer>
 
 </div>
-<div onclick="hideMenu()" id="overlay-menu"
+<div onclick="hideMenuDesktop()" id="overlay-menu-desktop"
     class="fixed bg-black/20 invisible transition-all duration-500 opacity-0 w-full h-screen z-[60] top-0 left-0">
 </div>
