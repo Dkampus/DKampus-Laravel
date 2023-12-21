@@ -130,6 +130,19 @@ Route::get('/pesanan', [CartController::class, 'index']);
 Route::post('/pesananStore', [CartController::class, 'store']);
 Route::get('/pesanan/status', [CartController::class, 'status']);
 
+
+//Favorite Routes
+Route::get('/favorit',function(){
+    return view('pages.Users.Favorit',[
+        'Title' => 'Favorit',
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
+        'RekomendasiWarung' => Data_umkm::all(),
+        'RekomendasiMakanan' => Menu::take(5)->get(),
+        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+    ]);
+});
+
 // Login & Register Routes
 Route::get('/masuk', [UserController::class, 'login']);
 Route::get('/daftar', [UserController::class, 'register']);
