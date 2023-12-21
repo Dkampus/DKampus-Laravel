@@ -10,7 +10,7 @@
                 </svg>
                 <h1 class="text-white font-bold text-2xl w-max">Promo Special</h1>
             </div>
-            <a href="" class="text-white text-sm w-max">Lihat semua</a>
+            <a href="" class="text-white text-lg w-max">Lihat semua</a>
         </div>
 
         {{-- Carousel Promo --}}

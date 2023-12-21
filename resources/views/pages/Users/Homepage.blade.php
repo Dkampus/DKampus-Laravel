@@ -1,11 +1,11 @@
 @extends('layouts.Root')
     @section('content')
-    <header class="sticky top-0 bg-white z-10">
+    <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10">
         {{-- Topbar --}}
         @include('components.header.topbar')
     </header>
 
-    <main class="md:mx-14 md:mb-40">
+    <main class="px-3 md:mx-14 md:mb-40">
         {{-- Carousel Banner --}}
         <x-banner.carousel>
             @foreach ($Banner as $item)

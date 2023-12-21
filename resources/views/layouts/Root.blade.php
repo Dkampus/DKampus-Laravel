@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <div id="containerLayout" class="relative mx-auto {{$Title === 'Home' ? 'px-3 md:px-0' :'px-0' }}">
+    <div id="containerLayout" class="relative mx-auto {{$Title === 'Home' ? 'md:px-0' :'px-0' }}">
         @if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit' || $Title === 'Status')
         {{-- TopBar Desktop --}}
         {{-- <div id="topBarDekstop" class="hidden sticky top-0 z-10 bg-white md:flex md:flex-col md:justify-center md:border-b-2 md:border-[#F9832A]">

@@ -1,3 +1,16 @@
+const topBarMobile = document.getElementById('topBarMobile')
+window.addEventListener('scroll', () => {
+    // Check the scroll position, for example, when it goes beyond 100 pixels
+    if (window.scrollY >= 100) {
+        // Show the scroll indicator
+        topBarMobile.style.boxShadow = '0px 10px 20px 0px rgba(0,0,0,0.1)';
+        topBarMobile.style.transition = "all 1s"
+    } else if (window.scrollY < 100){
+         topBarMobile.style.boxShadow = "none";
+         topBarMobile.style.transition = "all 1s"
+    }
+});
+ 
  // swiper for banner
  const banner = document.getElementById('banner')
  // swiper parameters
