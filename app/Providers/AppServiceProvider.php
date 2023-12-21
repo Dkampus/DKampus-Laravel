@@ -24,5 +24,12 @@ class AppServiceProvider extends ServiceProvider
         // if($this->app->environment('local')) {
         //     URL::forceScheme('https');
         // }
+
+        if (env('APP_ENV') !== 'local') {
+            $this->app['request']->server->set('HTTPS', true);
+        }
+
+
+
     }
 }

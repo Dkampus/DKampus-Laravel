@@ -12,8 +12,8 @@ class UmkmController extends Controller
 
     public function allDataUmkm()
     {
-        try {                        
-            $allUmkm = Data_umkm::with('menu')->all();
+        try {
+            $allUmkm = Data_umkm::all();
 
             return response()->json([
                 'success' => true,
@@ -28,6 +28,28 @@ class UmkmController extends Controller
             ], 400);
         }
     }
+
+    public function shopData(Request $request)
+    {
+
+        try {
+            $shopData = Data_umkm::where('id', $request->id)->first();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Toko',
+                'data' => $shopData
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menampilkan data toko',
+                'data' => ''
+            ], 400);
+        }
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -109,9 +131,9 @@ class UmkmController extends Controller
     {
         try {
             $umkm = Data_umkm::findOrFail($umkm->id);
-          
+
             if($request->hasFile('logo_umkm')){
-                $umkm->logo_umkm = $request->logo_umkm->store('public/' . $umkm->nama_umkm);              
+                $umkm->logo_umkm = $request->logo_umkm->store('public/' . $umkm->nama_umkm);
             }
 
             $umkm->nama_umkm = $request->nama_umkm;
@@ -120,7 +142,7 @@ class UmkmController extends Controller
             $umkm->vip = $request->vip;
             $umkm->update();
 
-           
+
         } catch (\Exception $e) {
             dd($e);
         }
