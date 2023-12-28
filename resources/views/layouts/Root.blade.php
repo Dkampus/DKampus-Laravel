@@ -94,6 +94,8 @@
         @break
 
         @case('Promo')
+            <script src="{{ asset('js/promo.js') }}"></script>
+            <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script>
         @break
 
         @case('Pesanan')
