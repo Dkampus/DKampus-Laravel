@@ -36,10 +36,10 @@ const promoTerlarisParams = {
 //    transition: all;
 //    }
 //    `],
-  slidesPerView: 1,
+  slidesPerView:3,
   breakpoints: {
     640: {
-      slidesPerView: 1,
+      slidesPerView: 3,
     },
     1024: {
       slidesPerView: 3.5,

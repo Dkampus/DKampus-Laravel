@@ -51,7 +51,7 @@
 {{-- Carousel Promo Terlaris --}}
 <x-promo-slider.semua-promo-carousel>
     @forelse ($PromoTerlarisSlider as $Item)
-     <swiper-slide class="border transition-all duration-300 w-40 h-60 rounded-xl overflow-hidden shadow-md mb-2">
+     <swiper-slide class="border transition-all hidden duration-300 w-40 h-60 rounded-xl overflow-hidden shadow-md mb-2 md:flex">
  
          {{-- Header Card --}}
          <div id="headerCard" class="w-full">
