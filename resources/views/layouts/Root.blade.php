@@ -100,13 +100,16 @@
 
         @case('Pesanan')
             <script src="{{ asset('js/pesanan.js') }}"></script>
+            <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script>
         @break
 
         @case('Status')
             <script src="{{ asset('js/status.js') }}"></script>
+            {{-- <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script> --}}
         @break
 
         @case('Favorit')
+            <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script>
         @break
 
         @case('Detail-Warung')
