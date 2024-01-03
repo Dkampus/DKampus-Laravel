@@ -57,11 +57,13 @@
                         <h1>10min - 30min</h1>
                     </div>
                     {{-- State Count --}}
-                <form action="" method="post">
+                <form action="/pesananStore" method="post">
+                    @csrf
+                    <input type="hidden" name="menu_id" value="{{ $menu_id }}">
                     <div id="count" class="flex flex-row items-center bg-black/10 justify-around px-1 border-2 rounded-lg w-28 h-12">
-                    <button id="decrement" class="text-3xl flex flex-col justify-center h-full font-bold text-gray-500">-</button>
-                    <input id="number" type="number" class="font-semibold bg-transparent w-10 border-none text-center focus:border-none focus:ring-0" value="0" readonly/>
-                    <button id="increment" class="text-xl flex flex-col justify-center h-full font-bold text-[#F9832A]">+</button>
+                    <button type="button" id="decrement" class="text-3xl flex flex-col justify-center h-full font-bold text-gray-500">-</button>
+                    <input id="number" name="quantity" type="number" class="font-semibold bg-transparent w-10 border-none text-center focus:border-none focus:ring-0" value="0" readonly/>
+                    <button type="button" id="increment" class="text-xl flex flex-col justify-center h-full font-bold text-[#F9832A]">+</button>
                     </div>
                 </div>
 
@@ -91,7 +93,7 @@
     {{-- Catatan --}}
     <div class="mx-5 my-7 flex flex-col gap-2">
         <h1 class="text-2xl font-semibold pb-3">Catatan</h1>
-        <textarea class="rounded-xl border-2 border-gray-300 focus:border-gray-300 focus:ring-0" name="" id="" cols="30" rows="7" placeholder="Saran : Ayam nya yang paling besar, saos nya 10, Kriuk nya banyakin"></textarea>
+        <textarea class="rounded-xl border-2 border-gray-300 focus:border-gray-300 focus:ring-0" name="catatan" id="" cols="30" rows="7" placeholder="Saran : Ayam nya yang paling besar, saos nya 10, Kriuk nya banyakin"></textarea>
         <button class="bg-[#F9832A] rounded-xl h-[3rem] font-semibold text-white text-lg" type="submit">Pesan Sekarang</button>
     </div>
     </form>

@@ -1,16 +1,17 @@
 <?php
 
 use App\Models\Menu;
+use App\Models\Footer;
 use App\Models\Data_umkm;
 use App\Models\HomeModel;
 use App\Models\PromoModel;
 use App\Models\DetailWarungModel;
-use App\Models\Footer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UntukKamuController;
 
 /*
@@ -144,6 +145,7 @@ Route::get('/detail-makanan/{menu:id}', function (Menu $menu) {
         'Title' => 'Detail-Makanan',
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
+        'menu_id' => $menu->id,
         'umkm_slug' => $menu->data_umkm->id,
         'nama_makanan' => $menu->nama_makanan,
         'rating' => $menu->rating,
