@@ -10,10 +10,10 @@
                         <input type="checkbox" name="" id="checkboxWarung"
                             class="text-[#F9832A] border-2 rounded-md border-[#F9832A] w-8  h-8 transition-all duration-300 checked:fill-[#F9832A] checked:border-[#F9832A] checked:ring-[#F9832A] focus:fill-[#F9832A] focus:border-[#F9832A] focus:ring-[#F9832A]">
                         <label for="checkboxWarung" for="" class="flex flex-row gap-5 items-center">
-                            
+
                             <img src="{{ $carts->first()->menu->data_umkm->logo_umkm }}" alt="" class="w-24">
                             <h1 class="text-xl font-semibold">{{ $carts->first()->menu->data_umkm->nama_umkm }}</h1>
-                            
+
                         </label>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                                 <div id="contentPesanan{{ $c->id }}" class="shadow-md w-[27rem] rounded-xl border">
                                     <div for="checkboxMakanan" class="flex flex-row items-center">
                                         <div class="h-32 w-60">
-                                            <img src="{{ $c->menu->image }}" alt=""
+                                            <img src="{{ Storage::url($c->menu->image) }}" alt=""
                                                 class="rounded-lg h-full w-full object-cover">
                                         </div>
                                         {{-- <img src="{{$c->menu->image}}" alt="" class="rounded-lg h-max" width="100px"> --}}
@@ -97,7 +97,7 @@
                                                             stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </button>
-                                               
+
                                                 <button id="delete" value="{{ $c->id }}"
                                                 class="hidden delete transition-all duration-300 bg-[#FF8080] rounded-xl scale-100 shadow-md w-[2.5rem] flex-col justify-center items-center h-[2.5rem] font-bold">
                                                 <svg height="23" viewBox="0 0 12 14" fill="none"
@@ -106,7 +106,7 @@
                                                 d="M1.36136 12.1029C1.36136 12.4932 1.52167 12.8675 1.80702 13.1435C2.09236 13.4195 2.47938 13.5745 2.88292 13.5745H8.96914C9.37269 13.5745 9.7597 13.4195 10.045 13.1435C10.3304 12.8675 10.4907 12.4932 10.4907 12.1029V3.2731H1.36136V12.1029ZM2.88292 4.74473H8.96914V12.1029H2.88292V4.74473ZM8.58876 1.06565L7.82798 0.329834H4.02409L3.26331 1.06565H0.600586V2.53728H11.2515V1.06565H8.58876Z"
                                                 fill="#EEEEEE" />
                                             </svg>
-                                                </button>                                    
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -213,7 +213,7 @@
                             currentQuantity--;
 
                             const cartId = $(this).val();
-                           
+
                             $.ajaxSetup({
                                     headers: {
                                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -229,13 +229,13 @@
                                         quantity: currentQuantity
                                     },
                                     success: function(response) {
-                                       
+
                                     },
                                     error: function(error) {
-                                        
+
                                     }
                                 });
-                            }                                                
+                            }
 
                         if (currentQuantity == 1) {
                             decrementBtn.style.display = "none";
@@ -276,13 +276,13 @@
                                         quantity: currentQuantity
                                     },
                                     success: function(response) {
-                                       
+
                                     },
                                     error: function(error) {
-                                        
+
                                     }
                                 });
-                            }                        
+                            }
 
                         if (currentQuantity == 2) {
                             deleteBtn[index].style.display = "none";

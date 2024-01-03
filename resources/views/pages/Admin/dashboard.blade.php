@@ -1,4 +1,4 @@
-<x-app-layout>    
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
@@ -49,7 +49,7 @@
                                 @method("DELETE")
                             <button value="{{ $data->nama_umkm }}" class="w-full delete-button py-1 text-center font-semibold text-sm bg-red-400 text-white rounded-full shadow-sm mb-2">Delete</button>
                         </form>
-                        </td>                        
+                        </td>
                     </tr>
                     @endforeach
 
@@ -106,7 +106,7 @@
     <script>
         // Ambil semua tombol hapus
         const deleteButtons = document.querySelectorAll('.delete-button');
-        
+
         // Tambahkan event listener ke setiap tombol hapus
         deleteButtons.forEach(function(button) {
             const nama_umkm = button.value;
@@ -124,7 +124,7 @@
                 }).then((result) => {
                     // Jika pengguna menekan "Ya", submit form
                     if (result.isConfirmed) {
-                        const form = button.closest('.delete-form');                        
+                        const form = button.closest('.delete-form');
                         form.submit();
                     }
                 });
