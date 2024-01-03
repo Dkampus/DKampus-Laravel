@@ -62,7 +62,7 @@
                     <input type="hidden" name="menu_id" value="{{ $menu_id }}">
                     <div id="count" class="flex flex-row items-center bg-black/10 justify-around px-1 border-2 rounded-lg w-28 h-12">
                     <button type="button" id="decrement" class="text-3xl flex flex-col justify-center h-full font-bold text-gray-500">-</button>
-                    <input id="number" name="quantity" type="number" class="font-semibold bg-transparent w-10 border-none text-center focus:border-none focus:ring-0" value="0" readonly/>
+                    <input id="number" name="quantity" type="number" class="font-semibold bg-transparent w-10 border-none text-center focus:border-none focus:ring-0" value="1" readonly/>
                     <button type="button" id="increment" class="text-xl flex flex-col justify-center h-full font-bold text-[#F9832A]">+</button>
                     </div>
                 </div>

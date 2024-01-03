@@ -31,17 +31,17 @@ const decrement = document.getElementById('decrement');
 const increment = document.getElementById('increment')
 const state = {
     condition: false,
-    count: 0
+    count: 1
 }
 
 
 function renderCount(){
     number.value = state.count
     decrement.disabled = state.count === 0;
-    if(state.count > 0){
+    if(state.count > 1){
         increment.style.color= '#F9832A'
         decrement.style.color= '#F9832A'
-    }else if (state.count === 0){
+    }else if (state.count === 1){
         decrement.style.color= 'gray'
     }
 }
@@ -50,7 +50,7 @@ function incrementCounter(){
     renderCount();
 }
 function decrementCounter(){
-    if(state.count > 0){
+    if(state.count > 1){
         state.count -= 1;
         renderCount();
     }
