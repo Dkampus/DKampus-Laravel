@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\HomeModel;
 use App\Models\Cart;
+use App\Models\Favorit;
 use App\Models\PesananModel;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,9 @@ class CartController extends Controller
         $data = [
             'Title' => 'Keranjang',
             'NavPesanan' => 'Keranjang',
-            'carts' =>  [],
+            "favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
+            'carts' => [],
+            'AddressList' => PesananModel::alamatUser(),
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
             'SeputarDkampus' => HomeModel::seputarDkampus(),
         ];
@@ -27,6 +30,7 @@ class CartController extends Controller
             $data =[
                 'Title' => 'Pesanan',
                 'NavPesanan' => 'Pesanan',
+                "favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
                 'carts' => $carts,
                 'AddressList' => PesananModel::alamatUser(),
                 'PengaturanAkun' => HomeModel::pengaturanAkun(),
@@ -116,5 +120,5 @@ class CartController extends Controller
         } else {
             return redirect()->back()->with('error2', 'Menu gagal dihapus');
         }
-    }
+    }   
 }

@@ -8,6 +8,7 @@ use App\Models\PromoModel;
 use App\Models\DetailWarungModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FavoritController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\UserController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\UntukKamuController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 
 // Index Page
 Route::get('/', function () {
@@ -156,8 +158,6 @@ Route::get('/detail-makanan/{menu:id}', function (Menu $menu) {
 });
 
 //Pesanan Routes
-Route::get('/pesanan', [CartController::class, 'index']);
-Route::post('/pesananStore', [CartController::class, 'store']);
 Route::get('/pesanan/status', [CartController::class, 'status']);
 Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
 Route::patch("/pesanan/update-quantity", [CartController::class, 'updateQuantity']);
@@ -241,13 +241,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/favoritStore/{menuId}', [FavoritController::class, 'favoritStore'])->name('favorite.add');
+
 // User Route
 Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () {
-    Route::name('.user')->group(function () {
+    Route::name('user.')->group(function () {
         // insert route here
-        Route::get('/uhuy', function () {
-            return view("uhuy");
-        });
+        Route::get('/pesanan', [CartController::class, 'index']);
+        Route::post('/pesananStore', [CartController::class, 'store']);
+
+        // add menu to fav
+        
     });
 });
 

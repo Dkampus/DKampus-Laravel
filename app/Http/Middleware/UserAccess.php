@@ -17,11 +17,9 @@ class UserAccess
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        $uuid = Auth::user()->uid;
-        $user = Firebase::auth()->getUser($uuid);
-        $userClaims = $user->customClaims;
+        $id = Auth::user()->role;                
 
-        if (in_array($userClaims['role'], $roles)) {
+        if (in_array($id, $roles)) {
             return $next($request);
         }
 

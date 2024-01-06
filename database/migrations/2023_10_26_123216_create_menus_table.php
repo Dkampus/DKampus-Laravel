@@ -20,7 +20,9 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('image');
             $table->integer('harga');
-            $table->decimal('rating');
+            $table->int("promo");
+            $table->string('kategori');
+            $table->decimal('rating');            
             $table->timestamps();
 
             $table->foreign('data_umkm_id')->references('id')->on('data_umkms')->onDelete('cascade');
