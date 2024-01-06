@@ -14,15 +14,27 @@ class CartController extends Controller
      */
     public function index()
     {
-        $carts = Cart::where("user_id", auth()->user()->id)->get();
-        return view('pages.Users.Pesanan',[
-            'Title' => 'Pesanan',
-            'NavPesanan' => 'Pesanan',
-            'carts' => $carts,
-            'AddressList' => PesananModel::alamatUser(),
+        $data = [
+            'Title' => 'Keranjang',
+            'NavPesanan' => 'Keranjang',
+            'carts' =>  [],
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
-        'SeputarDkampus' => HomeModel::seputarDkampus(),
-        ]);
+            'SeputarDkampus' => HomeModel::seputarDkampus(),
+        ];
+        if(auth()->user()->id ?? false){
+            $carts = Cart::where("user_id", auth()->user()->id)->get();
+
+            $data =[
+                'Title' => 'Pesanan',
+                'NavPesanan' => 'Pesanan',
+                'carts' => $carts,
+                'AddressList' => PesananModel::alamatUser(),
+                'PengaturanAkun' => HomeModel::pengaturanAkun(),
+            'SeputarDkampus' => HomeModel::seputarDkampus(),
+            ];
+        }
+
+        return view('pages.Users.Pesanan', $data);
     }
 
     public function status(){
@@ -103,6 +115,6 @@ class CartController extends Controller
             return redirect()->back()->with('success', 'Menu berhasil dihapus');
         } else {
             return redirect()->back()->with('error2', 'Menu gagal dihapus');
-        }        
+        }
     }
 }

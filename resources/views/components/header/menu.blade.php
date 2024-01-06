@@ -50,10 +50,10 @@
                 <img src="Avatar/Large.svg" alt="" class="w-[4.5rem]">
             </button>
             <div id="infoPengguna" class="my-0.5 flex flex-col gap-0.5 mx-2">
-                <h1 class="font-bold text-lg">{{ Auth::user()->nama_user ?? 'Saha Ieu' }}</h1>
+                <h1 class="font-bold text-lg">{{ Auth::user()->email ?? 'user' }}</h1>
                 <div id="location" class="flex flex-row gap-1 items-center">
                     <img src="markLocation.svg" alt="" class="w-4">
-                    <h1 class="text-wrapper-location-profile">{{ Auth::user()->alamat ?? 'Tebak dimana hayoo' }}</h1>
+                    <h1 class="text-wrapper-location-profile">{{ Auth::user()->alamat ?? 'address' }}</h1>
                 </div>
             </div>
             <a href="/settings">
