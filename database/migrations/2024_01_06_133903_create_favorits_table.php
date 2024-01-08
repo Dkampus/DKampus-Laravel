@@ -13,13 +13,9 @@ return new class extends Migration
     {
         Schema::create('favorits', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');            
-            $table->unsignedBigInteger('menu_id');
-            $table->unsignedBigInteger('data_umkm_id')->nullable();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
-            $table->foreign('data_umkm_id')->references('id')->on('data_umkms')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('menu_id')->constrained()->onDelete('cascade');
+            $table->foreignId('data_umkm_id')->constrained()->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

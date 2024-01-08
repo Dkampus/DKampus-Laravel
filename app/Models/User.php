@@ -61,4 +61,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Delivery::class);
     }
+    public function favorit()
+    {
+        return $this->hasMany(Favorit::class);
+    }
 }
