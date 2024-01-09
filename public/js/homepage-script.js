@@ -1,3 +1,4 @@
+console.log("HELLO KONTOL");
 const topBarMobile = document.getElementById('topBarMobile')
 window.addEventListener('scroll', () => {
     // Check the scroll position, for example, when it goes beyond 100 pixels
