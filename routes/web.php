@@ -253,7 +253,9 @@ Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () 
             return view("uhuy");
         });        
 
-        // seacrh makanan
+        // seacrh makanan using nicolaslopezj/searchable keyword
+        Route::get('/search', [MenuController::class, 'search'])->name('search');;      
+
     });
 });
 

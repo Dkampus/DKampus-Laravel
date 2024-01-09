@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- icon title -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>    
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="apple-touch-icon" type="image/png" href={{ asset('logoDkampus.png') }} />
     <link rel="apple-touch-icon" type="image/png" sizes="76x76" href={{ asset('logoDkampus.png') }} />
@@ -81,7 +81,7 @@
         @else
             {{-- @include('components.navbar.navbar') --}}
         @endif
-    </div>
+    </div>   
     <script src="{{ asset('js/root-layout.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
