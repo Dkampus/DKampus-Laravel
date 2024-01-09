@@ -158,7 +158,6 @@ Route::get('/detail-makanan/{menu:id}', function (Menu $menu) {
 });
 
 //Pesanan Routes
-Route::get('/pesanan', [CartController::class, 'index']);
 Route::post('/pesananStore', [CartController::class, 'store']);
 Route::get('/pesanan/status', [CartController::class, 'status']);
 Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
@@ -243,6 +242,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/pesanan', [CartController::class, 'index']);
 Route::post('/favoritStore/{menuId}', [FavoritController::class, 'favoritStore'])->name('favorite.add');
 
 // User Route
@@ -251,7 +251,9 @@ Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () 
         // insert route here
         Route::get('/uhuy', function () {
             return view("uhuy");
-        });
+        });        
+
+        // seacrh makanan
     });
 });
 

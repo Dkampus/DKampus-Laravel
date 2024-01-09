@@ -5,7 +5,7 @@
         <button class="min-w-[1rem] max-w-[10%] h-full md:min-w-[1.5rem]">
             <img src="serach.svg" alt="" class="w-full h-full">
         </button>
-        <input onclick="showResultsDesktop()" id="search-input-desktop" name="value" type="" class="min-w-max sm:max-w-full h-full self-start outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A] placeholder:md:text-lg" placeholder="Cari Menu">
+        <input onclick="showResultsDesktop()" id="search-input-desktop" name="value" type="" class="w-full min-w-max sm:max-w-full h-full self-start outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A] placeholder:md:text-lg" placeholder="Cari Menu">
         </div>
         {{-- Clear Button --}}
         <button id="clear-input-desktop" class="invisible font-bold group flex flex-row justify-center items-center text-[#F9832A] self-center rounded-lg w-5 h-5 mr-1">
@@ -14,7 +14,7 @@
     </div>
 <div id="search-results-desktop" class="bg-white shadow-lg flex flex-col gap-3 rounded-xl border h-0 min-w-[80vw] invisible opacity-0 p-5 transition-all duration-300 absolute z-50 top-[3rem] sm:min-w-[58vw] md:top-[3rem]">
     <div>
-        <h1 class="font-bold text-xl">Terakhir Dilihat</h1>
+        <h1 class="font-bold text-xl">Hasil Pencarian</h1>
         <div class="flex flex-row gap-3 my-3">
         <div class="flex flex-col border border-black/30 p-2 w-40 rounded-xl">
             <img src="bagdhag.jpg" alt="" class="w-full">
