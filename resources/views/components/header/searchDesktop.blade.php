@@ -22,7 +22,7 @@
         class="bg-white shadow-lg overflow-y-auto flex flex-col gap-3 rounded-xl border h-0 min-w-[80vw] invisible opacity-0 p-5 transition-all duration-300 absolute z-50 top-[3rem] sm:min-w-[58vw] md:top-[3rem]">
         <div>
             <h1 class="font-bold text-xl">Hasil Pencarian</h1>
-            <div class="container-search-result grid md:grid-cols-3 xl:grid-cols-5 gap-3 my-3">            
+            <div class="container-search-result grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 my-3 justify-center">            
                 <div class="flex flex-col border border-black/30 p-2 w-40 rounded-xl max-w-40 h-[185px] max-h-[185px] min-h-[185px]">
                     <img src="bagdhag.jpg" alt="" class="w-full">
                     <h1 class="font-semibold">Ayam Bagdhad Fried Chicken</h1>
