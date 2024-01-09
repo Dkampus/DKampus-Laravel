@@ -247,7 +247,7 @@ const searchResults = document.getElementById('search-results');
 const overlayResults = document.getElementById('overlay-results');
 function showResults(){
     if(searchResults.style.display === 'none' || searchResults.style.display === ''){
-        searchResults.style.height = '24rem';
+        searchResults.style.height = '28rem';
         searchResults.style.visibility = 'visible';
         searchResults.style.opacity = '100';
         searchResults.style.boxShadow = "0px 10px 15px -3px rgba(0,0,0,0.1)";
