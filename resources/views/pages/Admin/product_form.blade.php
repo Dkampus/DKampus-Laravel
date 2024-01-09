@@ -47,10 +47,17 @@
                                     "placeholder" => "harga: 25000"                                    
                                 ]) !!}
                             </div>
+                            <div>
+                                <label for="promo">Promo:</label>                                
+                                {!! Form::number("promo", null, [
+                                    "class" => "text-black w-full rounded-md",
+                                    "placeholder" => "harga: 25000"                                    
+                                ]) !!}
+                            </div>
                         </div>
 
                         <button type="submit" class="w-full bg-blue-500 hover-bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                            {{ $button }} UMKM
+                            {{ $button }} MENU
                         </button>
                     {!! Form::close() !!}
                 </div>

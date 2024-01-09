@@ -224,6 +224,8 @@
     <script>
         $(document).ready(function() {
 
+            console.log("ready!");
+
             $(document).on("click", '#like', function(e) {
                 e.preventDefault();
 

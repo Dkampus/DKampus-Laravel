@@ -226,43 +226,6 @@
     @include('components.scrollBehaviourr.scroll-behaviour')
 @endsection
 
-@push('js')
-    <script>
-        $(document).ready(function() {            
-            // search
-            $('.searchKeyword').keyup(function() {
-                const keyword = $(this).val();
-                const url = "{{ route('user.search') }}";
-                const _token = $('input[name="_token"]').val();
-                               
-                // Abort the previous request if it exists
-                if (xhr) {
-                    xhr.abort();
-                }
-
-                if (keyword !== '') {
-                    // Make a new AJAX request
-                    xhr = $.ajax({
-                        url: url,
-                        method: "POST",
-                        data: {
-                            keyword: keyword,
-                            category: "{{ isset($category) ? $category : 'all' }}",
-                            _token: _token
-                        },
-                        success: function(data) {
-                            $('.container-search-result').html(data);
-                        },
-                        error: function(err) {
-                            $('.container-search-result').html("");
-                            $('.container-search-result').html("Menu tidak ditemukan");
-                        }
-                    });
-                } else {
-                    $('.container-search-result').html("");
-                    $('.container-search-result').html("Menu tidak ditemukan");
-                }
-            });
-        });
-    </script>
+@push('search')
+   
 @endpush

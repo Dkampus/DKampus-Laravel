@@ -350,11 +350,14 @@ searchInputDesktop.addEventListener("input",function(){
     }
 })
 
-const seeMore = document.getElementById('seeMore');
+const seeMore = document.getElementById('seeMore') ?? "";
 const cardList = document.getElementById('cardList');
 const addRow = 2 //initial number
-seeMore.addEventListener('click',() => {
-   addRow += 1;
-   console.log('hello')
-   cardList.style.maxHeight = `${addRow * 110}px`;
-})
+
+if(seeMore){
+  seeMore.addEventListener('click',() => {
+    addRow += 1;
+    console.log('hello')
+    cardList.style.maxHeight = `${addRow * 110}px`;
+ })
+}

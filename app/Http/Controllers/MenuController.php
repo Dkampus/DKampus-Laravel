@@ -51,11 +51,11 @@ class MenuController extends Controller
     public function search(Request $request)
     {
         try {
-            $menus = Menu::search($request->keyword)->get();
+            $menus = Menu::with('data_umkm')->search($request->keyword)->get();            
             $data = [
                 'models' => $menus,               
             ];
-            return view('user.search', $data);
+            return view('pages.Users.search', $data);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage()
@@ -85,6 +85,7 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        DB::beginTransaction();
         try {
             $findUmkm = Data_umkm::findOrFail($request->nama_umkm);
             Menu::create([
@@ -93,10 +94,13 @@ class MenuController extends Controller
                 "deskripsi" => $request->deskripsi,
                 "harga" => $request->harga,
                 "rating" => 0,
-                "image" => $request->image->store('public/' . $findUmkm->nama_umkm)
+                "promo" => $request->promo,
+                "image" => $request->image->storeAs('public/' . $findUmkm->nama_umkm, $request->nama_makanan . '.' . $request->image->extension())
             ]);
+            DB::commit();
         } catch (\Exception $e) {
-            dd($e);
+            DB::rollback();
+            return redirect()->back();
         }
         return redirect()->back();
     }
@@ -127,10 +131,12 @@ class MenuController extends Controller
             $menu->data_umkm_id = $request->nama_umkm;
             $menu->nama_makanan = $request->nama_makanan;
             $menu->deskripsi = $request->deskripsi;
+            $menu->promo = $request->promo;
             $menu->harga = $request->harga;
 
             if ($request->hasFile('image')) {
-                $menu->image = $request->image->store('public/' . $menu->data_umkm->nama_umkm);
+                Storage::delete("public/{$menu->data_umkm->nama_umkm}/{$menu->image}");
+                $menu->image = $request->image->storeAs('public/' . $menu->data_umkm->nama_umkm, $menu->nama_makanan . '.' . $request->image->extension());                
             }
 
             $menu->update();

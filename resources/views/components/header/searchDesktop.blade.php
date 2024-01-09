@@ -6,7 +6,7 @@
         <button class="min-w-[1rem] max-w-[10%] h-full md:min-w-[1.5rem]">
             <img src="serach.svg" alt="" class="w-full h-full">
         </button>
-        <input onclick="showResultsDesktop()" id="search-input-desktop" name="value" type="" class="w-full min-w-max sm:max-w-full h-full self-start outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A] placeholder:md:text-lg" placeholder="Cari Menu">
+        <input onclick="showResultsDesktop()" id="search-input-desktop" name="value" type="" class="searchKeyword w-full min-w-max sm:max-w-full h-full self-start outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A] placeholder:md:text-lg" placeholder="Cari Menu">
         </div>
         {{-- Clear Button --}}
         <button id="clear-input-desktop"
@@ -19,34 +19,17 @@
         </button>
     </div>
     <div id="search-results-desktop"
-        class="bg-white shadow-lg flex flex-col gap-3 rounded-xl border h-0 min-w-[80vw] invisible opacity-0 p-5 transition-all duration-300 absolute z-50 top-[3rem] sm:min-w-[58vw] md:top-[3rem]">
+        class="bg-white shadow-lg overflow-y-auto flex flex-col gap-3 rounded-xl border h-0 min-w-[80vw] invisible opacity-0 p-5 transition-all duration-300 absolute z-50 top-[3rem] sm:min-w-[58vw] md:top-[3rem]">
         <div>
             <h1 class="font-bold text-xl">Hasil Pencarian</h1>
-            <div class="container-search-result flex flex-row gap-3 my-3">
-                <div class="flex flex-col border border-black/30 p-2 w-40 rounded-xl">
+            <div class="container-search-result grid md:grid-cols-3 xl:grid-cols-5 gap-3 my-3">            
+                <div class="flex flex-col border border-black/30 p-2 w-40 rounded-xl max-w-40 h-[185px] max-h-[185px] min-h-[185px]">
                     <img src="bagdhag.jpg" alt="" class="w-full">
                     <h1 class="font-semibold">Ayam Bagdhad Fried Chicken</h1>
                 </div>
             </div>
         </div>
-
-        <div class="">
-            <h1 class="font-bold text-xl">Paling Dicari</h1>
-            <div class="grid grid-cols-3 gap-x-3 grid-rows-1">
-                <div class="flex flex-row items-center gap-3 my-3 rounded-xl overflow-hidden border border-black/30">
-                    <img src="spagetti.jpg" alt="" class="w-40">
-                    <h1 class="font-bold px-2">Warung Spagetti Bu Ayu</h1>
-                </div>
-                <div class="flex flex-row items-center gap-3 my-3 rounded-xl overflow-hidden border border-black/30">
-                    <img src="spagetti.jpg" alt="" class="w-40">
-                    <h1 class="font-bold px-2">Warung Spagetti Bu Ayu</h1>
-                </div>
-                <div class="flex flex-row items-center gap-3 my-3 rounded-xl overflow-hidden border border-black/30">
-                    <img src="spagetti.jpg" alt="" class="w-40">
-                    <h1 class="font-bold px-2">Warung Spagetti Bu Ayu</h1>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>
 <div onclick="hideResultsDesktop()" id="overlay-results-desktop"

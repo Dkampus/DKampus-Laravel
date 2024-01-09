@@ -82,6 +82,7 @@
             {{-- @include('components.navbar.navbar') --}}
         @endif
     </div>   
+    @stack('searchDesktop')
     <script src="{{ asset('js/root-layout.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>

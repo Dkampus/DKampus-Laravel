@@ -18,10 +18,11 @@ class Menu extends Model
         'columns' => [
             'nama_makanan' => 10,            
             'kategori' => 10,
-            'deskripsi' => 10,         
+            'deskripsi' => 10, 
+            'data_umkms.nama_umkm' => 10,        
         ],
         'joins' => [
-            'menus' => ['data_umkms.id', 'menus.data_umkm_id'],                        
+            'data_umkms' => ['menus.data_umkm_id', 'data_umkms.id'],                      
         ],
     ];
 

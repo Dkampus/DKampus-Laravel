@@ -142,7 +142,7 @@ Route::get('/detail-warung/{umkm:id}', function(Data_umkm $umkm){
     ]);
 });
 
-Route::get('/detail-makanan/{menu:id}', function (Menu $menu) {
+Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
     return view('pages.Users.DetailMakanan', [
         'Title' => 'Detail-Makanan',
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
@@ -155,7 +155,7 @@ Route::get('/detail-makanan/{menu:id}', function (Menu $menu) {
         'deskripsi' => $menu->deskripsi,
         'CardFood' => Menu::where('data_umkm_id', $menu->data_umkm_id)->get(),
     ]);
-});
+})->name('detail-makanan');
 
 //Pesanan Routes
 Route::post('/pesananStore', [CartController::class, 'store']);
@@ -244,6 +244,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/pesanan', [CartController::class, 'index']);
 Route::post('/favoritStore/{menuId}', [FavoritController::class, 'favoritStore'])->name('favorite.add');
+Route::get('/search', [MenuController::class, 'search'])->name('search');
 
 // User Route
 Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () {
@@ -253,8 +254,7 @@ Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () 
             return view("uhuy");
         });        
 
-        // seacrh makanan using nicolaslopezj/searchable keyword
-        Route::get('/search', [MenuController::class, 'search'])->name('search');;      
+        // seacrh makanan using nicolaslopezj/searchable keyword          
 
     });
 });
