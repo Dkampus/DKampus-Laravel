@@ -2,10 +2,10 @@
     {{-- Search Input --}}
     <div onclick class="border-2 relative bg-white z-[60] w-full h-10 flex flex-row justify-between items-center border-[#F9832A]/40 gap-2 px-2 rounded-md overflow-hidden focus:border-[#F9832A] md:h-12">
         <div class="flex flex-row items-center gap-2 h-full">
-        <button class="min-w-[1rem] max-w-[10%] h-full md:min-w-[1.5rem]">
+        <button class="min-w-[1rem] max-w-[10%] h-7 md:min-w-[1.5rem]">
             <img src="serach.svg" alt="" class="w-full h-full">
         </button>
-        <input onclick="showResultsDesktop()" id="search-input-desktop" name="value" type="" class="w-full min-w-max sm:max-w-full h-full self-start outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A] placeholder:md:text-lg" placeholder="Cari Menu">
+        <input onclick="showResultsDesktop()" id="search-input-desktop" name="value" type="" class="w-screen bg-transparent h-full self-start outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A] placeholder:md:text-lg" placeholder="Cari Menu">
         </div>
         {{-- Clear Button --}}
         <button id="clear-input-desktop" class="invisible font-bold group flex flex-row justify-center items-center text-[#F9832A] self-center rounded-lg w-5 h-5 mr-1">
