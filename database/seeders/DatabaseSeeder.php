@@ -20,8 +20,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-       
-
+        User::factory(10)->create();
         Data_umkm::factory(3)->create();
         Menu::factory(20)->create();
         Cart::factory(7)->create();

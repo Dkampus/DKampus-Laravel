@@ -158,6 +158,8 @@ Route::get('/detail-makanan/{menu:id}', function (Menu $menu) {
 });
 
 //Pesanan Routes
+Route::get('/pesanan', [CartController::class, 'index']);
+Route::post('/pesananStore', [CartController::class, 'store']);
 Route::get('/pesanan/status', [CartController::class, 'status']);
 Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
 Route::patch("/pesanan/update-quantity", [CartController::class, 'updateQuantity']);
@@ -247,11 +249,9 @@ Route::post('/favoritStore/{menuId}', [FavoritController::class, 'favoritStore']
 Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () {
     Route::name('user.')->group(function () {
         // insert route here
-        Route::get('/pesanan', [CartController::class, 'index']);
-        Route::post('/pesananStore', [CartController::class, 'store']);
-
-        // add menu to fav
-        
+        Route::get('/uhuy', function () {
+            return view("uhuy");
+        });
     });
 });
 

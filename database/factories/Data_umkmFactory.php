@@ -24,7 +24,7 @@ class Data_umkmFactory extends Factory
         return [
             'nama_umkm' => $this->faker->company(),
             'logo_umkm' => $rand_logo,
-            // 'slug' => $this->faker->slug,
+            'slug' => $this->faker->slug,
             'alamat' => $this->faker->address(),
             'no_telp_umkm' => $this->faker->phoneNumber(),
             'vip' => strval(mt_rand(0, 1))

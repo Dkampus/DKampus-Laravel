@@ -22,4 +22,9 @@ class Menu extends Model
     {
         return $this->hasMany(Cart::class);
     }
+
+    public function favorit()
+    {
+        return $this->hasMany(Favorit::class);
+    }
 }

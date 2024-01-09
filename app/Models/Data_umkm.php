@@ -17,4 +17,8 @@ class Data_umkm extends Model
     {
         return $this->hasMany(Menu::class);
     }
+    public function favorit()
+    {
+        return $this->hasMany(Favorit::class);
+    }
 }
