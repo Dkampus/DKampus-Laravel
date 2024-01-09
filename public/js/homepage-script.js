@@ -280,7 +280,7 @@ const searchResultsDesktop = document.getElementById('search-results-desktop');
 const overlayResultsDesktop = document.getElementById('overlay-results-desktop');
 function showResultsDesktop(){
     if(searchResultsDesktop.style.display === 'none' || searchResultsDesktop.style.display === ''){
-        searchResultsDesktop.style.height = '24rem';
+        searchResultsDesktop.style.height = '26rem';
         searchResultsDesktop.style.visibility = 'visible';
         searchResultsDesktop.style.opacity = '100';
         searchResultsDesktop.style.boxShadow = "0px 10px 15px -3px rgba(0,0,0,0.1)";
