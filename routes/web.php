@@ -168,20 +168,20 @@ Route::patch("/pesanan/update-quantity", [CartController::class, 'updateQuantity
 
 
 //Favorite Routes
-Route::get('/favorit',function(){
-    return view('pages.Users.Favorit',[
-        'Title' => 'Favorit',
-        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-        'SeputarDkampus' => HomeModel::seputarDkampus(),
-        'RekomendasiWarung' => Data_umkm::all(),
-        'RekomendasiMakanan' => Menu::take(5)->get(),
-        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
-    ]);
-});
+//Route::get('/favorit',function(){
+//    return view('pages.Users.Favorit',[
+//        'Title' => 'Favorit',
+//        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+//        'SeputarDkampus' => HomeModel::seputarDkampus(),
+//        'RekomendasiWarung' => Data_umkm::all(),
+//        'RekomendasiMakanan' => Menu::take(5)->get(),
+//        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+//    ]);
+//});
 
 //Favorite Routes
 Route::get('/favorit', function () {
-    return view('pages.Users.FavoritPage', [
+    return view('pages.Users.Favorit', [
         'Title' => 'Favorit',
         'CardFood' => Menu::all(),
     ]);
@@ -263,9 +263,9 @@ Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () 
         // insert route here
         Route::get('/uhuy', function () {
             return view("uhuy");
-        });        
+        });
 
-        // seacrh makanan using nicolaslopezj/searchable keyword          
+        // seacrh makanan using nicolaslopezj/searchable keyword
 
     });
 });
