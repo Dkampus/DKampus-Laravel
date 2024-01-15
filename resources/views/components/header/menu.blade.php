@@ -14,21 +14,12 @@
     <img src="menu.svg" alt="" class="w-8">
 </button>
 @endauth
-{{-- <button onclick="showMenu()" class="relative z-[30]">
-    <img src="menu.svg" alt="" class="w-8">
-</button> --}}
 
-<div id="bar-menu"
-<<<<<<< HEAD
-    class="h-screen bg-white shadow-xl overflow-auto transition-all duration-500 fixed w-0 top-0 right-0 z-[80]">
-    {{-- @guest
-=======
-    class="h-screen invisible bg-white shadow-xl overflow-auto transition-all duration-500 absolute w-0 top-0 right-0 z-[70]">
+<div id="bar-menu" class="h-screen bg-white shadow-xl overflow-auto transition-all duration-500 fixed w-0 top-0 right-0 z-[80]">
      @guest
->>>>>>> 3bb67f4 (update)
             <a href="/masuk"
                 class="bg-[#F9832A] w-40 h-[3.4rem] rounded-2xl text-center text-white flex items-center justify-center font-semibold text-lg">Masuk</a>
-        @endguest
+    @endguest
         @auth
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
