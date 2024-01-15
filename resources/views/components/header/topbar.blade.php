@@ -5,7 +5,7 @@
         <a href="/">
             <img src="logoDkampus.svg" alt="" class="min-w-[120%] max-w-[120%] md:min-w-[2vw]">
         </a>
-        <h1 class="font-bold text-[#F9832A] text-2xl hidden md:flex">Dkampus</h1>    
+        <h1 class="font-bold text-[#F9832A] text-2xl hidden md:flex">Dkampus</h1>
     </div>
 
     {{-- Search --}}
@@ -20,7 +20,7 @@
         <button>
         <img src="chat.svg" alt="" class="w-8 mr-5">
         </button>
-        @endauth    
+        @endauth
         @include('components.header.menu')
     </div>
 </div>
