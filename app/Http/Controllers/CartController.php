@@ -15,27 +15,29 @@ class CartController extends Controller
      */
     public function index()
     {
-        $data = [
+        // Using Exception Before Log-in so doesn't show an error page
+        try {
+            $data = [
             'Title' => 'Keranjang',
             'NavPesanan' => 'Keranjang',
-            "favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
+            //"favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
             'carts' => [],
             'AddressList' => PesananModel::alamatUser(),
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
             'SeputarDkampus' => HomeModel::seputarDkampus(),
-        ];
-        if(auth()->user()->id ?? false){
+            ];
             $carts = Cart::where("user_id", auth()->user()->id)->get();
-
-            $data =[
+            return view('pages.Users.Pesanan',[
                 'Title' => 'Pesanan',
                 'NavPesanan' => 'Pesanan',
-                "favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
+                //"favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
                 'carts' => $carts,
                 'AddressList' => PesananModel::alamatUser(),
                 'PengaturanAkun' => HomeModel::pengaturanAkun(),
-            'SeputarDkampus' => HomeModel::seputarDkampus(),
-            ];
+                'SeputarDkampus' => HomeModel::seputarDkampus(),
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->route('homepage')->with('error', 'An error occurred. Please try again.');
         }
 
         return view('pages.Users.Pesanan', $data);
