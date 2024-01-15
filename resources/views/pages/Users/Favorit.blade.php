@@ -1,4 +1,4 @@
-@extends('layouts.FavoritLayout')
+{{--@extends('layouts.FavoritLayout')--}}
 @section('content')
 <header class="bg-[#F9832A] w-full h-32 flex flex-col pb-8 mb-12 justify-end px-5">
     <div class="flex flex-row items-center gap-3">

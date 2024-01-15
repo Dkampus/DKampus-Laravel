@@ -122,5 +122,5 @@ class CartController extends Controller
         } else {
             return redirect()->back()->with('error2', 'Menu gagal dihapus');
         }
-    }   
+    }
 }

@@ -2,7 +2,7 @@
 @section('pesananContent')
    <div class="flex flex-col gap-5 items-center justify-start bg-[#F0F3F8]">
     <section id="warung-ayam-baghdad" class="bg-white w-full flex flex-col shadow-md justify-center items-center">
-        <div id="contentStatus" class="w-[29.5rem] transition-all duration-500 relative h-80 overflow-hidden border-b-[3px] px-4 my-3 mx-auto flex flex-col items-center py-5">
+        <div id="contentStatus" class="w-[29.5rem] relative h-auto overflow-hidden border-b-[3px] px-4 my-3 mx-auto flex flex-col items-center py-5">
             <div id="Title" class="border-b-[3px] pb-5 mx-auto flex flex-row justify-between items-center w-full">
                 <div id="title" class="flex flex-row items-center gap-5">
                     <svg height="30" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,17 +17,22 @@
                     </div>
                 </div>
                 <div id="status" class="bg-[#FFEEE1] rounded-2xl text-center flex flex-col justify-center text-[#FF6E00] text-sm font-semibold py-2.5 px-3">
-                    Sedang diantar
+                    Diproses
                 </div>
             </div>
             <div id="Content" class="w-full grid grid-cols-1 grid-rows-2 gap-y-1 gap-x-5 my-5 place-content-between">
-                <div id="pesanan" class="font-semibold">Ayam Bakar Madura</div>
-                <div id="status">Status <span>Sedang disiapkan</span></div>
-                <div id="orderid">Order ID <span>#trxxxxxxxxxx</span></div>
+                <p id="pesanan" class="font-semibold">
+                    3 Ayam Bakar Madura, 2 Ayam Madu, 4 Nasi Putih</p>
+                <p id="status" class="">Status
+                    <span class="text-[#FF6E00] font-semibold flex">Sedang disiapkan</span>
+                </p>
+                <p id="orderid" class="">Order ID
+                    <span class ="font-semibold flex">#trxxxxxxxxxx</span>
+                </p>
             </div>
         </div>
 
-        <div class="flex flex-row justify-between w-[29.5rem] px-5">
+        <div class="flex flex-row justify-between w-[29.5rem] px-5 py-1">
             <div id="totalHarga">
                 <h1>Total Harga</h1>
                 <p class="text-lg text-[#F9832A] font-semibold">Rp32.000</p>
