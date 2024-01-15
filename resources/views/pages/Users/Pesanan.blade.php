@@ -153,11 +153,19 @@
                                             </div>
                                         </div>
                                 </div>
+<<<<<<< HEAD
                                 <input type="hidden" name="items[harga][]" value="{{ $c->menu->harga }}">
                                 <input type="hidden" name="items[id][]" value="{{ $c->id }}">
                             @endforeach
                         @endif
                     @endif
+=======
+                            </form>
+                        </div>
+                        <input type="hidden" name="items[harga][]" value="{{ $c->menu->harga }}">
+                        <input type="hidden" name="items[id][]" value="{{ $c->id }}">
+                    @endforeach
+>>>>>>> 3bb67f4 (update)
                 </div>
                 </form>
                 <form action="{{ route('cart.delete') }}" method="POST" class="delete-form hidden">
@@ -204,6 +212,7 @@
                 </div>
             </button>
 
+<<<<<<< HEAD
             @php $total_harga = number_format($total_harga,0,',','.'); @endphp
             <div id="totalHarga" class="flex flex-row gap-5">
                 <div id="descTotalHarga" class="text-center">
@@ -218,6 +227,24 @@
             </div>
         </div>
     </div>
+=======
+        @php
+            $total_harga = number_format($total_harga,0,',','.');
+        @endphp
+        <div id="totalHarga" class="flex flex-row gap-5">
+            <div id="descTotalHarga" class="text-center">
+                <h1>Total Harga</h1>
+                <p id="total_harga" class=" font-semibold border-b-2 border-[#F9832A]">Rp{{ $total_harga }}</p>
+            </div>
+            <div id="buttonTotalHarga">
+                <button class="bg-[#F9832A] h-10 w-24 text-white font-semibold rounded-xl">
+                    Pesan
+                </button>
+            </div>
+        </div>
+    </div>
+    </div>
+>>>>>>> 3bb67f4 (update)
 @endsection
 
 @push('js')

@@ -71,6 +71,7 @@ Route::get('/promo/makanan', function () {
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Makanan',
+        'PromoMakananSlider' => PromoModel::promoMakanan(),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
         'FooterPart2Beli' => Footer::footerPart2Beli(),
@@ -87,6 +88,7 @@ Route::get('/promo/minuman', function () {
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Minuman',
+        'PromoMinumanSlider' => PromoModel::promoMakanan(),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
         'FooterPart2Beli' => Footer::footerPart2Beli(),
@@ -103,6 +105,7 @@ Route::get('/promo/cemilan', function () {
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Cemilan',
+        'PromoCemilanSlider' => PromoModel::promoMakanan(),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
         'FooterPart2Beli' => Footer::footerPart2Beli(),
@@ -173,6 +176,14 @@ Route::get('/favorit',function(){
         'RekomendasiWarung' => Data_umkm::all(),
         'RekomendasiMakanan' => Menu::take(5)->get(),
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+    ]);
+});
+
+//Favorite Routes
+Route::get('/favorit', function () {
+    return view('pages.Users.FavoritPage', [
+        'Title' => 'Favorit',
+        'CardFood' => Menu::all(),
     ]);
 });
 
