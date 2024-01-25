@@ -168,24 +168,24 @@ Route::patch("/pesanan/update-quantity", [CartController::class, 'updateQuantity
 
 
 //Favorite Routes
-//Route::get('/favorit',function(){
-//    return view('pages.Users.Favorit',[
-//        'Title' => 'Favorit',
-//        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-//        'SeputarDkampus' => HomeModel::seputarDkampus(),
-//        'RekomendasiWarung' => Data_umkm::all(),
-//        'RekomendasiMakanan' => Menu::take(5)->get(),
-//        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
-//    ]);
-//});
-
-//Favorite Routes
-Route::get('/favorit', function () {
-    return view('pages.Users.FavoritPage', [
+Route::get('/favorit',function(){
+    return view('pages.Users.Favorit',[
         'Title' => 'Favorit',
-        'CardFood' => Menu::all(),
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
+        'RekomendasiWarung' => Data_umkm::all(),
+        'RekomendasiMakanan' => Menu::take(5)->get(),
+        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
     ]);
 });
+
+//Favorite Routes
+//Route::get('/favorit', function () {
+//    return view('pages.Users.FavoritPage', [
+//        'Title' => 'Favorit',
+//        'CardFood' => Menu::all(),
+//    ]);
+//});
 
 // Login & Register Routes
 Route::get('/masuk', [UserController::class, 'login']);
