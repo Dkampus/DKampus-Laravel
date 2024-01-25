@@ -29,6 +29,13 @@ class UserController extends Controller
         ]);
     }
 
+    public function daftarAlamat()
+    {
+//        $alamat = Auth::user()->alamat; // relation dari model User ?
+
+//        return view('daftar_alamat', compact('alamat'));
+    }
+
     public function code_verification(){
         return view('pages.Users.CodeVerification',[
             'Title' => 'Code Verification'

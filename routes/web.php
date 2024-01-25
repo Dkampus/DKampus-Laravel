@@ -47,6 +47,10 @@ Route::get('/', function () {
 })->name('homepage');
 // Route::get('/', [UntukKamuController::class, 'UntukKamu']);
 
+// Settings Routes
+// todo here .... ? - daftar alamat, ubah kata sandi, bersihkan cache, tentang kami, syarat dan ketentuan, beri kami ulasan
+Route::get('/daftar-alamat', [UserController::class, 'daftarAlamat'])->name('daftar.alamat');
+
 
 // Promo Page
 Route::get('/promo', function () {
