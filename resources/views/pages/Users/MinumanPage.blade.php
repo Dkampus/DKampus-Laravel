@@ -3,7 +3,7 @@
 
     {{-- Title Promo Terlaris --}}
     <div class="flex flex-row justify-between items-center px-5 mb-5 mt-7">
-        <h1 class="font-semibold text-2xl">Promo Makanan Terlaris</h1>
+        <h1 class="font-semibold text-2xl">Promo Minuman Terlaris</h1>
         <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
     </div>
 

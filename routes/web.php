@@ -181,7 +181,7 @@ Route::patch("/pesanan/update-quantity", [CartController::class, 'updateQuantity
 
 //Favorite Routes
 Route::get('/favorit', function () {
-    return view('pages.Users.Favorit', [
+    return view('pages.Users.FavoritPage', [
         'Title' => 'Favorit',
         'CardFood' => Menu::all(),
     ]);
