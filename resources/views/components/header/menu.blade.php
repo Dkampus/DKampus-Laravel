@@ -68,6 +68,12 @@
                             <p class="text-sm w-72">{{ $Item['Desc'] }}</p>
                         </div>
                     </a>
+                    <div id="popup-{{ $Item['Title'] }}" class="popup-window" style="display: none;">
+                        <div class="popup-content">
+                            <h1 class="font-bold text-xl">{{ $Item['Title'] }}</h1>
+                            <p class="text-sm">{{ $Item['Desc'] }}</p>
+                        </div>
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -109,3 +115,9 @@
 <div onclick="hideMenu()" id="overlay-menu"
     class="fixed bg-black/20 invisible transition-all duration-500 opacity-0 w-full h-screen z-[60] top-0 left-0">
 </div>
+<script>
+    function showPopup(itemTitle) {
+        var popup = document.getElementById('popup-' + itemTitle);
+        popup.style.display = 'block';
+    }
+</script>

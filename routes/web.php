@@ -49,7 +49,13 @@ Route::get('/', function () {
 
 // Settings Routes
 // todo here .... ? - daftar alamat, ubah kata sandi, bersihkan cache, tentang kami, syarat dan ketentuan, beri kami ulasan
-Route::get('/daftar-alamat', [UserController::class, 'daftarAlamat'])->name('daftar.alamat');
+//Route::get('/daftar-alamat', function () {
+//    return view('pages.Users.daftarAlamat', [
+//        'Title' => 'Daftar Alamat',
+//        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+//        'SeputarDkampus' => HomeModel::seputarDkampus(),
+//    ]);
+//});
 
 
 // Promo Page
