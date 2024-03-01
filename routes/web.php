@@ -57,6 +57,15 @@ Route::get('/', function () {
 //    ]);
 //});
 
+// Chat page
+Route::get('/chat', function () {
+    return view('pages.Users.ChatPage', [
+        'Title' => 'Chat',
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
+    ]);
+});
+
 
 // Promo Page
 Route::get('/promo', function () {

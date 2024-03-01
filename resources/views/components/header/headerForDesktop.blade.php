@@ -6,20 +6,20 @@
             <a href="/">
                 <img src="logoDkampus.svg" alt="" class="min-w-[100%] max-w-[120%] md:min-w-[2vw]">
             </a>
-            <h1 class="font-bold text-[#F9832A] text-2xl hidden md:flex">Dkampus</h1>    
+            <h1 class="font-bold text-[#F9832A] text-2xl hidden md:flex">Dkampus</h1>
         </div>
 
         <a href="#" class="hidden font-normal text-xl w-max mx-auto text-[#F9832A] md:flex">
             Daftar Warung
         </a>
-    
+
         {{-- Search --}}
         @include('components.header.searchDesktop')
 
         <button class="hidden mx-auto md:flex">
             <img src="./cart.svg" alt="">
         </button>
-    
+
         {{-- Sidebar --}}
         <div class="flex flex-row items-center gap-3">
             {{-- <button>
@@ -29,7 +29,7 @@
             <button>
             <img src="chat.svg" alt="" class="w-8 mr-5">
             </button>
-            @endauth    
+            @endauth
             @include('components.header.menuDesktop')
         </div>
 

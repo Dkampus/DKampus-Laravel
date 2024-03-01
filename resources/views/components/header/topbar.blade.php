@@ -17,8 +17,9 @@
         <img src="chat.svg" alt="" class="w-8 mr-5">
         </button> --}}
         @auth
-        <button>
-        <img src="chat.svg" alt="" class="w-8 mr-5">
+        <a href = "/chat" class="text-[#F9832A] text-2xl font-semibold">
+            <img src="chat.svg" alt="" class="w-8 mr-5">
+        </a>
         </button>
         @endauth
         @include('components.header.menu')
