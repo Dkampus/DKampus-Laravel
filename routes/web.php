@@ -49,13 +49,20 @@ Route::get('/', function () {
 
 // Settings Routes
 // todo here .... ? - daftar alamat, ubah kata sandi, bersihkan cache, tentang kami, syarat dan ketentuan, beri kami ulasan
-//Route::get('/daftar-alamat', function () {
-//    return view('pages.Users.daftarAlamat', [
-//        'Title' => 'Daftar Alamat',
-//        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-//        'SeputarDkampus' => HomeModel::seputarDkampus(),
-//    ]);
-//});
+
+// Daftar Alamat
+Route::get('/daftar-alamat', function () {
+    return view('pages.Users.DaftarAlamat', [
+        'Title' => 'Daftar Alamat',
+    ]);
+});
+
+// Ubah Kata Sandi
+Route::get('/change-password', function () {
+    return view('pages.Users.ubahKataSandi', [
+        'Title' => 'Ubah Kata Sandi',
+    ]);
+});
 
 // Chats Routes
 
