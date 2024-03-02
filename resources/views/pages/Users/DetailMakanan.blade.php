@@ -65,8 +65,8 @@
                     <input id="number" name="quantity" type="number" class="font-semibold bg-transparent w-10 border-none text-center focus:border-none focus:ring-0" value="1" readonly/>
                     <button type="button" id="increment" class="text-xl flex flex-col justify-center h-full font-bold text-[#F9832A]">+</button>
                     </div>
+                </form>
                 </div>
-
             </div>
         </div>
     </header>

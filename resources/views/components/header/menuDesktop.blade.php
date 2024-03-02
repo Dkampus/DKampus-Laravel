@@ -46,7 +46,7 @@
 
         <div id="profile"
             class="relative shadow-md w-[22rem] h-28 flex flex-row items-start border rounded-lg mx-auto px-3 pt-5">
-            <button>a
+            <button>
                 <img src="Avatar/Large.svg" alt="" class="w-[4.5rem]">
             </button>
             <div id="infoPengguna" class="my-0.5 flex flex-col gap-0.5 mx-2">
