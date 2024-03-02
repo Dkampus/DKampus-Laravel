@@ -59,7 +59,7 @@ Route::get('/daftar-alamat', function () {
 
 // Ubah Kata Sandi
 Route::get('/change-password', function () {
-    return view('pages.Users.ubahKataSandi', [
+    return view('pages.Users.UbahKataSandi', [
         'Title' => 'Ubah Kata Sandi',
     ]);
 });
@@ -226,7 +226,7 @@ Route::get('/masuk', [UserController::class, 'login']);
 Route::get('/daftar', [UserController::class, 'register']);
 Route::get('/input-registrasi', [UserController::class, 'input_register']);
 Route::get('/code-verification', [UserController::class, 'code_verification']);
-Route::get('atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sandi']);
+Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sandi']);
 
 
 // Admin Routes

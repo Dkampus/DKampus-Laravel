@@ -5,7 +5,7 @@ namespace App\Models;
 //use Illuminate\Database\Eloquent\Factories\HasFactory;
 //use Illuminate\Database\Eloquent\Model;
 
-class HomeModel 
+class HomeModel
 //extends Model
 {
     //use HasFactory;
@@ -206,7 +206,7 @@ class HomeModel
             'Icon' => 'ubahKataSandi.svg',
             'Title' => 'Ubah Kata Sandi',
             'Desc' => 'Amankan akun dengan mengganti kata sandi.',
-            'Url' => '/ubah-kata-sandi'
+            'Url' => '/change-password'
         ],
         [
             'Icon' => 'bersihkanCache.svg',
@@ -256,7 +256,7 @@ class HomeModel
     public static function bannerData(){
         return collect(self::$Banner);
     }
-    
+
     public static function rekomendasiWarung(){
         return collect(self::$rekomendasiWarung);
     }
@@ -265,5 +265,5 @@ class HomeModel
         return collect(self::$rekomendasiMakanan);
     }
 
-    
+
 }
