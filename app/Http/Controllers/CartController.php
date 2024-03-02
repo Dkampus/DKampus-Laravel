@@ -85,6 +85,23 @@ class CartController extends Controller
         return redirect('/pesanan');
     }
 
+    public function checkout()
+    {
+        $carts = Cart::where('user_id', auth()->id())->get();
+        $total = $carts->sum(function($cart) {
+            return $cart->quantity * $cart->menu->price;
+        });
+
+        return view('pages.Users.CheckoutPage', [
+            'Title' => 'Checkout',
+            'NavPesanan' => 'Checkout',
+            'carts' => $carts,
+            'total' => $total,
+            'AddressList' => PesananModel::alamatUser(),
+            'PengaturanAkun' => HomeModel::pengaturanAkun(),
+            'SeputarDkampus' => HomeModel::seputarDkampus(),
+        ]);
+    }
     /**
      * Display the specified resource.
      */

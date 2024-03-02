@@ -207,9 +207,11 @@
                     <p id="total_harga" class=" font-semibold border-b-2 border-[#F9832A]">Rp{{ $total_harga }}</p>
                 </div>
                 <div id="buttonTotalHarga">
-                    <button class="bg-[#F9832A] h-10 w-24 text-white font-semibold rounded-xl">
-                        Pesan
-                    </button>
+                    <a href="{{ route('checkout') }}">
+                        <button class="bg-[#F9832A] h-10 w-24 text-white font-semibold rounded-xl">
+                            Pesan
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
