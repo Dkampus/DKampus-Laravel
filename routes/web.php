@@ -57,12 +57,20 @@ Route::get('/', function () {
 //    ]);
 //});
 
+// Chats Routes
+
 // Chat page
-Route::get('/chat', function () {
+Route::get('/chats', function () {
     return view('pages.Users.ChatPage', [
         'Title' => 'Chat',
-        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-        'SeputarDkampus' => HomeModel::seputarDkampus(),
+    ]);
+});
+
+// Chat Rooms (require unique id)
+Route::get('/chats/{id}', function ($id) {
+    return view('pages.Users.ChatRoomPage', [
+        'Title' => 'Chat Room',
+        'id' => $id,
     ]);
 });
 

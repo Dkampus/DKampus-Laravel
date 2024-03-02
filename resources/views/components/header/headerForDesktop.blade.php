@@ -26,7 +26,7 @@
             <img src="chat.svg" alt="" class="w-8 mr-5">
             </button> --}}
             @auth
-            <a href = "/chat" class="text-[#F9832A] text-2xl font-semibold">
+            <a href = "/chats" class="text-[#F9832A] text-2xl font-semibold">
                 <img src="chat.svg" alt="" class="w-8 mr-5">
             </a>
             @endauth
