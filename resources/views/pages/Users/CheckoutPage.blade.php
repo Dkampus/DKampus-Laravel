@@ -29,6 +29,7 @@
                     <p class="font-normal text-black text-md ml-auto">Rp{{ number_format($cart->menu->harga * $cart->quantity, 0, '.', ',') }}</p>
                 </div>
                 <div class="flex items-center gap-x-2 ml-5">
+                    {{--Edit item on carts belum--}}
                     <a href="#" class="flex items-center gap-x-3 text-blue-700 text-sm">Edit</a>
                 </div>
             </div>
@@ -65,8 +66,9 @@
             <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-4">
                 <p class="font-bold text-black text-l">Pembayaran</p>
             </div>
+            {{--Selection pembayaran belum, as default baru qris aja.--}}
             <a href="#" class="flex items-center">
-                <img src="{{ asset('qris.svg') }}" alt="QRIS" class="w-12 h-12 mx-4"> <!-- Ubah ukuran sesuai kebutuhan -->
+                <img src="{{ asset('qris.svg') }}" alt="QRIS" class="w-12 h-12 mx-4">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 ml-auto text-orange-500"> <!-- Ubah ukuran dan margin sesuai kebutuhan -->
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
