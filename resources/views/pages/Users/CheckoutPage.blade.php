@@ -1,16 +1,16 @@
 @extends('layouts.Root')
 @section('content')
-    <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10 shadow-md py-8">
+    <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10 shadow-md py-4">
         <a href="{{url()->previous()}}" class="absolute top-5 left-5 flex items-center gap-x-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#F9832A" class="bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M10.354 1.646a.5.5 0 0 1 0 .708L5.707 7l4.647 4.646a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z"/>
             </svg>
         </a>
-        <h1 class="font-bold text-black text-2xl">Pemesanan</h1>
+        <h1 class="font-bold text-black text-xl">Pemesanan</h1>
     </header>
     <main class="flex flex-col w-full h-full">
         {{-- tolong buat header dari nama toko sebelum perulangan item2 pada cart --}}
-        @php $nama_toko = $carts[0]->menu->data_umkm_id @endphp
+        @php $nama_toko = $carts->first()->menu->data_umkm->nama_umkm @endphp
         <div class="bg-orange-500 flex items-center p-2 rounded">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 text-white">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 10h18M3 14h18M3 18h18"></path>
