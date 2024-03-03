@@ -5,27 +5,33 @@
     $alamatUser = [
         [
             'Title' => 'FIT',
-            'Alamat' => 'No., Jl. Sukapura No.20, Sukapura, Kec. Dayeuhkolot Kabupaten Badung'
+            'Alamat' => 'No., Jl. Sukapura No.20, Sukapura, Kec. Dayeuhkolot Kabupaten Badung',
+            'linkgmap' => 'https://www.google.com/maps/place/No.,+Jl.+Sukapura+No.20,+Sukapura,+Kec.+Dayeuhkolot+Kabupaten+Badung'
         ],
         [
             'Title' => 'Rumah',
-            'Alamat' => 'Kawasan pendidikan Telkom University Gg.Babakan Ciamis 3'
+            'Alamat' => 'Kawasan pendidikan Telkom University Gg.Babakan Ciamis 3',
+            'linkgmap' => 'https://www.google.com/maps/place/Kawasan+pendidikan+Telkom+University+Gg.Babakan+Ciamis+3'
         ],
         [
             'Title' => 'Kost PGA',
-            'Alamat' => 'Kawasan pendidikan Telkom University Gg.PGA, Desa Lengkong'
+            'Alamat' => 'Kawasan pendidikan Telkom University Gg.PGA, Desa Lengkong',
+            'linkgmap' => 'https://www.google.com/maps/place/Kawasan+pendidikan+Telkom+University+Gg.PGA,+Desa+Lengkong'
         ],
         [
             'Title' => 'FIT',
-            'Alamat' => 'No., Jl. Sukapura No.20, Sukapura, Kec. Dayeuhkolot Kabupaten Badung'
+            'Alamat' => 'No., Jl. Sukapura No.20, Sukapura, Kec. Dayeuhkolot Kabupaten Badung',
+            'linkgmap' => 'https://www.google.com/maps/place/No.,+Jl.+Sukapura+No.20,+Sukapura,+Kec.+Dayeuhkolot+Kabupaten+Badung'
         ],
         [
             'Title' => 'Rumah',
-            'Alamat' => 'Kawasan pendidikan Telkom University Gg.Babakan Ciamis 3'
+            'Alamat' => 'Kawasan pendidikan Telkom University Gg.Babakan Ciamis 3',
+            'linkgmap' => 'https://www.google.com/maps/place/Kawasan+pendidikan+Telkom+University+Gg.Babakan+Ciamis+3'
         ],
         [
             'Title' => 'Kost PGA',
-            'Alamat' => 'Kawasan pendidikan Telkom University Gg.PGA, Desa Lengkong'
+            'Alamat' => 'Kawasan pendidikan Telkom University Gg.PGA, Desa Lengkong',
+            'linkgmap' => 'https://www.google.com/maps/place/Kawasan+pendidikan+Telkom+University+Gg.PGA,+Desa+Lengkong'
         ],
     ];
     ?>
@@ -37,19 +43,116 @@
             <h1 class="font-bold text-black text-2xl">Daftar Alamat</h1>
         </a>
         <div class="absolute top-3 right-5">
-            <a href="{{'/tambahAlamat'}}" class="flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md">
+            <a href="#" id="tambahAlamat" class="flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md">
                 <h1 class="font-bold text-white text-md">Tambah Alamat</h1>
             </a>
         </div>
     </header>
     <main class="flex flex-col w-full h-full">
-        @foreach($alamatUser as $alamat)
+        @foreach($alamatUser as $key => $alamat)
             <div class="flex flex-col w-full h-auto px-1 py-3">
                 <div class="flex flex-col w-full h-auto bg-white rounded-md shadow-md p-5">
-                    <h1 class="font-bold text-black text-l">{{$alamat['Title']}}</h1>
-                    <p class="font-normal text-black text-md">{{$alamat['Alamat']}}</p>
+                    <a href="#" id="opener{{$key}}" class="font-bold text-black text-l">{{$alamat['Title']}}</a>
+                    <a href="#" id="opener{{$key}}" class="font-normal text-black text-md">{{$alamat['Alamat']}}</a>
+                    <a href="#" id="edit{{$key}}" class="text-blue-700">Edit</a>
                 </div>
             </div>
         @endforeach
+        @foreach($alamatUser as $key => $alamat)
+                <!-- Modal view alamat-->
+                <div class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="modal{{$key}}">
+                    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                <div class="sm:flex sm:items-start">
+                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                            {{$alamat['Title']}}
+                                        </h3>
+                                        <div class="mt-2">
+                                            <p class="text-sm text-gray-500">
+                                                {{$alamat['Alamat']}}
+                                            </p>
+                                            <a href="{{$alamat['linkgmap']}}" class="text-blue-500">View on Google Maps</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" id="close{{$key}}">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    document.getElementById('opener{{$key}}').addEventListener('click', function(event) {
+                        event.preventDefault();
+                        document.getElementById('modal{{$key}}').classList.remove('hidden');
+                    });
+                    document.getElementById('close{{$key}}').addEventListener('click', function(event) {
+                        event.preventDefault();
+                        document.getElementById('modal{{$key}}').classList.add('hidden');
+                    });
+                </script>
+        @endforeach
+            <!-- Modal tambah alamat-->
+            <div id="tambahAlamatModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="sm:flex sm:items-start">
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                        Tambah Alamat
+                                    </h3>
+                                    <div class="mt-2">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="namaAlamat" class="form-label text-gray-700">Nama</label>
+                                                <input type="text" class="form-control border border-gray-300 rounded p-2 w-full" id="namaAlamat">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="alamatLengkap" class="form-label text-gray-700">Alamat Lengkap</label>
+                                                <textarea class="form-control border border-gray-300 rounded p-2 w-full" id="alamatLengkap" rows="3"></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="linkGmaps" class="form-label text-gray-700">Link Gmaps</label>
+                                                <input type="text" class="form-control border border-gray-300 rounded p-2 w-full" id="linkGmaps">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeModal('tambahAlamatModal')">
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-primary mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function openModal(modalId) {
+                    document.getElementById(modalId).classList.remove('hidden');
+                }
+
+                function closeModal(modalId) {
+                    document.getElementById(modalId).classList.add('hidden');
+                }
+                document.getElementById('tambahAlamat').addEventListener('click', function(event) {
+                    event.preventDefault();
+                    openModal('tambahAlamatModal');
+                });
+            </script>
     </main>
 @endsection
