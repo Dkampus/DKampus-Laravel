@@ -43,7 +43,7 @@
             <h1 class="font-bold text-black text-2xl">Daftar Alamat</h1>
         </a>
         <div class="absolute top-3 right-5">
-            <a href="#" id="tambahAlamat" class="flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md">
+            <a href="#" id="tambahAlamat" class="flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md" onclick="event.preventDefault(); openModalAddAddress('tambahAlamatModal', 'Tambah Alamat');">
                 <h1 class="font-bold text-white text-md">Tambah Alamat</h1>
             </a>
         </div>
@@ -52,9 +52,11 @@
         @foreach($alamatUser as $key => $alamat)
             <div class="flex flex-col w-full h-auto px-1 py-3">
                 <div class="flex flex-col w-full h-auto bg-white rounded-md shadow-md p-5">
-                    <a href="#" id="opener{{$key}}" class="font-bold text-black text-l">{{$alamat['Title']}}</a>
-                    <a href="#" id="opener{{$key}}" class="font-normal text-black text-md">{{$alamat['Alamat']}}</a>
-                    <a href="#" id="edit{{$key}}" class="text-blue-700">Edit</a>
+                    <div id="openModalViewDetails{{$key}}">
+                        <span class="font-bold text-black text-l">{{$alamat['Title']}}<br></span>
+                        <span class="font-normal text-black text-md">{{$alamat['Alamat']}}</span>
+                    </div>
+                    <a href="#" id="openModal{{$key}}" class="text-blue-700" onclick="event.preventDefault(); openModalAddAddress('tambahAlamatModal', 'Edit Alamat');">Edit</a>
                 </div>
             </div>
         @endforeach
@@ -81,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" id="close{{$key}}">
+                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" id="closeModalViewDetails{{$key}}">
                                     Close
                                 </button>
                             </div>
@@ -89,11 +91,11 @@
                     </div>
                 </div>
                 <script>
-                    document.getElementById('opener{{$key}}').addEventListener('click', function(event) {
+                    document.getElementById('openModalViewDetails{{$key}}').addEventListener('click', function(event) {
                         event.preventDefault();
                         document.getElementById('modal{{$key}}').classList.remove('hidden');
                     });
-                    document.getElementById('close{{$key}}').addEventListener('click', function(event) {
+                    document.getElementById('closeModalViewDetails{{$key}}').addEventListener('click', function(event) {
                         event.preventDefault();
                         document.getElementById('modal{{$key}}').classList.add('hidden');
                     });
@@ -131,7 +133,7 @@
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeModal('tambahAlamatModal')">
+                            <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeModalAddAddress('tambahAlamatModal')">
                                 Close
                             </button>
                             <button type="button" class="btn btn-primary mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
@@ -142,17 +144,13 @@
                 </div>
             </div>
             <script>
-                function openModal(modalId) {
+                function openModalAddAddress(modalId, title) {
                     document.getElementById(modalId).classList.remove('hidden');
+                    document.getElementById(modalId).querySelector('#modal-title').textContent = title;
                 }
-
-                function closeModal(modalId) {
+                function closeModalAddAddress(modalId) {
                     document.getElementById(modalId).classList.add('hidden');
                 }
-                document.getElementById('tambahAlamat').addEventListener('click', function(event) {
-                    event.preventDefault();
-                    openModal('tambahAlamatModal');
-                });
             </script>
     </main>
 @endsection
