@@ -9,27 +9,71 @@
         <h1 class="font-bold text-black text-2xl">Pemesanan</h1>
     </header>
     <main class="flex flex-col w-full h-full">
+        {{-- tolong buat header dari nama toko sebelum perulangan item2 pada cart --}}
+        @php $nama_toko = $carts[0]->menu->data_umkm_id @endphp
+        <div class="bg-orange-500 flex items-center p-2 rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 10h18M3 14h18M3 18h18"></path>
+            </svg>
+            <h2 class="font-bold text-white text-2xl ml-2">{{$nama_toko}}</h2>
+        </div>
         @foreach($carts as $cart)
-            <div class="flex flex-col w-full h-auto px-1 py-3">
-                <div class="flex flex-col w-full h-auto bg-white rounded-md shadow-md p-5">
-                    <h1 class="font-bold text-black text-l">Product name</h1>
-                    <p class="font-normal text-black text-md">product description</p>
-                    <p class="font-normal text-black text-md">Quantity: {{$cart->quantity}}</p>
-                    <p class="font-normal text-black text-md">Price: 0</p>
+            <div class="flex flex-col w-full h-auto px-1 py-2">
+                <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-4">
+                    <div class="flex items-center gap-x-2">
+                        <div class="bg-orange-500 text-white text-sm px-2 py-1 rounded">
+                            {{$cart->quantity}}
+                        </div>
+                        <p class="text-black text-md">{{$cart->menu->nama_makanan}}</p>
+                    </div>
+                    <p class="font-normal text-black text-md ml-auto">Rp{{ number_format($cart->menu->harga * $cart->quantity, 0, '.', ',') }}</p>
+                </div>
+                <div class="flex items-center gap-x-2 ml-5">
+                    <a href="#" class="flex items-center gap-x-3 text-blue-700 text-sm">Edit</a>
                 </div>
             </div>
         @endforeach
-        <form method="POST" action="{{}}">
-            @csrf
-            <div class="flex flex-col w-full h-auto px-1 py-3">
-                <div class="flex flex-col w-full h-auto bg-white rounded-md shadow-md p-5">
-                    <h1 class="font-bold text-black text-l">Alamat Pengiriman</h1>
-                    <select name="alamat" id="alamat" class="w-full h-10 px-3 py-2 bg-white border-2 border-gray-300 rounded-md shadow-md">
-                        <option value="Alamat 1">Alamat 1</option>
-                        <option value="Alamat 2">Alamat 2</option>
-                        <option value="Alamat 3">Alamat 3</option>
-                    </select>
-                </div>
-        </form>
+        <div class="flex flex-col w-full h-auto px-1 py-2 bg-gray-200"></div>
+        {{--Rangkuman Pembayaran--}}
+        @php
+            $total = 0;
+            foreach($carts as $cart){
+                $total += $cart->menu->harga * $cart->quantity;
+            }
+            $ongkir = 10000;
+        @endphp
+        <div class="flex flex-col w-full h-auto px-1 py-2">
+            <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-4">
+                <p class="font-bold text-black text-l">Rangkuman Pembayaran</p>
+            </div>
+            <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-3">
+                <p class="font-normal text-black text-md">Total Harga</p>
+                <p class="font-normal text-black text-md ml-auto">Rp{{ number_format($total, 0, '.', ',') }}</p>
+            </div>
+            <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-3">
+                <p class="font-normal text-black text-md">Ongkir</p>
+                <p class="font-normal text-black text-md ml-auto">Rp{{ number_format($ongkir, 0, '.', ',') }}</p>
+            </div>
+            <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-3">
+                <p class="font-bold text-black text-md">Total Pembayaran</p>
+                <p class="font-bold text-black text-md ml-auto">Rp{{ number_format($total + $ongkir, 0, '.', ',') }}</p>
+            </div>
+        </div>
+        <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
+        {{--Pembayaran--}}
+        <div class="flex flex-col w-full h-auto px-1 py-2">
+            <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-4">
+                <p class="font-bold text-black text-l">Pembayaran</p>
+            </div>
+            <a href="#" class="flex items-center">
+                <img src="{{ asset('qris.svg') }}" alt="QRIS" class="w-12 h-12 mx-4"> <!-- Ubah ukuran sesuai kebutuhan -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 ml-auto text-orange-500"> <!-- Ubah ukuran dan margin sesuai kebutuhan -->
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+        <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
+        {{--Alamat Pengiriman--}}
+        disini alamat
     </main>
 @endsection
