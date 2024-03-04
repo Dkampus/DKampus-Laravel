@@ -6,13 +6,13 @@
         [
             'id' => '888E7CBDE6EF0E045790AAC59C364F1C',
             'sender' => 'Driver y',
-            'message' => 'Halo, ada yang bisa kami bantu?',
+            'message' => 'Halo, apa sudah sesuai?',
             'time' => '12:00'
         ],
         [
             'id' => '88827CBDE6EF0E045790AAC59C364F1C',
             'sender' => 'Driver x',
-            'message' => 'Halo, saya ingin memesan makanan',
+            'message' => 'Halo, saya sudah di depan',
             'time' => '12:00'
         ],
         [
@@ -31,14 +31,14 @@
             <h1 class="font-bold text-black text-2xl">Chat</h1>
         </a>
     </header>
-    <main class="flex flex-col gap-5 px-5 mt-5">
+    <main class="flex flex-col gap-5 px-5 mt-3">
         <div class="flex flex-col gap-5">
             {{--fetch data chat from database chat ?--}}
             @foreach($chats as $chat)
                 <a href="{{ '/chats/' . $chat['id'] }}">
                     <div class="flex justify-between items-center gap-3">
                         <div class="flex flex-row gap-3">
-                            <img src="{{ asset('images/ProfilePicture.png') }}" alt="" class="w-16 h-16 rounded-full">
+                            <img src="{{ asset('images/ProfilePicture.png') }}" alt="" class="w-14 h-14 rounded-ful object-cover">
                             <div class="flex flex-col gap-1">
                                 <h1 class="font-bold text-black">{{ $chat['sender'] }}</h1>
                                 <p class="text-gray-400">{{ $chat['message'] }}</p>
@@ -46,7 +46,7 @@
                         </div>
                         <div class="flex flex-col items-end gap-1">
                             <p class="text-gray-400">{{ $chat['time'] }}</p>
-                            <div class="w-5 h-5 bg-[#F9832A] rounded-full"><a class="">1</a></div>
+                            <div class="w-5 h-5 bg-[#F9832A] rounded-full"><a class="text-white text-xs font-bold flex justify-center items-center">1</a></div>
                         </div>
                     </div>
                 </a>
