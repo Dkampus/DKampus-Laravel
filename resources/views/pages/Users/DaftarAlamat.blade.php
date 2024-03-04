@@ -77,7 +77,7 @@
                                             <p class="text-sm text-gray-500">
                                                 {{$alamat['Alamat']}}
                                             </p>
-                                            <a href="{{$alamat['linkgmap']}}" class="text-blue-500">View on Google Maps</a>
+                                            <a href="{{$alamat['linkgmap']}}" class="text-blue-500" target="_blank">View on Google Maps</a>
                                         </div>
                                     </div>
                                 </div>
