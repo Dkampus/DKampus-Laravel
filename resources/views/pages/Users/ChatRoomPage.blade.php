@@ -6,8 +6,22 @@
         [
             'id' => '888E7CBDE6EF0E045790AAC59C364F1C',
             'sender' => 'Driver y',
-            'message' => 'Halo, ada yang bisa kami bantu?',
-            'time' => '12:00'
+            'receiver' => 'Driver x',
+            'messages' => [
+                [
+                    'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
+                    'from' => 'sender',
+                    'message' => 'Halo, apa sudah sesuai?',
+                    'timestamp' => '2023-02-01 12:00:00',
+                ],
+                [
+                    'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
+                    'from' => 'receiver',
+                    'message' => 'Sudah sesuai',
+                    'timestamp' => '2023-02-01 12:00:00',
+                ]
+
+            ]
         ],
         [
             'id' => '88827CBDE6EF0E045790AAC59C364F1C',
@@ -52,21 +66,18 @@
     </header>
     <main>
         @auth
-        @foreach($chats as $chat)
-                {{--fetch data chats from database chat ?
-                if chat id is equal to route id, then show the chat
-                   # send bubble chat nya belum ada. baru receive bubble chat nya
-                --}}
-            @if($chat['id'] === request()->route('id'))
-                <div class="flex flex-row justify-start mb-3">
-                    <div class="rounded-lg bg-blue-100 p-3">
-                        <p class="text-sm text-gray-600">{{ $chat['sender'] }}</p>
-                        <p>{{ $chat['message'] }}</p>
-                        <p class="text-right text-xs text-gray-500">{{ $chat['time'] }}</p>
-                    </div>
-                </div>
-            @endif
-        @endforeach
+            @foreach($chats as $chat)
+                @if($chat['id'] === request()->route('id'))
+                    @foreach($chat['messages'] as $message)
+                        <div class="flex flex-col {{ $message['from'] === 'receiver' ? 'items-end' : 'items-start' }} mb-3 m-4">
+                            <div class="rounded-lg {{ $message['from'] === 'receiver' ? 'bg-[#F8832B]' : 'bg-[#FFE6D4]' }} p-3">
+                                <p>{{ $message['message'] }}</p>
+                            </div>
+                            <p class="text-xs text-gray-500">{{ date('h:i A', strtotime($message['timestamp'])) }}</p>
+                        </div>
+                    @endforeach
+                @endif
+            @endforeach
         @endauth
     </main>
     <footer class="fixed bottom-0 left-0 w-full bg-white z-10 shadow-md py-2 px-4">
