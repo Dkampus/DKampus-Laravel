@@ -20,7 +20,8 @@
                 }
             }
         @endphp
-        <div class="bg-[#F8832B] flex items-center p-3 rounded">
+        {{-- Umkm Name --}}
+        <div class="bg-[#F8832B] flex items-center p-3">
             <svg height="30" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M1.50596 0.214355C1.35633 0.214355 1.22294 0.318064 1.17148 0.474022L0.257897 3.24921C0.229051 3.33697 0.214353 3.42877 0.214355 3.52115V4.62513C0.214355 5.24936 0.66996 5.75602 1.23204 5.75602C1.79413 5.75602 2.25013 5.24936 2.25013 4.62513C2.25013 5.24975 2.70573 5.75602 3.26781 5.75602C3.8299 5.75602 4.2859 5.24936 4.2859 4.62513C4.2859 5.24975 4.7415 5.75602 5.30359 5.75602C5.86567 5.75602 6.32088 5.25015 6.32167 4.62592C6.32167 5.25015 6.77727 5.75602 7.33936 5.75602C7.90144 5.75602 8.35704 5.24936 8.35704 4.62513C8.35704 5.24975 8.81304 5.75602 9.37513 5.75602C9.93721 5.75602 10.3924 5.25015 10.3928 4.62592C10.3932 5.25015 10.8488 5.75602 11.4109 5.75602C11.973 5.75602 12.4286 5.24936 12.4286 4.62513C12.4286 5.24975 12.8842 5.75602 13.4467 5.75602C14.0088 5.75602 14.4644 5.24936 14.4644 4.62513V3.52115C14.4644 3.42877 14.4497 3.33697 14.4208 3.24921L13.5072 0.474418C13.4558 0.318064 13.3224 0.214355 13.1728 0.214355H1.50596Z" fill="#FFFFFF"/>
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M1.79761 6.24282V9.31844H0.808024C0.755533 9.31844 0.705192 9.33929 0.668076 9.37641C0.630959 9.41353 0.610107 9.46387 0.610107 9.51636V9.91219C0.610107 9.96468 0.630959 10.015 0.668076 10.0521C0.705192 10.0893 0.755533 10.1101 0.808024 10.1101H13.8705C13.923 10.1101 13.9734 10.0893 14.0105 10.0521C14.0476 10.015 14.0684 9.96468 14.0684 9.91219V9.51636C14.0684 9.46387 14.0476 9.41353 14.0105 9.37641C13.9734 9.33929 13.923 9.31844 13.8705 9.31844H12.8809V6.24282C12.7152 6.17678 12.5622 6.08264 12.4285 5.96455C12.3259 6.05505 12.2118 6.1317 12.0893 6.19255V9.31844H2.58927V6.19255C2.46671 6.1317 2.35267 6.05505 2.25004 5.96455C2.11704 6.08132 1.96504 6.17632 1.79761 6.24282ZM12.0893 5.46817C12.1229 5.43452 12.1546 5.3985 12.1843 5.36011H12.0893V5.46817ZM12.6727 5.36011C12.7326 5.43764 12.8026 5.50674 12.8809 5.56554V5.36011H12.6727ZM1.79761 5.56554C1.87633 5.50721 1.94643 5.43804 2.00582 5.36011H1.79761V5.56554ZM2.49427 5.36011H2.58927V5.46817C2.55527 5.43427 2.52354 5.39817 2.49427 5.36011ZM1.20386 10.9018C1.15137 10.9018 1.10103 10.9226 1.06391 10.9597C1.02679 10.9969 1.00594 11.0472 1.00594 11.0997V14.0684C1.00594 14.1734 1.04764 14.2741 1.12188 14.3483C1.19611 14.4226 1.29679 14.4643 1.40177 14.4643H13.2768C13.3818 14.4643 13.4824 14.4226 13.5567 14.3483C13.6309 14.2741 13.6726 14.1734 13.6726 14.0684V11.0997C13.6726 11.0472 13.6518 10.9969 13.6146 10.9597C13.5775 10.9226 13.5272 10.9018 13.4747 10.9018H1.20386Z" fill="#FFFFFF"/>
@@ -29,6 +30,7 @@
             </svg>
             <h2 class="font-bold text-white text-xl ml-4">{{$carts->first()->menu->data_umkm->nama_umkm}}</h2>
         </div>
+        {{-- Order Details --}}
         <div class="flex flex-col gap-y-4 p-5">
             <div class="flex justify-between items-center">
                 <h2 class="font-bold">{{$order}}</h2>
@@ -46,6 +48,7 @@
                 <h2 class="font-bold">Rp. {{number_format($total, 0, ',', '.')}}</h2>
             </div>
         </div>
+        {{-- Time Remaining --}}
         <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
         <div class="flex justify-between items-center p-5">
             <p class="text-sm text-gray-500">Silahkan selesaikan<br>pembayaranan anda dalam</p>
@@ -62,6 +65,7 @@
         <a href="#" class="flex justify-center items-center w-full h-12 mt-2">
             <h1 class="text-[#F8832B] text-s">Simpan Kode QR</h1>
         </a>
+        {{-- Information --}}
         <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
         <div class="flex justify-center items-center p-5">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle text-[#F9832A]" viewBox="0 0 16 16">
@@ -69,10 +73,12 @@
             </svg>
             <h1 class="text-xs text-gray-500 mx-2">Halaman ini akan diperbaharui ketika pembayaran selesai</h1>
         </div>
+        {{-- Tos --}}
         <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
         <div class="flex justify-center items-center p-5">
             <p class="text-xs text-gray-500 max-w-sm">Dengan Melanjutkan, artinya Anda setuju dengan <a class="underline text-[#F9832A]" href="#">Syarat dan Ketentuan</a> dan juga <a class="underline text-[#F9832A]" href="#">Kebijakan Privasi</a> kami</p>
         </div>
+        {{-- Cancel Transaction --}}
         <div class="flex justify-center items-center">
             <a href="#" class="flex justify-center items-center">
                 <h1 class="text-black text-s underline">Batalkan transaksi?</h1>
@@ -80,7 +86,7 @@
         </div>
     </main>
     <script>
-        var countDownDate = new Date().getTime() + 180000;
+        var countDownDate = new Date().getTime() + 180000; //in milliseconds
         var x = setInterval(function() {
             var now = new Date().getTime();
             var distance = countDownDate - now;

@@ -44,14 +44,15 @@
             </div>
         @endforeach
         <div class="flex flex-col w-full h-auto px-1 py-2 bg-gray-200"></div>
-        {{--Rangkuman Pembayaran--}}
         @php
+            //temporary data total harga dan ongkir
             $total = 0;
             foreach($carts as $cart){
                 $total += $cart->menu->harga * $cart->quantity;
             }
             $ongkir = 10000;
         @endphp
+        {{-- Detail Transaksi --}}
         <div class="flex flex-col w-full h-auto px-1 py-2">
             <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-4">
                 <p class="font-bold text-black text-l">Rangkuman Pembayaran</p>
