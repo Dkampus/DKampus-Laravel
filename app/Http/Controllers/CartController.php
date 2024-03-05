@@ -85,6 +85,7 @@ class CartController extends Controller
         return redirect('/pesanan');
     }
 
+    // Temporary function, should be moved to another controller.
     public function checkout()
     {
         $carts = Cart::where('user_id', auth()->id())->get();
@@ -102,6 +103,21 @@ class CartController extends Controller
             'SeputarDkampus' => HomeModel::seputarDkampus(),
         ]);
     }
+    public function pay($orderID)
+    {
+        $carts = Cart::where('user_id', auth()->id())->get();
+        $total = $carts->sum(function($cart) {
+            return $cart->quantity * $cart->menu->price;
+        });
+        return view('pages.Users.Pay', [
+            'Title' => 'Pay',
+            'orderID' => $orderID,
+            'carts' => $carts,
+            'total' => $total,
+        ]);
+    }
+
+    //end of temporary function
     /**
      * Display the specified resource.
      */

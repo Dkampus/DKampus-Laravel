@@ -201,6 +201,7 @@ Route::get('/pesanan', [CartController::class, 'index']);
 Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
 Route::patch("/pesanan/update-quantity", [CartController::class, 'updateQuantity']);
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::get('/pay/{orderID}', [CartController::class, 'pay'])->name('payment');
 
 
 //Favorite Routes
