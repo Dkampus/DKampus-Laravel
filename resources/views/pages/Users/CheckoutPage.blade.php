@@ -93,8 +93,31 @@
             </div>
         </div>
         {{--Button Pesan--}}
-        <a href="#" class="flex items-center justify-center h-12 bg-orange-500 fixed bottom-0 w-full overflow-auto">
+        <a href="#" id="pesanButton" class="flex items-center justify-center h-12 bg-orange-500 fixed bottom-0 w-full overflow-auto">
             <p class="font-bold text-white text-lg">Pembayaran</p>
         </a>
+        {{-- modal confirmation --}}
+        <div class="fixed bottom-0 left-0 w-full h-full bg-black bg-opacity-50 hidden" id="modalConfrimation">
+            <div class="flex flex-col w-11/12 h-auto bg-white rounded-md p-4 absolute bottom-20 left-1/2 transform -translate-x-1/2">
+                <p class="font-bold text-black text-xl">Apakah anda yakin?</p>
+                <p class="font-normal text-black text-md mt-2">Pastikan semua informasi sudah benar sebelum melanjutkan.</p>
+                <div class="flex flex-col w-full h-auto mt-4">
+                    <a href="#" id="konfirmasiButton" class="flex items-center justify-center text-white h-12 bg-orange-500 w-full rounded-md mb-2">Konfrimasi</a>
+                    <a href="#" class="flex items-center justify-center text-black h-12 bg-gray-300 w-full rounded-md">Batal</a>
+                </div>
+            </div>
+        </div>
     </main>
+    <script>
+        document.getElementById('pesanButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('modalConfrimation').classList.remove('hidden');
+        });
+        document.querySelector('#modalConfrimation .bg-gray-300').addEventListener('click', function() {
+            document.getElementById('modalConfrimation').classList.add('hidden');
+        });
+        document.getElementById('konfirmasiButton').addEventListener('click', function() {
+            window.location.href = '/payment'; // Url payment page ?
+        });
+    </script>
 @endsection
