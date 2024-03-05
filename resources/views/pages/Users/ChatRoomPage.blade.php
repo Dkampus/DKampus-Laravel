@@ -95,22 +95,36 @@
                             }
                         }
                     @endphp
-                    <h1 class="font-bold text-black text-xl">{{ $sender }}</h1>
+                    <h1 class="font-bold text-black text-l">{{ $sender }}</h1>
                 </div>
             @endauth
         </a>
     </header>
     <main>
+        @php
+            $previousDate = null;
+        @endphp
         @auth
             @foreach($chats as $chat)
                 @if($chat['id'] === request()->route('id'))
                     @foreach($chat['messages'] as $message)
+                        @php
+                            $currentDate = date('Y-m-d', strtotime($message['timestamp']));
+                        @endphp
+                        @if($previousDate !== $currentDate)
+                            <div class="text-center my-2">
+                                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{ date('l, d M Y', strtotime($currentDate)) }}</span>
+                            </div>
+                        @endif
                         <div class="flex flex-col {{ $message['from'] === 'receiver' ? 'items-end' : 'items-start' }} mb-3 m-4">
                             <div class="rounded-lg {{ $message['from'] === 'receiver' ? 'bg-[#F8832B]' : 'bg-[#FFE6D4]' }} p-3">
                                 <p>{{ $message['message'] }}</p>
                             </div>
                             <p class="text-xs text-gray-500">{{ date('h:i A', strtotime($message['timestamp'])) }}</p>
                         </div>
+                        @php
+                            $previousDate = $currentDate;
+                        @endphp
                     @endforeach
                 @endif
             @endforeach
@@ -119,9 +133,9 @@
     <footer class="fixed bottom-0 left-0 w-full bg-white z-10 shadow-md py-2 px-4">
         <form action="#" method="POST">
             @csrf
-            <div class="flex items-center">
-                <input type="text" name="message" placeholder="Type a message" class="flex-grow border rounded-lg p-2 mr-2">
-                <button type="submit" class="bg-[#F9832A] text-white rounded-lg p-2">
+            <div class="flex items-center mb-2">
+                <input type="text" name="message" placeholder="Type a message" class="flex-grow border rounded-lg p-3 mr-2">
+                <button type="submit" class="bg-[#F9832A] rounded-lg p-2">
                     <img src="{{ asset('/send.svg') }}" width="24" height="24" class="bi bi-box-arrow-in-right">
                 </button>
             </div>
