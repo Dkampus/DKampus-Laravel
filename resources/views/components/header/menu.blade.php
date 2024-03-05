@@ -39,14 +39,17 @@
     </header>
 
     <main class="mt-24 w-full">
-
         <div id="profile"
             class="relative shadow-md w-[22rem] h-28 flex flex-row items-start border rounded-lg mx-auto px-3 pt-5">
             <button>
                 <img src="Avatar/Large.svg" alt="" class="w-[4.5rem]">
             </button>
             <div id="infoPengguna" class="my-0.5 flex flex-col gap-0.5 mx-2">
-                <h1 class="font-bold text-lg">{{ Auth::user()->email ?? 'user' }}</h1>
+                {{--Nama pengguna--}}
+                <h1 class="font-bold text-lg">{{ Auth::user()->nama_user ?? 'unknownname' }}</h1>
+                {{--Email pengguna--}}
+                <h1 class="text-xs">{{ Auth::user()->email ?? 'email' }}</h1>
+                {{--Alamat pengguna--}}
                 <div id="location" class="flex flex-row gap-1 items-center">
                     <img src="markLocation.svg" alt="" class="w-4">
                     <h1 class="text-wrapper-location-profile">{{ Auth::user()->alamat ?? 'address' }}</h1>
@@ -98,7 +101,7 @@
     <footer class="flex flex-row gap-10 mt-10 mb-5 px-3 justify-between w-[22rem] mx-auto items-center">
         <div id="copyright" class="flex flex-row items-center">
             <img src="copyright.svg" alt="" class="w-4">
-            <h1>Copyright Dkampus 2042</h1>
+            <h1>Copyright Dkampus 2024</h1>
         </div>
         @auth
             <form method="POST" action="{{ route('logout') }}">
@@ -121,3 +124,4 @@
         popup.style.display = 'block';
     }
 </script>
+
