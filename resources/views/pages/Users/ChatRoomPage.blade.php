@@ -6,7 +6,7 @@
         [
             'id' => '888E7CBDE6EF0E045790AAC59C364F1C',
             'sender' => 'Driver y',
-            'receiver' => 'Driver x',
+            'receiver' => 'Pengguna',
             'messages' => [
                 [
                     'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
@@ -20,20 +20,56 @@
                     'message' => 'Sudah sesuai',
                     'timestamp' => '2023-02-01 12:00:00',
                 ]
-
             ]
         ],
         [
             'id' => '88827CBDE6EF0E045790AAC59C364F1C',
             'sender' => 'Driver x',
-            'message' => 'Halo, saya ingin memesan makanan',
-            'time' => '12:00'
+            'receiver' => 'Pengguna',
+            'messages' => [
+                [
+                    'msgid' => '988E7CBDE6EF0E045790AAC59C164F1C',
+                    'from' => 'sender',
+                    'message' => 'Halo, apa sudah sesuai?',
+                    'timestamp' => '2023-02-01 12:00:00',
+                ],
+                [
+                    'msgid' => '988E7CBDE6EF0E045790AAC59C363F1C',
+                    'from' => 'receiver',
+                    'message' => 'Sudah sesuai',
+                    'timestamp' => '2023-02-01 12:01:50',
+                ],
+                [
+                    'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
+                    'from' => 'sender',
+                    'message' => 'Saya menuju ke lokasi',
+                    'timestamp' => '2023-02-01 12:22:00',
+                ],
+                [
+                    'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
+                    'from' => 'sender',
+                    'message' => 'Sudah sampai, saya ada di depan',
+                    'timestamp' => '2023-02-01 12:32:00',
+                ]
+            ]
         ],
         [
             'id' => '888E7CBDC6EF0E045790AAC59C364F1C',
             'sender' => 'Admin z',
-            'message' => 'Halo, apa ada keluhan ?',
-            'time' => '01:00'
+            'messages' => [
+                [
+                    'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
+                    'from' => 'sender',
+                    'message' => 'Halo, apa ada keluhan?',
+                    'timestamp' => '2023-02-01 12:00:00',
+                ],
+                [
+                    'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
+                    'from' => 'receiver',
+                    'message' => 'Tidak ada keluhan',
+                    'timestamp' => '2023-02-01 12:02:00',
+                ]
+            ]
         ]
     ];
     ?>
