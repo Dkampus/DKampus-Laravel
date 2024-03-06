@@ -58,7 +58,8 @@
                     </svg>
                     <h3>{{$rating}}</h3>
                 </div>
-                <h3 id="countRatings">560 Rating</h3>
+                @php $rating = 4.5; @endphp
+                <h3 id="countRatings">{{$rating}} Ratings</h3>
             </div>
 
             {{-- Time --}}
@@ -86,13 +87,16 @@
             <div class="w-[15rem] relative mb-2 border rounded-2xl transition-all duration-300 overflow-hidden hover:shadow-md">
                 {{-- Discount Img --}}
                 <img src="../discount50%.svg" alt="" class="top-5 -left-[0.65rem] overflow-auto z-50 absolute w-[5rem]">
-                <a href="/detail-makanan/{{$food->nama_makanan}}"><img src="{{Storage::url($food->image)}}" alt="" class="w-full"></a>
+                <a href="/detail-makanan/{{$food->nama_makanan}}">
+                    {{--<img src="{{Storage::url($food->image)}}" alt="" class="w-full">--}}
+                    <div class="w-full h-[10rem] bg-gray-300"></div>
+                </a>
                 <div id="desc" class="flex flex-col gap-2 py-2 px-3">
                     <div id="ratings" class="flex flex-row items-center gap-1">
                         <img src="../Iconly/Bold/Star.svg" alt="">
                         <h2>{{$food->rating}}</h2>
                     </div>
-                    <a href="/detail-makanan/{{$food->nama_makanan}}" class="font-semibold text-xl">{{$food->nama_makanan}}</a>
+                    <a href="/detail-makanan/{{$food->nama_makanan}}" class="font-semibold text-xl line-clamp-1">{{$food->nama_makanan}}</a>
                     <h2 class="font-medium">Rp{{$harga}}</h2>
                     <div id="buttons" class="flex flex-row gap-2 items-center">
                         <a href="/detail-makanan/{{$food->nama_makanan}}" class="bg-[#F9832A] w-[80%] h-10 rounded-xl font-semibold text-white flex flex-col justify-center items-center">Beli</a>
@@ -106,8 +110,15 @@
                 </div>
             </div>
         @empty
-
         @endforelse
     </div>
 </main>
 @endsection
+<style>
+    .line-clamp-1 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+    }
+</style>
