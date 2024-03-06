@@ -51,18 +51,16 @@ class MenuController extends Controller
     public function search(Request $request)
     {
         try {
-            $menus = Menu::with('data_umkm')->search($request->keyword)->get();            
-            $data = [
-                'models' => $menus,               
-            ];
-            return view('pages.Users.search', $data);
+            $menus = Menu::with('data_umkm')->where('nama_makanan', 'like', '%' . $request->query('query') . '%')->get();
+
+
+            return response()->json($menus);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage()
             ]);
         }
     }
-
     /**
      * Display a listing of the resource.
      */
@@ -136,7 +134,7 @@ class MenuController extends Controller
 
             if ($request->hasFile('image')) {
                 Storage::delete("public/{$menu->data_umkm->nama_umkm}/{$menu->image}");
-                $menu->image = $request->image->storeAs('public/' . $menu->data_umkm->nama_umkm, $menu->nama_makanan . '.' . $request->image->extension());                
+                $menu->image = $request->image->storeAs('public/' . $menu->data_umkm->nama_umkm, $menu->nama_makanan . '.' . $request->image->extension());
             }
 
             $menu->update();
