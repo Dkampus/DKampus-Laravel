@@ -16,7 +16,9 @@
     </div>
     <div id="search-results" class="bg-white flex flex-col gap-3 items-start p-3 shadow-lg rounded-xl border h-auto w-full invisible opacity-0 transition-all duration-300 absolute z-50 top-[3rem] sm:min-w-[21vw] overflow-auto max-h-[400px]">
         <h1 class="font-bold">Hasil Pencarian</h1>
-        <!-- Tempat untuk menampilkan hasil pencarian -->
+        <div id="search-content">
+            <!-- Tempat untuk menampilkan hasil pencarian -->
+        </div>
     </div>
 </div>
 <div onclick="hideResults()" id="overlay-results" class="fixed bg-black/20 invisible transition-all duration-300 opacity-0 w-screen h-screen z-40 left-0 top-0"></div>
@@ -37,11 +39,15 @@
                                 '<div class="flex flex-col">' +
                                 '<h1 class="font-bold text-black">' + data[i].nama_makanan + '</h1>' +
                                 '<p class="text-gray-400 text-s">Rp ' + new Intl.NumberFormat('id-ID', { style: 'decimal' }).format(data[i].harga) + '</p>' +
-                                '<div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg><p class="text-gray-400 ml-2">' + data[i].rating + '</p></div>' +
+                                '<div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F9832A" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg><p class="text-gray-400 ml-2">' + data[i].rating + '</p></div>' +
                                 '</div></div>';
                         }
-                        $('#search-results').html(searchResults);
+                        $('#search-content').html(searchResults);
                         $('#search-results').css('display', 'block');
+                    },
+                    error: function(data) {
+                        '<h1 class="font-bold">Tidak ada hasil</h1>';
+                        console.log(data);
                     }
                 });
             } else {
