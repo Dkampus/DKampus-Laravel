@@ -61,18 +61,28 @@ class MenuController extends Controller
             ]);
         }
     }
+    public function data_umkm()
+    {
+        return $this->belongsTo(Data_umkm::class);
+    }
 
     public function search(Request $request)
     {
         $keyword = $request->keyword;
-        $menus = Menu::where('nama_makanan', 'like', "%{$keyword}%")->get();
-        $umkm = Data_umkm::where('nama_umkm', 'like', "%{$keyword}%")->get();
+        $menus = Menu::where('nama_makanan', 'like', "%{$keyword}%")
+            ->with('data_umkm') // Add this line to get the related UMKM data
+            ->get();
+
+        // Transform the menus data to include the UMKM name
+        $menus = $menus->map(function ($menu) {
+            $menu->nama_umkm = $menu->data_umkm->nama_umkm;
+            return $menu;
+        });
 
         return view('pages.Users.SearchPage', [
             'Title' => 'Search',
             'NavSearch' => 'Search',
             'menus' => $menus,
-            'umkm' => $umkm
         ]);
     }
     /**

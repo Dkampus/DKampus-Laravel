@@ -1,4 +1,3 @@
-console.log("HELLO KONTOL");
 const topBarMobile = document.getElementById('topBarMobile')
 window.addEventListener('scroll', () => {
     // Check the scroll position, for example, when it goes beyond 100 pixels
@@ -11,7 +10,7 @@ window.addEventListener('scroll', () => {
          topBarMobile.style.transition = "all 1s"
     }
 });
- 
+
  // swiper for banner
  const banner = document.getElementById('banner')
  // swiper parameters
@@ -159,9 +158,9 @@ document.addEventListener('scroll',function(){
         scrollButton.style.opacity = "100";
         scrollButton.style.zIndex = "1";
         if(viewportWidth >= 768){
-          scrollButton.style.bottom = "4rem"; 
+          scrollButton.style.bottom = "4rem";
         }else if(viewportWidth < 768){
-          scrollButton.style.bottom = "7rem"; 
+          scrollButton.style.bottom = "7rem";
         }
     } else if (scrolled < 100){
         scrollButton.style.opacity = "0";
@@ -323,10 +322,10 @@ searchInput.addEventListener("input",function(){
         clearInput.style.justifyContent = 'center';
         clearInput.style.alignItems = 'center';
         clearInput.style.visibility = 'visible';
-       
+
     }else{
         clearInput.style.visibility = 'invisible';
-       
+
     }
 })
 
@@ -344,10 +343,10 @@ searchInputDesktop.addEventListener("input",function(){
         clearInputDesktop.style.justifyContent = 'center';
         clearInputDesktop.style.alignItems = 'center';
         clearInputDesktop.style.visibility = 'visible';
-       
+
     }else{
         clearInputDesktop.style.visibility = 'invisible';
-       
+
     }
 })
 
