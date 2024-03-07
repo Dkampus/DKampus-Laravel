@@ -31,7 +31,7 @@
             if (query != '') {
                 $('#search-form').attr('action', "/search/" + query);
                 $.ajax({
-                    url: "{{ route('search') }}",
+                    url: "{{ route('search-item') }}",
                     method: "GET",
                     data: {query: query},
                     success: function(data) {

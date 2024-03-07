@@ -48,7 +48,7 @@ class MenuController extends Controller
         }
     }
 
-    public function search(Request $request)
+    public function search_item(Request $request)
     {
         try {
             $menus = Menu::with('data_umkm')->where('nama_makanan', 'like', '%' . $request->query('query') . '%')->get();
@@ -60,6 +60,20 @@ class MenuController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->keyword;
+        $menus = Menu::where('nama_makanan', 'like', "%{$keyword}%")->get();
+        $umkm = Data_umkm::where('nama_umkm', 'like', "%{$keyword}%")->get();
+
+        return view('pages.Users.SearchPage', [
+            'Title' => 'Search',
+            'NavSearch' => 'Search',
+            'menus' => $menus,
+            'umkm' => $umkm
+        ]);
     }
     /**
      * Display a listing of the resource.

@@ -295,7 +295,7 @@ Route::post('/favoritStore/{menuId}', [FavoritController::class, 'favoritStore']
 
 
 //searching routes
-Route::get('/search', [MenuController::class, 'search'])->name('search');
+Route::get('/search-item', [MenuController::class, 'search_item'])->name('search-item'); // this will return nama_makanan from menu table (json)
 Route::get('/search/{keyword}', [MenuController::class, 'search'])->name('search.keyword');
 
 // User Route
