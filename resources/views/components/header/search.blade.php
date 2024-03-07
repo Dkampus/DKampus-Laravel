@@ -2,10 +2,12 @@
     {{-- Search Input --}}
     <div onclick class="border-2 relative bg-white z-[60] w-full h-10 flex flex-row justify-between items-center border-[#F9832A]/40 gap-2 px-2 rounded-md overflow-hidden focus:border-[#F9832A] md:h-12">
         <div class="flex flex-row items-center gap-2 h-full">
-        <button class="min-w-[1rem] max-w-[10%] h-full md:min-w-[1.5rem]">
-            <img src="serach.svg" alt="" class="w-full h-full">
-        </button>
-        <input onclick="showResults()" id="search-input" name="value" type="" class="min-w-max sm:max-w-full h-full self-start outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A] placeholder:md:text-lg" placeholder="Cari Menu">
+            <button class="min-w-[1rem] max-w-[10%] h-full md:min-w-[1.5rem]">
+                <img src="serach.svg" alt="" class="w-full h-full">
+            </button>
+            <form action="{{ route('search.keyword', ['keyword' => request()->input('value', 'a')]) }}" method="GET" id="search-form">
+                <input onfocus="showResults()" onblur="hideResults()" id="search-input" name="value" type="" class="min-w-max sm:max-w-full h-full self-start outline-none ring-0 border-none text-[#F9832A] placeholder:font-medium placeholder:text-[#F9832A] placeholder:md:text-lg" placeholder="Cari Menu">
+            </form>
         </div>
         {{-- Clear Button --}}
         <button id="clear-input" class="invisible font-bold group flex flex-row justify-center items-center text-[#F9832A] self-center rounded-lg w-5 h-5 mr-1">
@@ -24,9 +26,10 @@
 <div onclick="hideResults()" id="overlay-results" class="fixed bg-black/20 invisible transition-all duration-300 opacity-0 w-screen h-screen z-40 left-0 top-0"></div>
 <script>
     $(document).ready(function() {
-        $('#search-input').on('keyup', function() {
+        $('#search-input').on('input', function() {
             var query = $(this).val();
             if (query != '') {
+                $('#search-form').attr('action', "/search/" + query);
                 $.ajax({
                     url: "{{ route('search') }}",
                     method: "GET",
@@ -43,7 +46,7 @@
                                 '</div></div>';
                         }
                         $('#search-content').html(searchResults);
-                        $('#search-results').css('display', 'block');
+                        $('#search-results').removeClass('invisible opacity-0'); // Tampilkan hasil pencarian
                     },
                     error: function(data) {
                         '<h1 class="font-bold">Tidak ada hasil</h1>';
@@ -51,7 +54,7 @@
                     }
                 });
             } else {
-                $('#search-results').css('display', 'none');
+                $('#search-results').addClass('invisible opacity-0'); // Sembunyikan hasil pencarian jika input kosong
             }
         });
     });

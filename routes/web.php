@@ -292,7 +292,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/pesanan', [CartController::class, 'index']);
 Route::post('/favoritStore/{menuId}', [FavoritController::class, 'favoritStore'])->name('favorite.add');
+
+
+//searching routes
 Route::get('/search', [MenuController::class, 'search'])->name('search');
+Route::get('/search/{keyword}', [MenuController::class, 'search'])->name('search.keyword');
 
 // User Route
 Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () {
