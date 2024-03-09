@@ -197,6 +197,8 @@ Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
 //Pesanan Routes
 Route::post('/pesananStore', [CartController::class, 'store']);
 Route::get('/pesanan/status', [CartController::class, 'status']);
+//status pesanan sesuai dengan order_id
+Route::get('/pesanan/status/{orderID}', [CartController::class, 'StatusOrder'])->name('status.order');
 Route::get('/pesanan', [CartController::class, 'index']);
 Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
 Route::patch("/pesanan/update-quantity", [CartController::class, 'updateQuantity']);

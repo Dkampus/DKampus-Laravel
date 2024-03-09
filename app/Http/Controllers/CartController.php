@@ -52,6 +52,15 @@ class CartController extends Controller
         ]);
     }
 
+    public function StatusOrder($orderID){
+        $id = $orderID;
+        return view('pages.Users.StatusOrder',[
+            'Title' => 'Status Order',
+            'NavPesanan' => 'Status Order',
+            'id' => $id
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
