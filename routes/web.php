@@ -236,7 +236,7 @@ Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sa
 
 // Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
-    Route::view('/dashboard', 'pages/admin/dashboard', [
+    Route::view('/dashboard', 'pages/Admin/dashboard', [
         'data_umkm' => Data_umkm::all(),
     ]
     )->name('dashboard');
