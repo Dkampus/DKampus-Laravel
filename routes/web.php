@@ -240,7 +240,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         'data_umkm' => Data_umkm::all(),
     ]
     )->name('dashboard');
-    Route::view('/umkm', 'pages/admin/UMKM')->name('umkm');
+    Route::view('/umkm', 'pages/Admin/UMKM')->name('umkm');
     Route::post('/umkm', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
     Route::get('/product', function() {
         return view('pages/admin/product_form', [
