@@ -11,23 +11,23 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h1 class="text-2xl font-bold mb-4">Form UMKM</h1>
 
-                    <form method="POST" action="{{ route('umkm.store') }}" enctype="multipart/form-data" class="space-y-4">
+                    <form method="POST" action="{{ route('umkm.store') }}" enctype="multipart/form-data" class="space-y-4" id="umkmForm">
                         @csrf
 
                         <!-- Input fields for UMKM data -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input type="hidden" name="user_id" id="" value="{{ Auth::id() }}">
+                            <input type="hidden" name="user_id" id="" value="{{ Auth::id() }}" required>
                             <div>
                                 <label for="nama_umkm">Nama UMKM:</label>
-                                <input type="text" name="nama_umkm" id="nama_umkm" placeholder="Nama UMKM" class="text-black w-full px-3 py-2 border rounded-md">
+                                <input type="text" name="nama_umkm" id="nama_umkm" placeholder="Nama UMKM" class="text-black w-full px-3 py-2 border rounded-md" required>
                             </div>
                             <div>
                                 <label for="alamat">Alamat:</label>
-                                <textarea name="alamat" id="alamat" placeholder="Alamat" class="text-black w-full px-3 py-2 border rounded-md"></textarea>
+                                <textarea name="alamat" id="alamat" placeholder="Alamat" class="text-black w-full px-3 py-2 border rounded-md" required></textarea>
                             </div>
                             <div>
                                 <label for="logo_umkm">Logo UMKM:</label>
-                                <input type="file" name="logo_umkm" id="logo_umkm" class="w-full" onchange="previewImage()">
+                                <input type="file" name="logo_umkm" id="logo_umkm" class="w-full" onchange="previewImage()" required>
                                 <!-- Image Preview -->
                                 <div id="image-preview" class="hidden">
                                     <h2 class="text-xl font-bold mt-4">Preview Logo:</h2>
@@ -36,7 +36,7 @@
                             </div>
                             <div>
                                 <label for="no_telp_umkm">No. Telp UMKM:</label>
-                                <input type="text" name="no_telp_umkm" id="no_telp_umkm" placeholder="No. Telp UMKM" class="text-black w-full px-3 py-2 border rounded-md">
+                                <input type="text" name="no_telp_umkm" id="no_telp_umkm" placeholder="No. Telp UMKM" class="text-black w-full px-3 py-2 border rounded-md" required>
                             </div>
                         </div>
 
@@ -44,14 +44,14 @@
                         <div>
                             <div class="flex items-center">
                                 <label for="vip">VIP: &nbsp;</label>
-                                <input type="radio" name="vip" value="0" id="vip-ya">
+                                <input type="radio" name="vip" value="0" id="vip-ya" required>
                                 <label for="vip-ya" class="ml-1">Ya</label>
-                                <input type="radio" name="vip" value="1" id="vip-tidak" class="ml-4">
+                                <input type="radio" name="vip" value="1" id="vip-tidak" class="ml-4" required>
                                 <label for="vip-tidak" class="ml-1">Tidak</label>
                             </div>
                         </div>
 
-                        <button type="submit" class="w-full bg-blue-500 hover-bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                             Simpan UMKM
                         </button>
                     </form>
@@ -120,5 +120,16 @@
                 imagePreview.classList.add('hidden');
             }
         }
+
+        document.getElementById('umkmForm').addEventListener('submit', function(event) {
+            var inputs = this.querySelectorAll('input, textarea');
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].value === '') {
+                    event.preventDefault();
+                    alert('Harap isi semua field sebelum submit!');
+                    return;
+                }
+            }
+        });
     </script>
 </x-app-layout>
