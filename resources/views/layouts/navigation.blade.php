@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('product')" :active="request()->routeIs('product')">
                         {{ __('Product') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('transaction')" :active="request()->routeIs('transaction')">
+                        {{ __('Transaction') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -94,6 +97,9 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('product')">
                     {{ __('Add Produk UMKM') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('transaction')">
+                    {{ __('Transaction') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

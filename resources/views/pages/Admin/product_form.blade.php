@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h1 class="text-2xl font-bold mb-4">Form Tambah Menu</h1>                    
+                    <h1 class="text-2xl font-bold mb-4">Form Tambah Menu</h1>
                         {!! Form::model($model, [ 'route' => $route,'enctype' => "multipart/form-data", 'class' => "space-y-4", 'method' => $method]) !!}
 
                         <!-- Input fields for UMKM data -->
@@ -30,28 +30,28 @@
                                 {!! Form::textarea("deskripsi", null, ["class" => "text-black w-full rounded-md "]) !!}
                             </div>
                             <div>
-                                <label for="logo_umkm">Image Makanana:</label>
+                                <label for="logo_umkm">Image Makanan:</label>
                                 <input type="file" name="image" id="logo_umkm" class="w-full" onchange="previewImage()">
-                                <div id="image_logo_umkm" class="">                                    
-                                    <img src="{{ Storage::url($model->image) }}" alt="Preview" class="mx-2 max-w-xs">                                     
+                                <div id="image_logo_umkm" class="">
+                                    <img src="{{ Storage::url($model->image) }}" alt="Preview" class="mx-2 max-w-xs">
                                 </div>
                                 <!-- Image Preview -->
-                                <div id="image-preview" class="hidden">                                
+                                <div id="image-preview" class="hidden">
                                     <img id="preview" src="" alt="Preview" class="mx-2 max-w-xs">
                                 </div>
                             </div>
                             <div>
-                                <label for="harga">Harga:</label>                                
+                                <label for="harga">Harga:</label>
                                 {!! Form::number("harga", null, [
                                     "class" => "text-black w-full rounded-md",
-                                    "placeholder" => "harga: 25000"                                    
+                                    "placeholder" => "harga: 25000"
                                 ]) !!}
                             </div>
                             <div>
-                                <label for="promo">Promo:</label>                                
+                                <label for="promo">Promo:</label>
                                 {!! Form::number("promo", null, [
                                     "class" => "text-black w-full rounded-md",
-                                    "placeholder" => "harga: 25000"                                    
+                                    "placeholder" => "harga: 25000"
                                 ]) !!}
                             </div>
                         </div>
@@ -128,5 +128,5 @@
                 imagePreview.classList.add('hidden');
             }
         }
-    </script>  
+    </script>
 </x-app-layout>

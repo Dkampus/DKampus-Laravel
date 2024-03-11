@@ -243,7 +243,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::view('/umkm', 'pages/Admin/UMKM')->name('umkm');
     Route::post('/umkm', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
     Route::get('/product', function() {
-        return view('pages/admin/product_form', [
+        return view('pages/Admin/product_form', [
             'model' => new Menu(),
             'umkm' => Data_umkm::pluck('nama_umkm', 'id'),
             'button' => 'SIMPAN',
@@ -283,6 +283,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     //delete umkm
     Route::delete('/umkm/{umkm}', [UmkmController::class, 'destroy'])->name('umkm.destroy');
 
+    //transaction route
+    Route::get('/transaction', 'TransactionController@index')->name('transaction');
 
 });
 
