@@ -101,7 +101,7 @@
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div class="flex items center justify-between">
                             <div>
-                                <h2 class="text-2xl font-semibold">Transaksi</h2>
+                                <h2 class="text-2xl font-semibold">Transacation</h2>
                                 <p class="text-gray-500 dark:text-gray-400">Detail dari semua Transaksi</p>
                             </div>
                             <div class="flex items-center justify-center bg-white h-12 w-12 rounded-full">

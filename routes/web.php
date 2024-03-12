@@ -14,6 +14,7 @@ use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UntukKamuController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -235,6 +236,7 @@ Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sa
 
 
 // Admin Routes
+Route::resource('umkm', 'UmkmController');
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::view('/dashboard', 'pages/Admin/dashboard', [
         'data_umkm' => Data_umkm::all(),
@@ -286,7 +288,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::delete('/umkm/{umkm}', [UmkmController::class, 'destroy'])->name('umkm.destroy');
 
     //transaction route
-    Route::get('/transaction', 'TransactionController@index')->name('transaction');
+    Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');
 
 });
 
