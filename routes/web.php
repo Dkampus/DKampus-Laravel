@@ -244,7 +244,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         'user' => \App\Models\User::all(),
     ]
     )->name('dashboard');
-    Route::view('/umkm', 'pages/Admin/UMKM')->name('umkm');
+    Route::view('/umkm', 'pages/Admin/umkm', [
+        'umkms' => Data_umkm::paginate(5),
+    ])->name('umkm');
     Route::post('/umkm', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
     Route::get('/product', function() {
         return view('pages/Admin/product_form', [
