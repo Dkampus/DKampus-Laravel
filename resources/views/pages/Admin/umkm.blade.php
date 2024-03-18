@@ -80,8 +80,9 @@
                             <th scope="col">Nama UMKM</th>
                             <th scope="col">Alamat</th>
                             <th scope="col">Logo UMKM</th>
-                            <th scope="col">No. Telp UMKM</th>
-                            <th scope="col">VIP</th>
+                            <th scope="col">No. Telp</th>
+                            <th scope="col" class="px-1 py-2">VIP</th>
+                            <th scope="col">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -89,9 +90,23 @@
                             <tr>
                                 <td>{{ $umkm->nama_umkm }}</td>
                                 <td>{{ $umkm->alamat }}</td>
-                                <td><img src="{{ Storage::url($umkm->logo_umkm) }}" alt="{{ $umkm->nama_umkm }}" width="50"></td>
+                                <td><img src="{{ Storage::url($umkm->logo_umkm) }}" alt="umkm_img" width="50"></td>
                                 <td>{{ $umkm->no_telp_umkm }}</td>
-                                <td>{{ $umkm->vip ? 'Ya' : 'Tidak' }}</td>
+                                <td class="px-1 py-2">{{ $umkm->vip ? '✓' : '🗙' }}</td>
+                                <td class="flex flex-col items-center">
+                                    <!-- View button -->
+                                    <a href="{{ route('umkm.show', $umkm->id) }}" class="text-center">View</a>
+
+                                    <!-- Edit button -->
+                                    <a href="{{ route('umkm.edit', $umkm->id) }}" class="text-center">Edit</a>
+
+                                    <!-- Delete button -->
+                                    <form action="{{ route('umkm.destroy', $umkm->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-center">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
