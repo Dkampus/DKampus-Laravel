@@ -16,7 +16,7 @@
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+                    <div class="modal fade hidden" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
@@ -72,7 +72,39 @@
 
                     <!-- Table for displaying UMKM data -->
                     <table class="table">
-                        <!-- ... -->
+                        <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama UMKM</th>
+                            <th scope="col">Nama Makanan</th>
+                            <th scope="col">Deskripsi</th>
+                            <th scope="col">Image Makanan</th>
+                            <th scope="col">Harga</th>
+                            <th scope="col">Promo</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @php $count = 1; @endphp
+                        @foreach ($menus as $umkmName => $menuList)
+                            @foreach ($menuList as $menu)
+                                <tr>
+                                    <td>{{ $count++ }}</td>
+                                    <td>{{ $umkmName }}</td>
+                                    <td>{{ $menu->nama_makanan }}</td>
+                                    <td>{{ $menu->deskripsi }}</td>
+                                    <td><img src="{{ Storage::url($menu->image) }}" alt="Image Makanan" width="50"></td>
+                                    <td>{{ $menu->harga }}</td>
+                                    <td>{{
+                                        $menu->promo == 0 ? '-' : $menu->promo
+                                    }}</td>
+                                    <td>
+                                        <!-- Aksi seperti edit atau delete bisa ditambahkan di sini -->
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>

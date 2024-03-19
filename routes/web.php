@@ -249,9 +249,15 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     ])->name('umkm');
     Route::post('/umkm', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
     Route::get('/product', function() {
+        $umkms = Data_umkm::with('menu')->get();
+        $umkmWithMenus = [];
+        foreach ($umkms as $umkm) {
+            $umkmWithMenus[$umkm->nama_umkm] = $umkm->menu;
+        };
         return view('pages/Admin/product', [
             'model' => new Menu(),
             'umkm' => Data_umkm::pluck('nama_umkm', 'id'),
+            'menus' => $umkmWithMenus,
             'button' => 'SIMPAN',
             'route' => "product.store",
             'method' => 'POST'
