@@ -274,12 +274,15 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             'method' => 'PUT'
         ]);
     })->name('product.edit');
+
     //data from edit product form
     Route::put('/product/{menu}', [MenuController::class, 'update'])->name('product.update');
     //delete product
+
     Route::delete('/product/{menu}', [MenuController::class, 'destroy'])->name('product.destroy');
 
     // edit & delete umkm route
+
     //to edit umkm form
     Route::get('/umkm/{umkm}/edit', function(Data_umkm $umkm) {
         return view('pages/admin/umkm_update', [
@@ -287,9 +290,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             'products' => Menu::where('data_umkm_id', $umkm->id)->get(),
         ]);
     })->name('umkm.edit');
+
     //data from edit umkm form
     Route::put('/umkm/{umkm}', [UmkmController::class, 'update'])->name('umkm.update');
     //delete umkm
+
     Route::delete('/umkm/{umkm}', [UmkmController::class, 'destroy'])->name('umkm.destroy');
 
     //transaction route

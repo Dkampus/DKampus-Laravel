@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('transaction')" :active="request()->routeIs('transaction')">
                         {{ __('Transaction') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('transaction')" :active="request()->routeIs('transaction')">
+                        {{ __('Account') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -99,10 +102,13 @@
                     {{ __('Transaction') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('profile.edit')">
+                    {{ __('Account') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                <!-- Authentication -->
+                    <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
