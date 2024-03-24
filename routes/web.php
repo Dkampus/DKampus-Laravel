@@ -301,6 +301,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     //transaction route
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');
 
+    //account-user management route
+    Route::view('/account', 'pages/Admin/account', [
+        'users' => \App\Models\User::all(),
+    ])->name('account');
+
 });
 
 Route::middleware('auth')->group(function () {

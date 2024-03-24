@@ -24,7 +24,7 @@
                     <x-nav-link :href="route('transaction')" :active="request()->routeIs('transaction')">
                         {{ __('Transaction') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('transaction')" :active="request()->routeIs('transaction')">
+                    <x-nav-link :href="route('account')" :active="request()->routeIs('account')">
                         {{ __('Account') }}
                     </x-nav-link>
                 </div>
@@ -101,7 +101,7 @@
                 <x-responsive-nav-link :href="route('transaction')">
                     {{ __('Transaction') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('account')">
                     {{ __('Account') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('profile.edit')">
