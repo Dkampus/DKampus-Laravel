@@ -13,8 +13,8 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UntukKamuController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UntukKamuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -242,6 +242,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         'data_umkm' => Data_umkm::all(),
         'menu' => Menu::all(),
         'user' => \App\Models\User::all(),
+        'transaction' => app(TransactionController::class)->index(), //temporary data
     ]
     )->name('dashboard');
     Route::view('/umkm', 'pages/Admin/umkm', [

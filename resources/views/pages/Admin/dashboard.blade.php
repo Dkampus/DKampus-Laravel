@@ -105,7 +105,7 @@
                                 <p class="text-gray-500 dark:text-gray-400">Detail dari semua Transaksi</p>
                             </div>
                             <div class="flex items-center justify-center bg-white h-12 w-12 rounded-full">
-                                <div class="text-l font-semibold text-black">0</div>
+                                <div class="text-l font-semibold text-black">{{ count(app(\App\Http\Controllers\TransactionController::class)->index()['datas']) }}</div>
                             </div>
                         </div>
                     </div>
