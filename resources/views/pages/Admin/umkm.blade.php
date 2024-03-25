@@ -16,63 +16,6 @@
                         Tambah UMKM
                     </button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="umkmModal" tabindex="-1" aria-labelledby="umkmModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body hidden">
-                                    <form method="POST" action="{{ route('umkm.store') }}" enctype="multipart/form-data" class="space-y-4" id="umkmForm">
-                                        @csrf
-
-                                        <!-- Input fields for UMKM data -->
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <input type="hidden" name="user_id" id="" value="{{ Auth::id() }}" required>
-                                            <div>
-                                                <label for="nama_umkm">Nama UMKM:</label>
-                                                <input type="text" name="nama_umkm" id="nama_umkm" placeholder="Nama UMKM" class="text-black w-full px-3 py-2 border rounded-md" required>
-                                            </div>
-                                            <div>
-                                                <label for="alamat">Alamat:</label>
-                                                <textarea name="alamat" id="alamat" placeholder="Alamat" class="text-black w-full px-3 py-2 border rounded-md" required></textarea>
-                                            </div>
-                                            <div>
-                                                <label for="logo_umkm">Logo UMKM:</label>
-                                                <input type="file" name="logo_umkm" id="logo_umkm" class="w-full" onchange="previewImage()" required>
-                                                <!-- Image Preview -->
-                                                <div id="image-preview" class="hidden">
-                                                    <h2 class="text-xl font-bold mt-4">Preview Logo:</h2>
-                                                    <img id="preview" src="" alt="Preview" class="mx-2 max-w-xs">
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label for="no_telp_umkm">No. Telp UMKM:</label>
-                                                <input type="text" name="no_telp_umkm" id="no_telp_umkm" placeholder="No. Telp UMKM" class="text-black w-full px-3 py-2 border rounded-md" required>
-                                            </div>
-                                        </div>
-
-                                        <!-- VIP Radio Buttons -->
-                                        <div>
-                                            <div class="flex items-center">
-                                                <label for="vip">VIP: &nbsp;</label>
-                                                <input type="radio" name="vip" value="0" id="vip-ya" required>
-                                                <label for="vip-ya" class="ml-1">Ya</label>
-                                                <input type="radio" name="vip" value="1" id="vip-tidak" class="ml-4" required>
-                                                <label for="vip-tidak" class="ml-1">Tidak</label>
-                                            </div>
-                                        </div>
-
-                                        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                                            Simpan UMKM
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Table for displaying UMKM data -->
                     <table class="table">
                         <thead>
@@ -115,6 +58,65 @@
                     <!-- Pagination links -->
                     <div class="mt-4">
                         {{ $umkms->links() }}
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="modalumkm">
+                    <div class="flex items end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                        <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                            <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                <div class="sm:flex sm:items-start">
+                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                        <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200" id="modal-headline">
+                                            Tambah UMKM
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            @auth
+                            <form action="{{ route('umkm.store') }}" method="POST" id="umkmForm" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                    <div class="mb-4">
+                                        <label for="nama_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">Nama UMKM</label>
+                                        <input type="text" name="nama_umkm" id="nama_umkm" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="alamat" class="block text sm font-medium text-gray-700 dark:text-gray-200">Alamat</label>
+                                        <input type="text" name="alamat" id="alamat" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="no_telp_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">No. Telp</label>
+                                        <input type="text" name="no_telp_umkm" id="no_telp_umkm" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="logo_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">Logo UMKM</label>
+                                        <input type="file" name="logo_umkm" id="logo_umkm" class="form-input rounded-md shadow-sm mt-1 block w-full" onchange="previewImage()" required>
+                                        <div id="image-preview" class="hidden mt-2">
+                                            <img id="preview" class="rounded-md shadow-sm" alt="Image preview" width="100">
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="vip" class="block text sm font-medium text-gray-700 dark:text-gray-200">VIP</label>
+                                        <input type="radio" name="vip" id="vip" value="1" class="form-radio" required>
+                                        <label for="vip" class="mr-2 text-sm text-gray-500 dark:text-gray-200">Ya</label>
+                                        <input type="radio" name="vip" id="vip" value="0" class="form-radio" required>
+                                        <label for="vip" class="text-sm text-gray-500 dark:text-gray-200">Tidak</label>
+                                        <div class="text-sm text-gray-500 dark:text-gray-200">VIP UMKM akan mendapatkan featured dan benefit lainnya.</div>
+                                    </div>
+                                    {{-- save and cancel button --}}
+                                    <div class="mt-4">
+                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan</button>
+                                        <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="document.getElementById('modalumkm').classList.add('hidden')">Batal</button>
+                                    </div>
+                                </div>
+                            </form>
+                            @endauth
+                        </div>
                     </div>
                 </div>
             </div>
@@ -193,3 +195,9 @@
         });
     </script>
 </x-app-layout>
+<script>
+    document.querySelector('[data-bs-target="#umkmModal"]').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('modalumkm').classList.remove('hidden');
+    });
+</script>
