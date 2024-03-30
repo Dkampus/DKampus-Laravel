@@ -236,7 +236,7 @@ Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sa
 
 // Courier Routes
 Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
-    Route::view('/dashboard', 'pages/Courier/dashboard')->name('dashboard');
+    Route::view('/dashboard', 'pages/Courier/dashboard')->name('dashboardCourier');
 });
 
 // Admin Routes
@@ -351,8 +351,8 @@ Route::middleware(['auth', 'UserAccess:admin'])->group(function () {
 // Courier Route
 Route::middleware(['auth', 'UserAccess:courier,admin'])->group(function () {
     Route::prefix('courier')->group(function () {
-        Route::name('.courier')->group(function () {
-            // insert route here
+        Route::name('courier.')->group(function () {
+            // Add more routes as needed
         });
     });
 });
