@@ -17,43 +17,44 @@
                     </button>
 
                     <!-- Table for displaying UMKM data -->
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Nama UMKM</th>
-                            <th scope="col">Alamat</th>
-                            <th scope="col">Logo UMKM</th>
-                            <th scope="col">No. Telp</th>
-                            <th scope="col" class="px-1 py-2">VIP</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($umkms as $umkm)
+                    <div class="overflow-auto">
+                        <table class="min-w-full divide-y divide-gray-200 space-x-4">
+                            <thead>
                             <tr>
-                                <td>{{ $umkm->nama_umkm }}</td>
-                                <td>{{ $umkm->alamat }}</td>
-                                <td><img src="{{ Storage::url($umkm->logo_umkm) }}" alt="umkm_img" width="50"></td>
-                                <td>{{ $umkm->no_telp_umkm }}</td>
-                                <td class="px-1 py-2">{{ $umkm->vip ? '✓' : '🗙' }}</td>
-                                <td class="flex flex-col items-center">
-                                    <!-- View button -->
-                                    <a href="{{ route('umkm.show', $umkm->id) }}" class="text-center">View</a>
-
-                                    <!-- Edit button -->
-                                    <a href="{{ route('umkm.edit', $umkm->id) }}" class="text-center">Edit</a>
-
-                                    <!-- Delete button -->
-                                    <form action="{{ route('umkm.destroy', $umkm->id) }}" method="POST" style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-center">Delete</button>
-                                    </form>
-                                </td>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Nama UMKM</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Alamat</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">No. Telp</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">VIP</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Aksi</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach ($umkms as $umkm)
+                                <tr>
+                                    <td>{{ $umkm->nama_umkm }}</td>
+                                    <td>{{ $umkm->alamat }}</td>
+{{--                                    <td><img src="{{ Storage::url($umkm->logo_umkm) }}" alt="umkm_img" width="50"></td>--}}
+                                    <td class="text-center">{{ $umkm->no_telp_umkm }}</td>
+                                    <td class="text-center">{{ $umkm->vip ? 'Ya' : 'Tidak' }}</td>
+                                    <td class="flex flex-col items-center text-center space-y-2">
+                                        <!-- View button -->
+                                        <a href="{{ route('umkm.show', $umkm->id) }}" class="text-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">Lihat</a>
+
+                                        <!-- Edit button -->
+                                        <a href="{{ route('umkm.edit', $umkm->id) }}" class="text-center bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded">Edit</a>
+
+                                        <!-- Delete button -->
+                                        <form action="{{ route('umkm.destroy', $umkm->id) }}" method="POST" class="text-center bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-center">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
                     <!-- Pagination links -->
                     <div class="mt-4">

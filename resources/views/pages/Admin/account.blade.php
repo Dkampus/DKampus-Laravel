@@ -9,41 +9,39 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">User ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone Number</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($users as $user)
+                    {{--Table data--}}
+                    <div class="overflow-auto">
+                        <table class="min-w-full divide-y divide-gray-200 space-x-4">
+                            <thead>
                             <tr>
-                                <td>{{ $user->id ?? 'null' }}</td>
-                                <td>{{ $user->nama_user ?? 'null' }}</td>
-                                <td>{{ $user->email ?? 'null' }}</td>
-                                <td>{{ $user->no_telp ?? 'null' }}</td>
-                                <td>{{ $user->role ?? 'null' }}</td>
-                                <td>
-                                    <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View Details</a>
-                                </td>
+                                <th scope="col" class="px-6 py-3 tracking-wider">User ID</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Name</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Email</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Phone Number</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Role</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Action</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($users as $user)
+                                <tr>
+                                    <td class="text-center">{{ $user->id ?? 'null' }}</td>
+                                    <td>{{ $user->nama_user ?? 'null' }}</td>
+                                    <td>{{ $user->email ?? 'null' }}</td>
+                                    <td class="text-center">{{ $user->no_telp ?? 'null' }}</td>
+                                    <td class="text-center">{{ $user->role ?? 'null' }}</td>
+                                    <td class="text-center">
+                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
 <script>
-    console.log(
-        @for($i = 0; $i < count($users); $i++)
-            @json($users[$i]),
-        @endfor
-    );
 </script>

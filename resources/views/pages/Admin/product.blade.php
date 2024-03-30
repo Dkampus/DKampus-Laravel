@@ -17,39 +17,41 @@
                     </button>
 
                     <!-- Table for displaying UMKM data -->
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Nama UMKM</th>
-                            <th scope="col">Nama Makanan</th>
-                            <th scope="col">Deskripsi</th>
-                            <th scope="col">Image Makanan</th>
-                            <th scope="col">Harga</th>
-                            <th scope="col">Promo</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($menus as $menu)
-                                <tr>
-                                    <td>{{ $umkms[$menu->data_umkm_id-1]->nama_umkm }}</td> {{--Ini bug atau gatau kenapa data umkm id + 1, jadi di - 1 ya wwkkwkwkw--}}
-                                    <td>{{ $menu->nama_makanan }}</td>
-                                    <td>{{ $menu->deskripsi }}</td>
-                                    <td><img src="{{ Storage::url($menu->image) }}" alt="img" class="mx-2 max-w-xs"></td>
-                                    <td>{{ $menu->harga }}</td>
-                                    <td>{{ $menu->promo??'-' }}</td>
-                                    <td>
-                                        <a href="{{ route('product.edit', $menu->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a>
-                                        <form action="{{ route('product.destroy', $menu->id) }}" method="post" class="inline">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="overflow-auto">
+                        <table class="min-w-full divide-y divide-gray-200 space-x-4">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Nama UMKM</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Nama Makanan</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Deskripsi</th>
+{{--                                <th scope="col" class="px-6 py-3 tracking-wider">Image Makanan</th>--}}
+                                <th scope="col" class="px-6 py-3 tracking-wider">Harga</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Promo</th>
+                                <th scope="col" class="px-6 py-3 tracking-wider">Aksi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($menus as $menu)
+                                    <tr>
+                                        <td>{{ $umkms[$menu->data_umkm_id-1]->nama_umkm }}</td> {{--Ini bug atau gatau kenapa data umkm id + 1, jadi di - 1 ya wwkkwkwkw--}}
+                                        <td>{{ $menu->nama_makanan }}</td>
+                                        <td>{{ $menu->deskripsi }}</td>
+{{--                                        <td><img src="{{ Storage::url($menu->image) }}" alt="img" class="mx-2 max-w-xs"></td>--}}
+                                        <td class="text-center">{{ $menu->harga }}</td>
+                                        <td class="text-center">{{ $menu->promo??'n/a' }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ route('product.edit', $menu->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                                            <form action="{{ route('product.destroy', $menu->id) }}" method="post" class="inline">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
                     <!-- Pagination links -->
                     <div class="mt-4">
