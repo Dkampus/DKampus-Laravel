@@ -118,6 +118,8 @@ class MenuController extends Controller
                 "rating" => 0,
                 "promo" => $request->promo,
                 "image" => $request->image->storeAs('public/' . $findUmkm->nama_umkm, $request->nama_makanan . '.' . $request->image->extension())
+                //temp image
+                //"image" => 'default.jpg'
             ]);
             DB::commit();
         } catch (\Exception $e) {
