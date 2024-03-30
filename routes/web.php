@@ -234,6 +234,10 @@ Route::get('/input-registrasi', [UserController::class, 'input_register']);
 Route::get('/code-verification', [UserController::class, 'code_verification']);
 Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sandi']);
 
+// Courier Routes
+Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
+    Route::view('/dashboard', 'pages/Courier/dashboard')->name('dashboard');
+});
 
 // Admin Routes
 Route::resource('umkm', 'UmkmController');
