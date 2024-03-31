@@ -236,7 +236,10 @@ Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sa
 
 // Courier Routes
 Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
-    Route::view('/dashboard', 'pages/Courier/dashboard')->name('dashboardCourier');
+    Route::view('/dashboard', 'pages/Courier/dashboard', [
+        'user' => \App\Models\User::all(),
+    ]
+    )->name('dashboardCourier');
 });
 
 // Admin Routes
