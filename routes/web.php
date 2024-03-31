@@ -240,6 +240,14 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
         'user' => \App\Models\User::all(),
     ]
     )->name('dashboardCourier');
+    Route::view('/history', 'pages/Courier/riwayat', [
+        'user' => \App\Models\User::all(),
+    ]
+    )->name('history');
+    Route::view('/profile', 'pages/Courier/profile', [
+        'user' => \App\Models\User::all(),
+    ]
+    )->name('profile');
 });
 
 // Admin Routes
