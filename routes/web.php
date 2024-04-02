@@ -237,15 +237,15 @@ Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sa
 // Courier Routes
 Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
     Route::view('/dashboard', 'pages/Courier/dashboard', [
-        'user' => \App\Models\User::all(),
+        'Title' => 'Dashboard',
     ]
     )->name('dashboardCourier');
     Route::view('/history', 'pages/Courier/riwayat', [
-        'user' => \App\Models\User::all(),
+        'Title' => 'History',
     ]
     )->name('history');
     Route::view('/profile', 'pages/Courier/profile', [
-        'user' => \App\Models\User::all(),
+        'Title' => 'Profile',
     ]
     )->name('profile');
 });
