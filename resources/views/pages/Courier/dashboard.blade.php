@@ -48,6 +48,43 @@
                 </div>
             </div>
         </div>
+        {{-- push notification --}}
+        <div id="notification" class="fixed top-0 left-0 w-full bg-blue-500 text-white px-4 py-2 mt-20 ">
+            <p class="inline-block">Penerimaan order baru</p>
+            <div id="info">
+                {{--detail order--}}
+                <p class="text-white">Nama Pengirim: Nama Pengirim (user)</p>
+                <p class="text-white">Nama Umkm : Nama Umkm</p>
+                <p class="text-white">Ongkir : Rp. xxx</p>
+            </div>
+            {{-- button terima dan tolak --}}
+            <div id="action" class="flex flex-row gap-2">
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+                    Terima
+                </button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+                    Tolak
+                </button>
+            </div>
+        </div>
     </main>
     {{-- endMain content --}}
 </x-courier-layout>
+<script>
+    // Fungsi untuk menampilkan notifikasi
+    function showNotification() {
+        document.getElementById('notification').classList.remove('hidden');
+    }
+
+    // Fungsi untuk menyembunyikan notifikasi
+    function hideNotification() {
+        document.getElementById('notification').classList.add('hidden');
+    }
+
+    // Event listener untuk tombol "Ambil" dan "Tidak"
+    document.getElementById('accept').addEventListener('click', hideNotification);
+    document.getElementById('reject').addEventListener('click', hideNotification);
+
+    // Panggil fungsi showNotification ketika ada order baru
+    // showNotification();
+</script>
