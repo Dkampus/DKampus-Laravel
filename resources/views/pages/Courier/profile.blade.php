@@ -16,8 +16,13 @@
             </a>
         </div>
         <div class="flex flex-col items-start justify-start mx-5">
-            <a href="#" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-full text-center">
-                Keluar
+            <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full text-center">
+                Ubah Nomor Telepon
+            </a>
+        </div>
+        <div class="flex flex-col items-start justify-start mx-5">
+            <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full text-center">
+                Photo Profile
             </a>
         </div>
     </div>
@@ -37,6 +42,14 @@
             <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full text-center">
                 Syarat dan Ketentuan
             </a>
+        </div>
+        <div class="flex flex-col items-center justify-start mx-5 my-10">
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full text-center">
+                    Logout
+                </button>
+            </form>
         </div>
     </div>
 </x-courier-layout>
