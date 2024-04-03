@@ -244,10 +244,26 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
         'Title' => 'History',
     ]
     )->name('history');
+    Route::get('/history/{id}', function ($id) {
+        return view('pages/Courier/riwayatdetail', [
+            'Title' => 'Detail History',
+            'id' => $id,
+        ]);
+    })->name('historydetail');
     Route::view('/profile', 'pages/Courier/profile', [
         'Title' => 'Profile',
     ]
     )->name('profile');
+    Route::view('/chats', 'pages/Courier/chatpage', [
+        'Title' => 'Chat',
+    ]
+    )->name('chatpage');
+    Route::get('/chats/{id}', function ($id) {
+        return view('pages/Courier/chatroom', [
+            'Title' => 'Chat Room',
+            'id' => $id,
+        ]);
+    })->name('chatroom');
 });
 
 // Admin Routes

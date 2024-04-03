@@ -99,7 +99,7 @@
                         <p class="text-lg text-[#F9832A] font-semibold">Rp {{ number_format($cart['total_price'], 0, ',', '.') }}</p>
                     </div>
                     <div id="LacakAndChat" class="flex flex-row items-center gap-5">
-                        <a href="{{ route('status.order', [$cart['id']]) }}" class="bg-[#F9832A] w-20 h-9 flex flex-col items-center justify-center rounded-xl text-white">Detail</a>
+                        <a href="{{ route('historydetail', [$cart['id']]) }}" class="bg-[#F9832A] w-20 h-9 flex flex-col items-center justify-center rounded-xl text-white">Detail</a>
                         <a class="w-6"><img src="/bubbleChat.svg" alt="" class="w-full"></a>
                     </div>
                 </div>
