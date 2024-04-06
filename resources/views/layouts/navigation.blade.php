@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('transaction')" :active="request()->routeIs('transaction')">
                         {{ __('Transaction') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('chatpage.admin')" :active="request()->routeIs('chatpage.admin')">
+                        {{ __('Chat') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('account')" :active="request()->routeIs('account')">
                         {{ __('Account') }}
                     </x-nav-link>
@@ -96,10 +99,13 @@
                     {{ __('UMKM') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('product')">
-                    {{ __('Product UMKM') }}
+                    {{ __('Product') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('transaction')">
                     {{ __('Transaction') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('transaction')">
+                    {{ __('Chat') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('account')">
                     {{ __('Account') }}

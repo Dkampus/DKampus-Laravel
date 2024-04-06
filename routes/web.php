@@ -337,6 +337,17 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         'users' => \App\Models\User::all(),
     ])->name('account');
 
+    //chat route
+    Route::view('/chats', 'pages/Admin/chatpage', [
+        'Title' => 'Chat',
+    ]
+    )->name('chatpage.admin');
+    Route::get('/chats/{id}', function ($id) {
+        return view('pages/Admin/chatroom', [
+            'Title' => 'Chat Room',
+            'id' => $id,
+        ]);
+    })->name('chatroom.admin');
 });
 
 Route::middleware('auth')->group(function () {
