@@ -26,10 +26,10 @@
                 @foreach ($Carousel as $item)
                     <swiper-slide
                         class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
-                        <a href="" class="flex flex-col justify-evenly h-full items-center">
+                        <div class="flex flex-col justify-evenly h-full items-center">
                             <img src={{ $item['Icon'] }} alt="" class="scale-150 md:scale-[2]">
                             <h1 class="font-normal">{{ $item['Title'] }}</h1>
-                        </a>
+                        </div>
                     </swiper-slide>
                 @endforeach
             </x-carousel.slider-category>
@@ -38,10 +38,10 @@
                 @foreach ($CarouselDesktop as $item)
                     <swiper-slide id="category"
                         class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
-                        <a href="#" class="flex flex-col justify-evenly h-full items-center">
+                        <div class="flex flex-col justify-evenly h-full items-center">
                             <img src={{ $item['Icon'] }} alt="" class="scale-150 md:scale-[2]">
                             <h1 class="font-normal text-lg">{{ $item['Title'] }}</h1>
-                        </a>
+                        </div>
                     </swiper-slide>
                 @endforeach
             </x-carousel.slider-category-desktop>
@@ -76,35 +76,6 @@
                 <p>Data is not Found</p>
             @endforelse
         </x-list.slider>
-
-        {{-- Modal dan floating button bantuan --}}
-            {{-- floating button --}}
-        <div class="fixed bottom-5 right-5 z-50 mb-28">
-            <a href="#" class="flex items-center gap-2 bg-[#F9832A] text-white px-3 py-2 rounded-full shadow-md">
-                <h1 class="font-semibold">Bantuan</h1>
-            </a>
-        </div>
-        {{-- Modal Bantuan --}}
-        <div class="fixed inset-0 bg-black bg-opacity-50 z-50 " id="modalBantuan">
-            <div class="flex items center justify-center">
-                <div class="bg-white w-[95%] h-auto max-h-[80%] rounded-xl p-5 mt-10 overflow-auto">
-                    <div class="flex flex-row justify-between items-center">
-                        <h1 class="font-semibold text-2xl">Bantuan</h1>
-                        <a href="#" class="text-[#F9832A] font-semibold">Tutup</a>
-                    </div>
-                    <div class="flex flex-col gap-5 mt-5">
-                        {{-- Input text box untuk pertanyaan dan menentukan kategori menggunakan AIML --}}
-                        <div class="flex flex-col gap-2">
-                            <label for="pertanyaan" class="font-semibold">Pertanyaan</label>
-                            <input type="text" name="pertanyaan" id="pertanyaan" class="border-2 rounded-md p-2" placeholder="Masukkan pertanyaan, keluhan, atau saran kamu">
-                        </div>
-                        <spam class="text-xs text-[#787878]">*Chat akan dijawab oleh bot dan akan diarahkan ke customer service</spam>
-                        {{-- button untuk submit pertanyaan --}}
-                        <button class="bg-[#F9832A] text-white font-semibold p-2 rounded-md">Kirim</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
         {{-- Rekomendasi Makanan --}}
@@ -144,7 +115,7 @@
                     </div>
                 </swiper-slide>
             @endforeach
-            </x-list.slider-makanan>
+            </x-list.slider>
 
             {{-- Card list Rekomendasi Makanan --}}
             <x-list-food.slider>
@@ -256,5 +227,5 @@
 @endsection
 
 @push('search')
-
+   
 @endpush

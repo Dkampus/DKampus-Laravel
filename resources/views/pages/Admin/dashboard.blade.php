@@ -12,51 +12,6 @@
                     {{ __("You're logged in!, as ") }} {{ Auth::user()->nama_user }}
                 </div>
             </div>
-            {{--Tabel UMKM LIST--}}
-{{--            <div class="bg-white dark:bg-gray-800 h-[400px] overflow-y-auto hidden-scrol shadow-sm sm:rounded-lg mt-4">--}}
-{{--            <table class="border-collapse table-auto w-full text-sm  relative">--}}
-{{--                <thead class="sticky top-0 bg-slate-950/70 backdrop-blur-sm">--}}
-{{--                  <tr>--}}
-{{--                    <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-3 pb-3 text-slate-400 dark:text-white text-left">Logo UMKM</th>--}}
-{{--                    <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-3 pb-3 text-slate-400 dark:text-white text-left">Nama UMKM</th>--}}
-{{--                    <th class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-3 pb-3 text-slate-400 dark:text-white text-left">Aksi</th>--}}
-{{--                  </tr>--}}
-{{--                </thead>--}}
-{{--                <tbody class="bg-white dark:bg-slate-800">--}}
-{{--                @if (count($data_umkm) == 0)--}}
-{{--                    <tr>--}}
-{{--                        <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">-</td>--}}
-{{--                        <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">Tidak ada data</td>--}}
-{{--                        <td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400 flex flex-col">--}}
-{{--                            <a class="py-1 text-center font-semibold text-sm bg-green-400 text-white rounded-full shadow-sm mb-2">View</a>--}}
-{{--                            <a class="py-1 text-center font-semibold text-sm bg-cyan-500 text-white rounded-full shadow-sm mb-2">Edit</a>--}}
-{{--                            <a class="py-1 text-center font-semibold text-sm bg-red-400 text-white rounded-full shadow-sm mb-2">Delete</a>--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
-
-{{--                @else--}}
-{{--                    @foreach ($data_umkm as $data)--}}
-{{--                    <tr>--}}
-{{--                        <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"><img class="h-24 rounded-lg" src="{{Storage::url($data->logo_umkm)}}" alt=""></td>--}}
-{{--                        <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">{{ $data->nama_umkm }}</td>--}}
-{{--                        <td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400 flex flex-col">--}}
-{{--                            <a href="" class="py-1 text-center font-semibold text-sm bg-green-400 text-white rounded-full shadow-sm mb-2">View</a>--}}
-{{--                            <a href="umkm/{{$data->id}}/edit" class="py-1 text-center font-semibold text-sm bg-cyan-500 text-white rounded-full shadow-sm mb-2">Edit</a>--}}
-{{--                            <form action="{{ route("umkm.destroy", $data) }}" method="POST" class="delete-form w-full">--}}
-{{--                                @csrf--}}
-{{--                                @method("DELETE")--}}
-{{--                            <button value="{{ $data->nama_umkm }}" class="w-full delete-button py-1 text-center font-semibold text-sm bg-red-400 text-white rounded-full shadow-sm mb-2">Delete</button>--}}
-{{--                        </form>--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
-{{--                    @endforeach--}}
-
-{{--                @endif--}}
-
-{{--                </tbody>--}}
-{{--              </table>--}}
-{{--            </div>--}}
-            {{-- disini adalah panel untuk menampilkan angka banyaknya data umkm, menu, user, dan transaksi --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">

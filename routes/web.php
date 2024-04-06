@@ -237,12 +237,12 @@ Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sa
 // Courier Routes
 Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
     Route::view('/dashboard', 'pages/Courier/dashboard', [
-        'Title' => 'Dashboard',
-    ]
+            'Title' => 'Dashboard',
+        ]
     )->name('dashboardCourier');
     Route::view('/history', 'pages/Courier/riwayat', [
-        'Title' => 'History',
-    ]
+            'Title' => 'History',
+        ]
     )->name('history');
     Route::get('/history/{id}', function ($id) {
         return view('pages/Courier/riwayatdetail', [
@@ -251,12 +251,12 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
         ]);
     })->name('historydetail');
     Route::view('/profile', 'pages/Courier/profile', [
-        'Title' => 'Profile',
-    ]
+            'Title' => 'Profile',
+        ]
     )->name('profile');
     Route::view('/chats', 'pages/Courier/chatpage', [
-        'Title' => 'Chat',
-    ]
+            'Title' => 'Chat',
+        ]
     )->name('chatpage');
     Route::get('/chats/{id}', function ($id) {
         return view('pages/Courier/chatroom', [
@@ -270,11 +270,11 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
 Route::resource('umkm', 'UmkmController');
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::view('/dashboard', 'pages/Admin/dashboard', [
-        'data_umkm' => Data_umkm::all(),
-        'menu' => Menu::all(),
-        'user' => \App\Models\User::all(),
-        'transaction' => app(TransactionController::class)->index(), //temporary data
-    ]
+            'data_umkm' => Data_umkm::all(),
+            'menu' => Menu::all(),
+            'user' => \App\Models\User::all(),
+            'transaction' => app(TransactionController::class)->index(), //temporary data
+        ]
     )->name('dashboard');
     Route::view('/umkm', 'pages/Admin/umkm', [
         'umkms' => Data_umkm::paginate(5),
@@ -339,8 +339,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     //chat route
     Route::view('/chats', 'pages/Admin/chatpage', [
-        'Title' => 'Chat',
-    ]
+            'Title' => 'Chat',
+        ]
     )->name('chatpage.admin');
     Route::get('/chats/{id}', function ($id) {
         return view('pages/Admin/chatroom', [
