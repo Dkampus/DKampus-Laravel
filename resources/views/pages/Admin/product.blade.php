@@ -37,7 +37,7 @@
                                         <td>{{ $menu->nama_makanan }}</td>
                                         <td>{{ $menu->deskripsi }}</td>
 {{--                                        <td><img src="{{ Storage::url($menu->image) }}" alt="img" class="mx-2 max-w-xs"></td>--}}
-                                        <td class="text-center">{{ $menu->harga }}</td>
+                                        <td class="text-center">{{ number_format($menu->harga, 0, ',', '.') }}</td>
                                         <td class="text-center">{{ $menu->promo??'n/a' }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('product.edit', $menu->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a>
