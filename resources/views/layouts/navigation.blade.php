@@ -104,7 +104,7 @@
                 <x-responsive-nav-link :href="route('transaction')">
                     {{ __('Transaction') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('transaction')">
+                <x-responsive-nav-link :href="route('chatpage.admin')">
                     {{ __('Chat') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('account')">

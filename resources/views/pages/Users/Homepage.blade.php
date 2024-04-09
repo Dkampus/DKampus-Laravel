@@ -68,7 +68,7 @@
                                 <img src=clock.svg alt="" class="w-5">
                                 <h1 class="text-[#F9832A] text-sm sm:text-base">09:00 - 21:00</h1>
                             </div>
-                            <h1 class="font-semibold text-[3vw] text-base sm:text-xl">{{ $item->nama_umkm }}</h1>
+                            <h1 class="font-semibold text-[3vw] text-base sm:text-xl text-wrapper">{{ $item->nama_umkm }}</h1>
                         </div>
                     </a>
                 </swiper-slide>
@@ -115,7 +115,7 @@
                     </div>
                 </swiper-slide>
             @endforeach
-            </x-list.slider>
+        </x-list.slider-makanan>
 
             {{-- Card list Rekomendasi Makanan --}}
             <x-list-food.slider>
@@ -155,7 +155,7 @@
                 <nav class="flex flex-row items-center gap-3">@include('components.navbar.subnavbar-homepage')</nav>
                 @yield('subnav-homepage')
             </div>
-
+        <x-floatingcshelp />
     </main>
 
     <footer
@@ -227,5 +227,5 @@
 @endsection
 
 @push('search')
-   
+
 @endpush
