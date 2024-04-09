@@ -67,6 +67,7 @@
                 </button>
             </div>
         </div>
+        <x-floatingcshelp />
     </main>
     {{-- endMain content --}}
 </x-courier-layout>
