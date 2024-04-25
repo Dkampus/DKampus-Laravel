@@ -38,13 +38,13 @@
                                     <td class="text-center">{{ $umkm->vip ? 'Ya' : 'Tidak' }}</td>
                                     <td class="flex flex-col items-center text-center space-y-2">
                                         <!-- View button -->
-                                        <a href="{{ route('umkm.show', $umkm->id) }}" class="text-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">Lihat</a>
+                                        <a href="{{ route('umkm.show', $umkm->id) }}" class="text-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Lihat</a>
 
                                         <!-- Edit button -->
-                                        <a href="{{ route('umkm.edit', $umkm->id) }}" class="text-center bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded">Edit</a>
+                                        <a href="{{ route('umkm.edit', $umkm->id) }}" class="text-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
 
                                         <!-- Delete button -->
-                                        <form action="{{ route('umkm.destroy', $umkm->id) }}" method="POST" class="text-center bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
+                                        <form action="{{ route('umkm.destroy', $umkm->id) }}" method="POST" class="text-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-center">Delete</button>
