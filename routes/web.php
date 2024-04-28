@@ -264,6 +264,17 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
             'id' => $id,
         ]);
     })->name('chatroom');
+    Route::get('/order', function () {
+        return view('pages/Courier/order', [
+            'Title' => 'Order',
+        ]);
+    })->name('order');
+    Route::get('/order/{id}', function ($id) {
+        return view('pages/Courier/orderdetail', [
+            'Title' => 'Order Detail',
+            'id' => $id,
+        ]);
+    })->name('orderdetail');
 });
 
 // Admin Routes
