@@ -167,8 +167,8 @@ Route::get('/promo', function () {
 });
 
 // Detail Routes
-Route::get('/detail-warung/{umkm:id}', function(Data_umkm $umkm){
-    return view('pages.Users.DetailWarung',[
+Route::get('/detail-warung/{umkm:id}', function (Data_umkm $umkm) {
+    return view('pages.Users.DetailWarung', [
         'nama_umkm' => $umkm->nama_umkm,
         'alamat' => $umkm->alamat,
         'rating' => $umkm->rating,
@@ -179,6 +179,9 @@ Route::get('/detail-warung/{umkm:id}', function(Data_umkm $umkm){
         'SeputarDkampus' => HomeModel::seputarDkampus(),
     ]);
 });
+
+// Menu Controller
+Route::post('/detail-makanan/{id}', [MenuController::class, 'simpan']);
 
 Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
     return view('pages.Users.DetailMakanan', [
@@ -208,8 +211,8 @@ Route::get('/pay/{orderID}', [CartController::class, 'pay'])->name('payment');
 
 
 //Favorite Routes
-Route::get('/favorit',function(){
-    return view('pages.Users.Favorit',[
+Route::get('/favorit', function () {
+    return view('pages.Users.Favorit', [
         'Title' => 'Favorit',
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
@@ -236,11 +239,17 @@ Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sa
 
 // Courier Routes
 Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
-    Route::view('/dashboard', 'pages/Courier/dashboard', [
+    Route::view(
+        '/dashboard',
+        'pages/Courier/dashboard',
+        [
             'Title' => 'Dashboard',
         ]
     )->name('dashboardCourier');
-    Route::view('/history', 'pages/Courier/riwayat', [
+    Route::view(
+        '/history',
+        'pages/Courier/riwayat',
+        [
             'Title' => 'History',
         ]
     )->name('history');
@@ -250,11 +259,17 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
             'id' => $id,
         ]);
     })->name('historydetail');
-    Route::view('/profile', 'pages/Courier/profile', [
+    Route::view(
+        '/profile',
+        'pages/Courier/profile',
+        [
             'Title' => 'Profile',
         ]
     )->name('profile');
-    Route::view('/chats', 'pages/Courier/chatpage', [
+    Route::view(
+        '/chats',
+        'pages/Courier/chatpage',
+        [
             'Title' => 'Chat',
         ]
     )->name('chatpage');
@@ -280,7 +295,10 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
 // Admin Routes
 Route::resource('umkm', 'UmkmController');
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
-    Route::view('/dashboard', 'pages/Admin/dashboard', [
+    Route::view(
+        '/dashboard',
+        'pages/Admin/dashboard',
+        [
             'data_umkm' => Data_umkm::all(),
             'menu' => Menu::all(),
             'user' => \App\Models\User::all(),
@@ -291,7 +309,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         'umkms' => Data_umkm::paginate(5),
     ])->name('umkm');
     Route::post('/umkm', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
-    Route::get('/product', function() {
+    Route::get('/product', function () {
 
         return view('pages/Admin/product', [
             'model' => new Menu(),
@@ -303,12 +321,12 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             'method' => 'POST'
         ]);
     })->name('product');
-    Route::post('/product', [MenuController::class, 'store'])->name('product.store');
+    Route::post('/product', [MenuController::class, 'simpan'])->name('product.store');
 
 
     // edit & delete product route
     //to edit product form
-    Route::get('/product/{menu}/edit', function(Menu $menu) {
+    Route::get('/product/{menu}/edit', function (Menu $menu) {
         return view('pages/admin/product_form', [
             'model' => $menu,
             'umkm' => Data_umkm::pluck('nama_umkm', 'id'),
@@ -327,7 +345,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     // edit & delete umkm route
 
     //to edit umkm form
-    Route::get('/umkm/{umkm}/edit', function(Data_umkm $umkm) {
+    Route::get('/umkm/{umkm}/edit', function (Data_umkm $umkm) {
         return view('pages/admin/umkm_update', [
             'umkm' => $umkm,
             'products' => Menu::where('data_umkm_id', $umkm->id)->get(),
@@ -349,7 +367,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     ])->name('account');
 
     //chat route
-    Route::view('/chats', 'pages/Admin/chatpage', [
+    Route::view(
+        '/chats',
+        'pages/Admin/chatpage',
+        [
             'Title' => 'Chat',
         ]
     )->name('chatpage.admin');
