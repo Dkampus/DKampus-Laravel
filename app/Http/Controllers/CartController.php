@@ -7,6 +7,8 @@ use App\Models\Cart;
 use App\Models\Favorit;
 use App\Models\PesananModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Data_umkm;
 
 class CartController extends Controller
 {
@@ -17,21 +19,19 @@ class CartController extends Controller
     {
         // Using Exception Before Log-in so doesn't show an error page
         try {
-            $data = [
-            'Title' => 'Keranjang',
-            'NavPesanan' => 'Keranjang',
-            //"favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
-            'carts' => [],
-            'AddressList' => PesananModel::alamatUser(),
-            'PengaturanAkun' => HomeModel::pengaturanAkun(),
-            'SeputarDkampus' => HomeModel::seputarDkampus(),
-            ];
+            $userID = Auth::user()->id;
+            $database = app('firebase.database');
+            $test = $database->getReference('cart/' . $userID . '/orders')->getValue();
+            $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+            $namaUMKM = Data_umkm::find($idumkm);
             $carts = Cart::where("user_id", auth()->user()->id)->get();
-            return view('pages.Users.Pesanan',[
+            return view('pages.Users.Pesanan', [
                 'Title' => 'Pesanan',
                 'NavPesanan' => 'Pesanan',
                 //"favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
                 'carts' => $carts,
+                'test' => $test,
+                'namaUMKM' => $namaUMKM->nama_umkm,
                 'AddressList' => PesananModel::alamatUser(),
                 'PengaturanAkun' => HomeModel::pengaturanAkun(),
                 'SeputarDkampus' => HomeModel::seputarDkampus(),
@@ -40,11 +40,12 @@ class CartController extends Controller
             return redirect()->route('homepage')->with('error', 'An error occurred. Please try again.');
         }
 
-        return view('pages.Users.Pesanan', $data);
+        return view('pages.Users.Pesanan');
     }
 
-    public function status(){
-        return view('pages.Users.Status',[
+    public function status()
+    {
+        return view('pages.Users.Status', [
             'Title' => 'Status',
             'NavPesanan' => 'Status',
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
@@ -52,9 +53,10 @@ class CartController extends Controller
         ]);
     }
 
-    public function StatusOrder($orderID){
+    public function StatusOrder($orderID)
+    {
         $id = $orderID;
-        return view('pages.Users.StatusOrder',[
+        return view('pages.Users.StatusOrder', [
             'Title' => 'Status Order',
             'NavPesanan' => 'Status Order',
             'id' => $id
@@ -86,7 +88,8 @@ class CartController extends Controller
         return redirect('/pesanan');
     }
 
-    public function updateQuantity(Request $request){
+    public function updateQuantity(Request $request)
+    {
         $carts = Cart::find($request->id);
         $carts->quantity = $request->quantity;
         $carts->save();
@@ -97,16 +100,19 @@ class CartController extends Controller
     // Temporary function, should be moved to another controller.
     public function checkout()
     {
-        $carts = Cart::where('user_id', auth()->id())->get();
-        $total = $carts->sum(function($cart) {
-            return $cart->quantity * $cart->menu->price;
-        });
+        $userID = Auth::user()->id;
+        $database = app('firebase.database');
+        $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
+        $total = $database->getReference('cart/' . $userID . '/orders/total')->getValue();
+        $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+        $namaUMKM = Data_umkm::find($idumkm);
 
         return view('pages.Users.CheckoutPage', [
             'Title' => 'Checkout',
             'NavPesanan' => 'Checkout',
             'carts' => $carts,
             'total' => $total,
+            'nama_umkm' => $namaUMKM->nama_umkm,
             'AddressList' => PesananModel::alamatUser(),
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
             'SeputarDkampus' => HomeModel::seputarDkampus(),
@@ -114,15 +120,18 @@ class CartController extends Controller
     }
     public function pay($orderID)
     {
-        $carts = Cart::where('user_id', auth()->id())->get();
-        $total = $carts->sum(function($cart) {
-            return $cart->quantity * $cart->menu->price;
-        });
+        $userID = Auth::user()->id;
+        $database = app('firebase.database');
+        $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
+        $total = $database->getReference('cart/' . $userID . '/orders/total')->getValue();
+        $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+        $namaUMKM = Data_umkm::find($idumkm);
         return view('pages.Users.Pay', [
             'Title' => 'Pay',
             'orderID' => $orderID,
             'carts' => $carts,
             'total' => $total,
+            'nama_umkm' => $namaUMKM->nama_umkm,
         ]);
     }
 
@@ -159,7 +168,7 @@ class CartController extends Controller
         $carts = Cart::find($request->id);
         $carts->delete();
 
-        if($carts){
+        if ($carts) {
             return redirect()->back()->with('success', 'Menu berhasil dihapus');
         } else {
             return redirect()->back()->with('error2', 'Menu gagal dihapus');
