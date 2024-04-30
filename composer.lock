@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57a32f51279eba0dd12c6e7232908aab",
+    "content-hash": "ba24f9b3cfb79eb403fdce7eed0f8533",
     "packages": [
         {
             "name": "beste/clock",
@@ -1769,29 +1769,29 @@
         },
         {
             "name": "kreait/laravel-firebase",
-            "version": "5.6.0",
+            "version": "5.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kreait/laravel-firebase.git",
-                "reference": "920768705d262ed099c6bdcc99b80cd180dbbede"
+                "reference": "a028cb6ad58c534f763fca03e7dcc392074631da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kreait/laravel-firebase/zipball/920768705d262ed099c6bdcc99b80cd180dbbede",
-                "reference": "920768705d262ed099c6bdcc99b80cd180dbbede",
+                "url": "https://api.github.com/repos/kreait/laravel-firebase/zipball/a028cb6ad58c534f763fca03e7dcc392074631da",
+                "reference": "a028cb6ad58c534f763fca03e7dcc392074631da",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^9.0 || ^10.0",
-                "illuminate/support": "^9.0 || ^10.0",
+                "illuminate/contracts": "^9.0 || ^10.0 || ^11.0",
+                "illuminate/support": "^9.0 || ^10.0 || ^11.0",
                 "kreait/firebase-php": "^7.0",
                 "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
-                "symfony/cache": "^6.1.2"
+                "symfony/cache": "^6.1.2 || ^7.0.3"
             },
             "require-dev": {
-                "laravel/pint": "^1.13",
-                "orchestra/testbench": "^7.0 || ^8.0",
-                "phpunit/phpunit": "^9.6"
+                "laravel/pint": "^1.14",
+                "orchestra/testbench": "^7.0 || ^8.0 || ^9.0",
+                "phpunit/phpunit": "^9.6.17 || ^10.5.13"
             },
             "type": "library",
             "extra": {
@@ -1831,7 +1831,7 @@
             ],
             "support": {
                 "issues": "https://github.com/kreait/laravel-firebase/issues",
-                "source": "https://github.com/kreait/laravel-firebase/tree/5.6.0"
+                "source": "https://github.com/kreait/laravel-firebase/tree/5.8.0"
             },
             "funding": [
                 {
@@ -1839,7 +1839,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-12T23:30:54+00:00"
+            "time": "2024-03-13T18:33:13+00:00"
         },
         {
             "name": "laracasts/flash",
