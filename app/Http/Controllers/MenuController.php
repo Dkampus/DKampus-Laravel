@@ -7,6 +7,7 @@ use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
 {
@@ -90,7 +91,6 @@ class MenuController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -99,6 +99,64 @@ class MenuController extends Controller
     public function create()
     {
         //
+    }
+
+    public function simpan($id, Request $request)
+    {
+        $userID = Auth::user()->id;
+        $database = app('firebase.database');
+        $saved = Menu::find($id);
+        $idMakanan = $saved->id;
+        $umkmID = $saved->data_umkm_id;
+        $jumlah = $request->input('quantity');
+        $existingUmkmID = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->exists();
+        $postData = [
+            'id' => $idMakanan,
+            'nama' => $saved->nama_makanan,
+            'harga' => $saved->harga,
+            'umkm_id' => $umkmID,
+            'jumlah' => $jumlah,
+            'catatan' => $request->input('catatan')
+        ];
+        if ($existingUmkmID) {
+            $currentUmkmID = $database->getReference('cart/' . $userID . '/orders' . '/item1' . '/umkm_id')->getValue();
+            if ($currentUmkmID != $umkmID) {
+                $database->getReference('cart/' . $userID . '/orders')->remove();
+                $database->getReference('cart/' . $userID . '/orders' . '/item1')->set($postData);
+            } else {
+                $itemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
+                $itemNumber = $itemCount + 1;
+                $item = 'item' . $itemNumber;
+                $i = 1;
+                $checkid = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/id')->getValue();
+                while ($i <= $itemCount && $checkid != $id) {
+                    $i++;
+                    $checkid = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/id')->getValue();
+                }
+                if ($checkid == $id) {
+                    $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/jumlah')->set($jumlah);
+                } else {
+                    $database->getReference('cart/' . $userID . '/orders' . '/' . $item)->set($postData);
+                }
+            }
+        } else {
+            $database->getReference('cart/' . $userID . '/orders' . '/item1')->set($postData);
+        }
+        $count = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
+        $j = 1;
+        $total = 0;
+        while ($j <= $count) {
+            $pricePerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $j . '/harga')->getValue();
+            $quantityPerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $j . '/jumlah')->getValue();
+            $currentTotal = $pricePerItem * $quantityPerItem;
+            $total += $currentTotal;
+            $j++;
+        }
+        $postTotal =
+            $database->getReference('cart/' . $userID . '/total')->set($total);
+        if ($postTotal) {
+            return redirect()->back()->with('status', 'success');
+        }
     }
 
     /**
