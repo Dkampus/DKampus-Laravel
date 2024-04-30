@@ -50,6 +50,7 @@
                             <p class="text-lg font-bold text-[#F9832A]">Tidak ada pesanan yang harus diantar <br><a href="#" class="text-blue-500">Lihat semua pesanan</a></p>
                         @endif
                     </div>
+                    <a href={{ route('courierorder') }} class="text-blue-500">Lihat semua pesanan</a>
                 </div>
             </div>
         </div>

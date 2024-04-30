@@ -265,10 +265,10 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
         ]);
     })->name('chatroom');
     Route::get('/order', function () {
-        return view('pages/Courier/order', [
+        return view('pages/Courier/orderspage', [
             'Title' => 'Order',
         ]);
-    })->name('order');
+    })->name('courierorder');
     Route::get('/order/{id}', function ($id) {
         return view('pages/Courier/orderdetail', [
             'Title' => 'Order Detail',
