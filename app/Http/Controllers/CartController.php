@@ -9,6 +9,7 @@ use App\Models\PesananModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Data_umkm;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -37,10 +38,17 @@ class CartController extends Controller
                 'SeputarDkampus' => HomeModel::seputarDkampus(),
             ]);
         } catch (\Exception $e) {
-            return redirect()->route('homepage')->with('error', 'An error occurred. Please try again.');
         }
-
-        return view('pages.Users.Pesanan');
+        return view('pages.Users.Pesanan', [
+            'Title' => 'Pesanan',
+            'NavPesanan' => 'Pesanan',
+            'carts' => "",
+            'test' => "",
+            'namaUMKM' => "",
+            'AddressList' => PesananModel::alamatUser(),
+            'PengaturanAkun' => HomeModel::pengaturanAkun(),
+            'SeputarDkampus' => HomeModel::seputarDkampus(),
+        ]);
     }
 
     public function status()
@@ -183,10 +191,10 @@ class CartController extends Controller
         $database = app('firebase.database');
 
         $request->validate([
-            'fileToUpload' => 'required|file|mimes:jpeg,jpg|max:2048',
+            'bukti' => 'required|file|mimes:jpeg,jpg|max:2048',
         ]);
 
-        if ($request->file('fileToUpload')->isValid()) {
+        if ($request->file('bukti')->isValid()) {
             //$request->file('fileToUpload')->store('uploads');
             $database->getReference('cart/' . $userID . '/status')->set('searching');
             $order = $database->getReference('cart/' . $userID)->getValue();
@@ -199,8 +207,8 @@ class CartController extends Controller
                 'id' => $orderID
             ]);
         } else {
-            // Handle invalid file upload
-            return back()->withErrors(['fileToUpload' => 'Invalid file uploaded.']);
+
+            return back()->withErrors(['bukti' => 'Invalid file uploaded.']);
         }
     }
 
