@@ -70,9 +70,9 @@
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
     <div class="justify-center items-center p-5">
         {{-- upload file --}}
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('order') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="file" name="bukti" id="bukti" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;">
+            <input type="file" name="bukti" id="bukti" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;" accept=".jpg,.jpeg" require>
             <button type="button" id="uploadButton" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Pilih File</button>
             <button type="submit" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Unggah Bukti Pembayaran</button>
         </form>

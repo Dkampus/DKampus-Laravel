@@ -8,6 +8,7 @@ use App\Models\PromoModel;
 use App\Models\DetailWarungModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CourierController;
 use App\Http\Controllers\FavoritController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UmkmController;
@@ -281,11 +282,7 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
             'id' => $id,
         ]);
     })->name('chatroom');
-    Route::get('/order', function () {
-        return view('pages/Courier/orderspage', [
-            'Title' => 'Order',
-        ]);
-    })->name('courierorder');
+    Route::get('/order', [CourierController::class, 'index']);
     Route::get('/order/{id}', function ($id) {
         return view('pages/Courier/orderdetail', [
             'Title' => 'Order Detail',

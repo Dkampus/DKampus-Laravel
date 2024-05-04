@@ -10,47 +10,52 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
-    */
+     */
     public function index()
     {
         // dipindah ke web.php
     }
 
-    public function login(){
-        return view('pages.Users.Login',[
+    public function login()
+    {
+        return view('pages.Users.Login', [
             'Title' => 'Log in',
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
             'SeputarDkampus' => HomeModel::seputarDkampus(),
         ]);
     }
 
-    public function register(){
-        return view('pages.Users.Register',[
+    public function register()
+    {
+        return view('pages.Users.Register', [
             'Title' => 'Register',
         ]);
     }
 
     public function daftarAlamat()
     {
-//        $alamat = Auth::user()->alamat; // relation dari model User ?
+        //        $alamat = Auth::user()->alamat; // relation dari model User ?
 
-//        return view('daftar_alamat', compact('alamat'));
+        //        return view('daftar_alamat', compact('alamat'));
     }
 
-    public function code_verification(){
-        return view('pages.Users.CodeVerification',[
+    public function code_verification()
+    {
+        return view('pages.Users.CodeVerification', [
             'Title' => 'Code Verification'
         ]);
     }
 
-    public function input_register(){
-        return view('pages.Users.InputRegister',[
+    public function input_register()
+    {
+        return view('pages.Users.InputRegister', [
             'Title' => 'Pesanan',
         ]);
     }
 
-    public function atur_ulang_kata_sandi(){
-        return view('pages.Users.AturUlangKataSandi',[
+    public function atur_ulang_kata_sandi()
+    {
+        return view('pages.Users.AturUlangKataSandi', [
             'Title' => 'Atur Ulang Kata Sandi',
         ]);
     }
