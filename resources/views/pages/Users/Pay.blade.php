@@ -68,10 +68,13 @@
     </a>
     {{-- Upload Bukti Pembayaran --}}
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
-    <div class="justify-center items-center p-5">
-        <button class="bg-[#F8832B] w-full h-12 rounded-md text-white font-bold">Unggah Bukti Pembayaran</button>
-        <span class="text-xs font-bold text-gray-500">*Unggah bukti pembayaran setelah melakukan pembayaran</span>
-    </div>
+    <form action="{{ route('order') }}" method="POST">
+        @csrf
+        <div class="justify-center items-center p-5">
+            <button class="bg-[#F8832B] w-full h-12 rounded-md text-white font-bold" type="submit">Unggah Bukti Pembayaran</button>
+            <span class="text-xs font-bold text-gray-500">*Unggah bukti pembayaran setelah melakukan pembayaran</span>
+        </div>
+    </form>
     {{-- Tos --}}
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
     <div class="flex justify-center items-center p-5">

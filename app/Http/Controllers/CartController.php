@@ -156,11 +156,14 @@ class CartController extends Controller
             'SeputarDkampus' => HomeModel::seputarDkampus(),
         ]);
     }
-    public function pay($orderID)
+
+    public function confirmPay()
     {
         $userID = Auth::user()->id;
-
+        $orderID = hash('sha256', $userID . time());
         $database = app('firebase.database');
+        $database->getReference('cart/' . $userID . '/orderID')->set($orderID);
+
         $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
         $total = $database->getReference('cart/' . $userID . '/total')->getValue() + 5000;
         $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
@@ -172,6 +175,33 @@ class CartController extends Controller
             'total' => $total,
             'nama_umkm' => $namaUMKM->nama_umkm,
         ]);
+    }
+
+    public function order(Request $request)
+    {
+        $userID = Auth::user()->id;
+        $database = app('firebase.database');
+
+        $request->validate([
+            'fileToUpload' => 'required|file|mimes:jpeg,jpg|max:2048',
+        ]);
+
+        if ($request->file('fileToUpload')->isValid()) {
+            //$request->file('fileToUpload')->store('uploads');
+            $database->getReference('cart/' . $userID . '/status')->set('searching');
+            $order = $database->getReference('cart/' . $userID)->getValue();
+            $database->getReference('needToDeliver/' . $userID . '-')->set($order);
+            $database->getReference('cart/' . $userID)->remove();
+            $orderID = $database->getReference('needToDeliver/' . $userID . '/orderID')->getValue();
+            return view('pages.Users.StatusOrder', [
+                'Title' => 'Status Order',
+                'NavPesanan' => 'Status Order',
+                'id' => $orderID
+            ]);
+        } else {
+            // Handle invalid file upload
+            return back()->withErrors(['fileToUpload' => 'Invalid file uploaded.']);
+        }
     }
 
     //end of temporary function

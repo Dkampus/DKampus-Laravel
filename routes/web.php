@@ -208,6 +208,8 @@ Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart
 Route::post("/pesanan/update-quantity", [CartController::class, 'updateQuantity'])->name('update.quantity');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::get('/pay/{orderID}', [CartController::class, 'pay'])->name('payment');
+Route::post('/pay/order/', [CartController::class, 'order'])->name('order');
+Route::post('/checkout/confirm', [CartController::class, 'confirmPay'])->name('confirm.pay');
 
 
 //Favorite Routes

@@ -105,7 +105,10 @@
             <p class="font-bold text-black text-xl">Apakah anda yakin?</p>
             <p class="font-normal text-black text-md mt-2">Pastikan semua informasi sudah benar sebelum melanjutkan.</p>
             <div class="flex flex-col w-full h-auto mt-4">
-                <a href="#" id="konfirmasiButton" class="flex items-center justify-center text-white h-12 bg-orange-500 w-full rounded-md mb-2">Konfrimasi</a>
+                <form action="{{ route('confirm.pay') }}" method="POST">
+                    @csrf
+                    <button href="#" id="konfirmasiButton" class="flex items-center justify-center text-white h-12 bg-orange-500 w-full rounded-md mb-2" type="submit">Konfrimasi</button>
+                </form>
                 <a href="#" class="flex items-center justify-center text-black h-12 bg-gray-300 w-full rounded-md">Batal</a>
             </div>
         </div>
