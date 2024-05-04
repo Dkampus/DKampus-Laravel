@@ -1,7 +1,9 @@
 @extends('layouts.Root')
 @section('content')
     <header class="flex flex-row items-center gap-2 mx-5 mt-10 mb-16">
-        <img src="ArrowLeft.svg" alt="" class="scale-110">
+        <a href="/" class="flex items-center gap-x-2">
+            <img src="ArrowLeft.svg" alt="" class="scale-110">
+        </a>
         @if ($Title === 'Log in' || $Title === 'Register')
         <h1 class="text-lg font-semibold">{{$Title}}</h1>
         @endif
