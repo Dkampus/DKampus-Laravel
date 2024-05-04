@@ -51,6 +51,19 @@ Route::get('/', function () {
 // Settings Routes
 // todo here .... ? - daftar alamat, ubah kata sandi, bersihkan cache, tentang kami, syarat dan ketentuan, beri kami ulasan
 
+// Category Menu Page
+Route::get('/kategori/{value}', function ($value) {
+    return view('pages.Users.KategoriMenu', [
+        'Title' => 'Kategori ' . $value,
+        'Kategori' => $value,
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
+        'RekomendasiWarung' => Data_umkm::all(),
+        'RekomendasiMakanan' => Menu::take(5)->get(),
+        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+    ]);
+});
+
 // Daftar Alamat
 Route::get('/daftar-alamat', function () {
     return view('pages.Users.DaftarAlamat', [

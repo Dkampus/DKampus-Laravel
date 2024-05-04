@@ -26,10 +26,10 @@
                 @foreach ($Carousel as $item)
                     <swiper-slide
                         class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
-                        <div class="flex flex-col justify-evenly h-full items-center">
+                        <a href="/kategori/{{ $item['Title'] }}" class="flex flex-col justify-evenly h-full items-center">
                             <img src={{ $item['Icon'] }} alt="" class="scale-150 md:scale-[2]">
                             <h1 class="font-normal">{{ $item['Title'] }}</h1>
-                        </div>
+                        </a>
                     </swiper-slide>
                 @endforeach
             </x-carousel.slider-category>
