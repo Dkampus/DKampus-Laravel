@@ -123,7 +123,7 @@ class CartController extends Controller
         $userID = Auth::user()->id;
         $database = app('firebase.database');
         $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
-        $total = $database->getReference('cart/' . $userID . '/orders/total')->getValue();
+        $total = $database->getReference('cart/' . $userID . '/total')->getValue() + 5000;
         $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
         $namaUMKM = Data_umkm::find($idumkm);
         return view('pages.Users.Pay', [
