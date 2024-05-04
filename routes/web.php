@@ -205,7 +205,7 @@ Route::get('/pesanan/status', [CartController::class, 'status']);
 Route::get('/pesanan/status/{orderID}', [CartController::class, 'StatusOrder'])->name('status.order');
 Route::get('/pesanan', [CartController::class, 'index']);
 Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
-Route::patch("/pesanan/update-quantity", [CartController::class, 'updateQuantity']);
+Route::post("/pesanan/update-quantity", [CartController::class, 'updateQuantity'])->name('update.quantity');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::get('/pay/{orderID}', [CartController::class, 'pay'])->name('payment');
 

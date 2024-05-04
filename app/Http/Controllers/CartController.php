@@ -90,11 +90,49 @@ class CartController extends Controller
 
     public function updateQuantity(Request $request)
     {
-        $carts = Cart::find($request->id);
-        $carts->quantity = $request->quantity;
-        $carts->save();
+        $userID = Auth::user()->id;
+        $idBarang = $request->id;
+        $database = app('firebase.database');
+
+        $kuantitas = $request->quantity;
+
+        $itemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
+        $i = 1;
+
+        while ($i <= $itemCount) {
+            $item = 'item' . $i;
+            $id = $database->getReference('cart/' . $userID . '/orders' . '/' . $item . '/id')->getValue();
+            if ($id == $idBarang) {
+                $database->getReference('cart/' . $userID . '/orders' . '/' . $item . '/jumlah')->set($kuantitas);
+                $total = $this->calculateTotalPrice($userID);
+                $database->getReference('cart/' . $userID . '/total')->set($total);
+                // return response()->json([
+                //     'kuantitas_baru' => $kuantitasBaru,
+                //     'totalHarga' => $total,
+                // ]);
+                // break;
+            }
+            $i++;
+        }
 
         return redirect('/pesanan');
+    }
+
+    private function calculateTotalPrice($userID)
+    {
+        $database = app('firebase.database');
+        $total = 0;
+        $itemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
+        $i = 1;
+        while ($i <= $itemCount) {
+            $pricePerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/harga')->getValue();
+            $quantityPerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/jumlah')->getValue();
+            $currentTotal = $pricePerItem * $quantityPerItem;
+            $total += $currentTotal;
+            $i++;
+        }
+
+        return $total;
     }
 
     // Temporary function, should be moved to another controller.
@@ -103,7 +141,7 @@ class CartController extends Controller
         $userID = Auth::user()->id;
         $database = app('firebase.database');
         $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
-        $total = $database->getReference('cart/' . $userID . '/orders/total')->getValue();
+        $total = $database->getReference('cart/' . $userID . '/total')->getValue();
         $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
         $namaUMKM = Data_umkm::find($idumkm);
 
@@ -121,9 +159,10 @@ class CartController extends Controller
     public function pay($orderID)
     {
         $userID = Auth::user()->id;
+
         $database = app('firebase.database');
         $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
-        $total = $database->getReference('cart/' . $userID . '/orders/total')->getValue();
+        $total = $database->getReference('cart/' . $userID . '/total')->getValue();
         $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
         $namaUMKM = Data_umkm::find($idumkm);
         return view('pages.Users.Pay', [

@@ -239,15 +239,16 @@
                         type: "POST",
                         url: "/pesanan/update-quantity",
                         data: {
-                            _method: "PATCH", // Emulate PATCH request
+                            // _method: "PATCH", // Emulate PATCH request
                             id: cartId,
-                            quantity: currentQuantity
+                            quantity: currentQuantity,
+                            _token: "{{ csrf_token() }}"
                         },
                         success: function(response) {
 
                         },
                         error: function(error) {
-
+                            alert('Terjadi kesalahan. Silakan coba lagi.');
                         }
                     });
                 }
@@ -285,18 +286,34 @@
                     $.ajax({
                         type: "POST",
                         url: "/pesanan/update-quantity",
-                        data: {
-                            _method: "PATCH", // Emulate PATCH request
+                        contentType: "application/json", // Set the content type to JSON
+                        data: JSON.stringify({
                             id: cartId,
                             quantity: currentQuantity
-                        },
+                        }),
                         success: function(response) {
-
+                            // Handle success
                         },
                         error: function(error) {
-
+                            // Handle error
                         }
                     });
+
+                    // $.ajax({
+                    //     type: "POST",
+                    //     url: "/pesanan/update-quantity",
+                    //     data: {
+                    //         _method: "PATCH", // Emulate PATCH request
+                    //         id: cartId,
+                    //         quantity: currentQuantity
+                    //     },
+                    //     success: function(response) {
+
+                    //     },
+                    //     error: function(error) {
+
+                    //     }
+                    // });
                 }
 
                 if (currentQuantity == 2) {
