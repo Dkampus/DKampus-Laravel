@@ -61,7 +61,7 @@
     </div>
     <div class="flex flex-col items-center">
         {{-- Temporary QR Code --}}
-        <div class="w-60 h-60 bg-black rounded-md shadow-md"></div>
+        <img src="{{ asset('qrcode-payment.png') }}" alt="QR Code" class="w-52 h-52">
     </div>
     <a href="#" class="flex justify-center items-center w-full h-12 mt-2">
         <h1 class="text-[#F8832B] text-s">Simpan Kode QR</h1>
