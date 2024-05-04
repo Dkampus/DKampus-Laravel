@@ -7,7 +7,8 @@ inputs.addEventListener('submit',function(event){
     event.preventDefault()
 })
 
-function showModal () {
+function showModal (event) {
+    event.preventDefault();
     if(modal_email_confirm.style.display === '' || modal_email_confirm.style.display === 'none'){
         modal_email_confirm.style.visibility = 'visible';
         modal_email_confirm.style.opacity = '100';
@@ -22,7 +23,8 @@ function showModal () {
         overlay_email_confirm.style.zIndex = '90';
     }
 }
-function hideModal (){
+function hideModal (event){
+    event.preventDefault();
     modal_email_confirm.style.visibility = 'invisible';
     modal_email_confirm.style.opacity = '0';
     modal_email_confirm.style.zIndex = '-2'

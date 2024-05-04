@@ -13,14 +13,6 @@
     <div id="inputs" class="flex flex-col gap-5">
 
         {{-- Email Input --}}
-        {{-- <div class="flex flex-col gap-3 mx-auto w-96">
-                <label for="email">Masukan Email Anda</label>
-                <input id="email" type="text"
-                    class="rounded-2xl border-2 transition-all duration-100 border-[#5e5e5e]/30 focus:border-[#F9832A] focus:ring-[#F9832A] w-full h-[3.4rem] placeholder:text-[#5e5e5e]/50"
-                    placeholder="email@gmail.com">
-            </div> --}}
-
-        {{-- Email Input Punya rama ini --}}
         <div class="flex flex-col gap-3 mx-auto w-96">
             <label for="email">Masukan Email Anda</label>
             {!! Form::email('email', '', [
@@ -31,15 +23,6 @@
         </div>
 
         {{-- Password Input --}}
-        {{-- <div class="flex flex-col gap-3 mx-auto w-96">
-            <label for="sandi">Kata Sandi</label>
-            <input id="sandi" type="password"
-                class="rounded-2xl border-2 transition-all duration-100 border-[#5e5e5e]/30 focus:border-[#F9832A] focus:ring-[#F9832A] w-full h-[3.4rem] placeholder:text-[#5e5e5e]/50 placeholder:"
-                placeholder="********">
-            <a href="/atur-ulang-kata-sandi" class="ml-auto text-[#F9832A] font-medium">Lupa kata sandi?</a>
-        </div> --}}
-
-        {{-- Password Input punya rama --}}
         <div class="flex flex-col gap-3 mx-auto w-96">
             <label for="sandi">Kata Sandi</label>
             {!! Form::password('password', [
@@ -54,27 +37,23 @@
         <div id="submitAndDaftar" class="flex flex-col gap-3.5 mt-3 mx-auto w-96 items-center">
             {!! Form::submit('Masuk', [
                 'class' => 'bg-[#F9832A] w-full h-[3.4rem] rounded-2xl text-white font-semibold text-lg',
-                'onclick' => 'showModal()',
             ]) !!}
             <a href="{{ route('register') }}"
-                class="bg-white border-2 border-[#F9832A] w-full flex justify-center items-center h-[3.4rem] rounded-2xl text-[#F9832A] font-semibold text-lg">
+               class="bg-white border-2 border-[#F9832A] w-full flex justify-center items-center h-[3.4rem] rounded-2xl text-[#F9832A] font-semibold text-lg">
                 <button>Daftar</button>
             </a>
-            {{-- <div class="flex flex-row items-center gap-1 ml-auto mt-3">
-                <h2>Belum punya akun?</h2><a href="/daftar" class="text-[#F9832A]">Daftar</a>
-            </div> --}}
         </div>
-
-        {{-- Modal Jika Email belum terdaftar --}}
-        {{-- <x-modals.modal>
-            <h1 class="font-semibold">email@gmail.com</h1>
-            <p class="text-[#5C5C5C]">Lanjutkan ke pendaftaran dengan email</p>
-            <h1 class="font-semibold">email@gmail.com</h1>
-            <div class="flex flex-row gap-2">
-                <button class="bg-[#F9832A] w-28 h-9 rounded-lg text-white">Ya</button>
-                <button onclick="hideModal()" class="bg-white border-2 w-28 h-9 rounded-lg text-[#F9832A] border-[#F9832A]">Salah</button>
+        {{--debug button--}}
+{{--        <a href="" class="bg-white border-2 border-[#F9832A] w-full flex justify-center items-center h-[3.4rem] mt-10 rounded-2xl text-[#F9832A] font-semibold text-lg">--}}
+{{--            <button onclick="showModal()">Modal</button>--}}
+{{--        </a>--}}
+        {{-- Modal salah email atau password --}}
+        @if ($errors->any())
+            <div id="modal_confirm_email" class="flex flex-col absolute visible opacity-100 transition-all z-99 rounded-xl justify-center gap-3 py-5 items-center scale-100 mx-auto border w-96 bg-white">
+                <p>Email atau kata sandi salah</p>
+                <button onclick="hideModal(event)" class="bg-[#F9832A] w-24 h-10 rounded-2xl text-white font-semibold text-lg">Oke</button>
             </div>
-    </x-modals.modal> --}}
+        @endif
     </div>
     {!! Form::close() !!}
 @endsection
