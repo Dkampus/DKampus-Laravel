@@ -66,13 +66,11 @@
     <a href="#" class="flex justify-center items-center w-full h-12 mt-2">
         <h1 class="text-[#F8832B] text-s">Simpan Kode QR</h1>
     </a>
-    {{-- Information --}}
+    {{-- Upload Bukti Pembayaran --}}
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
-    <div class="flex justify-center items-center p-5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle text-[#F9832A]" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 1a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm-.5 4a.5.5 0 0 1 1 0v4a.5.5 0 0 1-1 0V6zm.223-2.776a.5.5 0 0 1 .754.652l-.96 1.5a.5.5 0 0 1-.416.224h-.002a.5.5 0 0 1-.416-.224l-.96-1.5a.5.5 0 0 1 .754-.652l.682 1.07.682-1.07z" />
-        </svg>
-        <h1 class="text-xs text-gray-500 mx-2">Halaman ini akan diperbaharui ketika pembayaran selesai</h1>
+    <div class="justify-center items-center p-5">
+        <button class="bg-[#F8832B] w-full h-12 rounded-md text-white font-bold">Unggah Bukti Pembayaran</button>
+        <span class="text-xs font-bold text-gray-500">*Unggah bukti pembayaran setelah melakukan pembayaran</span>
     </div>
     {{-- Tos --}}
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
