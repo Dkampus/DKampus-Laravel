@@ -295,7 +295,7 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
             'id' => $id,
         ]);
     })->name('chatroom');
-    Route::get('/order', [CourierController::class, 'index']);
+    Route::get('/order', [CourierController::class, 'index'])->name('courierorder');
     Route::get('/order/{id}', function ($id) {
         return view('pages/Courier/orderdetail', [
             'Title' => 'Order Detail',
