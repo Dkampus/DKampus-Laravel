@@ -44,7 +44,7 @@ class CartController extends Controller
             'NavPesanan' => 'Pesanan',
             'carts' => "",
             'test' => "",
-            'namaUMKM' => "",
+            'namaUMKM' => null,
             'AddressList' => PesananModel::alamatUser(),
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
             'SeputarDkampus' => HomeModel::seputarDkampus(),
@@ -82,19 +82,6 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $carts = $request->validate([
-            'menu_id' => 'required',
-            'quantity' => 'required|max:255',
-            'catatan' => 'nullable'
-        ]);
-
-        $carts['user_id'] = auth()->user()->id;
-        Cart::create($carts);
-
-        return redirect('/pesanan');
-    }
 
     public function updateQuantity(Request $request)
     {
