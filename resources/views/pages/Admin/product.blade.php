@@ -174,7 +174,7 @@
                                         <input type="text" name="edit_promo" id="edit_promo" class="form-input mt-1 block w-full">
                                     </div>
                                     <div class="mb-4">
-                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
+                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan</button>
                                         <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="document.getElementById('modalEditProductumkm').classList.add('hidden')">Batal</button>
                                     </div>
                                 </form>
