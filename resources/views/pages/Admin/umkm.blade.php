@@ -31,24 +31,29 @@
                             <tbody>
                             @foreach ($umkms as $umkm)
                                 <tr>
-                                    <td>{{ $umkm->nama_umkm }}</td>
-                                    <td>{{ $umkm->alamat }}</td>
+                                    <td class="">{{ $umkm->nama_umkm }}</td>
+                                    <td class="">{{ $umkm->alamat }}</td>
 {{--                                    <td><img src="{{ Storage::url($umkm->logo_umkm) }}" alt="umkm_img" width="50"></td>--}}
                                     <td class="text-center">{{ $umkm->no_telp_umkm }}</td>
                                     <td class="text-center">{{ $umkm->vip ? 'Ya' : 'Tidak' }}</td>
-                                    <td class="flex flex-col items-center text-center space-y-2">
-                                        <!-- View button -->
-                                        <a href="{{ route('umkm.show', $umkm->id) }}" class="text-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Lihat</a>
-
-                                        <!-- Edit button -->
-                                        <a href="{{ route('umkm.edit', $umkm->id) }}" class="text-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
-
-                                        <!-- Delete button -->
-                                        <form action="{{ route('umkm.destroy', $umkm->id) }}" method="POST" class="text-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-center">Delete</button>
-                                        </form>
+                                    <td class="text-center">
+                                        <div class="flex justify-center space-x-2">
+                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                                    onclick="editUser(this)"
+                                                    data-id="{{ $umkm->id }}"
+                                                    data-nama_umkm="{{ $umkm->nama_umkm }}"
+                                                    data-alamat="{{ $umkm->alamat }}"
+                                                    data-no_telp_umkm="{{ $umkm->no_telp_umkm }}"
+                                                    data-vip="{{ $umkm->vip }}">
+                                                Edit
+                                            </button>
+                                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                                    onclick="deleteUser(this)"
+                                                    data-id="{{ $umkm->id }}"
+                                                    data-nama_umkm="{{ $umkm->nama_umkm }}">
+                                                Hapus
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -62,7 +67,7 @@
                     </div>
                 </div>
 
-                <!-- Modal -->
+                {{-- modal tambah umkm --}}
                 <div class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="modalumkm">
                     <div class="flex items end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -117,6 +122,55 @@
                                 </div>
                             </form>
                             @endauth
+                        </div>
+                    </div>
+                </div>
+
+                {{-- modal edit umkm --}}
+                <div class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="modal-edit">
+                    <div class="flex items end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                        <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                            <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                <div class="sm:flex sm:items-start">
+                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                        <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200" id="modal-headline">
+                                            Edit UMKM
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <form action="#" method="POST" id="editForm">
+                                @csrf
+                                @method('PUT')
+                                <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                    <div class="mb-4">
+                                        <label for="edit_nama_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">Nama UMKM</label>
+                                        <input type="text" name="edit_nama_umkm" id="edit_nama_umkm" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="edit_alamat" class="block text sm font-medium text-gray-700 dark:text-gray-200">Alamat</label>
+                                        <input type="text" name="edit_alamat" id="edit_alamat" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="edit_no_telp_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">No. Telp</label>
+                                        <input type="text" name="edit_no_telp_umkm" id="edit_no_telp_umkm" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="edit_vip" class="block text sm font-medium text-gray-700 dark:text-gray-200">VIP</label>
+                                        <input type="radio" name="edit_vip" id="edit_vip" value="1" class="form-radio" required>
+                                        <label for="edit_vip" class="mr-2 text-sm text-gray-500 dark:text-gray-200">Ya</label>
+                                        <input type="radio" name="edit_vip" id="edit_vip" value="0" class="form-radio" required>
+                                        <label for="edit_vip" class="text-sm text-gray-500 dark:text-gray-200">Tidak</label>
+                                        <div class="text-sm text-gray-500 dark:text-gray-200">VIP UMKM akan mendapatkan featured dan benefit lainnya.</div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan</button>
+                                        <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="document.getElementById('modal-edit').classList.add('hidden')">Batal</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -195,10 +249,36 @@
             }
         });
     </script>
+
+    <script>
+        function editUser(button) {
+            // Get data from data-* attributes
+            var id = button.getAttribute('data-id');
+            var nama_umkm = button.getAttribute('data-nama_umkm');
+            var alamat = button.getAttribute('data-alamat');
+            var no_telp_umkm = button.getAttribute('data-no_telp_umkm');
+            var vip = button.getAttribute('data-vip');
+
+            // Fill the form in the modal with the data
+            document.getElementById('edit_nama_umkm').value = nama_umkm;
+            document.getElementById('edit_alamat').value = alamat;
+            document.getElementById('edit_no_telp_umkm').value = no_telp_umkm;
+            document.getElementById('edit_vip').value = vip;
+
+            // Update the form action to point to the update route
+            var form = document.querySelector('#editForm');
+            // form.action = '/umkm/update/' + id;
+
+            // Show the modal
+            document.getElementById('modal-edit').classList.remove('hidden');
+        }
+    </script>
 </x-app-layout>
 <script>
     document.querySelector('[data-bs-target="#umkmModal"]').addEventListener('click', function(event) {
         event.preventDefault();
         document.getElementById('modalumkm').classList.remove('hidden');
     });
+
+
 </script>
