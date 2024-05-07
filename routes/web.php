@@ -377,20 +377,18 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::view('/account', 'pages/Admin/account', [
         'users' => \App\Models\User::all(),
     ])->name('account');
+
     Route::post('/account/update/{userid}', [UserController::class, 'update'])->name('account.update');
     Route::delete('/account/delete/{userid}', [UserController::class, 'destroy'])->name('account.delete');
 
-    //account-user restriction route
-    Route::post('/account/{userid}/restrict', [UserController::class, 'restrict'])->name('account.restrict');
-
     //chat route
-    Route::view(
-        '/chats',
+    Route::view('/chats',
         'pages/Admin/chatpage',
         [
             'Title' => 'Chat',
         ]
     )->name('chatpage.admin');
+
     Route::get('/chats/{id}', function ($id) {
         return view('pages/Admin/chatroom', [
             'Title' => 'Chat Room',
