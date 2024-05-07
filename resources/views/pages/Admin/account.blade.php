@@ -31,7 +31,7 @@
                                     <td>{{ $user->email ?? 'null' }}</td>
                                     <td class="text-center">{{ $user->no_telp ?? 'null' }}</td>
                                     <td class="text-center">{{ $user->role ?? 'null' }}</td>
-                                    <td class="text-center">{{ $user->restriction ?? 'null' }}</td>
+                                    <td class="text-center">{{ $user->restriction ? 'True' : 'False' ?? 'null' }}</td>
                                     <td class="text-center">
                                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                                 onclick="editUser(this)"
