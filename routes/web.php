@@ -379,7 +379,6 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     ])->name('account');
 
     Route::post('/account/update/{userid}', [UserController::class, 'update'])->name('account.update');
-    Route::delete('/account/delete/{userid}', [UserController::class, 'destroy'])->name('account.delete');
 
     //chat route
     Route::view('/chats',
