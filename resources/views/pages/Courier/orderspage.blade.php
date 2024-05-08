@@ -15,10 +15,12 @@
 
     </div>
     <div id="orderDetailModal" class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
-        <div class="bg-white p-8 rounded-lg">
+        <div class="bg-white p-8 rounded-lg w-5/6 max-w-lg">
             <h2 class="text-2xl font-bold mb-4">Order Details</h2>
-            <div id="modalOrderDetails"></div>
-            <button id="closeModalBtn" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4">Close</button>
+            <div id="modalOrderDetails" class="mx-2 my-2">
+                {{-- Order details will be rendered here --}}
+            </div>
+            <button id="closeModalBtn" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Close</button>
         </div>
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -80,25 +82,20 @@
                     {{--detail order --}}
                     <div class=" flex flex-col gap-2">
                         <div class="flex flex-row justify-between">
-                            <span class="font-semibold text-l">Nama Penerima</span>
-                            <span class="font-semibold text-l">${nama_penerima}</span>
+                            <span class="font-semibold text-l">Jarak</span>
+                            <span class="font-semibold text-l">10KM</span>
                         </div>
                         <div class="flex flex-row justify-between">
-                            <span class="font-semibold text-l">Status</span>
-                            <span class="font-semibold text-l">${status}</span>
-                        </div>
-                        <div class="flex flex-row justify-between">
-                            <span class="font-semibold text-l">Total</span>
-                            <span class="font-semibold text-l">${formattedTotal}</span>
-                        </div>
-                        ${ordersHtml}
+                            <span class="font-semibold text-l">Ongkir</span>
+                            <span class="font-semibold text-l">Rp. 10,000</span>
+                         </div>
                     </div>
                 </div>
-                <div class="px-6 pt-4 pb-2">
-                    <form action="{{ route('take.order') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="orderId" value="${id}">
-                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Take Order</button>
+                <div class="px-6 flex flex-row">
+                    <form action="{{ route('take.order') }}" method="POST" class="mr-2">
+                    @csrf
+                    <input type="hidden" name="orderId" value="${id}">
+                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Take Order</button>
                     </form>
                     <button onclick="showOrderDetailModal(${JSON.stringify(orderData).replace(/"/g, '&quot;')})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View Details</button>
                 </div>
@@ -114,6 +111,7 @@
                 return order.nama;
             });
 
+
             var ordersHtml = "";
 
             var combinedOrderNames = orderNames.join(", ");
@@ -121,15 +119,30 @@
             if (combinedOrderNames) {
                 ordersHtml += `
                 <div class="flex flex-row justify-between">
-                    <span class="font-semibold text-l">Orders</span>
                     <span class="font-semibold text-l">${combinedOrderNames}</span>
                 </div>`;
             }
 
             var orderDetailsHtml = `
-        <div class="flex flex-col gap-2">
-            ${combinedOrderNames}
+        <div class="flex flex-col">
+            <h1 class="text-l font-bold">Nama Penerima:</h1>
+            <p class="text-l">${ orderData.nama_penerima }</p>
         </div>
+        <div class="flex flex-col">
+            <h1 class="text-l font-bold">Nama UMKM:</h1>
+            <p class="text-l">${orderData.nama_umkm }</p>
+        </div>
+        <div class="flex flex-col">
+            <h1 class="text-l font-bold">Status:</h1>
+            <p class="text-l">${ orderData.status }</p>
+        </div>
+        <div class="flex flex-col">
+            <h1 class="text-l font-bold">Total:</h1>
+            <p class="text-l">Rp. ${ orderData.total.toLocaleString('id-ID') }</p>
+        </div>
+        <div class="flex flex-col">
+            <h1 class="text-l font-bold">Orders:</h1>
+            <p class="text-l">${ ordersHtml }</p>
         `;
 
             $('#modalOrderDetails').append(orderDetailsHtml);
