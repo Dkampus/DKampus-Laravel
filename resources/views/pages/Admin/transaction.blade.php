@@ -46,8 +46,9 @@
                                         <span class="text-red-400 font-bold">{{ $data['status'] }}</span>
                                     @endif
                                     <td class="text-center">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Detail</a>
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                            Detail
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
