@@ -3,7 +3,9 @@
 <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10 shadow-md py-8">
     <a href="{{ 'dashboard' }}" class="absolute top-5 left-5 flex items-center gap-x-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#F9832A" class="bi bi-arrow-left" viewBox="0 0 16 16">
+
             <path fill-rule="evenodd" d="M10.354 1.646a.5.5 0 0 1 0 .708L5.707 7l4.647 4.646a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z" />
+
         </svg>
         <h1 class="font-bold text-black text-xl mb-1">Daftar Orderan</h1>
     </a>
@@ -12,9 +14,16 @@
     <div id="orderContainer" class="flex flex-col gap-5">
 
     </div>
+    <div id="orderDetailModal" class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
+        <div class="bg-white p-8 rounded-lg">
+            <h2 class="text-2xl font-bold mb-4">Order Details</h2>
+            <div id="modalOrderDetails"></div>
+            <button id="closeModalBtn" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4">Close</button>
+        </div>
+    </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
         // Initialize Firebase
         var firebaseConfig = {
@@ -27,6 +36,7 @@
             appId: "1:829911681243:web:f6e4657da628304752e4fe",
             measurementId: "G-7PCGVXL2MX"
         };
+
         firebase.initializeApp(firebaseConfig);
 
         // Get a reference to the Firebase database
@@ -86,15 +96,51 @@
                 </div>
                 <div class="px-6 pt-4 pb-2">
                     <form action="{{ route('take.order') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="orderId" value="${id}">
-                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Take Order</button>
-                </form>
+                        @csrf
+                        <input type="hidden" name="orderId" value="${id}">
+                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Take Order</button>
+                    </form>
+                    <button onclick="showOrderDetailModal(${JSON.stringify(orderData).replace(/"/g, '&quot;')})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View Details</button>
                 </div>
             </div>
             `;
             $('#orderContainer').append(html);
         }
+
+        function showOrderDetailModal(orderData) {
+            $('#modalOrderDetails').empty();
+            console.log(orderData);
+            var orderNames = Object.values(orderData.orders).map(function(order) {
+                return order.nama;
+            });
+
+            var ordersHtml = "";
+
+            var combinedOrderNames = orderNames.join(", ");
+
+            if (combinedOrderNames) {
+                ordersHtml += `
+                <div class="flex flex-row justify-between">
+                    <span class="font-semibold text-l">Orders</span>
+                    <span class="font-semibold text-l">${combinedOrderNames}</span>
+                </div>`;
+            }
+
+            var orderDetailsHtml = `
+        <div class="flex flex-col gap-2">
+            ${combinedOrderNames}
+        </div>
+        `;
+
+            $('#modalOrderDetails').append(orderDetailsHtml);
+
+            $('#orderDetailModal').removeClass('hidden');
+        }
+
+        // Close modal button click event
+        $('#closeModalBtn').click(function() {
+            $('#orderDetailModal').addClass('hidden');
+        });
 
         database.ref('needToDeliver').on('child_added', function(snapshot) {
             var id = snapshot.key;
