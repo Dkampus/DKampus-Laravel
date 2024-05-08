@@ -379,14 +379,16 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         'users' => \App\Models\User::all(),
     ])->name('account');
 
+    Route::post('/account/update/{userid}', [UserController::class, 'update'])->name('account.update');
+
     //chat route
-    Route::view(
-        '/chats',
+    Route::view('/chats',
         'pages/Admin/chatpage',
         [
             'Title' => 'Chat',
         ]
     )->name('chatpage.admin');
+
     Route::get('/chats/{id}', function ($id) {
         return view('pages/Admin/chatroom', [
             'Title' => 'Chat Room',
