@@ -37,8 +37,10 @@
                                         <td>{{ $menu->nama_makanan }}</td>
                                         <td>{{ $menu->deskripsi }}</td>
 {{--                                        <td><img src="{{ Storage::url($menu->image) }}" alt="img" class="mx-2 max-w-xs"></td>--}}
-                                        <td class="text-center">{{ number_format($menu->harga, 0, ',', '.') }}</td>
-                                        <td class="text-center">{{ $menu->promo??'n/a' }}</td>
+                                        <td class="text-center" title="Harga Diskon: Rp. {{ number_format($menu->harga * (1 - $menu->diskon/100), 0, ',', '.') }}">
+                                            {{ number_format($menu->harga, 0, ',', '.') }}
+                                        </td>
+                                        <td class="text-center">{{ $menu->diskon }}%</td>
                                         <td class="text-center">
                                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                                     onclick="editProduct(this)"
@@ -47,7 +49,7 @@
                                                     data-nama_makanan="{{ $menu->nama_makanan }}"
                                                     data-deskripsi="{{ $menu->deskripsi }}"
                                                     data-harga="{{ $menu->harga }}"
-                                                    data-promo="{{ $menu->promo }}">
+                                                    data-promo="{{ $menu->diskon }}">
                                                 Edit
                                             </button>
                                             <form action="{{ route('product.destroy', $menu->id) }}" method="post" class="inline">
