@@ -101,11 +101,6 @@ class CartController extends Controller
                 $database->getReference('cart/' . $userID . '/orders' . '/' . $item . '/jumlah')->set($kuantitas);
                 $total = $this->calculateTotalPrice($userID);
                 $database->getReference('cart/' . $userID . '/total')->set($total);
-                // return response()->json([
-                //     'kuantitas_baru' => $kuantitasBaru,
-                //     'totalHarga' => $total,
-                // ]);
-                // break;
             }
             $i++;
         }

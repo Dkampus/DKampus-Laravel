@@ -3,7 +3,6 @@
     @php
     $orders = [
     [
-    'nama_pengirim' => 'Warung Kopi ABC',
     'nama_penerima' => 'Dimas Prasetyo',
     'alamat_pengirim' => 'Alamat Pengirim',
     'alamat_penerima' => 'Alamat Penerima',
@@ -28,12 +27,12 @@
                         @if ($orders != null)
                         @foreach ($orders as $order)
                         <div class="flex flex-col gap-2 border border-[#F9832A] p-2">
-                            <p class="text-lg font-bold text-[#F9832A]">Nama Pengirim: {{ $order['nama_pengirim'] }}</p>
-                            <p class="text-lg font-bold text-[#F9832A]">Nama Penerima: {{ $order['nama_penerima'] }}</p>
+                            <p class="text-lg font-bold text-[#F9832A]">Nama Pengirim: {{ $nama_umkm }}</p>
+                            <p class="text-lg font-bold text-[#F9832A]">Nama Penerima: {{ $nama_penerima }}</p>
                             <p class="text-lg font-bold text-[#F9832A]">Alamat Pengirim: {{ $order['alamat_pengirim'] }}</p>
                             <p class="text-lg font-bold text-[#F9832A]">Alamat Penerima: {{ $order['alamat_penerima'] }}</p>
-                            <p class="text-lg font-bold text-[#F9832A]">Nomor Telepon Pengirim: {{ $order['nomor_telepon_pengirim'] }}</p>
-                            <p class="text-lg font-bold text-[#F9832A]">Nomor Telepon Penerima: {{ $order['nomor_telepon_penerima'] }}</p>
+                            <p class="text-lg font-bold text-[#F9832A]">Nomor Telepon Pengirim: {{ $no_telp_umkm }}</p>
+                            <p class="text-lg font-bold text-[#F9832A]">Nomor Telepon Penerima: {{ $no_telp_cust }}</p>
                             <p class="text-lg font-bold text-[#F9832A]">Deskripsi Paket: {{ $order['deskripsi_paket'] }}</p>
                             <p class="text-lg font-bold text-[#F9832A]">Status Paket: {{ $order['status_paket'] }}</p>
                             <div class="flex flex-row gap-2">
