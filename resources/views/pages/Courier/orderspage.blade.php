@@ -10,6 +10,7 @@
 </header>
 <main class="flex flex-col gap-5 px-5 mt-3">
     <div id="orderContainer" class="flex flex-col gap-5">
+
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
@@ -31,9 +32,9 @@
         // Get a reference to the Firebase database
         var database = firebase.database();
 
-        var item;
-
-        function renderOrder(orderData) {
+        function renderOrder(orderData, id) {
+            console.log(id);
+            var idOrder = id;
             var nama_penerima = orderData.nama_penerima;
             var nama_umkm = orderData.nama_umkm;
             var status = orderData.status;
@@ -43,10 +44,8 @@
                 return order.nama;
             });
 
-            // Join the order names with a comma and space
             var combinedOrderNames = orderNames.join(", ");
 
-            // Build the HTML for orders
             if (combinedOrderNames) {
                 ordersHtml += `
                 <div class="flex flex-row justify-between">
@@ -69,7 +68,7 @@
                         <span class="mx-2 font-semibold text-l">${nama_umkm}</span>
                     </div>
                     {{--detail order --}}
-                    <div class="flex flex-col gap-2">
+                    <div class=" flex flex-col gap-2">
                         <div class="flex flex-row justify-between">
                             <span class="font-semibold text-l">Nama Penerima</span>
                             <span class="font-semibold text-l">${nama_penerima}</span>
@@ -86,10 +85,11 @@
                     </div>
                 </div>
                 <div class="px-6 pt-4 pb-2">
-                    {{-- button ambil pesanan --}}
-                    <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                        Ambil Pesanan
-                    </button>
+                    <form action="{{ route('take.order') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="orderId" value="${id}">
+                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Take Order</button>
+                </form>
                 </div>
             </div>
             `;
@@ -97,16 +97,17 @@
         }
 
         database.ref('needToDeliver').on('child_added', function(snapshot) {
+            var id = snapshot.key;
             var orderData = snapshot.val();
-            renderOrder(orderData);
+            renderOrder(orderData, id);
         });
 
         // Listen for removed orders
         // database.ref('needToDeliver').on('child_removed', function(snapshot) {
-        //     // Get the ID of the removed order
-        //     var orderId = snapshot.key;
-        //     // Remove the corresponding HTML element
-        //     $('#order_' + orderId).remove();
+        // // Get the ID of the removed order
+        // var orderId = snapshot.key;
+        // // Remove the corresponding HTML element
+        // $('#order_' + orderId).remove();
         // });
     </script>
 </main>

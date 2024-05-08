@@ -256,13 +256,7 @@ Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sa
 
 // Courier Routes
 Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
-    Route::view(
-        '/dashboard',
-        'pages/Courier/dashboard',
-        [
-            'Title' => 'Dashboard',
-        ]
-    )->name('dashboardCourier');
+    Route::get('/dashboard', [CourierController::class, 'index'])->name('dashboardCourier');
     Route::view(
         '/history',
         'pages/Courier/riwayat',
@@ -296,13 +290,14 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
             'id' => $id,
         ]);
     })->name('chatroom');
-    Route::get('/order', [CourierController::class, 'index'])->name('courierorder');
+    Route::get('/order', [CourierController::class, 'listOrder'])->name('courierorder');
     Route::get('/order/{id}', function ($id) {
         return view('pages/Courier/orderdetail', [
             'Title' => 'Order Detail',
             'id' => $id,
         ]);
     })->name('orderdetail');
+    Route::post('/takeOrder', [CourierController::class, 'takeOrder'])->name('take.order');
 });
 
 // Admin Routes
@@ -382,7 +377,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::post('/account/update/{userid}', [UserController::class, 'update'])->name('account.update');
 
     //chat route
-    Route::view('/chats',
+    Route::view(
+        '/chats',
         'pages/Admin/chatpage',
         [
             'Title' => 'Chat',
