@@ -186,6 +186,11 @@ class CartController extends Controller
             $database->getReference('cart/' . $userID . '/status')->set('searching');
             $order = $database->getReference('cart/' . $userID)->getValue();
             $database->getReference('needToDeliver/' . $userID . '-')->set($order);
+            $nama_penerima = Auth::user()->nama_user;
+            $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+            $namaUMKM = Data_umkm::find($idumkm)->nama_umkm;
+            $database->getReference('needToDeliver/' . $userID . '-/nama_penerima')->set($nama_penerima);
+            $database->getReference('needToDeliver/' . $userID . '-/nama_umkm')->set($namaUMKM);
             $database->getReference('cart/' . $userID)->remove();
             $orderID = $database->getReference('needToDeliver/' . $userID . '/orderID')->getValue();
             return view('pages.Users.StatusOrder', [

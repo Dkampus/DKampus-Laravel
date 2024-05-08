@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Menu;
+use App\Models\User;
 use App\Models\Footer;
 use App\Models\Data_umkm;
 use App\Models\HomeModel;
@@ -313,7 +314,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         [
             'data_umkm' => Data_umkm::all(),
             'menu' => Menu::all(),
-            'user' => \App\Models\User::all(),
+            'user' => User::all(),
             'transaction' => app(TransactionController::class)->index(), //temporary data
         ]
     )->name('dashboard');
@@ -415,9 +416,6 @@ Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () 
         Route::get('/uhuy', function () {
             return view("uhuy");
         });
-
-        // seacrh makanan using nicolaslopezj/searchable keyword
-
     });
 });
 
