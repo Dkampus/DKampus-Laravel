@@ -38,7 +38,7 @@
                                         <td>{{ $menu->deskripsi }}</td>
 {{--                                        <td><img src="{{ Storage::url($menu->image) }}" alt="img" class="mx-2 max-w-xs"></td>--}}
                                         <td class="text-center" title="Harga Diskon: Rp. {{ number_format($menu->harga * (1 - $menu->diskon/100), 0, ',', '.') }}">
-                                            {{ number_format($menu->harga, 0, ',', '.') }}
+                                            Rp. {{ number_format($menu->harga, 0, ',', '.') }}
                                         </td>
                                         <td class="text-center">{{ $menu->diskon }}%</td>
                                         <td class="text-center">
