@@ -12,9 +12,13 @@ class CheckCustomerRole
     {
         $user = Auth::user();
 
-        // Check if the user is authenticated and is a customer
-        if ($user && $user->role === 'courier') {
-            return redirect()->route('dashboardCourier');
+        if ($user->restriction != 1) {
+            if ($user && $user->role === 'courier') {
+                return redirect()->route('dashboardCourier');
+            }
+        } else {
+            Auth::logout();
+            return redirect()->route('login')->with('error', 'Your Account Has Been Banned');
         }
 
         return $next($request);

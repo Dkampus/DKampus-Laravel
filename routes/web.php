@@ -245,7 +245,7 @@ Route::get('/code-verification', [UserController::class, 'code_verification']);
 Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sandi']);
 
 // Courier Routes
-Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
+Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')->group(function () {
     Route::get('/dashboard', [CourierController::class, 'index'])->name('dashboardCourier');
     Route::view(
         '/history',

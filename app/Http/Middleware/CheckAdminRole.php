@@ -13,11 +13,15 @@ class CheckAdminRole
     {
         $user = Auth::user();
 
-        // Check if the user is authenticated and is an admin
-        if ($user->role === 'customer') {
-            return redirect()->route('homepage');
-        } elseif ($user->role === 'courier') {
-            return redirect()->route('dashboardCourier');
+        if ($user->restriction != 1) {
+            if ($user->role === 'customer') {
+                return redirect()->route('homepage');
+            } elseif ($user->role === 'courier') {
+                return redirect()->route('dashboardCourier');
+            }
+        } else {
+            Auth::logout();
+            return redirect()->route('login')->with('error', 'Your Account Has Been Banned');
         }
 
         return $next($request);
