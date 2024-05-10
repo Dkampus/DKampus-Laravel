@@ -32,24 +32,6 @@ use App\Http\Controllers\UntukKamuController;
 
 // Index Page
 
-// Route::middleware('check.customer.role')->get('/', function () {
-//     return view('pages.Users.Homepage', [
-//         'Banner' => HomeModel::bannerData(),
-//         'PengaturanAkun' => HomeModel::pengaturanAkun(),
-//         'SeputarDkampus' => HomeModel::seputarDkampus(),
-//         'Carousel' => HomeModel::carouselData(),
-//         'CarouselDesktop' => HomeModel::carouselDesktopData(),
-//         'RekomendasiWarung' => Data_umkm::all(),
-//         'RekomendasiMakanan' => Menu::take(5)->get(),
-//         'FooterPart1' => Footer::footerPart1(),
-//         'FooterPart2Beli' => Footer::footerPart2Beli(),
-//         'FooterPart2Jual' => Footer::footerPart2Jual(),
-//         'FooterPart3KeamananDanPrivasi' => Footer::footerPart3KeamananDanPrivasi(),
-//         'FooterPart3IkutiKami' => Footer::footerPart3IkutiKami(),
-//         'Title' => 'Home',
-//     ]);
-// })->name('homepage');
-
 // Route::get('/', [UntukKamuController::class, 'UntukKamu']);
 
 // Settings Routes
@@ -203,20 +185,6 @@ Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
     ]);
 })->name('detail-makanan');
 
-//Pesanan Routes
-Route::post('/pesananStore', [CartController::class, 'store']);
-Route::get('/pesanan/status', [CartController::class, 'status']);
-//status pesanan sesuai dengan order_id
-Route::get('/pesanan/status/{orderID}', [CartController::class, 'StatusOrder'])->name('status.order');
-Route::get('/pesanan', [CartController::class, 'index']);
-Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
-Route::post("/pesanan/update-quantity", [CartController::class, 'updateQuantity'])->name('update.quantity');
-Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
-Route::get('/pay/{orderID}', [CartController::class, 'pay'])->name('payment');
-Route::post('/pay/order/', [CartController::class, 'order'])->name('order');
-Route::post('/checkout/confirm', [CartController::class, 'confirmPay'])->name('confirm.pay');
-
-
 //Favorite Routes
 Route::get('/favorit', function () {
     return view('pages.Users.Favorit', [
@@ -245,11 +213,28 @@ Route::get('/code-verification', [UserController::class, 'code_verification']);
 Route::get('/atur-ulang-kata-sandi', [UserController::class, 'atur_ulang_kata_sandi']);
 
 //customer Routes
-Route::middleware(['auth', 'verified', 'check.customer.role'])->group(
+Route::middleware(['check.customer.role'])->group(
     function () {
         Route::get('/', [UserController::class, 'index'])->name('homepage');
     }
 );
+
+//Pesanan Routes
+Route::post('/pesananStore', [CartController::class, 'store']);
+Route::get('/pesanan/status', [CartController::class, 'status']);
+//status pesanan sesuai dengan order_id
+Route::get('/pesanan/status/{orderID}', [CartController::class, 'StatusOrder'])->name('status.order');
+Route::get('/pesanan', [CartController::class, 'index']);
+Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
+Route::post("/pesanan/update-quantity", [CartController::class, 'updateQuantity'])->name('update.quantity');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::get('/pay/{orderID}', [CartController::class, 'pay'])->name('payment');
+Route::post('/pay/order/', [CartController::class, 'order'])->name('order');
+Route::post('/checkout/confirm', [CartController::class, 'confirmPay'])->name('confirm.pay');
+
+// Route::middleware(['auth', 'verified', 'check.customer.role'])->group(function () {
+
+// });
 
 
 // Courier Routes
