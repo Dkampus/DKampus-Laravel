@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Data_umkm;
+use App\Models\Menu;
+use App\Models\Footer;
 use Illuminate\Http\Request;
 use App\Models\HomeModel;
 
@@ -13,7 +16,21 @@ class UserController extends Controller
      */
     public function index()
     {
-        // dipindah ke web.php
+        return view('pages.Users.Homepage', [
+            'Banner' => HomeModel::bannerData(),
+            'PengaturanAkun' => HomeModel::pengaturanAkun(),
+            'SeputarDkampus' => HomeModel::seputarDkampus(),
+            'Carousel' => HomeModel::carouselData(),
+            'CarouselDesktop' => HomeModel::carouselDesktopData(),
+            'RekomendasiWarung' => Data_umkm::all(),
+            'RekomendasiMakanan' => Menu::take(5)->get(),
+            'FooterPart1' => Footer::footerPart1(),
+            'FooterPart2Beli' => Footer::footerPart2Beli(),
+            'FooterPart2Jual' => Footer::footerPart2Jual(),
+            'FooterPart3KeamananDanPrivasi' => Footer::footerPart3KeamananDanPrivasi(),
+            'FooterPart3IkutiKami' => Footer::footerPart3IkutiKami(),
+            'Title' => 'Home',
+        ]);
     }
 
     public function login()

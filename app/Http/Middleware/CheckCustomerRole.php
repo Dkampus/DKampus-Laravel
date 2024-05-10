@@ -14,15 +14,18 @@ class CheckCustomerRole
 
         if ($user && $user->role === 'courier') {
             return redirect()->route('dashboardCourier');
+        } elseif ($user->restriction == 1) {
+            Auth::logout();
+            return redirect()->route('login')->with('error', 'Your Account Has Been Banned');
         }
-        if ($user) {
-            if ($user->restriction != 1) {
-                return redirect()->route('dashboardCourier');
-            } else {
-                Auth::logout();
-                return redirect()->route('login')->with('error', 'Your Account Has Been Banned');
-            }
-        }
+        // if ($user) {
+        //     if ($user->restriction != 1) {
+        //         return redirect()->route('dashboardCourier');
+        //     } else {
+        //         Auth::logout();
+        //         return redirect()->route('login')->with('error', 'Your Account Has Been Banned');
+        //     }
+        // }
 
         return $next($request);
     }
