@@ -9,6 +9,7 @@ use App\Models\PromoModel;
 use App\Models\DetailWarungModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CourierController;
 use App\Http\Controllers\FavoritController;
 use App\Http\Controllers\MenuController;
@@ -29,9 +30,9 @@ use App\Http\Controllers\UntukKamuController;
 |
 */
 
-
 // Index Page
-Route::get('/', function () {
+
+Route::middleware('check.customer.role')->get('/', function () {
     return view('pages.Users.Homepage', [
         'Banner' => HomeModel::bannerData(),
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
@@ -39,7 +40,7 @@ Route::get('/', function () {
         'Carousel' => HomeModel::carouselData(),
         'CarouselDesktop' => HomeModel::carouselDesktopData(),
         'RekomendasiWarung' => Data_umkm::all(),
-        'RekomendasiMakanan' => Menu::take(5)->get(), // tampilkan menu yang 5 pertama (tidak semua)
+        'RekomendasiMakanan' => Menu::take(5)->get(),
         'FooterPart1' => Footer::footerPart1(),
         'FooterPart2Beli' => Footer::footerPart2Beli(),
         'FooterPart2Jual' => Footer::footerPart2Jual(),
@@ -48,6 +49,7 @@ Route::get('/', function () {
         'Title' => 'Home',
     ]);
 })->name('homepage');
+
 // Route::get('/', [UntukKamuController::class, 'UntukKamu']);
 
 // Settings Routes
@@ -82,21 +84,9 @@ Route::get('/change-password', function () {
 
 // Chats Routes
 
-// Chat page
-Route::get('/chats', function () {
-    return view('pages.Users.ChatPage', [
-        'Title' => 'Chat',
-    ]);
-});
-
-// Chat Rooms (require unique id)
-Route::get('/chats/{id}', function ($id) {
-    return view('pages.Users.ChatRoomPage', [
-        'Title' => 'Chat Room',
-        'id' => $id,
-    ]);
-});
-
+// User Chat page
+Route::get('/chats', [ChatController::class, 'listChat']);
+Route::post('/room-chat', [ChatController::class, 'roomChat'])->name('room.chat');
 
 // Promo Page
 Route::get('/promo', function () {
@@ -277,19 +267,8 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
             'Title' => 'Profile',
         ]
     )->name('profile');
-    Route::view(
-        '/chats',
-        'pages/Courier/chatpage',
-        [
-            'Title' => 'Chat',
-        ]
-    )->name('chatpage');
-    Route::get('/chats/{id}', function ($id) {
-        return view('pages/Courier/chatroom', [
-            'Title' => 'Chat Room',
-            'id' => $id,
-        ]);
-    })->name('chatroom');
+    Route::get('/chats', [CourierController::class, 'listChat'])->name('chatpage');
+    Route::post('/room-chat', [CourierController::class, 'roomChat'])->name('room.chat.courier');
     Route::get('/order', [CourierController::class, 'listOrder'])->name('courierorder');
     Route::get('/order/{id}', function ($id) {
         return view('pages/Courier/orderdetail', [
@@ -302,7 +281,7 @@ Route::middleware(['auth', 'verified'])->prefix('courier')->group(function () {
 
 // Admin Routes
 Route::resource('umkm', 'UmkmController');
-Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->group(function () {
     Route::view(
         '/dashboard',
         'pages/Admin/dashboard',
