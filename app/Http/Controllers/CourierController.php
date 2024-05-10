@@ -22,20 +22,24 @@ class CourierController extends Controller
             $getUid = explode("-", $uid_user[$i]);
             if ($getUid[1] == $courId) {
                 $custId = $getUid[0];
-                $courId = $getUid[1];
+                $result[] = $database->getReference('onProgress/' . $custId . '-' . $courId)->getValue();
+                $umkmId[] = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders/item1/umkm_id')->getValue();
+                $nama_penerima[] = $database->getReference('onProgress/' . $custId . '-' . $courId . '/nama_penerima')->getValue();
             }
             $i++;
         }
-        $nama_umkm = $database->getReference('onProgress/' . $custId . '-' . $courId . '/nama_umkm')->getValue();
-        $nama_penerima = $database->getReference('onProgress/' . $custId . '-' . $courId . '/nama_penerima')->getValue();
-        $no_telp_umkm = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders/item1/id')->getValue();
+        foreach ($umkmId as $id) {
+            $no_telp_umkm[] = Data_umkm::find($id)->no_telp_umkm;
+        }
 
         return view('pages/Courier/dashboard', [
             'Title' => 'Dashboard',
-            'nama_umkm' => $nama_umkm,
+            // 'nama_umkm' => $nama_umkm,
             'nama_penerima' => $nama_penerima,
-            'no_telp_umkm' => Data_umkm::find($no_telp_umkm)->no_telp_umkm,
+            'no_telp_umkm' => $no_telp_umkm,
+            'orders' => $result,
             'no_telp_cust' => User::find($custId)->no_telp,
+            'cour_name' => User::find($courId)->nama_user,
         ]);
     }
 
@@ -46,16 +50,18 @@ class CourierController extends Controller
         ]);
     }
 
-    public function takeOrder(Request $request)
+    public function takeOrder()
     {
         $courId = Auth::user()->id;
         $id = request()->input('orderId');
         $database = app('firebase.database');
         $data = $database->getReference('needToDeliver/' . $id)->getValue();
         $database->getReference('onProgress/' . $id . $courId)->set($data);
-        $nama_umkm = $database->getReference('onProgress/' . $id . $courId . '/nama_umkm')->getValue();
         date_default_timezone_set('Asia/Jakarta');
         $timestamp = date('Y-m-d H:i:s');
+        $custId = explode("-", $id);
+        $cust_name = User::find($custId[0])->nama_user;
+        $cour_name = User::find($courId)->nama_user;
         $postData = [
             'msgs' => [
                 'msg' => "Apakah pesanan sudah sesuai",
@@ -64,6 +70,35 @@ class CourierController extends Controller
             ],
         ];
         $database->getReference('chats/' . $id . $courId)->push()->set($postData);
+        $database->getReference('chats/' . $id . $courId . '/cust_name')->set($cust_name);
+        $database->getReference('chats/' . $id . $courId . '/cour_name')->set($cour_name);
         return redirect('courier/dashboard');
+    }
+
+    public function listChat()
+    {
+        $currentUserId = Auth::user()->id;
+        return view('pages/Courier/chatpage', [
+            'Title' => 'list-chat',
+            'courId' => $currentUserId,
+        ]);
+    }
+
+    public function roomChat(Request $request)
+    {
+        $courId = Auth::user()->id;
+        $custId = $request->input('custId');
+        $database = app('firebase.database');
+        $cust_name = $database->getReference('chats/' . $custId . '-' . $courId . '/cust_name')->getValue();
+        $refKey = $database->getReference('chats/' . $custId . '-' . $courId)->getChildKeys();
+        $date = $database->getReference('chats/' . $custId . '-' . $courId . '/' . $refKey[0] . '/msgs/timestamp')->getValue();
+        // dd($date);
+        return view('pages/Courier/chatroom', [
+            'Title' => 'room-chat',
+            'custId' => $custId,
+            'courId' => $courId,
+            'date' => $date,
+            'cust_name' => $cust_name,
+        ]);
     }
 }

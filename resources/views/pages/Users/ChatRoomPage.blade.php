@@ -1,141 +1,32 @@
 @extends('layouts.Root')
 @section('content')
-<?php
-// temporary data chats
-$chats = [
-    [
-        'id' => '888E7CBDE6EF0E045790AAC59C364F1C',
-        'sender' => 'Driver y',
-        'receiver' => 'Pengguna',
-        'messages' => [
-            [
-                'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
-                'from' => 'sender',
-                'message' => 'Halo, apa sudah sesuai?',
-                'timestamp' => '2023-02-01 12:00:00',
-            ],
-            [
-                'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
-                'from' => 'receiver',
-                'message' => 'Sudah sesuai',
-                'timestamp' => '2023-02-01 12:00:00',
-            ]
-        ]
-    ],
-    [
-        'id' => '88827CBDE6EF0E045790AAC59C364F1C',
-        'sender' => 'Driver x',
-        'receiver' => 'Pengguna',
-        'messages' => [
-            [
-                'msgid' => '988E7CBDE6EF0E045790AAC59C164F1C',
-                'from' => 'sender',
-                'message' => 'Halo, apa sudah sesuai?',
-                'timestamp' => '2023-02-01 12:00:00',
-            ],
-            [
-                'msgid' => '988E7CBDE6EF0E045790AAC59C363F1C',
-                'from' => 'receiver',
-                'message' => 'Sudah sesuai',
-                'timestamp' => '2023-02-01 12:01:50',
-            ],
-            [
-                'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
-                'from' => 'sender',
-                'message' => 'Saya menuju ke lokasi',
-                'timestamp' => '2023-02-01 12:22:00',
-            ],
-            [
-                'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
-                'from' => 'sender',
-                'message' => 'Sudah sampai, saya ada di depan',
-                'timestamp' => '2023-02-01 12:32:00',
-            ]
-        ]
-    ],
-    [
-        'id' => '888E7CBDC6EF0E045790AAC59C364F1C',
-        'sender' => 'Admin z',
-        'messages' => [
-            [
-                'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
-                'from' => 'sender',
-                'message' => 'Halo, apa ada keluhan?',
-                'timestamp' => '2023-02-01 12:00:00',
-            ],
-            [
-                'msgid' => '988E7CBDE6EF0E045790AAC59C364F1C',
-                'from' => 'receiver',
-                'message' => 'Tidak ada keluhan',
-                'timestamp' => '2023-02-01 12:02:00',
-            ]
-        ]
-    ]
-];
-?>
 <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10 shadow-md py-8 mb-5">
-    <a href="{{ url()->previous() }}" class="absolute top-5 left-5 flex items-center gap-x-2">
+    <a href="{{ url('/chats') }}" class="absolute top-5 left-5 flex items-center gap-x-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#F9832A" class="bi bi-arrow-left" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M10.354 1.646a.5.5 0 0 1 0 .708L5.707 7l4.647 4.646a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z" />
         </svg>
-        @auth
         <div class="flex flex-row gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#F9832A" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1z" />
                 <path d="M8 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
                 <path d="M8 10a5 5 0 0 0-4 2l1.5.5a4 4 0 0 1 6 0l1.5-.5a5 5 0 0 0-4-2z" />
             </svg>
-            @php
-            $chatid = request()->route('id');
-            $sender = 'test';
-            foreach ($chats as $chat) {
-            if ($chat['id'] === $chatid) {
-            $sender = $chat['sender'];
-            break;
-            }
-            }
-            @endphp
-            <h1 class="font-bold text-black text-l">{{ $sender }}</h1>
+            <h1 class="font-bold text-black text-l">{{ $cour_name }}</h1>
         </div>
-        @endauth
     </a>
 </header>
 <main>
-    @php
-    $previousDate = null;
-    @endphp
-    @auth
-    @foreach($chats as $chat)
-    @if($chat['id'] === request()->route('id'))
-    @foreach($chat['messages'] as $message)
-    @php
-    $currentDate = date('Y-m-d', strtotime($message['timestamp']));
-    @endphp
-    @if($previousDate !== $currentDate)
     <div class="text-center my-2">
-        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{ date('l, d M Y', strtotime($currentDate)) }}</span>
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{ $date }}</span>
     </div>
-    @endif
-    <div class="flex flex-col {{ $message['from'] === 'receiver' ? 'items-end' : 'items-start' }} mb-3 m-4">
-        <div class="rounded-lg {{ $message['from'] === 'receiver' ? 'bg-[#F8832B]' : 'bg-[#FFE6D4]' }} p-3">
-            <p>{{ $message['message'] }}</p>
-        </div>
-        <p class="text-xs text-gray-500">{{ date('h:i A', strtotime($message['timestamp'])) }}</p>
-    </div>
-    @php
-    $previousDate = $currentDate;
-    @endphp
-    @endforeach
-    @endif
-    @endforeach
-    @endauth
+    <div id="chat-messages"></div>
 </main>
 <footer class="fixed bottom-0 left-0 w-full bg-white z-10 shadow-md py-2 px-4">
-    <form action="#" method="POST">
+    <form id="message-form" action="#" method="POST">
         @csrf
         <div class="flex items-center mb-2">
-            <input type="text" name="message" placeholder="Type a message" class="flex-grow border rounded-lg p-3 mr-2">
-            <button type="submit" class="bg-[#F9832A] rounded-lg p-2">
+            <input id="message-input" type="text" name="message" placeholder="Type a message" class="flex-grow border rounded-lg p-3 mr-2">
+            <button type="submit" id="send-btn" class="bg-[#F9832A] rounded-lg p-2">
                 <img src="{{ asset('/send.svg') }}" width="24" height="24" class="bi bi-box-arrow-in-right">
             </button>
         </div>
@@ -161,57 +52,71 @@ $chats = [
     // Get a reference to the Firebase database
     var database = firebase.database();
 
+    var custId = "{{ $custId }}";
+    var courId = "{{ $courId }}";
+
     // Function to send a message
     function sendMessage(message) {
-        var timestamp = new Date().toISOString(); // Get current UTC timestamp
-        database.ref('chat').push().set({
-            sender: 'user',
-            message: message,
-            timestamp: timestamp
+        var timestamp = new Date().toISOString();
+        database.ref('chats/' + custId + '-' + courId).push().set({
+            msgs: {
+                role: 'customer',
+                msg: message,
+                timestamp: timestamp
+            }
         });
     }
 
     // Function to display messages
-    function displayMessage(sender, message, timestamp) {
-        // Create a container div for the message and sender information
-        var containerDiv = $('<div>');
+    function displayMessage(role, message, timestamp) {
+        // Create message elements
+        var messageDiv = $('<div>').addClass('flex flex-col mb-3 m-4')
+        var containerDiv = $('<div>').addClass('rounded-lg p-3');
+        var messageText = $('<p>').text(message);
+        var timestampText = $('<p>').addClass('text-xs').text(timestamp);
 
-        // Create a paragraph or div for the sender
-        var senderDiv = $('<p>').text(sender).addClass('mb-0');
+        if (role === 'customer') {
+            messageDiv.addClass('items-end');
+            containerDiv.addClass('bg-[#F8832B]');
 
-        var date = new Date(timestamp);
-        var hours = date.getHours().toString().padStart(2, '0');
-        var minutes = date.getMinutes().toString().padStart(2, '0');
-        // Create a paragraph or div for the message and timestamp
-        var messageDiv = $('<p>').text(message + ' (' + hours + ':' + minutes + ')');
-
-        // Append the sender and message to the container div
-        containerDiv.append(senderDiv, messageDiv);
-
-        // If the sender is the driver, align the container div to the right
-        if (sender === 'driver') {
-            containerDiv.addClass('text-end');
+        } else {
+            messageDiv.addClass('items-start');
+            containerDiv.addClass('bg-[#FFE6D4]');
+            timestampText.addClass('text-gray-500');
         }
 
-        // Append the container div to the chat messages
-        $('#chat-messages').append(containerDiv);
+        // Append elements to container
+        containerDiv.append(messageText, timestampText);
+        messageDiv.append(containerDiv);
+
+        // Append container to chat messages
+        $('#chat-messages').append(messageDiv);
     }
 
     // Listen for new messages
-    database.ref('messages').on('child_added', function(snapshot) {
+    database.ref('chats/' + custId + '-' + courId).on('child_added', function(snapshot) {
         var messageData = snapshot.val();
-        var sender = messageData.sender;
-        var message = messageData.message;
-        var timestamp = messageData.timestamp;
-        displayMessage(sender, message, timestamp);
+
+        if (messageData.msgs) {
+            var role = messageData.msgs.role;
+            var message = messageData.msgs.msg;
+            var timestamp = messageData.msgs.timestamp;
+            var date = new Date(timestamp);
+            var hours = date.getHours().toString().padStart(2, '0');
+            var minutes = date.getMinutes().toString().padStart(2, '0');
+            var formattedTimestamp = hours + ':' + minutes;
+            displayMessage(role, message, formattedTimestamp);
+        }
     });
 
-    // Send message when Send button is clicked
-    $('#send-btn').click(function() {
+    // Send message when form is submitted
+    $('#message-form').submit(function(event) {
+        event.preventDefault(); // Prevent form submission
+
         var message = $('#message-input').val().trim();
         if (message !== '') {
             sendMessage(message);
-            $('#message-input').val('');
+            $('#message-input').val(''); // Clear input field after sending
         }
     });
 </script>
