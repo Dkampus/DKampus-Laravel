@@ -168,7 +168,7 @@ Route::get('/detail-warung/{umkm:id}', function (Data_umkm $umkm) {
 });
 
 // Menu Controller
-Route::post('/detail-makanan/{id}', [MenuController::class, 'simpan']);
+
 
 Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
     return view('pages.Users.DetailMakanan', [
@@ -219,22 +219,24 @@ Route::middleware(['check.customer.role'])->group(
     }
 );
 
-//Pesanan Routes
-Route::post('/pesananStore', [CartController::class, 'store']);
-Route::get('/pesanan/status', [CartController::class, 'status']);
-//status pesanan sesuai dengan order_id
-Route::get('/pesanan/status/{orderID}', [CartController::class, 'StatusOrder'])->name('status.order');
-Route::get('/pesanan', [CartController::class, 'index']);
-Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
-Route::post("/pesanan/update-quantity", [CartController::class, 'updateQuantity'])->name('update.quantity');
-Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
-Route::get('/pay/{orderID}', [CartController::class, 'pay'])->name('payment');
-Route::post('/pay/order/', [CartController::class, 'order'])->name('order');
-Route::post('/checkout/confirm', [CartController::class, 'confirmPay'])->name('confirm.pay');
 
-// Route::middleware(['auth', 'verified', 'check.customer.role'])->group(function () {
 
-// });
+Route::middleware(['check.hasloggin'])->group(function () {
+    //Pesanan Routes
+    Route::post('/detail-makanan/{id}', [MenuController::class, 'simpan']);
+    Route::post('/product', [MenuController::class, 'simpan'])->name('product.store');
+    Route::post('/pesananStore', [CartController::class, 'store']);
+    Route::get('/pesanan/status', [CartController::class, 'status']);
+    //status pesanan sesuai dengan order_id
+    Route::get('/pesanan/status/{orderID}', [CartController::class, 'StatusOrder'])->name('status.order');
+    Route::get('/pesanan', [CartController::class, 'index']);
+    Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
+    Route::post("/pesanan/update-quantity", [CartController::class, 'updateQuantity'])->name('update.quantity');
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::get('/pay/{orderID}', [CartController::class, 'pay'])->name('payment');
+    Route::post('/pay/order/', [CartController::class, 'order'])->name('order');
+    Route::post('/checkout/confirm', [CartController::class, 'confirmPay'])->name('confirm.pay');
+});
 
 
 // Courier Routes
@@ -301,7 +303,7 @@ Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->gr
             'method' => 'POST'
         ]);
     })->name('product');
-    Route::post('/product', [MenuController::class, 'simpan'])->name('product.store');
+
 
 
     // edit & delete product route
