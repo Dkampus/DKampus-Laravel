@@ -223,7 +223,6 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     //Pesanan Routes
     Route::post('/detail-makanan/{id}', [MenuController::class, 'simpan']);
     Route::post('/product', [MenuController::class, 'simpan'])->name('product.store');
-    Route::post('/pesananStore', [CartController::class, 'store']);
     Route::get('/pesanan/status', [CartController::class, 'status']);
     //status pesanan sesuai dengan order_id
     Route::get('/pesanan/status/{orderID}', [CartController::class, 'StatusOrder'])->name('status.order');

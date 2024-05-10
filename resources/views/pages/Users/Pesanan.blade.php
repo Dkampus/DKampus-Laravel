@@ -304,25 +304,9 @@
                             // Handle success
                         },
                         error: function(error) {
-                            // Handle error
+
                         }
                     });
-
-                    // $.ajax({
-                    //     type: "POST",
-                    //     url: "/pesanan/update-quantity",
-                    //     data: {
-                    //         _method: "PATCH", // Emulate PATCH request
-                    //         id: cartId,
-                    //         quantity: currentQuantity
-                    //     },
-                    //     success: function(response) {
-
-                    //     },
-                    //     error: function(error) {
-
-                    //     }
-                    // });
                 }
 
                 if (currentQuantity == 2) {
@@ -348,7 +332,6 @@
                 cancelButtonColor: '#3085d6',
                 confirmButtonText: 'Ya, hapus!',
             }).then((result) => {
-                // Jika pengguna menekan "Ya", submit form
                 const cartId = $(this).val();
                 console.log(cartId)
                 $("#deleteInput").val(cartId);

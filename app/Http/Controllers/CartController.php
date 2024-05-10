@@ -229,13 +229,20 @@ class CartController extends Controller
      */
     public function destroy(Request $request)
     {
-        $carts = Cart::find($request->id);
-        $carts->delete();
-
-        if ($carts) {
-            return redirect()->back()->with('success', 'Menu berhasil dihapus');
-        } else {
-            return redirect()->back()->with('error2', 'Menu gagal dihapus');
+        $userID = Auth::user()->id;
+        $database = app('firebase.database');
+        $itemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
+        $menuId = $request->id;
+        for ($i = 1; $i <= $itemCount; $i++) {
+            $ref = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/id')->getValue();
+            if ($ref == $menuId) {
+                $database->getReference('cart/' . $userID . '/orders' . '/item' . $i)->remove();
+                $newItemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
+                if ($newItemCount == 0) {
+                    $database->getReference('cart/' . $userID)->remove();
+                }
+            }
         }
+        return redirect('/pesanan');
     }
 }
