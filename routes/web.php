@@ -66,9 +66,7 @@ Route::get('/change-password', function () {
 
 // Chats Routes
 
-// User Chat page
-Route::get('/chats', [ChatController::class, 'listChat']);
-Route::post('/room-chat', [ChatController::class, 'roomChat'])->name('room.chat');
+
 
 // Promo Page
 Route::get('/promo', function () {
@@ -168,7 +166,7 @@ Route::get('/detail-warung/{umkm:id}', function (Data_umkm $umkm) {
 });
 
 // Menu Controller
-
+Route::post('/detail-makanan/{id}', [MenuController::class, 'simpan']);
 
 Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
     return view('pages.Users.DetailMakanan', [
@@ -221,7 +219,7 @@ Route::middleware(['check.customer.role'])->group(
 
 
 
-Route::middleware(['check.hasloggin'])->group(function () {
+Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     //Pesanan Routes
     Route::post('/detail-makanan/{id}', [MenuController::class, 'simpan']);
     Route::post('/product', [MenuController::class, 'simpan'])->name('product.store');
@@ -236,12 +234,20 @@ Route::middleware(['check.hasloggin'])->group(function () {
     Route::get('/pay/{orderID}', [CartController::class, 'pay'])->name('payment');
     Route::post('/pay/order/', [CartController::class, 'order'])->name('order');
     Route::post('/checkout/confirm', [CartController::class, 'confirmPay'])->name('confirm.pay');
+    // User Chat page
+    Route::get('/chats', [ChatController::class, 'listChat']);
+    Route::post(
+        '/room-chat',
+        [ChatController::class, 'roomChat']
+    )->name('room.chat');
 });
 
 
 // Courier Routes
 Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')->group(function () {
     Route::get('/dashboard', [CourierController::class, 'index'])->name('dashboardCourier');
+    Route::get('/chats', [CourierController::class, 'listChat'])->name('chatpage');
+    Route::post('/room-chat', [CourierController::class, 'roomChat'])->name('room.chat.courier');
     Route::view(
         '/history',
         'pages/Courier/riwayat',
@@ -262,8 +268,7 @@ Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')
             'Title' => 'Profile',
         ]
     )->name('profile');
-    Route::get('/chats', [CourierController::class, 'listChat'])->name('chatpage');
-    Route::post('/room-chat', [CourierController::class, 'roomChat'])->name('room.chat.courier');
+
     Route::get('/order', [CourierController::class, 'listOrder'])->name('courierorder');
     Route::get('/order/{id}', function ($id) {
         return view('pages/Courier/orderdetail', [
