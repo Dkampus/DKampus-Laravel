@@ -35,21 +35,12 @@
 
         {{-- Submit & Daftar --}}
         <div id="submitAndDaftar" class="flex flex-col gap-3.5 mt-3 mx-auto w-96 items-center">
-            {!! Form::submit('Masuk', [
-                'class' => 'bg-[#F9832A] w-full h-[3.4rem] rounded-2xl text-white font-semibold text-lg',
-            ]) !!}
-            <a href="{{ route('register') }}"
-               class="bg-white border-2 border-[#F9832A] w-full flex justify-center items-center h-[3.4rem] rounded-2xl text-[#F9832A] font-semibold text-lg">
-                <button>Daftar</button>
-            </a>
+            <button type="submit" class="bg-[#F9832A] w-full h-[3.4rem] rounded-2xl text-white font-semibold text-lg">Masuk</button>
+            <button type="button" onclick="window.location.href='{{ route('register') }}'" class="bg-white border-2 border-[#F9832A] w-full flex justify-center items-center h-[3.4rem] rounded-2xl text-[#F9832A] font-semibold text-lg">Daftar</button>
         </div>
-        {{--debug button--}}
-{{--        <a href="" class="bg-white border-2 border-[#F9832A] w-full flex justify-center items-center h-[3.4rem] mt-10 rounded-2xl text-[#F9832A] font-semibold text-lg">--}}
-{{--            <button onclick="showModal()">Modal</button>--}}
-{{--        </a>--}}
         {{-- Modal salah email atau password --}}
         @if ($errors->any())
-            <div id="modal_confirm_email" class="flex flex-col absolute visible opacity-100 transition-all z-99 rounded-xl justify-center gap-3 py-5 items-center scale-100 mx-auto border w-96 bg-white">
+            <div id="modal_confirm_email" class="flex flex-col absolute visible opacity-100 transition-all z-99 rounded-xl justify-center gap-3 py-5 items-center scale-100 mx-auto border w-[26.8rem] h-[9rem] bg-white">
                 <p>Email atau kata sandi salah</p>
                 <button onclick="hideModal(event)" class="bg-[#F9832A] w-24 h-10 rounded-2xl text-white font-semibold text-lg">Oke</button>
             </div>
