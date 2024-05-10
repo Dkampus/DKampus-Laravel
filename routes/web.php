@@ -274,7 +274,7 @@ Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')
 
 // Admin Routes
 Route::resource('umkm', 'UmkmController');
-Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->group(function () {
     Route::view(
         '/dashboard',
         'pages/Admin/dashboard',
