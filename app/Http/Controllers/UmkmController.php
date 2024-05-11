@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Data_umkm;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -71,41 +72,68 @@ class UmkmController extends Controller
      */
     public function storeUmkm(Request $request)
     {
-        try{
+        try {
             // Validasi data input
-        $validatedData = $request->validate([
-            'user_id' => 'required',
-            'nama_umkm' => 'required',
-            'logo_umkm' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'alamat' => 'required',
-            'no_telp_umkm' => 'required',
-            'vip' => 'required',
-        ]);
-        // dd
-        // ($request->file('logo_umkm'));
-        // Upload dan simpan gambar
-        // if ($request->hasFile('logo_umkm')) {
-        //     $imagePath = $request->file('logo_umkm')->store('umkm_images', 'public');
-        //     $validatedData['logo_umkm'] = $imagePath;
-        // }
+            $validatedData = $request->validate([
+                'user_id' => 'required',
+                'nama_umkm' => 'required',
+                'logo_umkm' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'alamat' => 'required',
+                'no_telp_umkm' => 'required',
+                'vip' => 'required',
+            ]);
+            // dd
+            // ($request->file('logo_umkm'));
+            // Upload dan simpan gambar
+            // if ($request->hasFile('logo_umkm')) {
+            //     $imagePath = $request->file('logo_umkm')->store('umkm_images', 'public');
+            //     $validatedData['logo_umkm'] = $imagePath;
+            // }
 
-        // Simpan data Umkm ke database
-        // Data_umkm::create($validatedData);
+            // Simpan data Umkm ke database
+            // Data_umkm::create($validatedData);
 
-        Data_umkm::create([
-            'user_id' => $request->user_id,
-            'nama_umkm' => $request->nama_umkm,
-             // Upload dan simpan gambar tidak usah di validasi karena sudah di validasi di atas kecuali nullable
-            'logo_umkm' => $request->logo_umkm->store('public/' . $request['nama_umkm']),
-            'alamat' => $request->alamat,
-            'no_telp_umkm' => $request->no_telp_umkm,
-            'vip' => $request->vip,
-        ]);
-
-        } catch (\Exception $e){
+            Data_umkm::create([
+                'user_id' => $request->user_id,
+                'nama_umkm' => $request->nama_umkm,
+                'logo_umkm' => $request->logo_umkm->store('public'),
+                'alamat' => $request->alamat,
+                'no_telp_umkm' => $request->no_telp_umkm,
+                'vip' => $request->vip,
+            ]);
+        } catch (\Exception $e) {
             dd($e);
         }
         return redirect()->route('umkm')->with('success', 'Data UMKM berhasil ditambahkan');
+    }
+
+    public function addProduct(Request $request)
+    {
+        try {
+            $idUmkm = Data_umkm::find($request->umkm)->id;
+            $validatedData = $request->validate([
+                'umkm' => 'required',
+                'nama_makanan' => 'required',
+                //'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'deskripsi' => 'required',
+                'harga' => 'required',
+                'promo' => 'required',
+            ]);
+            Menu::create([
+                "data_umkm_id" => $idUmkm,
+                "nama_makanan" => $request->nama_makanan,
+                "deskripsi" => $request->deskripsi,
+                "harga" => $request->harga,
+                "image" => $request->image->store('public'),
+                "rating" => 0,
+                "slug" => "",
+                "diskon" => $request->promo,
+            ]);
+            return redirect()->back()->with('success', 'Menu stored successfully.');
+        } catch (\Exception $e) {
+            dd($e);
+            return redirect()->back()->with('error', 'Failed to store the menu.');
+        }
     }
 
     /**
@@ -132,7 +160,7 @@ class UmkmController extends Controller
         try {
             $umkm = Data_umkm::findOrFail($umkm->id);
 
-            if($request->hasFile('logo_umkm')){
+            if ($request->hasFile('logo_umkm')) {
                 $umkm->logo_umkm = $request->logo_umkm->store('public/' . $umkm->nama_umkm);
             }
 
@@ -141,8 +169,6 @@ class UmkmController extends Controller
             $umkm->no_telp_umkm = $request->no_telp_umkm;
             $umkm->vip = $request->vip;
             $umkm->update();
-
-
         } catch (\Exception $e) {
             dd($e);
         }

@@ -20,45 +20,38 @@
                     <div class="overflow-auto">
                         <table class="min-w-full divide-y divide-gray-200 space-x-4">
                             <thead>
-                            <tr>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Nama UMKM</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Nama Makanan</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Deskripsi</th>
-{{--                                <th scope="col" class="px-6 py-3 tracking-wider">Image Makanan</th>--}}
-                                <th scope="col" class="px-6 py-3 tracking-wider">Harga</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Promo</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Aksi</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Nama UMKM</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Nama Makanan</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Deskripsi</th>
+                                    {{-- <th scope="col" class="px-6 py-3 tracking-wider">Image Makanan</th>--}}
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Harga</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Promo</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Aksi</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach($menus as $menu)
-                                    <tr>
-                                        <td>{{ $umkms[$menu->data_umkm_id-1]->nama_umkm }}</td> {{--Ini bug atau gatau kenapa data umkm id + 1, jadi di - 1 ya wwkkwkwkw--}}
-                                        <td>{{ $menu->nama_makanan }}</td>
-                                        <td>{{ $menu->deskripsi }}</td>
-{{--                                        <td><img src="{{ Storage::url($menu->image) }}" alt="img" class="mx-2 max-w-xs"></td>--}}
-                                        <td class="text-center" title="Harga Diskon: Rp. {{ number_format($menu->harga * (1 - $menu->diskon/100), 0, ',', '.') }}">
-                                            Rp. {{ number_format($menu->harga, 0, ',', '.') }}
-                                        </td>
-                                        <td class="text-center">{{ $menu->diskon }}%</td>
-                                        <td class="text-center">
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                                    onclick="editProduct(this)"
-                                                    data-id="{{ $menu->id }}"
-                                                    data-umkm="{{ $menu->data_umkm_id }}"
-                                                    data-nama_makanan="{{ $menu->nama_makanan }}"
-                                                    data-deskripsi="{{ $menu->deskripsi }}"
-                                                    data-harga="{{ $menu->harga }}"
-                                                    data-promo="{{ $menu->diskon }}">
-                                                Edit
-                                            </button>
-                                            <form action="{{ route('product.destroy', $menu->id) }}" method="post" class="inline">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>{{ $umkms[$menu->data_umkm_id-1]->nama_umkm }}</td> {{--Ini bug atau gatau kenapa data umkm id + 1, jadi di - 1 ya wwkkwkwkw--}}
+                                    <td>{{ $menu->nama_makanan }}</td>
+                                    <td>{{ $menu->deskripsi }}</td>
+                                    {{-- <td><img src="{{ Storage::url($menu->image) }}" alt="img" class="mx-2 max-w-xs"></td>--}}
+                                    <td class="text-center" title="Harga Diskon: Rp. {{ number_format($menu->harga * (1 - $menu->diskon/100), 0, ',', '.') }}">
+                                        Rp. {{ number_format($menu->harga, 0, ',', '.') }}
+                                    </td>
+                                    <td class="text-center">{{ $menu->diskon }}%</td>
+                                    <td class="text-center">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editProduct(this)" data-id="{{ $menu->id }}" data-umkm="{{ $menu->data_umkm_id }}" data-nama_makanan="{{ $menu->nama_makanan }}" data-deskripsi="{{ $menu->deskripsi }}" data-harga="{{ $menu->harga }}" data-promo="{{ $menu->diskon }}">
+                                            Edit
+                                        </button>
+                                        <form action="{{ route('product.destroy', $menu->id) }}" method="post" class="inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -84,13 +77,14 @@
                                         </h3>
                                     </div>
                                 </div>
-                                <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
+
+                                <form action="{{ route('save.product') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-4">
                                         <label for="umkm" class="block text-sm font-medium text-gray-700 dark:text-gray-200">UMKM</label>
                                         <select name="umkm" id="umkm" class="form-select mt-1 block w-full">
                                             @foreach($umkms as $umkm)
-                                                <option value="{{ $umkm->id }}">{{ $umkm->nama_umkm }}</option>
+                                            <option value="{{ $umkm->id }}">{{ $umkm->nama_umkm }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -148,7 +142,7 @@
                                         <label for="edit_umkm" class="block text-sm font-medium text-gray-700 dark:text-gray-200">UMKM</label>
                                         <select name="edit_umkm" id="edit_umkm" class="form-select mt-1 block w-full">
                                             @foreach($umkms as $umkm)
-                                                <option value="{{ $umkm->id }}">{{ $umkm->nama_umkm }}</option>
+                                            <option value="{{ $umkm->id }}">{{ $umkm->nama_umkm }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -190,44 +184,46 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if (session('error2'))
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            Toast.fire({
-                icon: 'error',
-                title: '{{ session('error2') }}'
-            })
-        </script>
+        Toast.fire({
+            icon: 'error',
+            title: '{{ session('
+            error2 ') }}'
+        })
+    </script>
     @endif
     @if (session('success'))
-        <script>
-            const ToastSuccess = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+    <script>
+        const ToastSuccess = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            ToastSuccess.fire({
-                icon: 'success',
-                title: '{{ session('success') }}'
-            })
-        </script>
+        ToastSuccess.fire({
+            icon: 'success',
+            title: '{{ session('
+            success ') }}'
+        })
+    </script>
     @endif
 
     <script>
@@ -281,4 +277,3 @@
         });
     </script>
 </x-app-layout>
-

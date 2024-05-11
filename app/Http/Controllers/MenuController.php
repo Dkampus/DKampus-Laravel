@@ -164,28 +164,31 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        DB::beginTransaction();
+        $validate = $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        $findUmkm = Data_umkm::find($request->umkm);
+
         try {
-            $findUmkm = Data_umkm::findOrFail($request->nama_umkm);
+
+
             Menu::create([
-                "data_umkm_id" => $request->nama_umkm,
+                "data_umkm_id" => $findUmkm->id,
                 "nama_makanan" => $request->nama_makanan,
                 "deskripsi" => $request->deskripsi,
                 "harga" => $request->harga,
+                "image" => $$request->image->store('public'),
                 "rating" => 0,
                 "promo" => $request->promo,
-                "image" => $request->image->storeAs('public/' . $findUmkm->nama_umkm, $request->nama_makanan . '.' . $request->image->extension())
-                //temp image
-                //"image" => 'default.jpg'
             ]);
-            DB::commit();
+            return redirect()->back()->with('success', 'Menu stored successfully.');
         } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back();
+            dd($e);
+            return redirect()->back()->with('error', 'Failed to store the menu.');
         }
-        return redirect()->back();
     }
+
+
 
     /**
      * Display the specified resource.
