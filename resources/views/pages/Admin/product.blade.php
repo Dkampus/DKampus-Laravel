@@ -135,7 +135,7 @@
                                         </h3>
                                     </div>
                                 </div>
-                                <form action="#" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('product.update', ['id' => $menu->id]) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-4">
@@ -156,7 +156,7 @@
                                     </div>
                                     <div class="mb-4">
                                         <label for="edit_image" class="block text sm font-medium text-gray-700 dark:text-gray-200">Image Makanan</label>
-                                        <input type="file" name="edit_image" id="edit_image" class="form-input mt-1 block w-full" onchange="previewImage()" required>
+                                        <input type="file" name="edit_image" id="edit_image" class="form-input mt-1 block w-full" onchange="previewImage()">
                                     </div>
                                     <div class="mb-4 hidden" id="edit-image-preview">
                                         <img src="" alt="Image Preview" id="edit-preview" class="max-w-xs">

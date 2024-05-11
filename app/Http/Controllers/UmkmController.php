@@ -117,7 +117,7 @@ class UmkmController extends Controller
                 //'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'deskripsi' => 'required',
                 'harga' => 'required',
-                'promo' => 'required',
+                //'promo' => 'required',
             ]);
             Menu::create([
                 "data_umkm_id" => $idUmkm,
@@ -160,19 +160,24 @@ class UmkmController extends Controller
         try {
             $umkm = Data_umkm::findOrFail($umkm->id);
 
+            $umkm->nama_umkm = $request->edit_nama_umkm;
+            $umkm->alamat = $request->edit_alamat;
+            $umkm->no_telp_umkm = $request->edit_no_telp_umkm;
+            $umkm->vip = $request->edit_vip;
+
+            // Check if a new logo is uploaded
             if ($request->hasFile('logo_umkm')) {
+                // Store the new logo and update the logo_umkm attribute
                 $umkm->logo_umkm = $request->logo_umkm->store('public/' . $umkm->nama_umkm);
             }
 
-            $umkm->nama_umkm = $request->nama_umkm;
-            $umkm->alamat = $request->alamat;
-            $umkm->no_telp_umkm = $request->no_telp_umkm;
-            $umkm->vip = $request->vip;
-            $umkm->update();
+            $umkm->save();
+
+            return redirect()->back()->with('success', 'Data UMKM berhasil diupdate');
         } catch (\Exception $e) {
+            // Handle any exceptions
             dd($e);
         }
-        return redirect()->back()->with('success', 'Data UMKM berhasil diupdate');
     }
 
     /**

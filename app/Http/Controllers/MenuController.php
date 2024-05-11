@@ -209,28 +209,34 @@ class MenuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Menu $menu)
+    public function update(Request $request, $id)
     {
-        try {
-            $menu = Menu::findOrFail($menu->id);
-            $menu->data_umkm_id = $request->nama_umkm;
-            $menu->nama_makanan = $request->nama_makanan;
-            $menu->deskripsi = $request->deskripsi;
-            $menu->promo = $request->promo;
-            $menu->harga = $request->harga;
+        // Validate the request data
+        $validatedData = $request->validate([
+            'edit_nama_makanan' => 'required|string',
+            'edit_deskripsi' => 'required|string',
+            'edit_harga' => 'required|numeric',
+            'edit_promo' => 'nullable|string',
+            // Add validation rules for other fields if needed
+        ]);
 
-            if ($request->hasFile('image')) {
-                Storage::delete("public/{$menu->data_umkm->nama_umkm}/{$menu->image}");
-                $menu->image = $request->image->storeAs('public/' . $menu->data_umkm->nama_umkm, $menu->nama_makanan . '.' . $request->image->extension());
-            }
+        // Find the Menu item by its ID
+        $menu = Menu::findOrFail($id);
 
-            $menu->update();
-        } catch (\Exception $e) {
-            dd($e);
-        }
-        return redirect()->back()->with('success', 'Data Menu berhasil diupdate');
+        // Update the Menu item with the validated data
+        $menu->update([
+            'nama_makanan' => $validatedData['edit_nama_makanan'],
+            'deskripsi' => $validatedData['edit_deskripsi'],
+            'harga' => $validatedData['edit_harga'],
+            'promo' => $validatedData['edit_promo'],
+            // Update other fields as needed
+        ]);
+
+        // Handle file upload if necessary
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Menu item updated successfully.');
     }
-
     /**
      * Remove the specified resource from storage.
      */

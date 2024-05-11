@@ -324,7 +324,7 @@ Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->gr
     })->name('product.edit');
 
     //data from edit product form
-    Route::put('/product/{menu}', [MenuController::class, 'update'])->name('product.update');
+    Route::put('/product/{id}', [MenuController::class, 'update'])->name('product.update');
     //delete product
 
     Route::delete('/product/{menu}', [MenuController::class, 'destroy'])->name('product.destroy');

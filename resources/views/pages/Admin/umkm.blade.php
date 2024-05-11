@@ -20,43 +20,34 @@
                     <div class="overflow-auto">
                         <table class="min-w-full divide-y divide-gray-200 space-x-4">
                             <thead>
-                            <tr>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Nama UMKM</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Alamat</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">No. Telp</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">VIP</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Aksi</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Nama UMKM</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Alamat</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">No. Telp</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">VIP</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Aksi</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach ($umkms as $umkm)
+                                @foreach ($umkms as $umkm)
                                 <tr>
                                     <td class="">{{ $umkm->nama_umkm }}</td>
                                     <td class="">{{ $umkm->alamat }}</td>
-{{--                                    <td><img src="{{ Storage::url($umkm->logo_umkm) }}" alt="umkm_img" width="50"></td>--}}
+                                    {{-- <td><img src="{{ Storage::url($umkm->logo_umkm) }}" alt="umkm_img" width="50"></td>--}}
                                     <td class="text-center">{{ $umkm->no_telp_umkm }}</td>
                                     <td class="text-center">{{ $umkm->vip ? 'Ya' : 'Tidak' }}</td>
                                     <td class="text-center">
                                         <div class="flex justify-center space-x-2">
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                                    onclick="editUser(this)"
-                                                    data-id="{{ $umkm->id }}"
-                                                    data-nama_umkm="{{ $umkm->nama_umkm }}"
-                                                    data-alamat="{{ $umkm->alamat }}"
-                                                    data-no_telp_umkm="{{ $umkm->no_telp_umkm }}"
-                                                    data-vip="{{ $umkm->vip }}">
+                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editUser(this)" data-id="{{ $umkm->id }}" data-nama_umkm="{{ $umkm->nama_umkm }}" data-alamat="{{ $umkm->alamat }}" data-no_telp_umkm="{{ $umkm->no_telp_umkm }}" data-vip="{{ $umkm->vip }}">
                                                 Edit
                                             </button>
-                                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                                    onclick="deleteUser(this)"
-                                                    data-id="{{ $umkm->id }}"
-                                                    data-nama_umkm="{{ $umkm->nama_umkm }}">
+                                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="deleteUser(this)" data-id="{{ $umkm->id }}" data-nama_umkm="{{ $umkm->nama_umkm }}">
                                                 Hapus
                                             </button>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -141,7 +132,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="#" method="POST" id="editForm">
+                            <form action="{{ route('umkm.update', $umkm->id) }}" method="POST" id="editForm" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
@@ -156,6 +147,10 @@
                                     <div class="mb-4">
                                         <label for="edit_no_telp_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">No. Telp</label>
                                         <input type="text" name="edit_no_telp_umkm" id="edit_no_telp_umkm" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="logo_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">Logo UMKM</label>
+                                        <input type="file" name="logo_umkm" id="logo_umkm" class="form-input rounded-md shadow-sm mt-1 block w-full">
                                     </div>
                                     <div class="mb-4">
                                         <label for="edit_vip" class="block text sm font-medium text-gray-700 dark:text-gray-200">VIP</label>
@@ -179,44 +174,46 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if (session('error2'))
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            Toast.fire({
-                icon: 'error',
-                title: '{{ session('error2') }}'
-            })
-        </script>
+        Toast.fire({
+            icon: 'error',
+            title: '{{ session('
+            error2 ') }}'
+        })
+    </script>
     @endif
     @if (session('success'))
-        <script>
-            const ToastSuccess = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+    <script>
+        const ToastSuccess = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            ToastSuccess.fire({
-                icon: 'success',
-                title: '{{ session('success') }}'
-            })
-        </script>
+        ToastSuccess.fire({
+            icon: 'success',
+            title: '{{ session('
+            success ') }}'
+        })
+    </script>
     @endif
 
     <script>
@@ -279,6 +276,4 @@
         event.preventDefault();
         document.getElementById('modalumkm').classList.remove('hidden');
     });
-
-
 </script>
