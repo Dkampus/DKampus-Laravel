@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg fill="#000000" width="32" height="32" viewBox="0 0 64 64" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<g transform="matrix(1,0,0,1,0,-168)">
+
+<g id="Ramen-Box" transform="matrix(1,0,0,1,-356.333,168)">
+
+<rect height="64" style="fill:none;" width="64" x="356.333" y="0"/>
+
+<g transform="matrix(1,0,0,1,355.333,-167.5)">
+
+<circle cx="24.5" cy="183.5" r="11.5" style="fill:rgb(236,186,33);stroke:rgb(34,32,77);stroke-width:2px;"/>
+
+</g>
+
+<g transform="matrix(0.652174,0,0,0.652174,363.855,-103.674)">
+
+<circle cx="24.5" cy="183.5" r="11.5" style="fill:rgb(236,186,33);stroke:rgb(34,32,77);stroke-width:3.07px;"/>
+
+</g>
+
+<g transform="matrix(0.304348,0,0,0.304348,372.377,-39.8478)">
+
+<circle cx="24.5" cy="183.5" r="11.5" style="fill:rgb(236,186,33);stroke:rgb(34,32,77);stroke-width:6.57px;"/>
+
+</g>
+
+<g transform="matrix(0.73913,0,0,0.73913,381.725,-119.13)">
+
+<circle cx="24.5" cy="183.5" r="11.5" style="fill:rgb(236,186,33);stroke:rgb(34,32,77);stroke-width:2.71px;"/>
+
+</g>
+
+<g transform="matrix(0.391304,0,0,0.391304,390.246,-55.3043)">
+
+<circle cx="24.5" cy="183.5" r="11.5" style="fill:rgb(236,186,33);stroke:rgb(34,32,77);stroke-width:5.11px;"/>
+
+</g>
+
+<g transform="matrix(1,0,0,1,356.333,-168)">
+
+<path d="M9.146,186.136C9.108,185.583 9.301,185.04 9.679,184.635C10.058,184.23 10.587,184 11.141,184C18.851,184 45.149,184 52.859,184C53.413,184 53.942,184.23 54.321,184.635C54.699,185.04 54.892,185.583 54.854,186.136C54.34,193.685 52.611,219.033 52.127,226.136C52.056,227.185 51.183,228 50.132,228C43.421,228 20.579,228 13.868,228C12.817,228 11.944,227.185 11.873,226.136L9.146,186.136Z" style="fill:rgb(239,41,41);stroke:rgb(34,32,77);stroke-width:2px;"/>
+
+</g>
+
+<g transform="matrix(1,0,0,0.999861,356.333,-167.972)">
+
+<path d="M10,198L54.045,198L52.477,221.002L11.523,221.004L10,198Z" style="fill:rgb(249,232,212);stroke:rgb(34,32,77);stroke-width:2px;"/>
+
+</g>
+
+<g transform="matrix(1,0,0,1,356.333,-166)">
+
+<path d="M27,202L37,202" style="fill:none;stroke:rgb(34,32,77);stroke-width:2px;"/>
+
+</g>
+
+<g transform="matrix(1,0,0,1,356.333,-162)">
+
+<path d="M27,202L37,202C37,202 37.997,209 27,209" style="fill:none;stroke:rgb(34,32,77);stroke-width:2px;"/>
+
+</g>
+
+</g>
+
+</g>
+
+</svg>
