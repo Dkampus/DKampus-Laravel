@@ -23,16 +23,44 @@ class HomeModel
 
     private static $Carousel = [
         [
-            'Icon' => 'ramen.svg',
-            'Title' => 'Makanan'
-        ],
-        [
             'Icon' => 'coke.svg',
             'Title' => 'Minuman'
         ],
         [
+          'Icon' => 'ramen.svg',
+          'Title' => 'Jajanan'
+        ],
+        [
+            'Icon' => 'ramen.svg',
+            'Title' => 'Mie'
+        ],
+        [
+            'Icon' => 'ramen.svg',
+            'Title' => 'Aneka Nasi'
+        ],
+        [
+            'Icon' => 'ramen.svg',
+            'Title' => 'Ayam & Bebek'
+        ],
+        [
+            'Icon' => 'ramen.svg',
+            'Title' => 'Cepat saji'
+        ],
+        [
             'Icon' => 'breakfast.svg',
             'Title' => 'Roti'
+        ],
+        [
+            'Icon' => 'ramen.svg',
+            'Title' => 'Bakso & Soto'
+        ],
+        [
+            'Icon' => 'ramen.svg',
+            'Title' => 'Bakmie'
+        ],
+        [
+            'Icon' => 'ramen.svg',
+            'Title' => 'Sate'
         ],
         [
             'Icon' => 'cookies.svg',
@@ -51,7 +79,7 @@ class HomeModel
     private static $CarouselDesktop = [
         [
             'Icon' => 'ramen.svg',
-            'Title' => 'Makanan'
+            'Title' => 'Mie'
         ],
         [
             'Icon' => 'coke.svg',
