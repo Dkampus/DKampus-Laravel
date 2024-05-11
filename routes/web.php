@@ -42,6 +42,7 @@ Route::get('/kategori/{value}', function ($value) {
     return view('pages.Users.KategoriMenu', [
         'Title' => 'Kategori ' . $value,
         'Kategori' => $value,
+        'menus' => Menu::where('category', $value)->get(),
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'RekomendasiWarung' => Data_umkm::all(),

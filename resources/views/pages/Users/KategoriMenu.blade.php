@@ -1,45 +1,5 @@
 @extends('layouts.Root')
 @section('content')
-@php
-    $menus = [
-        (object) [
-            'nama_makanan' => 'Ayam Geprek',
-            'nama_umkm' => 'Warung Ayam Geprek',
-            'harga' => 15000,
-            'rating' => 4.5,
-        ],
-        (object) [
-            'nama_makanan' => 'Nasi Goreng',
-            'nama_umkm' => 'Warung Nasi Goreng',
-            'harga' => 20000,
-            'rating' => 4.2,
-        ],
-        (object) [
-            'nama_makanan' => 'Mie Ayam',
-            'nama_umkm' => 'Warung Mie Ayam',
-            'harga' => 12000,
-            'rating' => 4.0,
-        ],
-        (object) [
-            'nama_makanan' => 'Bakso',
-            'nama_umkm' => 'Warung Bakso',
-            'harga' => 15000,
-            'rating' => 4.3,
-        ],
-        (object) [
-            'nama_makanan' => 'Sate Ayam',
-            'nama_umkm' => 'Warung Sate Ayam',
-            'harga' => 15000,
-            'rating' => 4.4,
-        ],
-        (object) [
-            'nama_makanan' => 'Soto Ayam',
-            'nama_umkm' => 'Warung Soto Ayam',
-            'harga' => 15000,
-            'rating' => 4.1,
-        ],
-    ];
-@endphp
 <main>
     {{-- Header --}}
     <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10 shadow-md py-8">
@@ -75,5 +35,10 @@
                 </div>
             @endforeach
         </div>
+        @if($menus->isEmpty())
+            <div class="items-center justify-center flex flex-col gap-2 h-screen">
+                <p class="text-center text-xl text-gray-500">Tidak ada data yang ditemukan</p>
+            </div>
+        @endif
     </div>
 </main>
