@@ -24,7 +24,7 @@ class ChatController extends Controller
     public function listChat()
     {
         $currentUserId = Auth::user()->id;
-        return view('pages/users/chatpage', [
+        return view('pages/Users/ChatPage', [
             'Title' => 'list-chat',
             'custId' => $currentUserId,
         ]);
