@@ -160,6 +160,7 @@ Route::get('/detail-warung/{umkm:id}', function (Data_umkm $umkm) {
         'alamat' => $umkm->alamat,
         'rating' => $umkm->rating,
         'CardFood' => $umkm->menu,
+        'umkm_img' => $umkm->logo_umkm,
         'BannerFade' => DetailWarungModel::bannerDetail(),
         'Title' => 'Detail-Warung',
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
