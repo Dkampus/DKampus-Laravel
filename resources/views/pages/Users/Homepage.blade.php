@@ -123,13 +123,14 @@
         @foreach ($RekomendasiMakanan as $menu)
         @php $harga = number_format($menu->harga, 0, ',', '.'); @endphp
         <div class="food-list-scrollTrigger w-full h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
-            <img src="{{ Storage::url($menu->image) }}" alt="" class="w-[40rem] h-60 object-cover relative top-0">
+            <a href="/detail-makanan/{{ $menu->nama_makanan }}" class="w-full h-full bg-white overflow-hidden">
+                <img src="{{ Storage::url($menu->image) }}" class="w-[40rem] h-60 object-cover relative top-0">
+            </a>
             {{-- Description Card --}}
             <div class="w-full flex flex-row items-center justify-between px-3 py-4">
                 {{-- Title & Warung --}}
                 <div class="flex flex-col justify-between items-start h-full">
-                    <h1 class="text-wrapper font-semibold text-[4vw] sm:text-2xl">{{ $menu->nama_makanan }}
-                    </h1>
+                    <a href="/detail-makanan/{{ $menu->nama_makanan }}" class="text-wrapper font-semibold text-[4vw] sm:text-2xl">{{ $menu->nama_makanan }}</a>
                     <div class="flex flex-row items-center gap-1">
                         <img src='Iconly/Bold/Star.svg' alt="" class="w-5">
                         <h1 class="text-black font-light">{{ $menu->rating }}</h1>
