@@ -93,7 +93,12 @@
             <button class="bg-[#F9832A] rounded-xl h-[3rem] font-semibold text-white text-lg" type="submit">Pesan Sekarang</button>
         </div>
     </form>
-
+    {{-- jika post berhasil maka redirect ke halaman sebelumnya --}}
+    @if(session('status'))
+        <script>
+            window.history.back();
+        </script>
+    @endif
 
     {{-- Rekomendasi Menu --}}
 {{--    <div id="listRekomendasi" class="mx-5">--}}
