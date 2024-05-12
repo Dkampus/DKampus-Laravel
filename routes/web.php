@@ -39,7 +39,11 @@ use App\Http\Controllers\UntukKamuController;
 
 // Category Menu Page
 Route::get('/kategori/{value}', function ($value) {
-    $umkm = Data_umkm::where('id', Menu::where('category', $value)->first()->data_umkm_id)->first();
+    try {
+        $umkm = Data_umkm::where('id', Menu::where('category', $value)->first()->data_umkm_id)->first();
+    } catch (\Throwable $th) {
+        $umkm = 'no_data';
+    }
     return view('pages.Users.KategoriMenu', [
         'Title' => 'Kategori ' . $value,
         'Kategori' => $value,
