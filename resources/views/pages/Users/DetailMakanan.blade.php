@@ -28,8 +28,7 @@
     {{-- header content --}}
     <div>
         {{-- Banner Food --}}
-        <img src="../pahaAyam.jpeg" alt="" class="w-full h-[23rem] object-cover">
-
+        <img src="{{ Storage::url($images) }}" class="w-full h-[23rem] object-cover">
         {{-- Gradient Image --}}
         <div class="bg-gradient-to-t from-black/70 to-transparent h-full w-full absolute z-50 top-0"></div>
 

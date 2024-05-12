@@ -177,6 +177,7 @@ Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'menu_id' => $menu->id,
+        'images' => $menu->image,
         'umkm_slug' => $menu->data_umkm->id,
         'nama_makanan' => $menu->nama_makanan,
         'rating' => $menu->rating,
