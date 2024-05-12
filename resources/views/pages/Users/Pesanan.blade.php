@@ -25,7 +25,7 @@
             <?php
             } else {
             ?>
-                <h1 class="text-xl font-semibold">There's No Data Here</h1>
+                <h1 class="text-xl font-semibold">Ups keranjang kamu kosong :)</h1>
             <?php
             }
             ?>
