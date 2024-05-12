@@ -39,15 +39,12 @@ use App\Http\Controllers\UntukKamuController;
 
 // Category Menu Page
 Route::get('/kategori/{value}', function ($value) {
+    $umkm = Data_umkm::where('id', Menu::where('category', $value)->first()->data_umkm_id)->first();
     return view('pages.Users.KategoriMenu', [
         'Title' => 'Kategori ' . $value,
         'Kategori' => $value,
         'menus' => Menu::where('category', $value)->get(),
-        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-        'SeputarDkampus' => HomeModel::seputarDkampus(),
-        'RekomendasiWarung' => Data_umkm::all(),
-        'RekomendasiMakanan' => Menu::take(5)->get(),
-        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+        'umkm' => $umkm,
     ]);
 });
 
