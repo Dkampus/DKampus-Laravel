@@ -14,9 +14,9 @@
         {{-- hasil search --}}
         <div class="grid grid-cols-2 gap-5 p-2">
             @foreach($menus as $menu)
-                <div class="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
-                    <div class="h-48 w-full bg-gray-300 object-cover"></div>
-                    <div class="p-2">
+                <a href="/detail-makanan/{{ $menu->nama_makanan }}" class="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
+                    <img src="{{Storage::url($menu->image)}}" alt="" class="w-full h-40 object-cover">
+                    <div class="p-4">
                         <div class="tracking-wide text-l text-black font-semibold">{{ $menu->nama_makanan }}</div>
                         <div class="flex items-center mt-1">
                             <img src="{{ asset('shop.svg') }}" alt="" class="w-5 h-5">
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             @endforeach
         </div>
         @if($menus->isEmpty())
