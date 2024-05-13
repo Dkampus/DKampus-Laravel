@@ -155,6 +155,9 @@ class MenuController extends Controller
         $postTotal =
             $database->getReference('cart/' . $userID . '/total')->set($total);
         if ($postTotal) {
+            $database->getReference('cart/' . $userID . '/alamat')->set(Data_umkm::find($umkmID)->alamat);
+            $database->getReference('cart/' . $userID . '/link')->set(Data_umkm::find($umkmID)->link);
+            $database->getReference('cart/' . $userID . '/alamatUmkm')->set(Data_umkm::find($umkmID)->link);
             return redirect()->back()->with('status', 'success');
         }
     }

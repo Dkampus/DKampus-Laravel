@@ -40,16 +40,16 @@
 
                                     <td class="text-center">
                                         <div class="flex justify-center space-x-2">
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editUser(this)" data-id="{{ $umkm->id }}" data-nama_umkm="{{ $umkm->nama_umkm }}" data-alamat="{{ $umkm->alamat }}" data-no_telp_umkm="{{ $umkm->no_telp_umkm }}" data-vip="{{ $umkm->vip }}" data-link="{{ $umkm->link }}">
+                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editUser(this)" data-id="{{ $umkm->id }}" data-nama_umkm="{{ $umkm->nama_umkm }}" data-alamat="{{ $umkm->alamat }}" data-no_telp_umkm="{{ $umkm->no_telp_umkm }}" data-vip="{{ $umkm->vip }}" data-link="{{ $umkm->link }}" data-geo="{{ $umkm->geo }}>
                                                 Edit
                                             </button>
-                                            <form id="deleteForm{{ $umkm->id }}" action="{{ route('umkm.destroy', $umkm->id) }}" method="POST">
+                                            <form id=" deleteForm{{ $umkm->id }}" action="{{ route('umkm.destroy', $umkm->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onclick="confirmDelete('{{ $umkm->id }}', '{{ $umkm->nama_umkm }}')">
                                                     Hapus
                                                 </button>
-                                            </form>
+                                                </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -92,6 +92,7 @@
                                         <label for="alamat" class="block text sm font-medium text-gray-700 dark:text-gray-200">Alamat</label>
                                         <input type="text" id="autocomplete" name="alamat" id="alamat" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
                                         <input type="text" name="link" class="hidden" id="link">
+                                        <input type="text" name="geo" class="hidden" id="geo">
                                     </div>
                                     <div class="mb-4">
                                         <label for="no_telp_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">No. Telp</label>
@@ -151,7 +152,8 @@
                                     </div>
                                     <div class="mb-4">
                                         <label for="edit_alamat" class="block text sm font-medium text-gray-700 dark:text-gray-200">Alamat</label>
-                                        <input type="" name="edit_link" class="hidden" id="edit_link">
+                                        <input type="text" name="edit_link" class="hidden" id="edit_link">
+                                        <input type="text" name="edit_geo" class="hidden" id="edit_geo">
                                         <input type="text" name="edit_alamat" id="edit_alamat" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
                                     </div>
                                     <div class="mb-4">
@@ -280,11 +282,13 @@
                     alert("No details available for input: '" + place.name + "'");
                     return;
                 }
-
+                var latitude = place.geometry.location.lat();
+                var longitude = place.geometry.location.lng();
+                var combinedLocation = `${latitude},${longitude}`;
                 var googleMapsLink = place.url;
                 console.log(googleMapsLink);
-                document.getElementById('autocomplete').value = googleMapsLink;
-                document.getElementById('edit_link').value = googleMapsLink;
+                document.getElementById('link').value = googleMapsLink;
+                document.getElementById('geo').value = combinedLocation;
             });
         }
     </script>
@@ -299,27 +303,32 @@
             var no_telp_umkm = button.getAttribute('data-no_telp_umkm');
             var vip = button.getAttribute('data-vip');
             var link = button.getAttribute('data-link');
+            var geo = button.getAttribute('data-geo');
 
             document.getElementById('edit_link').value = link;
             document.getElementById('edit_nama_umkm').value = nama_umkm;
             document.getElementById('edit_alamat').value = alamat;
             document.getElementById('edit_no_telp_umkm').value = no_telp_umkm;
             document.getElementById('edit_vip').value = vip;
+            document.getElementById('edit_geo').value = geo;
 
             edit = document.getElementById('edit_alamat');
             editauto = new google.maps.places.Autocomplete(edit);
             editauto.addListener('place_changed', function() {
                 var place = editauto.getPlace();
+                console.log(place);
                 if (!place.geometry || !place.place_id) {
                     alert("No details available for input: '" + place.name + "'");
                     return;
                 }
-
+                var latitude = place.geometry.location.lat();
+                var longitude = place.geometry.location.lng();
+                var combinedLocation = `${latitude},${longitude}`;
                 var googleMapsLink = place.url;
                 console.log(googleMapsLink);
                 document.getElementById('edit_link').value = googleMapsLink;
+                document.getElementById('edit_geo').value = combinedLocation;
             });
-            console.log(document.getElementById('edit_alamat').value, document.getElementById('edit_link').value);
 
             // Update the form action to point to the update route
             var form = document.querySelector('#editForm');

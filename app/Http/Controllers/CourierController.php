@@ -72,6 +72,8 @@ class CourierController extends Controller
         $database->getReference('chats/' . $id . $courId)->push()->set($postData);
         $database->getReference('chats/' . $id . $courId . '/cust_name')->set($cust_name);
         $database->getReference('chats/' . $id . $courId . '/cour_name')->set($cour_name);
+        $database->getReference('chats/' . $id . $courId . '/courNewMssg')->set(1);
+        $database->getReference('chats/' . $id . $courId . '/custNewMssg')->set(0);
         return redirect('courier/dashboard');
     }
 

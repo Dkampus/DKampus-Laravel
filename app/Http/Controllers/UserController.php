@@ -60,18 +60,21 @@ class UserController extends Controller
 
     public function daftarAlamat(Request $request)
     {
+        // dd($request->geo);
         $userId = Auth::user()->id;
         try {
             $validatedData = $request->validate([
                 'address' => 'required',
                 'link' => 'required',
                 'namaAlamat' => 'required',
+
             ]);
             Addresse::create([
                 'user_id' => $userId,
                 'address' => $request->address,
                 'link' => $request->link,
                 'nama_alamat' => $request->namaAlamat,
+                'geo' => $request->geo,
             ]);
             return redirect()->back();
         } catch (\Exception $e) {

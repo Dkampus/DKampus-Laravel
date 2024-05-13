@@ -50,7 +50,6 @@
     foreach($carts as $cart => $items){
     $total += $items['harga'] * $items['jumlah'];
     }
-    $ongkir = 10000;
     @endphp
     {{-- Detail Transaksi --}}
     <div class="flex flex-col w-full h-auto px-1 py-2">

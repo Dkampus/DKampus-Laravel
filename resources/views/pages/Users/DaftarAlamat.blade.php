@@ -132,8 +132,8 @@ $alamatUser = [
                                         <textarea id="autocomplete" placeholder="" class="form-control border border-gray-300 rounded p-2 w-full" type="text" name="address"></textarea>
                                     </div>
                                     <div class="mb-3 hidden">
-                                        <label for="linkGmaps" class="form-label text-gray-700">Link Gmaps</label>
                                         <input type="text" class="form-control border border-gray-300 rounded p-2 w-full" id="linkGmaps" name="link">
+                                        <input type="text" class="form-control border border-gray-300 rounded p-2 w-full" id="geoMaps" name="geo">
                                     </div>
                                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                         <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeModalAddAddress('tambahAlamatModal')">
@@ -175,10 +175,14 @@ $alamatUser = [
                     alert("No details available for input: '" + place.name + "'");
                     return;
                 }
-
+                var latitude = place.geometry.location.lat();
+                var longitude = place.geometry.location.lng();
+                var combinedLocation = `${latitude},${longitude}`;
+                console.log(combinedLocation, latitude, longitude);
                 var googleMapsLink = place.url;
                 console.log(googleMapsLink);
                 document.getElementById('linkGmaps').value = googleMapsLink;
+                $('#geoMaps').val(combinedLocation);
             });
         }
     </script>

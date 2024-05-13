@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\HomeModel;
 use App\Models\Cart;
+use App\Models\Addresse;
 use App\Models\Favorit;
 use App\Models\PesananModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Data_umkm;
 use Illuminate\Support\Facades\Session;
+use GuzzleHttp\Client;
 
 class CartController extends Controller
 {
@@ -125,22 +127,56 @@ class CartController extends Controller
         return $total;
     }
 
+    private function ongkir($origin, $destination)
+    {
+        $database = app('firebase.database');
+
+        $apiKey = env('GOOGLE_MAPS_API_KEY');
+
+        $client = new Client();
+
+        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=$origin&destinations=$destination&key=$apiKey";
+
+        $response = $client->get($url);
+
+        if ($response->getStatusCode() === 200) {
+            $data = json_decode($response->getBody(), true);
+            $distance = $data['rows'][0]['elements'][0]['distance']['value'];
+            $ongkir = 0;
+            if ($distance > 1000 && $distance < 1500) {
+                return $ongkir = 6000;
+            } elseif ($distance < 1000) {
+                return $ongkir = 4000;
+            } elseif ($distance > 1500 && $distance <= 2000) {
+                return $ongkir = 8000;
+            } else {
+                return back()->with('warning', 'Your distance is to far max 2km');
+            }
+        } else {
+            return back()->withErrors(['error' => 'Failed to calculate distance.']);
+        }
+    }
+
     // Temporary function, should be moved to another controller.
     public function checkout()
     {
         $userID = Auth::user()->id;
+
         $database = app('firebase.database');
         $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
         $total = $database->getReference('cart/' . $userID . '/total')->getValue();
         $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
         $namaUMKM = Data_umkm::find($idumkm);
-
+        $geoUmkm = Data_umkm::find($idumkm)->geo;
+        $geoUser = Addresse::where('user_id', $userID)->first()->geo;
+        $ongkir = $this->ongkir($geoUmkm, $geoUser);
         return view('pages.Users.CheckoutPage', [
             'Title' => 'Checkout',
             'NavPesanan' => 'Checkout',
             'carts' => $carts,
             'total' => $total,
             'nama_umkm' => $namaUMKM->nama_umkm,
+            'ongkir' => $ongkir,
             'AddressList' => PesananModel::alamatUser(),
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
             'SeputarDkampus' => HomeModel::seputarDkampus(),

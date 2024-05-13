@@ -83,17 +83,8 @@ class UmkmController extends Controller
                 'vip' => 'required',
                 'alamat' => 'required',
                 'link' => 'required',
+                'geo' => 'required',
             ]);
-            // dd
-            // ($request->file('logo_umkm'));
-            // Upload dan simpan gambar
-            // if ($request->hasFile('logo_umkm')) {
-            //     $imagePath = $request->file('logo_umkm')->store('umkm_images', 'public');
-            //     $validatedData['logo_umkm'] = $imagePath;
-            // }
-
-            // Simpan data Umkm ke database
-            // Data_umkm::create($validatedData);
 
             Data_umkm::create([
                 'user_id' => $request->user_id,
@@ -104,6 +95,7 @@ class UmkmController extends Controller
                 'vip' => $request->vip,
                 "alamat" => $request->alamat,
                 "link" => $request->link,
+                "geo" => $request->geo,
             ]);
         } catch (\Exception $e) {
             dd($e);
@@ -169,6 +161,7 @@ class UmkmController extends Controller
             $umkm->no_telp_umkm = $request->edit_no_telp_umkm;
             $umkm->vip = $request->edit_vip;
             $umkm->link = $request->edit_link;
+            $umkm->geo = $request->edit_geo;
 
             // Check if a new logo is uploaded
             if ($request->hasFile('logo_umkm')) {

@@ -75,7 +75,7 @@
                     lastMessageQuery.on('child_added', function(childSnapshot) {
                         var mssgData = childSnapshot.val();
                         var messageData = mssgData.msgs;
-                        console.log(countMssg)
+                        console.log(messageData)
                         if (messageData) {
                             sender = snapshot.val().cust_name;
                             message = messageData.msg;
@@ -111,12 +111,11 @@
 
             var chatList = $('#chat-list');
             var chatItems = chatList.children('.chat-item');
-
             if (chatItems.length > 0) {
                 var newestMessageTimestamp = timestamp;
                 var inserted = false;
                 chatItems.each(function() {
-                    var existingTimestamp = $(this).find('.timestamp').val();
+                    var existingTimestamp = $(this).find('.timestamp').data('time');
                     if (newestMessageTimestamp > existingTimestamp) {
                         $(this).before(chatItem);
                         inserted = true;
@@ -138,6 +137,7 @@
             hours = date.getHours().toString().padStart(2, '0');
             minutes = date.getMinutes().toString().padStart(2, '0');
             formattedTimestamp = hours + ':' + minutes;
+
             var containerDiv = $('<div>').addClass('chat-item').attr('data-cust-id', custId);
             var chatItemDiv = $('<div>').addClass('flex justify-between items-center gap-3');
 
@@ -147,7 +147,7 @@
             senderInfoDiv.append(senderName, messageText);
 
             var timestampDiv = $('<div>').addClass('flex flex-col items-end gap-1 right-info');
-            var timestampText = $('<p>').addClass('text-gray-400 timestamp').text(formattedTimestamp).attr('value', timestamp);
+            var timestampText = $('<p>').addClass('text-gray-400 timestamp').text(formattedTimestamp).attr('data-time', timestamp);
             if (countMssg != 0) {
                 var unreadCountDiv = $('<div>').addClass('w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center').attr('data-count-id', custId);
                 var unreadCount = $('<a>').addClass('text-white text-xs font-bold count-message').text(countMssg);

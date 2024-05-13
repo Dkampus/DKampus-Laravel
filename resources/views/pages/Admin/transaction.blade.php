@@ -25,7 +25,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($datas as $key => $data)
+                                @foreach($datas as $key => $data)
                                 <tr>
                                     <td>#TRX{{ strtoupper(substr($data['id'], 0, 20)) }}</td>
                                     <td class="text-center">{{ $data['date'] }}</td>
@@ -38,20 +38,20 @@
                                     </td>
                                     <td class="text-center">QRIS</td>
                                     <td class="text-center">
-                                    @if ($data['status'] == 'Success')
+                                        @if ($data['status'] == 'Success')
                                         <span class="text-green-400 font-bold">{{ $data['status'] }}</span>
-                                    @elseif ($data['status'] == 'Pending')
+                                        @elseif ($data['status'] == 'Pending')
                                         <span class="text-yellow-400 font-bold">{{ $data['status'] }}</span>
-                                    @else
+                                        @else
                                         <span class="text-red-400 font-bold">{{ $data['status'] }}</span>
-                                    @endif
+                                        @endif
                                     <td class="text-center">
                                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                             Detail
                                         </button>
                                     </td>
                                 </tr>
-                            @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -61,5 +61,4 @@
     </div>
 </x-app-layout>
 <script>
-{{--    console.log(@php echo json_encode($datas) @endphp);--}}
 </script>
