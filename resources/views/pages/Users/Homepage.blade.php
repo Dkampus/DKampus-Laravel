@@ -49,7 +49,7 @@
     {{-- Rekomendasi Warung --}}
     <div class="flex flex-row justify-between items-center my-5 md:mt-10 md:mb-5">
         <h1 class="font-semibold w-max text-[4.5vw] sm:text-2xl">Rekomendasi Warung</h1>
-        <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
+        <a href="/rekomendasi-warung/" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
     </div>
 
     {{-- Slider Rekomendasi Warung --}}
@@ -84,7 +84,7 @@
     {{-- Rekomendasi Makanan --}}
     <div class="flex flex-row justify-between items-center mt-7 md:mt-10  md:mb-5">
         <h1 class="font-semibold w-max text-[4.5vw] sm:text-2xl">Rekomendasi Makanan</h1>
-        <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
+        <a href="/rekomendasi-menu/" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
     </div>
 
     {{-- Slider Rekomendasi Makanan --}}
