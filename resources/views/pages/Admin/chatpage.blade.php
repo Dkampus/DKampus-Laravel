@@ -19,13 +19,13 @@
                             </button>
                         </div>
                     </div>
-                    <div id="list-chat" class="bg-white dark:bg-gray-800 flex-grow overflow-auto h-[74.3vh]">
+                    <div id="list-chat" class="bg-white dark:bg-gray-800 flex-grow overflow-auto h-[74.3vh] no-scrollbar">
                         {{-- Chat list in here --}}
                     </div>
                 </div>
                 {{-- Chatroom and message form --}}
-                <div class="w-3/4 mx-5 no-scrollbar flex flex-col h-[80vh]">
-                    <div class="bg-white dark:bg-gray-800 flex-grow overflow-auto" id="room-chat">
+                <div class="w-3/4 mx-5 flex flex-col h-[80vh]">
+                    <div class="bg-white dark:bg-gray-800 flex-grow overflow-auto no-scrollbar" id="room-chat">
                         <a id="ifx" class="flex flex-col items-center justify-center h-full text-gray-500 dark:text-gray-400">
                             Silahkan pilih chat untuk melihat pesan
                         </a>
@@ -89,10 +89,12 @@
         var button = $('<button>').addClass('flex flex-row items-center space-x-4 p-2 text-start w-full chat-item').attr('data-del-id', custId);
         var photoProfile = $('<img>').addClass('h-10 w-10 rounded-full');
         var divChat = $('<div>').addClass('flex flex-col w-full chat-list');
+        var senderAndTime = $('<div>').addClass('flex justify-between items-center w-full');
         var sender = $('<p>').addClass('font-semibold text-gray-800 dark:text-gray-200').text(sender);
-        var message = $('<p>').addClass('text-sm text-gray-500 dark:text-gray-400 message').text(message);
         var pTime = $('<p>').addClass('text-xs text-end text-white time').text(formattedTimestamp).attr('data-time', timestamp);
-        divChat.append(sender, message, pTime);
+        senderAndTime.append(sender, pTime);
+        var message = $('<p>').addClass('text-sm text-gray-500 dark:text-gray-400 message').text(message);
+        divChat.append(senderAndTime, message);
         button.append(photoProfile, divChat);
         button.click(function() {
             loadChat(custId);
@@ -250,3 +252,16 @@
         }
     });
 </script>
+
+<style>
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+</style>
