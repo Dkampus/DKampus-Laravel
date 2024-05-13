@@ -37,7 +37,7 @@
     @endforelse
     </x-bannerfade.banner-fade> --}}
     <div class="h-[23rem] max-w-full md:h-full md:w-full">
-        <img src="../goyengAyam.jpeg" alt="" class="object-cover h-full md:h-[25rem] md:w-full">
+        <img src="{{ Storage::url($umkm_img) }}" alt="" class="object-cover h-full md:h-[25rem] w-full">
         <div class="bg-gradient-to-t from-black to-transparent h-full w-full absolute z-50 top-0"></div>
     </div>
     <div id="desc" class="absolute text-white bottom-0 z-50 mx-5 my-5">
@@ -89,7 +89,7 @@
             <img src="../discount50%.svg" alt="" class="top-5 -left-[0.65rem] overflow-auto z-50 absolute w-[5rem]">
             <a href="/detail-makanan/{{$food->nama_makanan}}">
                 <img src="{{Storage::url($food->image)}}" alt="" class="w-full">
-                <div class="w-full h-[10rem] bg-gray-300"></div>
+{{--                <div class="w-full h-[10rem] bg-gray-300"></div>--}}
             </a>
             <div id="desc" class="flex flex-col gap-2 py-2 px-3">
                 <div id="ratings" class="flex flex-row items-center gap-1">

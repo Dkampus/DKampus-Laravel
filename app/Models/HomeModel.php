@@ -23,11 +23,11 @@ class HomeModel
 
     private static $Carousel = [
         [
-            'Icon' => 'coke.svg',
+            'Icon' => 'colas.svg',
             'Title' => 'Minuman'
         ],
         [
-          'Icon' => 'ramen.svg',
+          'Icon' => 'ramens.svg',
           'Title' => 'Jajanan'
         ],
         [
@@ -35,15 +35,15 @@ class HomeModel
             'Title' => 'Mie'
         ],
         [
-            'Icon' => 'ramen.svg',
+            'Icon' => 'rice.svg',
             'Title' => 'Aneka Nasi'
         ],
         [
-            'Icon' => 'ramen.svg',
+            'Icon' => 'chicken.svg',
             'Title' => 'Ayam & Bebek'
         ],
         [
-            'Icon' => 'ramen.svg',
+            'Icon' => 'fastfood.svg',
             'Title' => 'Cepat saji'
         ],
         [
@@ -51,15 +51,15 @@ class HomeModel
             'Title' => 'Roti'
         ],
         [
-            'Icon' => 'ramen.svg',
+            'Icon' => 'soup.svg',
             'Title' => 'Bakso & Soto'
         ],
         [
-            'Icon' => 'ramen.svg',
+            'Icon' => 'bakmie.svg',
             'Title' => 'Bakmie'
         ],
         [
-            'Icon' => 'ramen.svg',
+            'Icon' => 'sate.svg',
             'Title' => 'Sate'
         ],
         [

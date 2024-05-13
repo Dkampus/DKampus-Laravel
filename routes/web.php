@@ -39,14 +39,16 @@ use App\Http\Controllers\UntukKamuController;
 
 // Category Menu Page
 Route::get('/kategori/{value}', function ($value) {
+    try {
+        $umkm = Data_umkm::where('id', Menu::where('category', $value)->first()->data_umkm_id)->first();
+    } catch (\Throwable $th) {
+        $umkm = 'no_data';
+    }
     return view('pages.Users.KategoriMenu', [
         'Title' => 'Kategori ' . $value,
         'Kategori' => $value,
-        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-        'SeputarDkampus' => HomeModel::seputarDkampus(),
-        'RekomendasiWarung' => Data_umkm::all(),
-        'RekomendasiMakanan' => Menu::take(5)->get(),
-        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+        'menus' => Menu::where('category', $value)->get(),
+        'umkm' => $umkm,
     ]);
 });
 
@@ -58,9 +60,22 @@ Route::get('/change-password', function () {
     ]);
 });
 
-// Chats Routes
+// Rekomendasi Warung page
+Route::get('/rekomendasi-warung', function () {
+    return view('pages.Users.RekomendasiWarungPage', [
+        'Title' => 'Rekomendasi Warung',
+        'RekomendasiWarung' => Data_umkm::all(),
+    ]);
+});
 
-
+// Rekomendasi Menu page
+Route::get('/rekomendasi-menu', function () {
+    return view('pages.Users.RekomendasiMenuPage', [
+        'Title' => 'Rekomendasi Menu',
+        'RekomendasiMenu' => Menu::all(),
+        'umkm' => Data_umkm::where('id', Menu::first()->data_umkm_id)->first(),
+    ]);
+});
 
 // Promo Page
 Route::get('/promo', function () {
@@ -146,12 +161,13 @@ Route::get('/promo', function () {
 });
 
 // Detail Routes
-Route::get('/detail-warung/{umkm:id}', function (Data_umkm $umkm) {
+Route::get('/detail-warung/{umkm:nama_umkm}', function (Data_umkm $umkm) {
     return view('pages.Users.DetailWarung', [
         'nama_umkm' => $umkm->nama_umkm,
         'alamat' => $umkm->alamat,
         'rating' => $umkm->rating,
         'CardFood' => $umkm->menu,
+        'umkm_img' => $umkm->logo_umkm,
         'BannerFade' => DetailWarungModel::bannerDetail(),
         'Title' => 'Detail-Warung',
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
@@ -168,6 +184,7 @@ Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'menu_id' => $menu->id,
+        'images' => $menu->image,
         'umkm_slug' => $menu->data_umkm->id,
         'nama_makanan' => $menu->nama_makanan,
         'rating' => $menu->rating,
@@ -289,7 +306,7 @@ Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->gr
         ]
     )->name('dashboard');
     Route::view('/umkm', 'pages/Admin/umkm', [
-        'umkms' => Data_umkm::paginate(5),
+        'umkms' => Data_umkm::paginate(10),
     ])->name('umkm');
     Route::post('/umkm', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
     Route::post('/products', [UmkmController::class, 'addProduct'])->name('save.product');
@@ -299,7 +316,7 @@ Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->gr
             'model' => new Menu(),
             'umkm' => Data_umkm::pluck('nama_umkm', 'id'),
             'umkms' => Data_umkm::all(),
-            'menus' => Menu::paginate(5),
+            'menus' => Menu::paginate(10),
             'button' => 'SIMPAN',
             'route' => "product.store",
             'method' => 'POST'

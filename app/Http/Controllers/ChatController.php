@@ -24,7 +24,7 @@ class ChatController extends Controller
     public function listChat()
     {
         $currentUserId = Auth::user()->id;
-        return view('pages/users/chatpage', [
+        return view('pages/Users/ChatPage', [
             'Title' => 'list-chat',
             'custId' => $currentUserId,
         ]);
@@ -39,7 +39,7 @@ class ChatController extends Controller
         $refKey = $database->getReference('chats/' . $custId . '-' . $courId)->getChildKeys();
         $date = $database->getReference('chats/' . $custId . '-' . $courId . '/' . $refKey[0] . '/msgs/timestamp')->getValue();
         // dd($date);
-        return view('pages/users/chatroompage', [
+        return view('pages/Users/ChatRoomPage', [
             'Title' => 'room-chat',
             'cour_name' => $cour_name,
             'custId' => $custId,

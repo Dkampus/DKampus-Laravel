@@ -28,8 +28,7 @@
     {{-- header content --}}
     <div>
         {{-- Banner Food --}}
-        <img src="../pahaAyam.jpeg" alt="" class="w-full h-[23rem] object-cover">
-
+        <img src="{{ Storage::url($images) }}" class="w-full h-[23rem] object-cover">
         {{-- Gradient Image --}}
         <div class="bg-gradient-to-t from-black/70 to-transparent h-full w-full absolute z-50 top-0"></div>
 
@@ -94,7 +93,12 @@
             <button class="bg-[#F9832A] rounded-xl h-[3rem] font-semibold text-white text-lg" type="submit">Pesan Sekarang</button>
         </div>
     </form>
-
+    {{-- jika post berhasil maka redirect ke halaman sebelumnya --}}
+    @if(session('status'))
+        <script>
+            window.history.back();
+        </script>
+    @endif
 
     {{-- Rekomendasi Menu --}}
 {{--    <div id="listRekomendasi" class="mx-5">--}}
