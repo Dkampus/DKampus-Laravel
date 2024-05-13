@@ -50,12 +50,6 @@ Route::get('/kategori/{value}', function ($value) {
     ]);
 });
 
-// Daftar Alamat
-Route::get('/daftar-alamat', function () {
-    return view('pages.Users.DaftarAlamat', [
-        'Title' => 'Daftar Alamat',
-    ]);
-});
 
 // Ubah Kata Sandi
 Route::get('/change-password', function () {
@@ -239,6 +233,9 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
         '/room-chat',
         [ChatController::class, 'roomChat']
     )->name('room.chat');
+    // Daftar Alamat
+    Route::get('/daftar-alamat', [UserController::class, 'alamat'])->name('alamat');
+    Route::post('/daftar_alamat', [UserController::class, 'daftarAlamat'])->name('daftar.alamat');
 });
 
 
@@ -340,10 +337,10 @@ Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->gr
     })->name('umkm.edit');
 
     //data from edit umkm form
-    Route::put('/umkm/{umkm}', [UmkmController::class, 'update'])->name('umkm.update');
+    Route::put('/umkm/{id}', [UmkmController::class, 'update'])->name('umkm.update');
     //delete umkm
 
-    Route::delete('/umkm/{umkm}', [UmkmController::class, 'destroy'])->name('umkm.destroy');
+    Route::delete('/umkm/{id}', [UmkmController::class, 'destroy'])->name('umkm.destroy');
 
     //transaction route
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');

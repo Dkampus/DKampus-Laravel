@@ -38,35 +38,131 @@
         var database = firebase.database();
         var courId = "{{ $courId }}";
 
-        function handleSubmitButtonClick(custId) {
-            $('input[name="custId"]').val(custId);
+        var countMssg;
+        var sender;
+        var message;
+        var timestamp;
+        var date;
+        var hours;
+        var minutes;
+        var formattedTimestamp;
+        var custId
 
-            $('form').submit();
+        // Listen for new messages for the specific custId
+        var courIdRef = database.ref('chats');
+        courIdRef.on('child_added', function(snapshot) {
+            var lastMessageQuery = snapshot.ref.orderByChild('msgs/timestamp').limitToLast(1);
+            var id = snapshot.key.split('-')[1];
+            if (id == courId) {
+                var messageId = snapshot.key;
+                custId = messageId.split('-')[0];
+                // console.log(custId);
+                (function(custId) {
+                    database.ref('chats/' + custId + '-' + courId).on('value', function(csnapshot) {
+                        countMssg = csnapshot.val().custNewMssg;
+                    });
+                    database.ref('chats/' + custId + '-' + courId).on('child_changed', function(countsnapshot) {
+                        countMssg = countsnapshot.val();
+                        console.log(custId);
+                        if (countMssg != 0) {
+                            $('div[data-count-id="' + custId + '"] .count-message').empty();
+                            $('div[data-count-id="' + custId + '"] .count-message').text(countMssg);
+                            $('div[data-count-id="' + custId + '"]').removeClass('hidden');
+                        } else {
+                            $('div[data-count-id="' + custId + '"]').addClass('hidden');
+                        }
+                    });
+                    lastMessageQuery.on('child_added', function(childSnapshot) {
+                        var mssgData = childSnapshot.val();
+                        var messageData = mssgData.msgs;
+                        console.log(countMssg)
+                        if (messageData) {
+                            sender = snapshot.val().cust_name;
+                            message = messageData.msg;
+                            timestamp = messageData.timestamp;
+                            date = new Date(timestamp);
+                            hours = date.getHours().toString().padStart(2, '0');
+                            minutes = date.getMinutes().toString().padStart(2, '0');
+                            formattedTimestamp = hours + ':' + minutes;
+                            chatItem = createChatItem(sender, message, timestamp, custId, countMssg);
+                            chatList = $('#chat-list');
+                            chatItems = chatList.children('.chat-item');
+                            existingChatItem = chatItems.find('.chat-item[data-cust-id="' + custId + '"]');
+                            if (existingChatItem.length > 0) {
+                                existingChatItem.find('.message').text(message);
+                                existingChatItem.find('.timestamp').text(formattedTimestamp);
+                                $('.chat-item[data-del-id="' + custId + '"]').remove();
+                                $('#chat-list').prepend(chatItem);
+                            } else {
+                                displayLatestMessage(sender, message, timestamp, custId, countMssg);
+                            }
+                        }
+                    });
+
+                })
+                (custId);
+
+            }
+        });
+
+        function displayLatestMessage(sender, message, timestamp, custId, countMssg) {
+
+            var chatItem = createChatItem(sender, message, timestamp, custId, countMssg);
+
+            var chatList = $('#chat-list');
+            var chatItems = chatList.children('.chat-item');
+
+            if (chatItems.length > 0) {
+                var newestMessageTimestamp = timestamp;
+                var inserted = false;
+                chatItems.each(function() {
+                    var existingTimestamp = $(this).find('.timestamp').val();
+                    if (newestMessageTimestamp > existingTimestamp) {
+                        $(this).before(chatItem);
+                        inserted = true;
+                        return false;
+                    }
+                });
+                if (!inserted) {
+                    chatList.append(chatItem);
+                }
+            } else {
+                chatList.append(chatItem);
+            }
+
         }
 
-        function displayLatestMessage(sender, message, timestamp, custId) {
-
-            var containerDiv = $('<div>').addClass('chat-item');
-
+        // Function to create a chat item
+        function createChatItem(sender, message, timestamp, custId, countMssg) {
+            date = new Date(timestamp);
+            hours = date.getHours().toString().padStart(2, '0');
+            minutes = date.getMinutes().toString().padStart(2, '0');
+            formattedTimestamp = hours + ':' + minutes;
+            var containerDiv = $('<div>').addClass('chat-item').attr('data-cust-id', custId);
             var chatItemDiv = $('<div>').addClass('flex justify-between items-center gap-3');
 
             var senderInfoDiv = $('<div>').addClass('flex flex-col gap-1 items-start');
             var senderName = $('<h1>').addClass('font-bold text-black').text(sender);
-            var messageText = $('<p>').addClass('text-gray-400').text(message);
+            var messageText = $('<p>').addClass('text-gray-400 message').text(message);
             senderInfoDiv.append(senderName, messageText);
 
-            var timestampDiv = $('<div>').addClass('flex flex-col items-end gap-1');
-            var timestampText = $('<p>').addClass('text-gray-400').text(timestamp);
-            var unreadCountDiv = $('<div>').addClass('w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center');
-            var unreadCount = $('<a>').addClass('text-white text-xs font-bold').text('!');
-            unreadCountDiv.append(unreadCount);
-            timestampDiv.append(timestampText, unreadCountDiv);
+            var timestampDiv = $('<div>').addClass('flex flex-col items-end gap-1 right-info');
+            var timestampText = $('<p>').addClass('text-gray-400 timestamp').text(formattedTimestamp).attr('value', timestamp);
+            if (countMssg != 0) {
+                var unreadCountDiv = $('<div>').addClass('w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center').attr('data-count-id', custId);
+                var unreadCount = $('<a>').addClass('text-white text-xs font-bold count-message').text(countMssg);
+                unreadCountDiv.append(unreadCount);
+                timestampDiv.append(timestampText, unreadCountDiv);
+            } else {
+                timestampDiv.append(timestampText);
+            }
+
 
             chatItemDiv.append(senderInfoDiv, timestampDiv);
 
             var submitButton = $('<button>')
-                .attr('type', 'submit')
-                .addClass('w-full')
+                .attr('type', 'submit').attr('data-del-id', custId)
+                .addClass('w-full chat-item')
                 .click(function() {
                     handleSubmitButtonClick(custId);
                 });
@@ -77,37 +173,16 @@
 
             submitButton.append(containerDiv);
 
-            $('#chat-list').append(submitButton);
+            return submitButton;
         }
 
+        function handleSubmitButtonClick(custId) {
+            $('input[name="custId"]').val(custId);
 
-        // Listen for new messages for the specific custId
-        var courIdRef = database.ref('chats').orderByKey().startAt(courId).endAt(courId + "\uf8ff");
-        courIdRef.on('child_added', function(snapshot) {
-            var lastMessageQuery = snapshot.ref.orderByChild('msgs/timestamp').limitToLast(1);
-            var id = snapshot.key.split('-')[1];
-            if (id == courId) {
-                lastMessageQuery.once('value', function(lastMessageSnapshot) {
-                    lastMessageSnapshot.forEach(function(childSnapshot) {
-                        var messageId = snapshot.key;
-                        var messageData = childSnapshot.val();
-                        if (messageData.msgs) {
-                            var custId = messageId.split('-')[0];
-                            var mssgData = messageData.msgs;
-                            var sender = snapshot.val().cust_name;
-                            var message = mssgData.msg;
-                            var timestamp = mssgData.timestamp;
-                            var date = new Date(timestamp);
-                            var hours = date.getHours().toString().padStart(2, '0');
-                            var minutes = date.getMinutes().toString().padStart(2, '0');
-                            var formattedTimestamp = hours + ':' + minutes;
-                            displayLatestMessage(sender, message, formattedTimestamp, custId);
-                        }
-                    });
-                });
-            }
-
-        });
+            $('form').submit();
+            chatRef = database.ref('chats/' + custId + '-' + courId + '/courNewMssg');
+            chatRef.set(0);
+        }
     </script>
 </main>
 @endsection

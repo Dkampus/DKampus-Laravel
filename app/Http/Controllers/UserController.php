@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Addresse;
 use App\Models\Data_umkm;
 use App\Models\Menu;
 use App\Models\Footer;
 use Illuminate\Http\Request;
 use App\Models\HomeModel;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -49,11 +51,33 @@ class UserController extends Controller
         ]);
     }
 
-    public function daftarAlamat()
+    public function alamat()
     {
-        //        $alamat = Auth::user()->alamat; // relation dari model User ?
+        return view('pages.Users.DaftarAlamat', [
+            'Title' => 'Daftar Alamat',
+        ]);
+    }
 
-        //        return view('daftar_alamat', compact('alamat'));
+    public function daftarAlamat(Request $request)
+    {
+        $userId = Auth::user()->id;
+        try {
+            $validatedData = $request->validate([
+                'address' => 'required',
+                'link' => 'required',
+                'namaAlamat' => 'required',
+            ]);
+            Addresse::create([
+                'user_id' => $userId,
+                'address' => $request->address,
+                'link' => $request->link,
+                'nama_alamat' => $request->namaAlamat,
+            ]);
+            return redirect()->back();
+        } catch (\Exception $e) {
+            dd($e);
+            return redirect()->back();
+        }
     }
 
     public function code_verification()
@@ -80,6 +104,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
     public function create()
     {
         //

@@ -17,8 +17,17 @@ class CheckHasLoggin
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::check()) {
-
             return redirect('/login');
+        } else {
+            $user = Auth::user();
+            if ($user != null) {
+                if ($user && $user->role === 'courier') {
+                    return redirect()->route('dashboardCourier');
+                } elseif ($user->restriction == 1) {
+                    Auth::logout();
+                    return redirect('/masuk')->with('error', 'Your Account Has Been Banned');
+                }
+            }
         }
 
         return $next($request);

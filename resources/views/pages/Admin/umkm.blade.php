@@ -4,7 +4,6 @@
             {{ __('UMKM') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -23,6 +22,7 @@
                                 <tr>
                                     <th scope="col" class="px-6 py-3 tracking-wider">Nama UMKM</th>
                                     <th scope="col" class="px-6 py-3 tracking-wider">Alamat</th>
+                                    <th class="hidden" scope="col">link</th>
                                     <th scope="col" class="px-6 py-3 tracking-wider">No. Telp</th>
                                     <th scope="col" class="px-6 py-3 tracking-wider">VIP</th>
                                     <th scope="col" class="px-6 py-3 tracking-wider">Aksi</th>
@@ -33,17 +33,23 @@
                                 <tr>
                                     <td class="">{{ $umkm->nama_umkm }}</td>
                                     <td class="">{{ $umkm->alamat }}</td>
+                                    <td class="hidden"> {{ $umkm->link }} </td>
                                     {{-- <td><img src="{{ Storage::url($umkm->logo_umkm) }}" alt="umkm_img" width="50"></td>--}}
                                     <td class="text-center">{{ $umkm->no_telp_umkm }}</td>
                                     <td class="text-center">{{ $umkm->vip ? 'Ya' : 'Tidak' }}</td>
+
                                     <td class="text-center">
                                         <div class="flex justify-center space-x-2">
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editUser(this)" data-id="{{ $umkm->id }}" data-nama_umkm="{{ $umkm->nama_umkm }}" data-alamat="{{ $umkm->alamat }}" data-no_telp_umkm="{{ $umkm->no_telp_umkm }}" data-vip="{{ $umkm->vip }}">
+                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editUser(this)" data-id="{{ $umkm->id }}" data-nama_umkm="{{ $umkm->nama_umkm }}" data-alamat="{{ $umkm->alamat }}" data-no_telp_umkm="{{ $umkm->no_telp_umkm }}" data-vip="{{ $umkm->vip }}" data-link="{{ $umkm->link }}">
                                                 Edit
                                             </button>
-                                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="deleteUser(this)" data-id="{{ $umkm->id }}" data-nama_umkm="{{ $umkm->nama_umkm }}">
-                                                Hapus
-                                            </button>
+                                            <form id="deleteForm{{ $umkm->id }}" action="{{ route('umkm.destroy', $umkm->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onclick="confirmDelete('{{ $umkm->id }}', '{{ $umkm->nama_umkm }}')">
+                                                    Hapus
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -84,7 +90,8 @@
                                     </div>
                                     <div class="mb-4">
                                         <label for="alamat" class="block text sm font-medium text-gray-700 dark:text-gray-200">Alamat</label>
-                                        <input type="text" name="alamat" id="alamat" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                        <input type="text" id="autocomplete" name="alamat" id="alamat" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                        <input type="text" name="link" class="hidden" id="link">
                                     </div>
                                     <div class="mb-4">
                                         <label for="no_telp_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">No. Telp</label>
@@ -135,13 +142,16 @@
                             <form action="{{ route('umkm.update', $umkm->id) }}" method="POST" id="editForm" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
+
                                 <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                     <div class="mb-4">
                                         <label for="edit_nama_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">Nama UMKM</label>
                                         <input type="text" name="edit_nama_umkm" id="edit_nama_umkm" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                        <p>{{ $umkm->id }}</p>
                                     </div>
                                     <div class="mb-4">
                                         <label for="edit_alamat" class="block text sm font-medium text-gray-700 dark:text-gray-200">Alamat</label>
+                                        <input type="" name="edit_link" class="hidden" id="edit_link">
                                         <input type="text" name="edit_alamat" id="edit_alamat" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
                                     </div>
                                     <div class="mb-4">
@@ -172,6 +182,7 @@
             </div>
         </div>
     </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy7Wqkn0A1tWbQf9-LnGum9UucUooaQXY&libraries=places&callback=initAutocomplete" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if (session('error2'))
     <script>
@@ -189,8 +200,7 @@
 
         Toast.fire({
             icon: 'error',
-            title: '{{ session('
-            error2 ') }}'
+            title: "{{ session('error2') }}"
         })
     </script>
     @endif
@@ -210,8 +220,7 @@
 
         ToastSuccess.fire({
             icon: 'success',
-            title: '{{ session('
-            success ') }}'
+            title: "{{ session('success') }}"
         })
     </script>
     @endif
@@ -246,30 +255,87 @@
             }
         });
     </script>
-
     <script>
+        function confirmDelete(id, nama_umkm) {
+            var isConfirmed = confirm("Are you sure you want to delete " + nama_umkm + "?");
+
+            if (isConfirmed) {
+                document.getElementById('deleteForm' + id).submit();
+            } else {
+                console.log("Deletion canceled.");
+            }
+        }
+    </script>
+    <script>
+        var autocomplete;
+
+        function initAutocomplete() {
+            var input = document.getElementById('autocomplete');
+
+            autocomplete = new google.maps.places.Autocomplete(input);
+
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (!place.geometry || !place.place_id) {
+                    alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+
+                var googleMapsLink = place.url;
+                console.log(googleMapsLink);
+                document.getElementById('autocomplete').value = googleMapsLink;
+                document.getElementById('edit_link').value = googleMapsLink;
+            });
+        }
+    </script>
+    <script>
+        var editauto;
+        var edit;
+
         function editUser(button) {
-            // Get data from data-* attributes
             var id = button.getAttribute('data-id');
             var nama_umkm = button.getAttribute('data-nama_umkm');
             var alamat = button.getAttribute('data-alamat');
             var no_telp_umkm = button.getAttribute('data-no_telp_umkm');
             var vip = button.getAttribute('data-vip');
+            var link = button.getAttribute('data-link');
 
-            // Fill the form in the modal with the data
+            document.getElementById('edit_link').value = link;
             document.getElementById('edit_nama_umkm').value = nama_umkm;
             document.getElementById('edit_alamat').value = alamat;
             document.getElementById('edit_no_telp_umkm').value = no_telp_umkm;
             document.getElementById('edit_vip').value = vip;
 
+            edit = document.getElementById('edit_alamat');
+            editauto = new google.maps.places.Autocomplete(edit);
+            editauto.addListener('place_changed', function() {
+                var place = editauto.getPlace();
+                if (!place.geometry || !place.place_id) {
+                    alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+
+                var googleMapsLink = place.url;
+                console.log(googleMapsLink);
+                document.getElementById('edit_link').value = googleMapsLink;
+            });
+            console.log(document.getElementById('edit_alamat').value, document.getElementById('edit_link').value);
+
             // Update the form action to point to the update route
             var form = document.querySelector('#editForm');
-            // form.action = '/umkm/update/' + id;
+            form.action = '{{ route("umkm.update", ["id" => ":id"]) }}'.replace(':id', id);
 
             // Show the modal
             document.getElementById('modal-edit').classList.remove('hidden');
         }
     </script>
+
+    <style>
+        /* Style the "powered by Google" attribution */
+        .pac-container:after {
+            content: none !important;
+        }
+    </style>
 </x-app-layout>
 <script>
     document.querySelector('[data-bs-target="#umkmModal"]').addEventListener('click', function(event) {

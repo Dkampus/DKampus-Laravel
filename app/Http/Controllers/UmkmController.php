@@ -81,6 +81,8 @@ class UmkmController extends Controller
                 'alamat' => 'required',
                 'no_telp_umkm' => 'required',
                 'vip' => 'required',
+                'alamat' => 'required',
+                'link' => 'required',
             ]);
             // dd
             // ($request->file('logo_umkm'));
@@ -100,6 +102,8 @@ class UmkmController extends Controller
                 'alamat' => $request->alamat,
                 'no_telp_umkm' => $request->no_telp_umkm,
                 'vip' => $request->vip,
+                "alamat" => $request->alamat,
+                "link" => $request->link,
             ]);
         } catch (\Exception $e) {
             dd($e);
@@ -155,15 +159,16 @@ class UmkmController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Data_umkm $umkm)
+    public function update(Request $request, $id)
     {
         try {
-            $umkm = Data_umkm::findOrFail($umkm->id);
+            $umkm = Data_umkm::findOrFail($id);
 
             $umkm->nama_umkm = $request->edit_nama_umkm;
             $umkm->alamat = $request->edit_alamat;
             $umkm->no_telp_umkm = $request->edit_no_telp_umkm;
             $umkm->vip = $request->edit_vip;
+            $umkm->link = $request->edit_link;
 
             // Check if a new logo is uploaded
             if ($request->hasFile('logo_umkm')) {
@@ -183,17 +188,15 @@ class UmkmController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Data_umkm $umkm)
+    public function destroy($id)
     {
-        DB::beginTransaction();
         try {
+            $umkm = Data_umkm::find($id);
             Data_umkm::findOrFail($umkm->id)->delete();
-            Storage::deleteDirectory("public/{$umkm->nama_umkm}");
-            DB::commit();
+            Storage::deleteDirectory("public/" . $umkm->logo_umkm);
             session()->flash('success', 'Umkm ' . $umkm->nama_umkm . ' Berhasil Dihapus');
             return redirect()->back();
         } catch (\Exception $e) {
-            DB::rollback();
             session()->flash('error2', 'Umkm ' . $umkm->nama_umkm . ' Gagal Dihapus');
             return redirect()->back();
         }
