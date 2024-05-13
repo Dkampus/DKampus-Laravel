@@ -4,9 +4,7 @@
     <section id="warungIbuPagi" class="flex flex-col bg-white w-full h-full py-10">
         <div id="contentCard" class="mx-auto">
             {{-- Title Warung --}}
-            <?php
-            if ($namaUMKM !== null) {
-            ?>
+            @if ($namaUMKM !== null)
                 <div id="titleWarung" class="flex flex-row items-center mb-4">
                     <div class="flex flex-row justify-start items-center gap-4 rounded-xl">
                         <input type="checkbox" name="" id="checkboxWarung" class="text-[#F9832A] border-2 rounded-md border-[#F9832A] w-8  h-8 transition-all duration-300 checked:fill-[#F9832A] checked:border-[#F9832A] checked:ring-[#F9832A] focus:fill-[#F9832A] focus:border-[#F9832A] focus:ring-[#F9832A]">
@@ -22,33 +20,17 @@
                     </div>
                 </div>
                 <div class="bg-[#5e5e5e]/40 w-[30rem] h-0.5"></div>
-            <?php
-            } else {
-            ?>
+
+            @else
                 <h1 class="text-xl font-semibold">Ups keranjang kamu kosong :)</h1>
-            <?php
-            }
-            ?>
-
-            {{-- Line Card Pesanan --}}
-
+            @endif
             {{-- Card List Pesanan --}}
             <div id="cardList" class="flex flex-col transition-all duration-300 items-start gap-y-5 mt-5">
-                @php $total_harga = 0; @endphp
-                @if ($test)
-                @if ($test != 0)
-                @foreach ($test as $order => $item)
-                @php
-                $harga = number_format($item['harga'], 0, ',', '.');
-                $total_harga += $item['jumlah'] * $item['harga'];
-                @endphp
-
+                @foreach ($data as $order => $item)
                 <div id="cardPesanan{{ $item['id'] }}" class="flex flex-row items-center justify-start gap-4 rounded-xl">
                     {{-- Favorite and Checkbox --}}
                     <div id="favoriteAndCheckbox" class="flex flex-col gap-3 items-start mb-auto">
-
                         <input type="checkbox" name="" id="checkboxMakanan" class="text-[#F9832A] border-2 rounded-md border-[#F9832A] w-8 h-8 transition-all duration-300 checked:fill-[#F9832A] checked:border-[#F9832A] checked:ring-[#F9832A] focus:fill-[#F9832A] focus:border-[#F9832A] focus:ring-[#F9832A]">
-
                         <button type="button" id="like" value="{{ $item['id'] }}">
                             <label for="BtnLikeCheckbox" id="BtnLikes" class="w-8 h-8 bg-white flex flex-col justify-center items-center border-2 border-[#5e5e5e]/40 rounded-md">
                                 @php
@@ -68,18 +50,20 @@
                     <form action="" method="POST">
                         <div id="contentPesanan{{ $item['id'] }}" class="shadow-md w-[27rem] rounded-xl border">
                             <div for="checkboxMakanan" class="flex flex-row items-center">
+                                @php
+                                    $menu = \App\Models\Menu::where('id', $item['id'])->first();
+                                    $imagePath = $menu->image;
+                                @endphp
                                 <div class="h-32 w-60">
-                                    {{-- <img src="{{ Storage::url($item['nama'] }}" alt=""--}}
-                                    {{-- class="rounded-lg h-full w-full object-cover">--}}
+                                    <img src="{{ Storage::url($imagePath) }}" alt="" class="h-full w-full object-cover rounded-tl-xl rounded-bl-xl">
                                 </div>
-                                {{-- <img src="{{$c->menu->image}}" alt="" class="rounded-lg h-max" width="100px"> --}}
                                 <div id="desc" class="flex flex-row justify-between w-full">
                                     <div class="flex flex-col justify-center gap-3 px-5">
                                         <h1 class="font-semibold text-xl">{{ $item['nama'] }}</h1>
                                         <a href="" class="text-sm text-gray-500">Tambahkan
                                             catatan</a>
                                         <h2 class="text-[#F9832A] font-semibold text-lg">
-                                            Rp{{ $item['harga'] }}
+                                            Rp. {{number_format($item['harga'], 0, ',', '.')}}
                                         </h2>
                                     </div>
                                     <!-- Increament Button (PR POL) -->
@@ -112,8 +96,6 @@
                 <input type="hidden" name="items[harga][]" value="{{ $item['harga'] }}">
                 <input type="hidden" name="items[id][]" value="{{ $item['id'] }}">
                 @endforeach
-                @endif
-                @endif
             </div>
             </form>
             <form action="{{ route('cart.delete') }}" method="POST" class="delete-form hidden">
@@ -149,6 +131,10 @@
 </div>
 
 <div id="totalAndAddress">
+    @php $total = 0; @endphp
+    @foreach ($data as $item)
+    @php $total += $item['harga'] * $item['jumlah']; @endphp
+    @endforeach
     <div id="content" class="fixed border-[2.5px] border-black/10 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full left-0 bottom-0 bg-white shadow-top-for-total-harga">
         <button id="alamat" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
             <img src="Map.svg" alt="" class="w-6">
@@ -157,11 +143,10 @@
                 <img src="ArrowTop.svg" alt="">
             </div>
         </button>
-        @php $total_harga = number_format($total_harga,0,',','.'); @endphp
         <div id="totalHarga" class="flex flex-row gap-5">
             <div id="descTotalHarga" class="text-center">
                 <h1>Total Harga</h1>
-                <p id="total_harga" class=" font-semibold border-b-2 border-[#F9832A]">Rp{{ $total_harga }}</p>
+                <p id="total_harga" class=" font-semibold border-b-2 border-[#F9832A]">Rp. {{ number_format($total, 0, ',', '.') }}</p>
             </div>
             <div id="buttonTotalHarga">
                 <a href="{{ route('checkout') }}">
