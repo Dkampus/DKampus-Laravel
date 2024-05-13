@@ -9,7 +9,7 @@
             <div class="flex flex-row">
                 {{-- Chat list --}}
                 <div class="w-1/4">
-                    <div class="bg-white dark:bg-gray-800 overflow-y-auto">
+                    <div class="bg-white dark:bg-gray-800">
                         <div class="flex flex-row items-center justify-between p-4 border-b dark:border-gray-600">
                             <p class="font-semibold text-gray-800 dark:text-gray-200">Chats</p>
                             <button class="text-gray-500 dark:text-gray-400 focus:outline-none">
@@ -18,22 +18,25 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="p-4" id="list-chat">
-
-                        </div>
+                    </div>
+                    <div id="list-chat" class="bg-white dark:bg-gray-800 flex-grow overflow-auto h-[74.3vh]">
+                        {{-- Chat list in here --}}
                     </div>
                 </div>
-                {{-- Chatroom --}}
-                <div class="w-3/4 mx-5">
-                    <div class="bg-white dark:bg-gray-800 h-96" id="room-chat">
-
+                {{-- Chatroom and message form --}}
+                <div class="w-3/4 mx-5 no-scrollbar flex flex-col h-[80vh]">
+                    <div class="bg-white dark:bg-gray-800 flex-grow overflow-auto" id="room-chat">
+                        <a id="ifx" class="flex flex-col items-center justify-center h-full text-gray-500 dark:text-gray-400">
+                            Silahkan pilih chat untuk melihat pesan
+                        </a>
+                        {{-- Chat messages in here --}}
                     </div>
                     <div class="p-4 bg-white dark:bg-gray-800">
                         <form id="message-form" action="#" method="POST">
                             @csrf
-                            <div class="flex flex-row items-center space-x-4" id="custId">
-                                <input id="message-input" type="text" class="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none" placeholder="Type a message..." disabled>
-                                <button class="bg-blue-500 text-white p-2 rounded-lg focus:outline-none" type="submit" id="send-btn" disabled>Send</button>
+                            <div class="flex flex-row items-center space-x-4">
+                                <input id="message-input" type="text" class="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none" placeholder="Type a message...">
+                                <button class="bg-blue-500 text-white p-2 rounded-lg focus:outline-none" type="submit">Send</button>
                             </div>
                         </form>
                     </div>
@@ -42,6 +45,7 @@
         </div>
     </div>
 </x-app-layout>
+
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -135,6 +139,8 @@
 
     function loadChat(custId) {
         $('#room-chat').empty();
+        var ifx = $('#ifx');
+        ifx.addClass('hidden');
         var chatRef = database.ref('chats/' + custId + '-' + courId);
         chatRef.on('child_added', function(snapshot) {
             var messageData = snapshot.val().msgs;
