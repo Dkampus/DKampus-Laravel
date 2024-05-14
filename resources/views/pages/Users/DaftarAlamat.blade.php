@@ -7,41 +7,6 @@
     }
 </style>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy7Wqkn0A1tWbQf9-LnGum9UucUooaQXY&libraries=places&callback=initAutocomplete" defer></script>
-<?php
-// Temporary data
-$alamatUser = [
-    [
-        'Title' => 'FIT',
-        'Alamat' => 'No., Jl. Sukapura No.20, Sukapura, Kec. Dayeuhkolot Kabupaten Badung',
-        'linkgmap' => 'https://www.google.com/maps/place/No.,+Jl.+Sukapura+No.20,+Sukapura,+Kec.+Dayeuhkolot+Kabupaten+Badung'
-    ],
-    [
-        'Title' => 'Rumah',
-        'Alamat' => 'Kawasan pendidikan Telkom University Gg.Babakan Ciamis 3',
-        'linkgmap' => 'https://www.google.com/maps/place/Kawasan+pendidikan+Telkom+University+Gg.Babakan+Ciamis+3'
-    ],
-    [
-        'Title' => 'Kost PGA',
-        'Alamat' => 'Kawasan pendidikan Telkom University Gg.PGA, Desa Lengkong',
-        'linkgmap' => 'https://www.google.com/maps/place/Kawasan+pendidikan+Telkom+University+Gg.PGA,+Desa+Lengkong'
-    ],
-    [
-        'Title' => 'FIT',
-        'Alamat' => 'No., Jl. Sukapura No.20, Sukapura, Kec. Dayeuhkolot Kabupaten Badung',
-        'linkgmap' => 'https://www.google.com/maps/place/No.,+Jl.+Sukapura+No.20,+Sukapura,+Kec.+Dayeuhkolot+Kabupaten+Badung'
-    ],
-    [
-        'Title' => 'Rumah',
-        'Alamat' => 'Kawasan pendidikan Telkom University Gg.Babakan Ciamis 3',
-        'linkgmap' => 'https://www.google.com/maps/place/Kawasan+pendidikan+Telkom+University+Gg.Babakan+Ciamis+3'
-    ],
-    [
-        'Title' => 'Kost PGA',
-        'Alamat' => 'Kawasan pendidikan Telkom University Gg.PGA, Desa Lengkong',
-        'linkgmap' => 'https://www.google.com/maps/place/Kawasan+pendidikan+Telkom+University+Gg.PGA,+Desa+Lengkong'
-    ],
-];
-?>
 <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10 shadow-md py-8">
     <a href="{{'/'}}" class="absolute top-5 left-5 flex items-center gap-x-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#F9832A" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -60,8 +25,8 @@ $alamatUser = [
     <div class="flex flex-col w-full h-auto px-1 py-3">
         <div class="flex flex-col w-full h-auto bg-white rounded-md shadow-md p-5">
             <div id="openModalViewDetails{{$key}}">
-                <span class="font-bold text-black text-l">{{$alamat['Title']}}<br></span>
-                <span class="font-normal text-black text-md">{{$alamat['Alamat']}}</span>
+                <span class="font-bold text-black text-l">{{$alamat['nama_alamat']}}<br></span>
+                <span class="font-normal text-black text-md">{{$alamat['address']}}</span>
             </div>
             <a href="#" id="openModal{{$key}}" class="text-blue-700" onclick="event.preventDefault(); openModalAddAddress('tambahAlamatModal', 'Edit Alamat');">Edit</a>
         </div>
@@ -78,13 +43,13 @@ $alamatUser = [
                     <div class="sm:flex sm:items-start">
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                {{$alamat['Title']}}
+                                {{$alamat['nama_alamat']}}
                             </h3>
                             <div class="mt-2">
                                 <p class="text-sm text-gray-500">
-                                    {{$alamat['Alamat']}}
+                                    {{$alamat['address']}}
                                 </p>
-                                <a href="{{$alamat['linkgmap']}}" class="text-blue-500" target="_blank">View on Google Maps</a>
+                                <a href="{{$alamat['link']}}" class="text-blue-500" target="_blank">View on Google Maps</a>
                             </div>
                         </div>
                     </div>

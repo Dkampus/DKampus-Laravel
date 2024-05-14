@@ -17,6 +17,8 @@ class CourierController extends Controller
         $uid_user = $database->getReference('onProgress/')->getChildKeys();
         $itemCount = $database->getReference('onProgress/')->getSnapshot()->numChildren();
         $custId = "";
+        $umkmId = [];
+        $result = [];
         $i = 0;
         while ($i < $itemCount) {
             $getUid = explode("-", $uid_user[$i]);
@@ -28,19 +30,30 @@ class CourierController extends Controller
             }
             $i++;
         }
-        foreach ($umkmId as $id) {
-            $no_telp_umkm[] = Data_umkm::find($id)->no_telp_umkm;
+        if ($umkmId != null) {
+            foreach ($umkmId as $id) {
+                $no_telp_umkm[] = Data_umkm::find($id)->no_telp_umkm;
+            }
+            return view('pages/Courier/dashboard', [
+                'Title' => 'Dashboard',
+                // 'nama_umkm' => $nama_umkm,
+                'nama_penerima' => $nama_penerima,
+                'no_telp_umkm' => $no_telp_umkm,
+                'orders' => $result,
+                'no_telp_cust' => User::find($custId)->no_telp,
+                'cour_name' => User::find($courId)->nama_user,
+            ]);
+        } else {
+            return view('pages/Courier/dashboard', [
+                'Title' => 'Dashboard',
+                // 'nama_umkm' => $nama_umkm,
+                // 'nama_penerima' => $nama_penerima,
+                'no_telp_umkm' => null,
+                'orders' => $result,
+                // 'no_telp_cust' => User::find($custId)->no_telp,
+                'cour_name' => User::find($courId)->nama_user,
+            ]);
         }
-
-        return view('pages/Courier/dashboard', [
-            'Title' => 'Dashboard',
-            // 'nama_umkm' => $nama_umkm,
-            'nama_penerima' => $nama_penerima,
-            'no_telp_umkm' => $no_telp_umkm,
-            'orders' => $result,
-            'no_telp_cust' => User::find($custId)->no_telp,
-            'cour_name' => User::find($courId)->nama_user,
-        ]);
     }
 
     public function listOrder()

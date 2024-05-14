@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\HomeModel;
 use App\Models\Cart;
+use App\Models\User;
 use App\Models\Addresse;
 use App\Models\Favorit;
 use App\Models\PesananModel;
@@ -23,10 +24,12 @@ class CartController extends Controller
         // Using Exception Before Log-in so doesn't show an error page
         try {
             $userID = Auth::user()->id;
+            $alamat = User::find($userID);
             $database = app('firebase.database');
             $test = $database->getReference('cart/' . $userID . '/orders')->getValue();
             $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
             $namaUMKM = Data_umkm::find($idumkm);
+            $listAlamat = $alamat->addresses()->where('user_id', $userID)->get();
             $carts = Cart::where("user_id", auth()->user()->id)->get();
             return view('pages.Users.Pesanan', [
                 'Title' => 'Pesanan',
@@ -35,7 +38,7 @@ class CartController extends Controller
                 'carts' => $carts,
                 'test' => $test,
                 'namaUMKM' => $namaUMKM->nama_umkm,
-                'AddressList' => PesananModel::alamatUser(),
+                'AddressList' => $listAlamat,
                 'PengaturanAkun' => HomeModel::pengaturanAkun(),
                 'SeputarDkampus' => HomeModel::seputarDkampus(),
             ]);
@@ -47,7 +50,7 @@ class CartController extends Controller
             'carts' => "",
             'test' => "",
             'namaUMKM' => null,
-            'AddressList' => PesananModel::alamatUser(),
+            // 'AddressList' => PesananModel::alamatUser(),
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
             'SeputarDkampus' => HomeModel::seputarDkampus(),
         ]);
@@ -160,16 +163,22 @@ class CartController extends Controller
     // Temporary function, should be moved to another controller.
     public function checkout()
     {
+        $id = request()->selected_address_id;
         $userID = Auth::user()->id;
-
+        $alamat = User::find($userID);
         $database = app('firebase.database');
         $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
         $total = $database->getReference('cart/' . $userID . '/total')->getValue();
         $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
         $namaUMKM = Data_umkm::find($idumkm);
         $geoUmkm = Data_umkm::find($idumkm)->geo;
-        $geoUser = Addresse::where('user_id', $userID)->first()->geo;
+        $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
         $ongkir = $this->ongkir($geoUmkm, $geoUser);
+        $database->getReference('cart/' . $userID . '/cust_address')->set($alamat->addresses()->where('id', $id)->first()->address);
+        $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamat->addresses()->where('id', $id)->first()->link);
+        $database->getReference('cart/' . $userID . '/umkm_address')->set(Data_umkm::find($idumkm)->alamat);
+        $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($idumkm)->link);
+        $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir);
         return view('pages.Users.CheckoutPage', [
             'Title' => 'Checkout',
             'NavPesanan' => 'Checkout',
@@ -177,7 +186,7 @@ class CartController extends Controller
             'total' => $total,
             'nama_umkm' => $namaUMKM->nama_umkm,
             'ongkir' => $ongkir,
-            'AddressList' => PesananModel::alamatUser(),
+            // 'AddressList' => PesananModel::alamatUser(),
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
             'SeputarDkampus' => HomeModel::seputarDkampus(),
         ]);

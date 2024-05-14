@@ -18,4 +18,9 @@ class Addresse extends Model
         'nama_alamat',
         'geo'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

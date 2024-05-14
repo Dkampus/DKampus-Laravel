@@ -51,10 +51,14 @@ class UserController extends Controller
         ]);
     }
 
-    public function alamat()
+    public function indexAlamat()
     {
+        $userID = Auth::user()->id;
+        $alamat = User::find($userID);
+        $dataAlamat = $alamat->addresses()->get();
         return view('pages.Users.DaftarAlamat', [
             'Title' => 'Daftar Alamat',
+            'alamatUser' => $dataAlamat,
         ]);
     }
 

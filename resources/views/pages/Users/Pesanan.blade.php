@@ -131,48 +131,49 @@
 
 <div id="overlayAddNewAddress" onclick="renderHideListAddress()" class="bg-black/10 transition-all duration-500 invisible opacity-0 -z-10 h-screen w-full absolute top-0 left-0">
 </div>
-
-<div id="addNewAddress" class="w-full pt-5 pb-14 flex flex-col items-center gap-5 border overflow-auto fixed h-0 bg-white rounded-3xl -bottom-96 transition-all duration-500 shadow-top-for-total-harga">
-    @forelse ($AddressList as $Item)
-    <div class="flex flex-row items-end gap-10 border-b-2 pb-2">
-        <div class="flex flex-col gap-2">
-            <h1 class="font-semibold text-lg">{{ $Item['Title'] }}</h1>
-            <div id="location" class="flex flex-row gap-2 items-center">
-                <img src="markLocation.svg" alt="" class="w-5">
-                <h1 class="text-wrapper-location">{{ $Item['Alamat'] }}</h1>
+<form action="{{ route('checkout') }}" method="POST">
+    @csrf
+    <div id="addNewAddress" class="w-full pt-5 pb-14 flex flex-col items-center gap-5 border overflow-auto fixed h-0 bg-white rounded-3xl -bottom-96 transition-all duration-500 shadow-top-for-total-harga">
+        @foreach($AddressList as $alamat)
+        <a class="address-button btn" data-id="{{ $alamat->id }}" data-name="{{ $alamat->nama_alamat }}" onclick="renderHideListAddress()">
+            <div class="flex flex-row items-end gap-10 border-b-2 pb-2">
+                <div class="flex flex-col gap-2">
+                    <h1 class="font-semibold text-lg text-start">{{ $alamat->nama_alamat }}</h1>
+                    <div id="location" class="flex flex-row gap-2 items-center">
+                        <img src="markLocation.svg" alt="" class="w-5">
+                        <h1 class="text-wrapper-location">{{ $alamat->address }}</h1>
+                    </div>
+                </div>
+                <img src="edit.svg" alt="" class="w-5">
             </div>
-        </div>
-        <img src="edit.svg" alt="" class="w-5">
+        </a>
+        @endforeach
     </div>
-    @empty
-    @endforelse
-</div>
-
-<div id="totalAndAddress">
-    <div id="content" class="fixed border-[2.5px] border-black/10 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full left-0 bottom-0 bg-white shadow-top-for-total-harga">
-        <button id="alamat" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
-            <img src="Map.svg" alt="" class="w-6">
-            <div id="desc" class="flex flex-row gap-2 items-center">
-                <h1 class="text-[#5e5e5e] font-medium">Masukkan alamat Anda</h1>
-                <img src="ArrowTop.svg" alt="">
-            </div>
-        </button>
-        @php $total_harga = number_format($total_harga,0,',','.'); @endphp
-        <div id="totalHarga" class="flex flex-row gap-5">
-            <div id="descTotalHarga" class="text-center">
-                <h1>Total Harga</h1>
-                <p id="total_harga" class=" font-semibold border-b-2 border-[#F9832A]">Rp{{ $total_harga }}</p>
-            </div>
-            <div id="buttonTotalHarga">
-                <a href="{{ route('checkout') }}">
+    <input type="hidden" id="selected_address_id" name="selected_address_id" value="">
+    <div id="totalAndAddress">
+        <div id="content" class="fixed border-[2.5px] border-black/10 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full left-0 bottom-0 bg-white shadow-top-for-total-harga">
+            <a id="alamat" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
+                <img src="Map.svg" alt="" class="w-6">
+                <div id="desc" class="flex flex-row gap-2 items-center">
+                    <h1 class="text-[#5e5e5e] font-medium" id="selected_address">Masukkan alamat Anda</h1>
+                    <img src="ArrowTop.svg" alt="">
+                </div>
+            </a>
+            @php $total_harga = number_format($total_harga,0,',','.'); @endphp
+            <div id="totalHarga" class="flex flex-row gap-5">
+                <div id="descTotalHarga" class="text-center">
+                    <h1>Total Harga</h1>
+                    <p id="total_harga" class=" font-semibold border-b-2 border-[#F9832A]">Rp{{ $total_harga }}</p>
+                </div>
+                <div id="buttonTotalHarga">
                     <button class="bg-[#F9832A] h-10 w-24 text-white font-semibold rounded-xl">
                         Pesan
                     </button>
-                </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 @endsection
 
 @push('js')
@@ -340,6 +341,25 @@
                     console.log(form)
                     form.submit();
                 }
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addressButtons = document.querySelectorAll('.address-button');
+        const selectedAddressElement = document.getElementById('selected_address');
+        const selectedAddressIdInput = document.getElementById('selected_address_id');
+
+        addressButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const addressName = this.getAttribute('data-name');
+                const addressId = this.getAttribute('data-id');
+
+                selectedAddressElement.textContent = addressName;
+
+                selectedAddressIdInput.value = addressId;
+                selectedAddressIdInput.text = addressId;
             });
         });
     });

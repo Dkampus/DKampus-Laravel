@@ -240,7 +240,7 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     Route::get('/pesanan', [CartController::class, 'index']);
     Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
     Route::post("/pesanan/update-quantity", [CartController::class, 'updateQuantity'])->name('update.quantity');
-    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
     Route::get('/pay/{orderID}', [CartController::class, 'pay'])->name('payment');
     Route::post('/pay/order/', [CartController::class, 'order'])->name('order');
     Route::post('/checkout/confirm', [CartController::class, 'confirmPay'])->name('confirm.pay');
@@ -251,7 +251,7 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
         [ChatController::class, 'roomChat']
     )->name('room.chat');
     // Daftar Alamat
-    Route::get('/daftar-alamat', [UserController::class, 'alamat'])->name('alamat');
+    Route::get('/daftar-alamat', [UserController::class, 'indexAlamat'])->name('alamat');
     Route::post('/daftar_alamat', [UserController::class, 'daftarAlamat'])->name('daftar.alamat');
 });
 
