@@ -42,7 +42,6 @@ class PromoModel
     private static function getDiscountedMenus(){
     // Mengambil data dari tabel 'menus' yang memiliki diskon
     $discountedMenus = Menu::where('diskon', '>', 0)->get();
-//    dd($discountedMenus);
 
     // Membuat array untuk menyimpan data menu yang didiskon
     $PromoTerlaris = [];
@@ -52,7 +51,8 @@ class PromoModel
         $PromoTerlaris[] = [
             'Img' => $menu->image,
             'Discount' => 'diskon.svg',
-            'Title' => $menu->nama_makanan,
+            'nama_makanan' => $menu->nama_makanan,
+            'nama_umkm' => Data_umkm::where('id', $menu->data_umkm_id)->first()->nama_umkm,
             'PriceDiscount' => $menu->harga - ($menu->harga * $menu->diskon / 100),
             'PriceOri' => $menu->harga,
             'Ratings' => $menu->rating,

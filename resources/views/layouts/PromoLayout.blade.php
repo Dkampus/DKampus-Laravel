@@ -98,7 +98,7 @@
 
                      {{-- Desc --}}
                      <div id="desc" class="flex flex-col gap-0.5">
-                         <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['Title']}}</h1>
+                         <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['nama_makanan']}}</h1>
                          <div id="ratings" class="w-max overflow-x-scroll flex flex-row items-center gap-1.5">
                          <img src="Iconly/Bold/Star.svg" alt="">
                          <h1>{{$Item['Ratings']}}</h1>
@@ -144,7 +144,7 @@
 
                          {{-- Desc --}}
                          <div id="desc" class="flex flex-col gap-0.5">
-                             <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['Title']}}</h1>
+                             <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['nama_makanan']}}</h1>
                              <div id="ratings" class="w-max overflow-x-scroll flex flex-row items-center gap-1.5">
                              <img src="Iconly/Bold/Star.svg" alt="">
                              <h1>{{$Item['Ratings']}}</h1>

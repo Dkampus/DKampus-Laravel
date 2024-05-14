@@ -16,35 +16,26 @@
 {{-- Carousel Promo Terlaris --}}
 <x-promo-slider.carousel>
    @forelse ($PromoTerlarisSlider as $Item)
-    <swiper-slide class="border transition-all duration-300 w-40 h-60 rounded-xl overflow-hidden flex flex-col shadow-md mb-2 md:hidden">
-
-        {{-- Header Card --}}
-        <div id="headerCard" class="w-full">
-            <img src="{{$Item['Discount']}}" alt="" class="absolute">
-            <img src="{{Storage::url($Item['Img'])}}" alt="" class="w-full h-32">
-        </div>
-
-        {{-- Content card --}}
-        <div id="contentCard" class="px-2 py-2 flex flex-col gap-1 justify-center h-[45%]">
-
-            {{-- Prices --}}
-            <div id="prices" class="flex flex-row items-center gap-2.5 mt-1 h-max overflow-x-auto">
-                <h1 class="text-[#F9832A] font-bold text-xl">Rp. {{number_format($Item['PriceDiscount'],0,',','.')}}</h1>
-                <h1 class="line-through text-[#BCBCBC] text-sm sm:text-base font-semibold">{{number_format($Item['PriceOri'],0,',','.')}}</h1>
+    <swiper-slide class="w-full h-full bg-white rounded-xl shadow-md mb-2 md:hidden overflow-hidden border transition-all duration-300 flex flex-col">
+        <img src="{{Storage::url($Item['Img'])}}" alt="" class="w-full h-40 object-cover">
+        <img src="{{$Item['Discount']}}" alt="" class="absolute">
+        <div class="p-4">
+            <div class="tracking-wide text-l text-black font-semibold truncate">{{$Item['nama_makanan']}}</div>
+            <div class="flex items-center mt-1">
+                <img src="{{asset('shop.svg')}}" alt="" class="w-5 h-5">
+                <p class="text-[#5E5E5E] ml-2 truncate">{{$Item['nama_umkm']}}</p>
             </div>
-
-            {{-- Desc --}}
-            <div id="desc" class="flex flex-col gap-0.5">
-                <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['Title']}}</h1>
-                <div id="ratings" class="w-max overflow-x-scroll flex flex-row items-center gap-1.5">
-                <img src="Iconly/Bold/Star.svg" alt="">
-                <h1>{{$Item['Ratings']}}</h1>
+            <div class="flex justify-between items-center mt-1">
+                <p class="block text lg leading-tight font-medium text-black">Rp {{number_format($Item['PriceDiscount'], 0, ',', '.')}}</p>
+                <p class="line-through text-[#BCBCBC] text-xs sm:text-base font-semibold">{{number_format($Item['PriceOri'], 0, ',', '.')}}</p>
+                <div class="flex items center">
+                    <img src="Iconly/Bold/Star.svg" alt="" class="w-5 h-5">
+                    <p class="text-[#5E5E5E] text-m ml-2">{{$Item['Ratings']}}</p>
                 </div>
             </div>
         </div>
     </swiper-slide>
    @empty
-
    @endforelse
 </x-promo-slider.carousel>
 
@@ -70,7 +61,7 @@
 
              {{-- Desc --}}
              <div id="desc" class="flex flex-col gap-0.5">
-                 <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['Title']}}</h1>
+                 <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['nama_makanan']}}</h1>
                  <div id="ratings" class="w-max overflow-x-scroll flex flex-row items-center gap-1.5">
                  <img src="Iconly/Bold/Star.svg" alt="">
                  <h1>{{$Item['Ratings']}}</h1>
@@ -116,7 +107,7 @@
 
              {{-- Desc --}}
              <div id="desc" class="flex flex-col gap-0.5">
-                 <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['Title']}}</h1>
+                 <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['nama_makanan']}}</h1>
                  <div id="ratings" class="w-max overflow-x-scroll flex flex-row items-center gap-1.5">
                  <img src="Iconly/Bold/Star.svg" alt="">
                  <h1>{{$Item['Ratings']}}</h1>
