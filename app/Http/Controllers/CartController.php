@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Models\Addresse;
 use App\Models\Favorit;
+use App\Models\Menu;
 use App\Models\PesananModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,13 +31,11 @@ class CartController extends Controller
             $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
             $namaUMKM = Data_umkm::find($idumkm);
             $listAlamat = $alamat->addresses()->where('user_id', $userID)->get();
-            $carts = Cart::where("user_id", auth()->user()->id)->get();
             return view('pages.Users.Pesanan', [
                 'Title' => 'Pesanan',
                 'NavPesanan' => 'Pesanan',
                 //"favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
-                'carts' => $carts,
-                'test' => $test,
+                'data' => $test,
                 'namaUMKM' => $namaUMKM->nama_umkm,
                 'AddressList' => $listAlamat,
                 'PengaturanAkun' => HomeModel::pengaturanAkun(),
