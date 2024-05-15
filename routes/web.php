@@ -79,12 +79,32 @@ Route::get('/rekomendasi-menu', function () {
 
 // Promo Page
 Route::get('/promo', function () {
-    return view('layouts.PromoLayout', [
+    return view('pages.Users.SemuaPage', [
         'Title' => 'Promo',
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
-        'CarouselPromo' => PromoModel::carouselPromo(),
         'NavPromo' => 'Semua',
+        'CategoryPromo' => PromoModel::promoCategory(),
+        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+        'CarouselPromo' => PromoModel::carouselPromo(),
+        'FooterPart1' => Footer::footerPart1(),
+        'FooterPart2Beli' => Footer::footerPart2Beli(),
+        'FooterPart2Jual' => Footer::footerPart2Jual(),
+        'FooterPart3KeamananDanPrivasi' => Footer::footerPart3KeamananDanPrivasi(),
+        'FooterPart3IkutiKami' => Footer::footerPart3IkutiKami(),
+    ]);
+});
+
+Route::get('/promo/category/{value}', function ($value) {
+    return view('pages.Users.PromoSemua', [
+        'Title' => 'Promo ' . $value,
+        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+        'menus' => Menu::all(),
+        'CategoryPromo' => PromoModel::promoCategory(),
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
+        'NavPromo' => $value,
+        'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
         'FooterPart2Beli' => Footer::footerPart2Beli(),
         'FooterPart2Jual' => Footer::footerPart2Jual(),
@@ -95,11 +115,12 @@ Route::get('/promo', function () {
 
 Route::get('/promo/special', function () {
     $umkm = Data_umkm::where('id', Menu::first()->data_umkm_id)->first();
-    return view('pages.Users.PromoSemua', [
+    return view('pages.Users.PromoSpecial', [
         'Title' => 'Promo Special',
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
         'menus' => Menu::all(),
         'umkm' => $umkm,
+        'CategoryPromo' => PromoModel::promoCategory(),
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Semua',
@@ -119,6 +140,7 @@ Route::get('/promo/makanan', function () {
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Makanan',
+        'CategoryPromo' => PromoModel::promoCategory(),
         'PromoMakananSlider' => PromoModel::promoMakanan(),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
@@ -136,6 +158,7 @@ Route::get('/promo/minuman', function () {
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Minuman',
+        'CategoryPromo' => PromoModel::promoCategory(),
         'PromoMinumanSlider' => PromoModel::promoMakanan(),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
@@ -154,22 +177,6 @@ Route::get('/promo/cemilan', function () {
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Cemilan',
         'PromoCemilanSlider' => PromoModel::promoMakanan(),
-        'CarouselPromo' => PromoModel::carouselPromo(),
-        'FooterPart1' => Footer::footerPart1(),
-        'FooterPart2Beli' => Footer::footerPart2Beli(),
-        'FooterPart2Jual' => Footer::footerPart2Jual(),
-        'FooterPart3KeamananDanPrivasi' => Footer::footerPart3KeamananDanPrivasi(),
-        'FooterPart3IkutiKami' => Footer::footerPart3IkutiKami(),
-    ]);
-});
-
-Route::get('/promo', function () {
-    return view('pages.Users.SemuaPage', [
-        'Title' => 'Promo',
-        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-        'SeputarDkampus' => HomeModel::seputarDkampus(),
-        'NavPromo' => 'Semua',
-        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
         'FooterPart2Beli' => Footer::footerPart2Beli(),
