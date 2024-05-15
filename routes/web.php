@@ -78,9 +78,44 @@ Route::get('/rekomendasi-menu', function () {
 });
 
 // Promo Page
+Route::get('/promo', function () {
+    return view('pages.Users.SemuaPage', [
+        'Title' => 'Promo',
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
+        'NavPromo' => 'Semua',
+        'CategoryPromo' => PromoModel::promoCategory(),
+        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+        'CarouselPromo' => PromoModel::carouselPromo(),
+        'FooterPart1' => Footer::footerPart1(),
+        'FooterPart2Beli' => Footer::footerPart2Beli(),
+        'FooterPart2Jual' => Footer::footerPart2Jual(),
+        'FooterPart3KeamananDanPrivasi' => Footer::footerPart3KeamananDanPrivasi(),
+        'FooterPart3IkutiKami' => Footer::footerPart3IkutiKami(),
+    ]);
+});
+
+Route::get('/promo/{value}', function ($value) {
+    return view('pages.Users.PromoSemua', [
+        'Title' => 'Promo ' . $value,
+        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+        'menus' => Menu::all(),
+        'CategoryPromo' => PromoModel::promoCategory(),
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
+        'NavPromo' => $value,
+        'CarouselPromo' => PromoModel::carouselPromo(),
+        'FooterPart1' => Footer::footerPart1(),
+        'FooterPart2Beli' => Footer::footerPart2Beli(),
+        'FooterPart2Jual' => Footer::footerPart2Jual(),
+        'FooterPart3KeamananDanPrivasi' => Footer::footerPart3KeamananDanPrivasi(),
+        'FooterPart3IkutiKami' => Footer::footerPart3IkutiKami(),
+    ]);
+});
+
 Route::get('/promo/special', function () {
     $umkm = Data_umkm::where('id', Menu::first()->data_umkm_id)->first();
-    return view('pages.Users.PromoSemua', [
+    return view('pages.Users.PromoSpeical', [
         'Title' => 'Promo Special',
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
         'menus' => Menu::all(),
@@ -142,23 +177,6 @@ Route::get('/promo/cemilan', function () {
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => 'Cemilan',
         'PromoCemilanSlider' => PromoModel::promoMakanan(),
-        'CarouselPromo' => PromoModel::carouselPromo(),
-        'FooterPart1' => Footer::footerPart1(),
-        'FooterPart2Beli' => Footer::footerPart2Beli(),
-        'FooterPart2Jual' => Footer::footerPart2Jual(),
-        'FooterPart3KeamananDanPrivasi' => Footer::footerPart3KeamananDanPrivasi(),
-        'FooterPart3IkutiKami' => Footer::footerPart3IkutiKami(),
-    ]);
-});
-
-Route::get('/promo', function () {
-    return view('pages.Users.SemuaPage', [
-        'Title' => 'Promo',
-        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-        'SeputarDkampus' => HomeModel::seputarDkampus(),
-        'NavPromo' => 'Semua',
-        'CategoryPromo' => PromoModel::promoCategory(),
-        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
         'FooterPart2Beli' => Footer::footerPart2Beli(),
