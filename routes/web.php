@@ -204,7 +204,7 @@ Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'menu_id' => $menu->id,
         'images' => $menu->image,
-        'umkm_slug' => $menu->data_umkm->id,
+        'umkm_nama' => Data_umkm::where('id', $menu->data_umkm_id)->first()->nama_umkm,
         'nama_makanan' => $menu->nama_makanan,
         'rating' => $menu->rating,
         'harga' => number_format($menu->harga, 0, ',', '.'),
