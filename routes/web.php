@@ -95,7 +95,7 @@ Route::get('/promo', function () {
     ]);
 });
 
-Route::get('/promo/{value}', function ($value) {
+Route::get('/promo/category/{value}', function ($value) {
     return view('pages.Users.PromoSemua', [
         'Title' => 'Promo ' . $value,
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
@@ -115,7 +115,7 @@ Route::get('/promo/{value}', function ($value) {
 
 Route::get('/promo/special', function () {
     $umkm = Data_umkm::where('id', Menu::first()->data_umkm_id)->first();
-    return view('pages.Users.PromoSpeical', [
+    return view('pages.Users.PromoSpecial', [
         'Title' => 'Promo Special',
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
         'menus' => Menu::all(),
