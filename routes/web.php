@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UntukKamuController;
+use App\View\Components\CourierLayout;
 
 /*
 |--------------------------------------------------------------------------
@@ -284,6 +285,8 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
 
 // Courier Routes
 Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')->group(function () {
+    Route::post('/orders/delete', [CourierController::class, 'cancelOrder'])->name('delete.orders');
+    Route::post('orders/complete', [CourierController::class, 'completeOrder'])->name('complete.orders');
     Route::get('/dashboard', [CourierController::class, 'index'])->name('dashboardCourier');
     Route::get('/chats', [CourierController::class, 'listChat'])->name('chatpage');
     Route::post('/room-chat', [CourierController::class, 'roomChat'])->name('room.chat.courier');

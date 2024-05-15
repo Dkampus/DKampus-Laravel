@@ -41,7 +41,7 @@
     </div>
     <div class="flex justify-between items-center gap-x-2 p-2 mx-2">
         <p class="text-black"> Order ID</p>
-        <p class="text-black text-right">#{{ $orderId }}</p>
+        <p class="text-black text-right uppercase">#{{ $orderId }}</p>
     </div>
     <div class="flex justify-between items-center gap-x-2 p-2 mx-2">
         <p class="text-black"> Order</p>

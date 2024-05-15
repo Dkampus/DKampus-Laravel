@@ -15,20 +15,29 @@
                         @foreach ($orders as $order => $item)
                         <div class="flex flex-col gap-2 border border-[#F9832A] p-2">
                             <p class="text-lg font-bold text-[#F9832A]">Nama Umkm: {{ $item['nama_umkm'] }}</p>
-                            <p class="text-lg font-bold text-[#F9832A]">Alamat Umkm: </p>
+                            <p class=" text-lg font-bold text-[#F9832A]">Alamat Umkm: <a href=" {{ $item['link'] }}">{{ $item['alamat'] }}</a></p>
                             <p class="text-lg font-bold text-[#F9832A]">Nomor Telp Umkm: {{ $no_telp_umkm[$i] }}</p>
                             <p class="text-lg font-bold text-[#F9832A]">Nama Penerima: {{ $item['nama_penerima'] }}</p>
-                            <p class="text-lg font-bold text-[#F9832A]">Alamat Penerima: </p>
-                            <p class="text-lg font-bold text-[#F9832A]">Nama Umkm: {{ $item['nama_umkm'] }}</p>
-                            <p class="text-lg font-bold text-[#F9832A]">Nama Umkm: {{ $item['nama_umkm'] }}</p>
+                            <p class="text-lg font-bold text-[#F9832A]">Alamat Penerima: <a href=" {{ $item['cust_link_address'] }}">{{ $item['cust_address'] }}</a></p>
+                            <p class="text-lg font-bold text-[#F9832A]">SubTotal: Rp. {{number_format($item['total'], 0, ',', '.')}}</p>
+                            <p class="text-lg font-bold text-[#F9832A]">Ongkir: Rp. {{number_format($item['ongkir'], 0, ',', '.')}}</p>
+                            <p class="text-lg font-bold text-[#F9832A]">No Telp Cust: {{ $no_telp_cust }}</p>
 
                             <div class="flex flex-row gap-2">
-                                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-                                    Selesaikan
-                                </button>
-                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
-                                    Batalkan Pesanan
-                                </button>
+                                <form action="{{ route('complete.orders') }}" method="POST">
+                                    @csrf
+                                    <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+                                        Selesaikan
+                                    </button>
+                                    <input type="text" class="hidden" value="{{ $custId[$i] }}" name="custId">
+                                </form>
+                                <form action="{{ route('delete.orders') }}" method="POST">
+                                    @csrf
+                                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+                                        Batalkan Pesanan
+                                    </button>
+                                    <input type="text" class="hidden" value="{{ $custId[$i] }}" name="custId">
+                                </form>
                             </div>
                         </div>
                         <?php $i++ ?>

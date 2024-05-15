@@ -12,8 +12,11 @@ use App\Models\PesananModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Data_umkm;
+use Exception;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Client;
+
+use function PHPSTORM_META\type;
 
 class CartController extends Controller
 {
@@ -74,7 +77,7 @@ class CartController extends Controller
         $id = Auth::user()->id;
         $courId = $request->courId;
         if ($courId !== null) {
-            $orderId = substr($database->getReference('onProgress/' . $id . '-' . $courId . '/orderID'), 0, 10);
+            $orderId = substr($database->getReference('onProgress/' . $id . '-' . $courId . '/orderID')->getValue(), 0, 10);
             $status = $database->getReference('onProgress/' . $id . '-' . $courId . '/status')->getValue();
             $subTotal = $database->getReference('onProgress/' . $id . '-' . $courId . '/total')->getValue();
             $ongkir = $database->getReference('onProgress/' . $id . '-' . $courId . '/ongkir')->getValue();
@@ -86,7 +89,7 @@ class CartController extends Controller
                 'Title' => 'Status Order',
                 'NavPesanan' => 'Status Order',
                 'id' => $id,
-                'orderId' => '#' . $orderId,
+                'orderId' => $orderId,
                 'status' => $status,
                 'subTotal' => $subTotal,
                 'ongkir' => $ongkir,
@@ -261,22 +264,27 @@ class CartController extends Controller
 
     public function confirmPay()
     {
-        $userID = Auth::user()->id;
-        $orderID = hash('sha256', $userID . time());
-        $database = app('firebase.database');
-        $database->getReference('cart/' . $userID . '/orderID')->set($orderID);
+        try {
+            $userID = Auth::user()->id;
+            $orderID = hash('sha256', $userID . time());
+            $database = app('firebase.database');
+            $database->getReference('cart/' . $userID . '/orderID')->set($orderID);
 
-        $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
-        $total = $database->getReference('cart/' . $userID . '/total')->getValue();
-        $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
-        $namaUMKM = Data_umkm::find($idumkm);
-        return view('pages.Users.Pay', [
-            'Title' => 'Pay',
-            'orderID' => $orderID,
-            'carts' => $carts,
-            'total' => $total,
-            'nama_umkm' => $namaUMKM->nama_umkm,
-        ]);
+            $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
+            $total = $database->getReference('cart/' . $userID . '/total')->getValue();
+            $ongkir = $database->getReference('cart/' . $userID . '/ongkir')->getValue();
+            $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+            $namaUMKM = Data_umkm::find($idumkm);
+            return view('pages.Users.Pay', [
+                'Title' => 'Pay',
+                'orderID' => $orderID,
+                'carts' => $carts,
+                'total' => $total + $ongkir,
+                'nama_umkm' => $namaUMKM->nama_umkm,
+            ]);
+        } catch (Exception $e) {
+            return redirect()->back();
+        }
     }
 
     public function order(Request $request)
@@ -303,11 +311,7 @@ class CartController extends Controller
             $database->getReference('needToDeliver/' . $userID . '-/timestamp')->set($timestamp);
             $database->getReference('cart/' . $userID)->remove();
             $orderID = $database->getReference('needToDeliver/' . $userID . '/orderID')->getValue();
-            return view('pages.Users.StatusOrder', [
-                'Title' => 'Status Order',
-                'NavPesanan' => 'Status Order',
-                'id' => $orderID
-            ]);
+            return redirect('/pesanan/status');
         } else {
 
             return redirect()->back()->withErrors('Error', 'Invalid file uploaded.');

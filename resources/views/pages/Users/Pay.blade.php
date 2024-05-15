@@ -38,7 +38,7 @@
 
         <div class="flex justify-between items-center">
             <h2 class="">Order ID</h2>
-            <h2 class="uppercase">#TR000{{substr($orderID, 5, 10)}}</h2>
+            <h2 class="uppercase">#TR000{{substr($orderID, 0, 10)}}</h2>
         </div>
         <div class="flex justify-between items-center">
             <h2 class="">Metode Pembayaran</h2>

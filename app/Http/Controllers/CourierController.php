@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Data_umkm;
+use App\Models\history;
+use Exception;
 
 class CourierController extends Controller
 {
@@ -14,42 +16,60 @@ class CourierController extends Controller
     {
         $courId = Auth::user()->id;
         $database = app('firebase.database');
-        $uid_user = $database->getReference('onProgress/')->getChildKeys();
-        $itemCount = $database->getReference('onProgress/')->getSnapshot()->numChildren();
-        $custId = "";
-        $umkmId = [];
-        $result = [];
-        $i = 0;
-        while ($i < $itemCount) {
-            $getUid = explode("-", $uid_user[$i]);
-            if ($getUid[1] == $courId) {
-                $custId = $getUid[0];
-                $result[] = $database->getReference('onProgress/' . $custId . '-' . $courId)->getValue();
-                $umkmId[] = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders/item1/umkm_id')->getValue();
-                $nama_penerima[] = $database->getReference('onProgress/' . $custId . '-' . $courId . '/nama_penerima')->getValue();
+        $reference = $database->getReference('onProgress/');
+        $snapshot = $reference->getSnapshot();
+        if ($snapshot->exists()) {
+            $uid_user = $database->getReference('onProgress/')->getChildKeys();
+            $itemCount = $database->getReference('onProgress/')->getSnapshot()->numChildren();
+            $umkmId = [];
+            $result = [];
+            $custId = [];
+            $idCust = [];
+            $i = 0;
+            while ($i < $itemCount) {
+                $getUid = explode("-", $uid_user[$i]);
+                if ($getUid[1] == $courId) {
+                    $custId = $getUid[0];
+                    $idCust[] = $getUid[0];
+                    $result[] = $database->getReference('onProgress/' . $custId . '-' . $courId)->getValue();
+                    $umkmId[] = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders/item1/umkm_id')->getValue();
+                    $nama_penerima[] = $database->getReference('onProgress/' . $custId . '-' . $courId . '/nama_penerima')->getValue();
+                }
+                $i++;
             }
-            $i++;
-        }
-        if ($umkmId != null) {
-            foreach ($umkmId as $id) {
-                $no_telp_umkm[] = Data_umkm::find($id)->no_telp_umkm;
+            // dd($idCust);
+            if ($umkmId != null) {
+                foreach ($umkmId as $id) {
+                    $no_telp_umkm[] = Data_umkm::find($id)->no_telp_umkm;
+                }
+                return view('pages/Courier/dashboard', [
+                    'Title' => 'Dashboard',
+                    // 'nama_umkm' => $nama_umkm,
+                    'nama_penerima' => $nama_penerima,
+                    'no_telp_umkm' => $no_telp_umkm,
+                    'orders' => $result,
+                    'no_telp_cust' => User::find($custId)->no_telp,
+                    'cour_name' => User::find($courId)->nama_user,
+                    'custId' => $idCust
+                ]);
+            } else {
+                return view('pages/Courier/dashboard', [
+                    'Title' => 'Dashboard',
+                    // 'nama_umkm' => $nama_umkm,
+                    // 'nama_penerima' => $nama_penerima,
+                    'no_telp_umkm' => null,
+                    'orders' => $result,
+                    // 'no_telp_cust' => User::find($custId)->no_telp,
+                    'cour_name' => User::find($courId)->nama_user,
+                ]);
             }
-            return view('pages/Courier/dashboard', [
-                'Title' => 'Dashboard',
-                // 'nama_umkm' => $nama_umkm,
-                'nama_penerima' => $nama_penerima,
-                'no_telp_umkm' => $no_telp_umkm,
-                'orders' => $result,
-                'no_telp_cust' => User::find($custId)->no_telp,
-                'cour_name' => User::find($courId)->nama_user,
-            ]);
         } else {
             return view('pages/Courier/dashboard', [
                 'Title' => 'Dashboard',
                 // 'nama_umkm' => $nama_umkm,
                 // 'nama_penerima' => $nama_penerima,
                 'no_telp_umkm' => null,
-                'orders' => $result,
+                'orders' => null,
                 // 'no_telp_cust' => User::find($custId)->no_telp,
                 'cour_name' => User::find($courId)->nama_user,
             ]);
@@ -115,5 +135,50 @@ class CourierController extends Controller
             'date' => $date,
             'cust_name' => $cust_name,
         ]);
+    }
+
+    public function completeOrder(Request $request)
+    {
+        try {
+            $courId = Auth::user()->id;
+            $custId = $request->input('custId');
+            $database = app('firebase.database');
+
+            $harga = $database->getReference('onProgress/' . $custId . '-' . $courId . '/total')->getValue();
+            $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
+            $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
+            // dd($item);
+            $namaJumlahArray = [];
+            foreach ($item as $order) {
+                $namaJumlahArray[] = $order['jumlah'] . ' ' . $order['nama'];
+            }
+
+            $joinedNamaJumlah = implode(', ', $namaJumlahArray);
+            history::create([
+                'user_id' => $custId,
+                'item' => $joinedNamaJumlah,
+                'harga' => $harga,
+                'ongkir' => $ongkir,
+            ]);
+
+            $database->getReference('onProgress/' . $custId . '-' . $courId)->remove();
+            return redirect()->back();
+        } catch (Exception $e) {
+            dd($e);
+            return redirect()->back()->with('error', 'gagal menghapus data');
+        }
+    }
+
+    public function cancelOrder(Request $request)
+    {
+        try {
+            $courId = Auth::user()->id;
+            $custId = $request->input('custId');
+            $database = app('firebase.database');
+            $database->getReference('onProgress/' . $custId . '-' . $courId)->remove();
+            return redirect()->back();
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'gagal menghapus data');
+        }
     }
 }

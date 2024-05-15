@@ -38,8 +38,13 @@
         var id = snapshot.key.split('-')[0];
         if (id == custId) {
             var courId = snapshot.key.split('-')[1];
-            database.ref('onProgress').on('child_changed', function(status) {
+            database.ref('onProgress/' + custId + '-' + courId).on('value', function(status) {
                 var stat = status.val().status;
+                console.log(status.val());
+                var idOrders = status.val().orderID.slice(0, 10);
+                console.log($('div[data-order="' + idOrders + '"] .status-text'));
+                $('div[data-order="' + idOrders + '"] #status-text').empty().text(stat);
+                // console.log(idOrders, stat);
             });
             var orders = snapshot.ref.orderByChild('timestamp');
             var data = snapshot.val();
@@ -54,7 +59,7 @@
             var jumlah = data.total + data.ongkir;
             var formattedTotal = "Rp. " + jumlah.toLocaleString('id-ID');
             var status = data.status;
-            display(nama_umkm, tanggal, status, items, orderId, formattedTotal, courId);
+            display(nama_umkm, tanggal, status, items, orderId, formattedTotal, courId, id);
 
         }
     });
@@ -64,6 +69,10 @@
         if (ids == custId) {
             database.ref('needToDeliver').on('child_changed', function(status) {
                 var stat = status.val().status;
+                var idOrders = status.val().orderID.slice(0, 10);
+                $('div[data-order="' + idOrders + '"] .status-text').empty();
+                $('div[data-order="' + idOrders + '"] .status-text').text(stat);
+                console.log(idOrders, stat);
             });
             var orders = snapProgress.ref.orderByChild('timestamp');
             var data = snapProgress.val();
@@ -78,16 +87,16 @@
             var orderId = data.orderID.slice(0, 10);
             var jumlah = data.total + data.ongkir;
             var formattedTotal = "Rp. " + jumlah.toLocaleString('id-ID');
-            displayElse(nama_umkm, tanggal, status, items, orderId, formattedTotal);
+            displayElse(nama_umkm, tanggal, status, items, orderId, formattedTotal, ids);
         };
     });
 
-    function displayElse(umkm, tanggal, status, items, orderId, jumlah) {
+    function displayElse(umkm, tanggal, status, items, orderId, jumlah, custId) {
         var divContent = $('<div>').addClass('w-[29.5rem] relative h-auto overflow-hidden border-b-[3px] px-4 my-3 mx-auto flex flex-col items-center py-5');
         var divTitle = $('<div>').addClass('border-b-[3px] pb-5 mx-auto flex flex-row justify-between items-center w-full');
 
         var divSvg = $('<div>').addClass('flex flex-row items-center gap-5');
-        var divStatus = $('<div>').addClass('bg-[#FFEEE1] rounded-2xl text-center flex flex-col justify-center text-[#FF6E00] text-sm font-semibold py-2.5 px-3').text(status);
+        var divStatus = $('<div>').addClass('bg-[#FFEEE1] rounded-2xl text-center flex flex-col justify-center text-[#FF6E00] text-sm font-semibold py-2.5 px-3 status-text').text(status).attr('data-order', orderId).attr('id', 'status-text');
 
         var divHeadContent = $('<div>').attr('id', 'head');
 
@@ -132,12 +141,12 @@
         });
     }
 
-    function display(umkm, tanggal, status, items, orderId, jumlah, courId) {
+    function display(umkm, tanggal, status, items, orderId, jumlah, courId, custId) {
         var divContent = $('<div>').addClass('w-[29.5rem] relative h-auto overflow-hidden border-b-[3px] px-4 my-3 mx-auto flex flex-col items-center py-5');
         var divTitle = $('<div>').addClass('border-b-[3px] pb-5 mx-auto flex flex-row justify-between items-center w-full');
 
         var divSvg = $('<div>').addClass('flex flex-row items-center gap-5');
-        var divStatus = $('<div>').addClass('bg-[#FFEEE1] rounded-2xl text-center flex flex-col justify-center text-[#FF6E00] text-sm font-semibold py-2.5 px-3').text(status).attr('data-courId', courId);
+        var divStatus = $('<div>').addClass('bg-[#FFEEE1] rounded-2xl text-center flex flex-col justify-center text-[#FF6E00] text-sm font-semibold py-2.5 px-3 status-text').text(status).attr('data-order', orderId).attr('id', 'status-text');
 
         var divHeadContent = $('<div>').attr('id', 'head');
 
