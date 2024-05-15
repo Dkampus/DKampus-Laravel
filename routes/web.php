@@ -101,8 +101,6 @@ Route::get('/promo/category/{value}', function ($value) {
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
         'menus' => Menu::all(),
         'CategoryPromo' => PromoModel::promoCategory(),
-        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-        'SeputarDkampus' => HomeModel::seputarDkampus(),
         'NavPromo' => ucfirst($value),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
@@ -114,22 +112,10 @@ Route::get('/promo/category/{value}', function ($value) {
 });
 
 Route::get('/promo/special', function () {
-    $umkm = Data_umkm::where('id', Menu::first()->data_umkm_id)->first();
     return view('pages.Users.PromoSpecialPage', [
         'Title' => 'Promo Special',
-        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
-        'menus' => Menu::all(),
-        'umkm' => $umkm,
-        'CategoryPromo' => PromoModel::promoCategory(),
-        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-        'SeputarDkampus' => HomeModel::seputarDkampus(),
-        'NavPromo' => 'Semua',
-        'CarouselPromo' => PromoModel::carouselPromo(),
-        'FooterPart1' => Footer::footerPart1(),
-        'FooterPart2Beli' => Footer::footerPart2Beli(),
-        'FooterPart2Jual' => Footer::footerPart2Jual(),
-        'FooterPart3KeamananDanPrivasi' => Footer::footerPart3KeamananDanPrivasi(),
-        'FooterPart3IkutiKami' => Footer::footerPart3IkutiKami(),
+        'promoSpecial' => PromoModel::promoSpecial(),
+        'umkm' => Data_umkm::all(),
     ]);
 });
 
