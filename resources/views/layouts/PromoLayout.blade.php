@@ -161,10 +161,10 @@
 
     <main class="mb-28 md:px-10 md:mb-10">
     {{-- Navigation Promo --}}
-        <swiper-container class="mt-5 relative w-full flex justify-center items-center rounded-lg overflow-hidden md:hidden" space-between="10" slides-per-view="auto" direction="horizontal" mousewheel="true">
+        <swiper-container class="mt-5 relative w-full flex justify-center items-center rounded-lg overflow-hidden md:hidden" space-between="10" slides-per-view="auto" direction="horizontal" mousewheel="true" scrollbar="true" simulate-touch="true">
             <swiper-slide class="px-4 flex flex-row items-center gap-2.5 h-full overflow-x-auto">
                 @for($i = 0; $i < $CategoryPromo->count(); $i++)
-                    <a href="/promo/{{$CategoryPromo[$i]}}" class="transition duration-300 font-semibold {{$NavPromo === ucfirst($CategoryPromo[$i]) ? 'text-white bg-[#F9832A] py-1 px-2 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] py-1 px-2 flex flex-row items-center rounded-xl'}}">{{ucfirst($CategoryPromo[$i])}}</a>
+                    <a href="/promo/{{$CategoryPromo[$i]}}" class="transition duration-300 font-semibold {{$NavPromo === ucfirst($CategoryPromo[$i]) ? 'text-white bg-[#F9832A] border-2 border-[#F9832A] py-1 px-2 flex flex-row items-center rounded-xl whitespace-nowrap':'text-[#F9832A] bg-white border-2 border-[#F9832A] py-1 px-2 flex flex-row items-center rounded-xl whitespace-nowrap'}}">{{ucfirst($CategoryPromo[$i])}}</a>
                 @endfor
             </swiper-slide>
         </swiper-container>
