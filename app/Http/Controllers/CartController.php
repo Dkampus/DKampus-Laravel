@@ -48,6 +48,7 @@ class CartController extends Controller
             'NavPesanan' => 'Pesanan',
             'carts' => "",
             'test' => "",
+            'data' => null,
             'namaUMKM' => null,
             'AddressList' => null,
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
@@ -58,11 +59,10 @@ class CartController extends Controller
     public function status()
     {
         $userID = Auth::user()->id;
-        $database = app('firebase.database');
-
         return view('pages.Users.Status', [
             'Title' => 'Status',
             'NavPesanan' => 'Status',
+            'custId' => $userID,
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
             'SeputarDkampus' => HomeModel::seputarDkampus(),
         ]);
@@ -132,10 +132,27 @@ class CartController extends Controller
         return $total;
     }
 
+    private function calculteDistance($from, $to)
+    {
+        $apiKey = env('GOOGLE_MAPS_API_KEY');
+
+        $client = new Client();
+
+        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=$from&destinations=$to&key=$apiKey";
+
+        $response = $client->get($url);
+
+        if ($response->getStatusCode() === 200) {
+            $data = json_decode($response->getBody(), true);
+            $distance = $data['rows'][0]['elements'][0]['distance']['value'];
+            return $distance;
+        } else {
+            return back()->withErrors(['error' => 'Failed to calculate distance.']);
+        }
+    }
+
     private function ongkir($origin, $destination)
     {
-        $database = app('firebase.database');
-
         $apiKey = env('GOOGLE_MAPS_API_KEY');
 
         $client = new Client();
@@ -177,11 +194,13 @@ class CartController extends Controller
             $geoUmkm = Data_umkm::find($idumkm)->geo;
             $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
             $ongkir = $this->ongkir($geoUmkm, $geoUser);
+            $jarak = $this->calculteDistance($geoUmkm, $geoUser);
             $database->getReference('cart/' . $userID . '/cust_address')->set($alamat->addresses()->where('id', $id)->first()->address);
             $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamat->addresses()->where('id', $id)->first()->link);
             $database->getReference('cart/' . $userID . '/umkm_address')->set(Data_umkm::find($idumkm)->alamat);
             $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($idumkm)->link);
             $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir);
+            $database->getReference('cart/' . $userID . '/jarak')->set($jarak);
             return view('pages.Users.CheckoutPage', [
                 'Title' => 'Checkout',
                 'NavPesanan' => 'Checkout',

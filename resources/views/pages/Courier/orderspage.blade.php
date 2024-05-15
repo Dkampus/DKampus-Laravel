@@ -49,11 +49,19 @@
             var idOrder = id;
             var nama_penerima = orderData.nama_penerima;
             var nama_umkm = orderData.nama_umkm;
+            var ongkir = orderData.ongkir;
             var status = orderData.status;
             var total = orderData.total;
+            var jarak = orderData.jarak;
+            if (jarak > 1000) {
+                convert = parseFloat((jarak / 1000).toFixed(1));
+                var hasilJarak = convert + " km"
+            } else {
+                var hasilJarak = jarak + " m"
+            }
             var ordersHtml = "";
             var orderNames = Object.values(orderData.orders).map(function(order) {
-                return order.nama;
+                return order.jumlah + order.nama;
             });
 
             var combinedOrderNames = orderNames.join(", ");
@@ -83,11 +91,11 @@
                     <div class=" flex flex-col gap-2">
                         <div class="flex flex-row justify-between">
                             <span class="font-semibold text-l">Jarak</span>
-                            <span class="font-semibold text-l">10KM</span>
+                            <span class="font-semibold text-l">${hasilJarak}</span>
                         </div>
                         <div class="flex flex-row justify-between">
                             <span class="font-semibold text-l">Ongkir</span>
-                            <span class="font-semibold text-l">Rp. 10,000</span>
+                            <span class="font-semibold text-l">${ongkir}</span>
                          </div>
                     </div>
                 </div>
@@ -108,9 +116,8 @@
             $('#modalOrderDetails').empty();
             console.log(orderData);
             var orderNames = Object.values(orderData.orders).map(function(order) {
-                return order.nama;
+                return order.jumlah + ' ' + order.nama;
             });
-
 
             var ordersHtml = "";
 

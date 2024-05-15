@@ -20,11 +20,6 @@
                 </div>
             </div>
             <div class="bg-[#5e5e5e]/40 w-[30rem] h-0.5"></div>
-
-            @else
-            <h1 class="text-xl font-semibold">Ups keranjang kamu kosong :)</h1>
-            @endif
-            {{-- Card List Pesanan --}}
             <div id="cardList" class="flex flex-col transition-all duration-300 items-start gap-y-5 mt-5">
                 @foreach ($data as $cart => $item)
                 <div id="cardPesanan{{ $item['id'] }}" class="flex flex-row items-center justify-start gap-4 rounded-xl">
@@ -97,6 +92,12 @@
                 <input type="hidden" name="items[id][]" value="{{ $item['id'] }}">
                 @endforeach
             </div>
+            @else
+            <h1 class="text-xl font-semibold">Ups keranjang kamu kosong :)</h1>
+
+            @endif
+            {{-- Card List Pesanan --}}
+
             <form action="{{ route('cart.delete') }}" method="POST" class="delete-form hidden">
                 @csrf
                 @method('DELETE')
@@ -112,9 +113,11 @@
 
 <div id="overlayAddNewAddress" onclick="renderHideListAddress()" class="bg-black/10 transition-all duration-500 invisible opacity-0 -z-10 h-screen w-full absolute top-0 left-0">
 </div>
+
 <form action="{{ route('checkout') }}" method="POST">
     @csrf
     <div id="addNewAddress" class="w-full pt-5 pb-14 flex flex-col items-center gap-5 border overflow-auto fixed h-0 bg-white rounded-3xl -bottom-96 transition-all duration-500 shadow-top-for-total-harga">
+        @if ($AddressList !== null)
         @forelse ($AddressList as $Item)
         <div class="flex flex-row items-end gap-10 border-b-2 pb-2">
             <a class="address-button flex flex-col gap-2" onclick="renderHideListAddress()" data-id="{{ $Item['id'] }}" data-name="{{ $Item['nama_alamat'] }}">
@@ -128,13 +131,18 @@
         </div>
         @empty
         @endforelse
+        @endif
     </div>
     <input type="hidden" id="selected_address_id" name="selected_address_id" value="">
     <div id="totalAndAddress">
+        @if($data !== null)
         @php $total = 0; @endphp
         @foreach ($data as $item)
         @php $total += $item['harga'] * $item['jumlah']; @endphp
         @endforeach
+        @else
+        @php $total = 0; @endphp
+        @endif
         <div id="content" class="fixed border-[2.5px] border-black/10 flex flex-row justify-around rounded-2xl h-48 pt-5 w-full left-0 bottom-0 bg-white shadow-top-for-total-harga">
             <a id="alamat" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
                 <img src="Map.svg" alt="" class="w-6">
@@ -157,6 +165,7 @@
         </div>
     </div>
 </form>
+
 @endsection
 
 @push('js')
