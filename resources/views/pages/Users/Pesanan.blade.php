@@ -26,7 +26,7 @@
             @endif
             {{-- Card List Pesanan --}}
             <div id="cardList" class="flex flex-col transition-all duration-300 items-start gap-y-5 mt-5">
-                @foreach ($data as $order => $item)
+                @foreach ($data as $cart => $item)
                 <div id="cardPesanan{{ $item['id'] }}" class="flex flex-row items-center justify-start gap-4 rounded-xl">
                     {{-- Favorite and Checkbox --}}
                     <div id="favoriteAndCheckbox" class="flex flex-col gap-3 items-start mb-auto">

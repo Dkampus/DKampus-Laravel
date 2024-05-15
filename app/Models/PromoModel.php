@@ -37,41 +37,34 @@ class PromoModel
         ]
     ];
 
-    private static $PromoTerlaris = [
-        [
-            'Img' => 'geprek.jpg',
+    private static $PromoTerlaris = [];
+
+    private static function getDiscountedMenus(){
+    // Mengambil data dari tabel 'menus' yang memiliki diskon
+    $discountedMenus = Menu::where('diskon', '>', 0)->get();
+
+    // Membuat array untuk menyimpan data menu yang didiskon
+    $PromoTerlaris = [];
+
+    // Mengisi array dengan data dari setiap menu yang didiskon
+    foreach ($discountedMenus as $menu) {
+        $PromoTerlaris[] = [
+            'Img' => $menu->image,
             'Discount' => 'diskon.svg',
-            'Title' => 'Ayam Geprekasvakalia',
-            'PriceDiscount' => 'Rp15.000',
-            'PriceOri' => 'Rp30.000',
-            'Ratings' => '4.7/350 Rating'
-        ],
-        [
-            'Img' => 'geprek.jpg',
-            'Discount' => 'diskon.svg',
-            'Title' => 'Ayam Geprekasvakalia',
-            'PriceDiscount' => 'Rp15.000',
-            'PriceOri' => 'Rp30.000',
-            'Ratings' => '4.7/350 Rating'
-        ],
-        [
-            'Img' => 'geprek.jpg',
-            'Discount' => 'diskon.svg',
-            'Title' => 'Ayam Geprekasvakalia',
-            'PriceDiscount' => 'Rp15.000',
-            'PriceOri' => 'Rp30.000',
-            'Ratings' => '4.7/350 Rating'
-        ],
-        [
-            'Img' => 'geprek.jpg',
-            'Discount' => 'diskon.svg',
-            'Title' => 'Ayam Geprekasvakalia',
-            'PriceDiscount' => 'Rp15.000',
-            'PriceOri' => 'Rp30.000',
-            'Ratings' => '4.7/350 Rating'
-        ]
-    ];
+            'nama_makanan' => $menu->nama_makanan,
+            'nama_umkm' => Data_umkm::where('id', $menu->data_umkm_id)->first()->nama_umkm,
+            'PriceDiscount' => $menu->harga - ($menu->harga * $menu->diskon / 100),
+            'PriceOri' => $menu->harga,
+            'Ratings' => $menu->rating,
+        ];
+    }
+
+    // Mengembalikan array yang berisi data menu yang didiskon
+    return $PromoTerlaris;
+}
+
     public static function promoTerlaris(){
+        self::$PromoTerlaris = self::getDiscountedMenus();
         return collect(self::$PromoTerlaris);
     }
     public static function promoMakanan(){

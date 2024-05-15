@@ -11,7 +11,7 @@
                 </svg>
                 <h1 class="text-white font-bold text-2xl w-max">Promo Special</h1>
             </div>
-            <a href="" class="text-white text-lg w-max">Lihat semua</a>
+            <a href="/promo/special" class="text-white text-lg w-max">Lihat semua</a>
         </div>
 
         {{-- Carousel Promo --}}
@@ -36,7 +36,7 @@
         </x-promo-carousel.carousel>
 
     </header>
-    
+
     {{-- Header for Desktop --}}
     <header class="md:grid hidden grid-cols-3 gap-x-4 gap-y-2 grid-rows-2 place-items-center mb-5 mx-14">
     <div class="border-[0.2rem] border-[#F9832A]/50 w-full h-80 flex flex-col justify-center rounded-xl overflow-hidden">
@@ -80,25 +80,25 @@
         <x-promo-slider.carousel>
             @forelse ($PromoTerlarisSlider as $Item)
              <swiper-slide class="border transition-all duration-300 w-max h-60 rounded-xl overflow-hidden shadow-md">
-         
+
                  {{-- Header Card --}}
                  <div id="headerCard" class="w-96">
                      <img src="{{$Item['Discount']}}" alt="" class="absolute">
                      <img src="{{$Item['Img']}}" alt="" class="w-full h-32">
                  </div>
-         
+
                  {{-- Content card --}}
                  <div id="contentCard" class="px-2 py-2 w-96 flex flex-col gap-1 justify-center">
-         
+
                      {{-- Prices --}}
                      <div id="prices" class="flex flex-row items-center gap-2.5 mt-1 h-max overflow-x-auto">
                          <h1 class="text-[#F9832A] font-bold text-xl">{{$Item['PriceDiscount']}}</h1>
                          <h1 class="line-through text-[#BCBCBC] text-sm sm:text-base font-semibold">{{$Item['PriceOri']}}</h1>
                      </div>
-         
+
                      {{-- Desc --}}
                      <div id="desc" class="flex flex-col gap-0.5">
-                         <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['Title']}}</h1>
+                         <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['nama_makanan']}}</h1>
                          <div id="ratings" class="w-max overflow-x-scroll flex flex-row items-center gap-1.5">
                          <img src="Iconly/Bold/Star.svg" alt="">
                          <h1>{{$Item['Ratings']}}</h1>
@@ -107,7 +107,7 @@
                  </div>
              </swiper-slide>
             @empty
-                
+
             @endforelse
          </x-promo-slider.carousel>
     </div>
@@ -118,7 +118,7 @@
                 <div id="titlePromo" class="flex flex-row gap-2 items-center">
                     <svg class="w-[1.7rem] transition-all duration-300" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.08993 0.292134C6.66743 0.309697 7.2266 0.41053 7.76835 0.59478H7.82243C7.8591 0.612197 7.8866 0.631447 7.90493 0.648864C8.10752 0.713947 8.2991 0.78728 8.48243 0.888114L8.83077 1.04395C8.96827 1.11728 9.13327 1.25386 9.22493 1.30978C9.3166 1.36386 9.41743 1.41978 9.49993 1.48303C10.5183 0.70478 11.7549 0.283114 13.0291 0.292134C13.6075 0.292134 14.185 0.373864 14.7341 0.558114C18.1175 1.65811 19.3367 5.37061 18.3183 8.61561C17.7408 10.2739 16.7966 11.7873 15.56 13.0239C13.7899 14.738 11.8475 16.2597 9.7566 17.5705L9.52743 17.7089L9.2891 17.5614C7.19085 16.2597 5.23743 14.738 3.45085 13.0147C2.22252 11.7781 1.27743 10.2739 0.690767 8.61561C-0.345066 5.37061 0.874101 1.65811 4.29418 0.538864C4.56002 0.447197 4.8341 0.38303 5.1091 0.34728H5.2191C5.47668 0.309697 5.73243 0.292134 5.9891 0.292134H6.08993ZM14.2574 3.18895C13.8816 3.0597 13.4691 3.26228 13.3316 3.64728C13.2033 4.03228 13.4049 4.45395 13.7899 4.59053C14.3775 4.81053 14.7708 5.38895 14.7708 6.0297V6.05811C14.7533 6.26803 14.8166 6.47061 14.9449 6.62645C15.0733 6.78228 15.2658 6.87303 15.4674 6.89228C15.8433 6.8822 16.1641 6.58061 16.1916 6.1947V6.08561C16.2191 4.80136 15.4408 3.63811 14.2574 3.18895Z" fill="#F9832A"/>
-                    </svg>  
+                    </svg>
                     <h1 class="text-[#F9832A] font-bold text-2xl w-max">Favorite</h1>
                 </div>
                 <a href="" class="text-[#F9832A] text-lg w-max">Lihat semua</a>
@@ -126,25 +126,25 @@
             <x-promo-slider.carousel>
                 @forelse ($PromoTerlarisSlider as $Item)
                  <swiper-slide class="border transition-all duration-300 w-max h-60 rounded-xl overflow-hidden shadow-md">
-             
+
                      {{-- Header Card --}}
                      <div id="headerCard" class="w-96">
                          <img src="{{$Item['Discount']}}" alt="" class="absolute">
                          <img src="{{$Item['Img']}}" alt="" class="w-full h-32">
                      </div>
-             
+
                      {{-- Content card --}}
                      <div id="contentCard" class="px-2 py-2 w-96 flex flex-col gap-1 justify-center">
-             
+
                          {{-- Prices --}}
                          <div id="prices" class="flex flex-row items-center gap-2.5 mt-1 h-max overflow-x-auto">
                              <h1 class="text-[#F9832A] font-bold text-xl">{{$Item['PriceDiscount']}}</h1>
                              <h1 class="line-through text-[#BCBCBC] text-sm sm:text-base font-semibold">{{$Item['PriceOri']}}</h1>
                          </div>
-             
+
                          {{-- Desc --}}
                          <div id="desc" class="flex flex-col gap-0.5">
-                             <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['Title']}}</h1>
+                             <h1 class="font-semibold text-lg text-wrapper-promo-terlaris">{{$Item['nama_makanan']}}</h1>
                              <div id="ratings" class="w-max overflow-x-scroll flex flex-row items-center gap-1.5">
                              <img src="Iconly/Bold/Star.svg" alt="">
                              <h1>{{$Item['Ratings']}}</h1>
@@ -153,7 +153,7 @@
                      </div>
                  </swiper-slide>
                 @empty
-                    
+
                 @endforelse
              </x-promo-slider.carousel>
     </div>
@@ -167,6 +167,9 @@
         <a href="/promo/makanan" class="transition-all duration-300 font-semibold {{$NavPromo === 'Makanan' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Makanan</a>
         <a href="/promo/minuman" class="transition-all duration-300 font-semibold {{$NavPromo === 'Minuman' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Minuman</a>
         <a href="/promo/cemilan" class="transition-all duration-300 font-semibold {{$NavPromo === 'Cemilan' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Cemilan</a>
+        <a href="/promo/" class="transition-all duration-300 font-semibold {{$NavPromo === 'Snack' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Snack</a>
+        <a href="/promo/" class="transition all duration-300 font-semibold {{$NavPromo === 'Lainnya' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Lainnya</a>
+        <a href="/promo/" class="transition-all duration-300 font-semibold {{$NavPromo === 'Semua' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Semua</a>
     </nav>
 
     {{-- Content Promo --}}

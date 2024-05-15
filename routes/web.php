@@ -93,6 +93,25 @@ Route::get('/promo', function () {
     ]);
 });
 
+Route::get('/promo/special', function () {
+    $umkm = Data_umkm::where('id', Menu::first()->data_umkm_id)->first();
+    return view('pages.Users.PromoSemua', [
+        'Title' => 'Promo Special',
+        'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+        'menus' => Menu::all(),
+        'umkm' => $umkm,
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
+        'NavPromo' => 'Semua',
+        'CarouselPromo' => PromoModel::carouselPromo(),
+        'FooterPart1' => Footer::footerPart1(),
+        'FooterPart2Beli' => Footer::footerPart2Beli(),
+        'FooterPart2Jual' => Footer::footerPart2Jual(),
+        'FooterPart3KeamananDanPrivasi' => Footer::footerPart3KeamananDanPrivasi(),
+        'FooterPart3IkutiKami' => Footer::footerPart3IkutiKami(),
+    ]);
+});
+
 Route::get('/promo/makanan', function () {
     return view('pages.Users.MakananPage', [
         'Title' => 'Promo',
@@ -185,7 +204,7 @@ Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'menu_id' => $menu->id,
         'images' => $menu->image,
-        'umkm_slug' => $menu->data_umkm->id,
+        'umkm_nama' => Data_umkm::where('id', $menu->data_umkm_id)->first()->nama_umkm,
         'nama_makanan' => $menu->nama_makanan,
         'rating' => $menu->rating,
         'harga' => number_format($menu->harga, 0, ',', '.'),
