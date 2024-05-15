@@ -59,15 +59,38 @@ class PromoModel
             'Ratings' => $menu->rating,
         ];
     }
-
     // Mengembalikan array yang berisi data menu yang didiskon
     return $PromoTerlaris;
 }
+
+    private static function getDiscountedSpecialMenus(){
+        // Mengambil data dari tabel 'menus' yang memiliki diskon
+        $discountedSpecialMenus = Menu::where('diskon', '>', 0)->get();
+        $PromoSpecialTerlaris = [];
+
+        foreach ($discountedSpecialMenus as $menu) {
+            $PromoSpecialTerlaris[] = [
+                'Img' => $menu->image,
+                'Discount' => 'diskon.svg',
+                'nama_makanan' => $menu->nama_makanan,
+                'PriceDiscount' => $menu->harga - ($menu->harga * $menu->diskon / 100),
+                'PriceOri' => $menu->harga,
+                'Ratings' => $menu->rating,
+            ];
+        }
+        return $discountedSpecialMenus;
+    }
 
     public static function promoTerlaris(){
         self::$PromoTerlaris = self::getDiscountedMenus();
         return collect(self::$PromoTerlaris);
     }
+
+    public static function promoSpecial(){
+        self::$PromoTerlaris = self::getDiscountedSpecialMenus();
+        return collect(self::$PromoTerlaris);
+    }
+
     public static function promoMakanan(){
         return collect(self::$PromoTerlaris);
     }
