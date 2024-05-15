@@ -96,14 +96,14 @@ Route::get('/promo', function () {
 });
 
 Route::get('/promo/category/{value}', function ($value) {
-    return view('pages.Users.PromoSemua', [
-        'Title' => 'Promo ' . $value,
+    return view('pages.Users.PromoCategoryPage', [
+        'Title' => 'Promo ' . ucfirst($value),
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
         'menus' => Menu::all(),
         'CategoryPromo' => PromoModel::promoCategory(),
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
-        'NavPromo' => $value,
+        'NavPromo' => ucfirst($value),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
         'FooterPart2Beli' => Footer::footerPart2Beli(),
@@ -115,7 +115,7 @@ Route::get('/promo/category/{value}', function ($value) {
 
 Route::get('/promo/special', function () {
     $umkm = Data_umkm::where('id', Menu::first()->data_umkm_id)->first();
-    return view('pages.Users.PromoSpecial', [
+    return view('pages.Users.PromoSpecialPage', [
         'Title' => 'Promo Special',
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
         'menus' => Menu::all(),
