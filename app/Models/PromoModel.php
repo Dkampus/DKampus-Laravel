@@ -9,6 +9,8 @@ class PromoModel
 // extends Model
 {
     // use HasFactory;
+    //'minuman', 'jajanan', 'aneka nasi', 'ayam & bebek', 'cepat saji', 'roti', 'bakso & soto', 'bakmie', 'mie', 'sate'
+    private static $Category = ['semua', 'minuman', 'jajanan', 'nasi', 'ayam ', 'bebek', 'fast food', 'roti', 'bakso', 'soto', 'bakmie', 'mie', 'sate'];
     private static $CarouselPromo = [
         [
             'Img' => 'spagetti.jpg',
@@ -36,7 +38,6 @@ class PromoModel
             'Warung' => 'Warung Spagetti Tante Ayu'
         ]
     ];
-
     private static $PromoTerlaris = [];
 
     private static function getDiscountedMenus(){
@@ -72,5 +73,9 @@ class PromoModel
     }
     public static function carouselPromo(){
         return collect(self::$CarouselPromo);
+    }
+
+    public static function promoCategory(){
+        return collect(self::$Category);
     }
 }

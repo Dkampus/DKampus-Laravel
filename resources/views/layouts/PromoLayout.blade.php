@@ -160,18 +160,14 @@
     </header>
 
     <main class="mb-28 md:px-10 md:mb-10">
-
     {{-- Navigation Promo --}}
-    <nav class="px-4 my-3 overflow-auto w-full transition-all duration-300 flex flex-row items-center mx-auto gap-2">
-        <a href="/promo" class="transition-all duration-300 font-semibold  {{$NavPromo === 'Semua' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Semua</a>
-        <a href="/promo/makanan" class="transition-all duration-300 font-semibold {{$NavPromo === 'Makanan' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Makanan</a>
-        <a href="/promo/minuman" class="transition-all duration-300 font-semibold {{$NavPromo === 'Minuman' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Minuman</a>
-        <a href="/promo/cemilan" class="transition-all duration-300 font-semibold {{$NavPromo === 'Cemilan' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Cemilan</a>
-        <a href="/promo/" class="transition-all duration-300 font-semibold {{$NavPromo === 'Snack' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Snack</a>
-        <a href="/promo/" class="transition all duration-300 font-semibold {{$NavPromo === 'Lainnya' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Lainnya</a>
-        <a href="/promo/" class="transition-all duration-300 font-semibold {{$NavPromo === 'Semua' ? 'text-white bg-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] h-10 px-3 flex flex-row items-center rounded-xl'}}">Semua</a>
-    </nav>
-
+        <swiper-container class="mt-5 relative w-full flex justify-center items-center rounded-lg overflow-hidden md:hidden" space-between="10" slides-per-view="auto" direction="horizontal" mousewheel="true">
+            <swiper-slide class="px-4 flex flex-row items-center gap-2.5 h-full overflow-x-auto">
+                @for($i = 0; $i < $CategoryPromo->count(); $i++)
+                    <a href="/promo/{{$CategoryPromo[$i]}}" class="transition duration-300 font-semibold {{$NavPromo === ucfirst($CategoryPromo[$i]) ? 'text-white bg-[#F9832A] py-1 px-2 flex flex-row items-center rounded-xl':'text-[#F9832A] bg-white border-2 border-[#F9832A] py-1 px-2 flex flex-row items-center rounded-xl'}}">{{ucfirst($CategoryPromo[$i])}}</a>
+                @endfor
+            </swiper-slide>
+        </swiper-container>
     {{-- Content Promo --}}
     <div>
     @yield('contentPromo')
