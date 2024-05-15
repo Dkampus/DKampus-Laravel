@@ -68,14 +68,56 @@ class CartController extends Controller
         ]);
     }
 
-    public function StatusOrder($orderID)
+    public function StatusOrder(Request $request)
     {
-        $id = $orderID;
-        return view('pages.Users.StatusOrder', [
-            'Title' => 'Status Order',
-            'NavPesanan' => 'Status Order',
-            'id' => $id
-        ]);
+        $database = app('firebase.database');
+        $id = Auth::user()->id;
+        $courId = $request->courId;
+        if ($courId !== null) {
+            $orderId = substr($database->getReference('onProgress/' . $id . '-' . $courId . '/orderID'), 0, 10);
+            $status = $database->getReference('onProgress/' . $id . '-' . $courId . '/status')->getValue();
+            $subTotal = $database->getReference('onProgress/' . $id . '-' . $courId . '/total')->getValue();
+            $ongkir = $database->getReference('onProgress/' . $id . '-' . $courId . '/ongkir')->getValue();
+            $nama_umkm = $database->getReference('onProgress/' . $id . '-' . $courId . '/nama_umkm')->getValue();
+            $orders = $database->getReference('onProgress/' . $id . '-' . $courId . '/orders')->getValue();
+            // dd($status);
+            $nama_driver = User::find($courId)->nama_user;
+            return view('pages.Users.StatusOrder', [
+                'Title' => 'Status Order',
+                'NavPesanan' => 'Status Order',
+                'id' => $id,
+                'orderId' => '#' . $orderId,
+                'status' => $status,
+                'subTotal' => $subTotal,
+                'ongkir' => $ongkir,
+                'total' => $ongkir + $subTotal,
+                'nama_umkm' => $nama_umkm,
+                'nama_driver' => $nama_driver,
+                'orders' => $orders,
+            ]);
+        } else {
+            $stringOrder = $database->getReference('needToDeliver/' . $id . '-/orderID')->getValue();
+            $orderId = substr($stringOrder, 0, 10);
+            $status = $database->getReference('needToDeliver/' . $id . '-/status')->getValue();
+            $subTotal = $database->getReference('needToDeliver/' . $id . '-/total')->getValue();
+            $ongkir = $database->getReference('needToDeliver/' . $id . '-/ongkir')->getValue();
+            $orders = $database->getReference('needToDeliver/' . $id . '-/orders')->getValue();
+            // dd($orders);
+            $nama_umkm = $database->getReference('needToDeliver/' . $id . '-/nama_umkm')->getValue();
+            return view('pages.Users.StatusOrder', [
+                'Title' => 'Status Order',
+                'NavPesanan' => 'Status Order',
+                'id' => $id,
+                'orderId' => $orderId,
+                'status' => $status,
+                'subTotal' => $subTotal,
+                'ongkir' => $ongkir,
+                'total' => $ongkir + $subTotal,
+                'nama_umkm' => $nama_umkm,
+                'nama_driver' => null,
+                'orders' => $orders,
+            ]);
+        }
     }
 
     /**
