@@ -10,7 +10,7 @@ class PromoModel
 {
     // use HasFactory;
     //'minuman', 'jajanan', 'aneka nasi', 'ayam & bebek', 'cepat saji', 'roti', 'bakso & soto', 'bakmie', 'mie', 'sate'
-    private static $Category = ['semua', 'minuman', 'jajanan', 'nasi', 'ayam ', 'bebek', 'fast food', 'roti', 'bakso', 'soto', 'bakmie', 'mie', 'sate'];
+    private static $Category = ['minuman', 'jajanan', 'nasi', 'ayam ', 'bebek', 'fast food', 'roti', 'bakso', 'soto', 'bakmie', 'mie', 'sate'];
     private static $CarouselPromo = [
         [
             'Img' => 'spagetti.jpg',
