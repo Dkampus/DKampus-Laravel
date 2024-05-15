@@ -49,7 +49,7 @@ class CartController extends Controller
             'carts' => "",
             'test' => "",
             'namaUMKM' => null,
-            // 'AddressList' => PesananModel::alamatUser(),
+            'AddressList' => null,
             'PengaturanAkun' => HomeModel::pengaturanAkun(),
             'SeputarDkampus' => HomeModel::seputarDkampus(),
         ]);
@@ -57,6 +57,9 @@ class CartController extends Controller
 
     public function status()
     {
+        $userID = Auth::user()->id;
+        $database = app('firebase.database');
+
         return view('pages.Users.Status', [
             'Title' => 'Status',
             'NavPesanan' => 'Status',
@@ -162,33 +165,37 @@ class CartController extends Controller
     // Temporary function, should be moved to another controller.
     public function checkout()
     {
-        $id = request()->selected_address_id;
-        $userID = Auth::user()->id;
-        $alamat = User::find($userID);
-        $database = app('firebase.database');
-        $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
-        $total = $database->getReference('cart/' . $userID . '/total')->getValue();
-        $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
-        $namaUMKM = Data_umkm::find($idumkm);
-        $geoUmkm = Data_umkm::find($idumkm)->geo;
-        $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
-        $ongkir = $this->ongkir($geoUmkm, $geoUser);
-        $database->getReference('cart/' . $userID . '/cust_address')->set($alamat->addresses()->where('id', $id)->first()->address);
-        $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamat->addresses()->where('id', $id)->first()->link);
-        $database->getReference('cart/' . $userID . '/umkm_address')->set(Data_umkm::find($idumkm)->alamat);
-        $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($idumkm)->link);
-        $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir);
-        return view('pages.Users.CheckoutPage', [
-            'Title' => 'Checkout',
-            'NavPesanan' => 'Checkout',
-            'carts' => $carts,
-            'total' => $total,
-            'nama_umkm' => $namaUMKM->nama_umkm,
-            'ongkir' => $ongkir,
-            // 'AddressList' => PesananModel::alamatUser(),
-            'PengaturanAkun' => HomeModel::pengaturanAkun(),
-            'SeputarDkampus' => HomeModel::seputarDkampus(),
-        ]);
+        if (request()->selected_address_id != null) {
+            $id = request()->selected_address_id;
+            $userID = Auth::user()->id;
+            $alamat = User::find($userID);
+            $database = app('firebase.database');
+            $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
+            $total = $database->getReference('cart/' . $userID . '/total')->getValue();
+            $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+            $namaUMKM = Data_umkm::find($idumkm);
+            $geoUmkm = Data_umkm::find($idumkm)->geo;
+            $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
+            $ongkir = $this->ongkir($geoUmkm, $geoUser);
+            $database->getReference('cart/' . $userID . '/cust_address')->set($alamat->addresses()->where('id', $id)->first()->address);
+            $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamat->addresses()->where('id', $id)->first()->link);
+            $database->getReference('cart/' . $userID . '/umkm_address')->set(Data_umkm::find($idumkm)->alamat);
+            $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($idumkm)->link);
+            $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir);
+            return view('pages.Users.CheckoutPage', [
+                'Title' => 'Checkout',
+                'NavPesanan' => 'Checkout',
+                'carts' => $carts,
+                'total' => $total,
+                'nama_umkm' => $namaUMKM->nama_umkm,
+                'ongkir' => $ongkir,
+                // 'AddressList' => PesananModel::alamatUser(),
+                'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                'SeputarDkampus' => HomeModel::seputarDkampus(),
+            ]);
+        } else {
+            return redirect()->back()->with('error', 'please select the address first');
+        }
     }
 
     public function confirmPay()
@@ -199,7 +206,7 @@ class CartController extends Controller
         $database->getReference('cart/' . $userID . '/orderID')->set($orderID);
 
         $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
-        $total = $database->getReference('cart/' . $userID . '/total')->getValue() + 5000;
+        $total = $database->getReference('cart/' . $userID . '/total')->getValue();
         $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
         $namaUMKM = Data_umkm::find($idumkm);
         return view('pages.Users.Pay', [
@@ -230,6 +237,9 @@ class CartController extends Controller
             $namaUMKM = Data_umkm::find($idumkm)->nama_umkm;
             $database->getReference('needToDeliver/' . $userID . '-/nama_penerima')->set($nama_penerima);
             $database->getReference('needToDeliver/' . $userID . '-/nama_umkm')->set($namaUMKM);
+            date_default_timezone_set('Asia/Jakarta');
+            $timestamp = date('Y-m-d H:i:s');
+            $database->getReference('needToDeliver/' . $userID . '-/timestamp')->set($timestamp);
             $database->getReference('cart/' . $userID)->remove();
             $orderID = $database->getReference('needToDeliver/' . $userID . '/orderID')->getValue();
             return view('pages.Users.StatusOrder', [
@@ -239,7 +249,7 @@ class CartController extends Controller
             ]);
         } else {
 
-            return back()->withErrors(['bukti' => 'Invalid file uploaded.']);
+            return redirect()->back()->withErrors('Error', 'Invalid file uploaded.');
         }
     }
 

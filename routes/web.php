@@ -232,6 +232,7 @@ Route::middleware(['check.customer.role'])->group(
 
 Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     //Pesanan Routes
+    Route::get('/pesanan', [CartController::class, 'index']);
     Route::post('/detail-makanan/{id}', [MenuController::class, 'simpan']);
     Route::post('/product', [MenuController::class, 'simpan'])->name('product.store');
     Route::get('/pesanan/status', [CartController::class, 'status']);
@@ -392,7 +393,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/pesanan', [CartController::class, 'index']);
+
 Route::post('/favoritStore/{menuId}', [FavoritController::class, 'favoritStore'])->name('favorite.add');
 
 
