@@ -276,19 +276,8 @@ Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')
     Route::get('/dashboard', [CourierController::class, 'index'])->name('dashboardCourier');
     Route::get('/chats', [CourierController::class, 'listChat'])->name('chatpage');
     Route::post('/room-chat', [CourierController::class, 'roomChat'])->name('room.chat.courier');
-    Route::view(
-        '/history',
-        'pages/Courier/riwayat',
-        [
-            'Title' => 'History',
-        ]
-    )->name('history');
-    Route::get('/history/{id}', function ($id) {
-        return view('pages/Courier/riwayatdetail', [
-            'Title' => 'Detail History',
-            'id' => $id,
-        ]);
-    })->name('historydetail');
+    Route::get('/history', [CourierController::class, 'history'])->name('cour.history');
+    Route::post('/detail-history', [CourierController::class, 'detailHistory'])->name('historydetail');
     Route::view(
         '/profile',
         'pages/Courier/profile',

@@ -17,13 +17,26 @@ class history extends Model
 
     protected $fillable = [
         'user_id',
+        'cour_id',
+        'umkm_id',
         'item',
         'harga',
         'ongkir',
+
     ];
 
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function courier()
+    {
+        return $this->belongsTo(User::class, 'cour_id');
+    }
+
+    public function umkm()
+    {
+        return $this->belongsToMany(Data_umkm::class, 'umkm_id');
     }
 }

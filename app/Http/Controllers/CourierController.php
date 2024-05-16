@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Data_umkm;
 use App\Models\history;
 use Exception;
+use PhpParser\Node\Expr\FuncCall;
 
 class CourierController extends Controller
 {
@@ -156,6 +157,7 @@ class CourierController extends Controller
             $joinedNamaJumlah = implode(', ', $namaJumlahArray);
             history::create([
                 'user_id' => $custId,
+                'cour_id' => $courId,
                 'item' => $joinedNamaJumlah,
                 'harga' => $harga,
                 'ongkir' => $ongkir,
@@ -179,6 +181,51 @@ class CourierController extends Controller
             return redirect()->back();
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'gagal menghapus data');
+        }
+    }
+
+    public function history()
+    {
+        try {
+            $courId = Auth::user()->id;
+            $data = User::find($courId)->courHistory;
+            foreach ($data as $history) {
+                $dataCustId[] = $history->user_id;
+                $dataCourId[] = $history->cour_id;
+                $namaUmkm[] = Data_umkm::find($history->umkm_id)->nama_umkm;
+            }
+            return view('pages/Courier/riwayat', [
+                'Title' => 'history',
+                'data' => $data,
+                'nama_umkm' => $namaUmkm,
+            ]);
+        } catch (Exception $e) {
+            return view('pages/Courier/riwayat', [
+                'Title' => 'history',
+                'data' => null,
+            ]);
+        }
+    }
+
+    public function detailHistory()
+    {
+        $custId = request()->custId;
+        $cust_name = User::find($custId)->nama_user;
+        $courId = Auth::user()->id;
+        $data = User::find($courId)->courHistory;
+        foreach ($data as $history) {
+            if ($history->user_id == $custId) {
+                return view('pages/Courier/riwayatdetail', [
+                    'Title' => 'detail history',
+                    'cust_name' => $cust_name,
+                    'status' => $history->status,
+                    'custId' => $custId,
+                    'umkm' => Data_umkm::find($history->umkm_id)->nama_umkm,
+                    'id' => $history->order_id,
+                    'total' => $history->harga,
+                    'ongkir' => $history->ongkir,
+                ]);
+            }
         }
     }
 }

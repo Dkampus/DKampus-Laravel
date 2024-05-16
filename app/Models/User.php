@@ -67,6 +67,14 @@ class User extends Authenticatable
     }
     public function addresses()
     {
-        return $this->hasMany(Addresse::class);
+        return $this->hasMany(Addresse::class, 'user_id');
+    }
+    public function custHistory()
+    {
+        return $this->hasMany(history::class, 'user_id');
+    }
+    public function courHistory()
+    {
+        return $this->hasMany(history::class, 'cour_id');
     }
 }

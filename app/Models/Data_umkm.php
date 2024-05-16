@@ -21,4 +21,8 @@ class Data_umkm extends Model
     {
         return $this->hasMany(Favorit::class);
     }
+    public function history()
+    {
+        return $this->belongsToMany(history::class, 'umkm_id');
+    }
 }
