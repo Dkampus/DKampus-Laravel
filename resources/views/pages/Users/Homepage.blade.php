@@ -72,13 +72,17 @@
                         </svg>
                         @if ($listJarak != null)
                         @php $distanceInMeters = $listJarak[$index]; @endphp
-                        @if ($distanceInMeters < 1000) @php $formattedDistance=number_format($distanceInMeters, 0) . ' m' @endphp <h1 id="distance_{{ $index }}" class="text-[#787878] text-sm sm:text-base">{{ $formattedDistance ?? '-' }}</h1>
+                            @if ($distanceInMeters < 1000)
+                                @php $formattedDistance=number_format($distanceInMeters, 0) . ' m' @endphp
+                                <h1 id="distance_{{ $index }}" class="text-[#787878] text-sm sm:text-base">{{ $formattedDistance ?? '-' }}</h1>
                             @else
-                            @php $formattedDistance = number_format($distanceInMeters / 1000, 2) . ' km' @endphp
-                            <h1 id="distance_{{ $index }}" class="text-[#787878] text-sm sm:text-base">{{ $formattedDistance ?? '-' }}</h1>
-                            <input type="text" value="{{ $item->geo }}" id="umkmAddress" class="hidden">
+                                @php $formattedDistance = number_format($distanceInMeters / 1000, 2) . ' km' @endphp
+                                <h1 id="distance_{{ $index }}" class="text-[#787878] text-sm sm:text-base">{{ $formattedDistance ?? '-' }}</h1>
+                                <input type="text" value="{{ $item->geo }}" id="umkmAddress" class="hidden">
                             @endif
-                            @endif
+                        @else
+                            <h1 id="distance_{{ $index }}" class="text-[#787878] text-sm sm:text-base">Data is not Found</h1>
+                        @endif
                     </div>
                 </div>
             </a>
