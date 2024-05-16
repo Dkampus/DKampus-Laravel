@@ -96,6 +96,16 @@ Route::get('/promo', function () {
     ]);
 });
 
+Route::get('/promo/semua', function () {
+    return view('pages.Users.PromoSemuaPage', [
+        'Title' => 'Semua Promo',
+        'promoSpecial' => PromoModel::promoSpecial(),
+        'umkm' => Data_umkm::all(),
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
+    ]);
+});
+
 Route::get('/promo/category/{value}', function ($value) {
     return view('pages.Users.PromoCategoryPage', [
         'Title' => 'Promo ' . ucfirst($value),

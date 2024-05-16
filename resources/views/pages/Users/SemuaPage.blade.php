@@ -4,7 +4,7 @@
 {{-- Title Promo Terlaris Mobile --}}
 <div class="flex flex-row justify-between items-center px-5 mb-5 mt-7 md:hidden">
     <h1 class="font-semibold text-2xl">Promo Terlaris</h1>
-    <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
+    <a href="/promo/semua" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
 </div>
 
 {{-- Title Promo Terlaris Desktop --}}
@@ -19,7 +19,7 @@
     <swiper-slide class="w-full h-full bg-white rounded-xl shadow-md mb-2 md:hidden overflow-hidden border transition-all duration-300 flex flex-col">
         <img src="{{Storage::url($Item['Img'])}}" alt="" class="w-full h-40 object-cover">
         <img src="{{$Item['Discount']}}" alt="" class="absolute">
-        <div class="p-4">
+        <a href="/detail-makanan/{{$Item['nama_makanan']}}" class="p-4">
             <div class="tracking-wide text-l text-black font-semibold truncate">{{$Item['nama_makanan']}}</div>
             <div class="flex items-center mt-1">
                 <img src="{{asset('shop.svg')}}" alt="" class="w-5 h-5">
@@ -33,7 +33,7 @@
                     <p class="text-[#5E5E5E] text-m ml-2">{{$Item['Ratings']}}</p>
                 </div>
             </div>
-        </div>
+        </a>
     </swiper-slide>
    @empty
    @endforelse

@@ -4,7 +4,7 @@
     {{-- Title Promo Terlaris --}}
     <div class="flex flex-row justify-between items-center px-5 mb-5 mt-7">
         <h1 class="font-semibold text-2xl">Promo {{ucfirst($NavPromo)}} Terlaris</h1>
-        <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
+        <a href="/promo/semua" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
     </div>
 
     {{-- Carousel Promo Terlaris --}}
@@ -39,3 +39,4 @@
         <div class="bg-[#F9832A] w-full h-full flex flex-col justify-center items-center rounded-xl"></div>
     </div>
 @endsection
+@include('components.navbar.navbar')
