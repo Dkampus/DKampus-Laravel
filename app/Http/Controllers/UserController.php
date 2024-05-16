@@ -45,7 +45,6 @@ class UserController extends Controller
                 'listJarak' => $listJarak,
             ]);
         } catch (Exception $e) {
-            dd($e);
             return view('pages.Users.Homepage', [
                 'Banner' => HomeModel::bannerData(),
                 'PengaturanAkun' => HomeModel::pengaturanAkun(),
@@ -60,6 +59,7 @@ class UserController extends Controller
                 'FooterPart3KeamananDanPrivasi' => Footer::footerPart3KeamananDanPrivasi(),
                 'FooterPart3IkutiKami' => Footer::footerPart3IkutiKami(),
                 'Title' => 'Home',
+                'listJarak' => null,
             ]);
         }
     }
