@@ -1,6 +1,5 @@
 @extends('layouts.Root')
 @section('content')
-    @include('components.navbar.navbar')
     <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10 shadow-md py-8">
         <a href="{{'/'}}" class="absolute top-5 left-5 flex items-center gap-x-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#F9832A" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -9,7 +8,7 @@
             <h1 class="font-bold text-black text-xl mb-1">Semua Promo Special</h1>
         </a>
     </header>
-    <main class="flex flex-col">
+    <main class="flex flex-col pb-24">
         <div class="space-y-4">
             @foreach($umkm->sortBy('nama_umkm') as $umkmItem => $warung)
                 @php
@@ -54,3 +53,5 @@
         </div>
     </main>
 @endsection
+@include('components.navbar.navbar')
+
