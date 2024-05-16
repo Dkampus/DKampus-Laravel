@@ -25,10 +25,22 @@
     <div class="flex flex-col w-full h-auto px-1 py-3">
         <div class="flex flex-col w-full h-auto bg-white rounded-md shadow-md p-5">
             <div id="openModalViewDetails{{$key}}">
-                <span class="font-bold text-black text-l">{{$alamat['nama_alamat']}}<br></span>
-                <span class="font-normal text-black text-md">{{$alamat['address']}}</span>
+                @if ($alamat['utama'] == 1)
+                <p class="flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md">Alamat Utama</p>
+                @endif
+                <p class="font-bold text-black text-l">{{$alamat['nama_alamat']}}</p>
+                <p class="font-normal text-black text-md">{{$alamat['address']}}</p>
             </div>
             <a href="#" id="openModal{{$key}}" class="text-blue-700" onclick="event.preventDefault(); openModalAddAddress('tambahAlamatModal', 'Edit Alamat');">Edit</a>
+            <form action="{{ route('alamatUtama') }}" method="POST">
+                @csrf
+                <button type="submit" class="flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md">
+                    <h2 class="text-white text-md">Set As Default</h2>
+                    <input type="text" class="hidden" value="{{ $alamat['id'] }}" name="id">
+                    <input type="text" class="hidden" value="{{ $alamat['user_id'] }}" name="custId">
+                </button>
+            </form>
+
         </div>
     </div>
     @endforeach

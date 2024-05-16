@@ -16,7 +16,8 @@ class Addresse extends Model
         'address',
         'link',
         'nama_alamat',
-        'geo'
+        'geo',
+        'utama',
     ];
 
     public function user()

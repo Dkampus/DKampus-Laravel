@@ -266,6 +266,7 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     // Daftar Alamat
     Route::get('/daftar-alamat', [UserController::class, 'indexAlamat'])->name('alamat');
     Route::post('/daftar_alamat', [UserController::class, 'daftarAlamat'])->name('daftar.alamat');
+    Route::post('/defaul-address', [UserController::class, 'alamatUtama'])->name('alamatUtama');
 });
 
 

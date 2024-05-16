@@ -192,7 +192,7 @@ class CartController extends Controller
             $distance = $data['rows'][0]['elements'][0]['distance']['value'];
             return $distance;
         } else {
-            return back()->withErrors(['error' => 'Failed to calculate distance.']);
+            return back()->withErrors(['error2' => 'Failed to calculate distance.']);
         }
     }
 
@@ -217,10 +217,10 @@ class CartController extends Controller
             } elseif ($distance > 1500 && $distance <= 2000) {
                 return $ongkir = 8000;
             } else {
-                return back()->with('warning', 'Your distance is to far max 2km');
+                return back()->with('error2', 'Your distance is to far max 2km');
             }
         } else {
-            return back()->withErrors(['error' => 'Failed to calculate distance.']);
+            return back()->withErrors(['error2' => 'Failed to calculate distance.']);
         }
     }
 
@@ -258,7 +258,7 @@ class CartController extends Controller
                 'SeputarDkampus' => HomeModel::seputarDkampus(),
             ]);
         } else {
-            return redirect()->back()->with('error', 'please select the address first');
+            return redirect()->back()->with('error2', 'please select the address first');
         }
     }
 
@@ -314,7 +314,7 @@ class CartController extends Controller
             return redirect('/pesanan/status');
         } else {
 
-            return redirect()->back()->withErrors('Error', 'Invalid file uploaded.');
+            return redirect()->back()->withErrors('error2', 'Invalid file uploaded.');
         }
     }
 

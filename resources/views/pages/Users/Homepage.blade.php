@@ -14,7 +14,7 @@
                 <h1 class="text-white font-semibold md:leading-snug text-3xl md:text-6xl">Welcome to <br> Dkampus👋
                 </h1>
             </div>
-            <img src={{ $item['Img'] }} alt="" class="h-full w-full">
+            <img src="{{ $item['Img'] }}" alt="" class="h-full w-full">
         </swiper-slide>
         @endforeach
     </x-banner.carousel>
@@ -26,7 +26,7 @@
             @foreach ($Carousel as $item)
             <swiper-slide class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
                 <a href="/kategori/{{ strtolower($item['Title']) }}" class="flex flex-col justify-evenly h-full items-center">
-                    <img src={{ $item['Icon'] }} alt="" class="scale-150 md:scale-[2]">
+                    <img src="{{ $item['Icon'] }}" alt="" class="scale-150 md:scale-[2]">
                     <h1 class="font-normal">{{ $item['Title'] }}</h1>
                 </a>
             </swiper-slide>
@@ -37,7 +37,7 @@
             @foreach ($CarouselDesktop as $item)
             <swiper-slide id="category" class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
                 <div class="flex flex-col justify-evenly h-full items-center">
-                    <img src={{ $item['Icon'] }} alt="" class="scale-150 md:scale-[2]">
+                    <img src="{{ $item['Icon'] }}" alt="" class="scale-150 md:scale-[2]">
                     <h1 class="font-normal text-lg">{{ $item['Title'] }}</h1>
                 </div>
             </swiper-slide>
@@ -54,7 +54,7 @@
 
     {{-- Slider Rekomendasi Warung --}}
     <x-list.slider>
-        @forelse ($RekomendasiWarung as $item)
+        @forelse ($RekomendasiWarung as $index => $item)
         <swiper-slide class="w-96 h-[17rem] mx-0.5 relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
             <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5 md:w-[4vw]">
             <a href="/detail-warung/{{ $item->nama_umkm }}" class="w-full h-full bg-white overflow-hidden">
@@ -67,10 +67,16 @@
                     <h1 class="font-semibold text-[3vw] text-base sm:text-xl text-wrapper">{{ $item->nama_umkm }}</h1>
                     <div class="flex flex-row items-center gap-2">
                         <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.5 6.125C6.98223 6.125 6.5625 5.73325 6.5625 5.25C6.5625 4.76675 6.98223 4.375 7.5 4.375C8.01777 4.375 8.4375 4.76675 8.4375 5.25C8.4375 5.73325 8.01777 6.125 7.5 6.125Z" fill="#F8832B"/>
-                            <path d="M7.5 0.875C10.0846 0.875 12.1875 2.75215 12.1875 5.05859C12.1875 6.15699 11.6511 7.6177 10.5932 9.40024C9.74355 10.8314 8.76064 12.1256 8.24941 12.7695C8.16303 12.8796 8.05008 12.969 7.91972 13.0307C7.78937 13.0924 7.64527 13.1245 7.49912 13.1245C7.35297 13.1245 7.20888 13.0924 7.07852 13.0307C6.94816 12.969 6.83521 12.8796 6.74883 12.7695C6.23848 12.1256 5.25469 10.8314 4.40508 9.40024C3.34893 7.61824 2.8125 6.15754 2.8125 5.05859C2.8125 2.75215 4.91543 0.875 7.5 0.875ZM7.5 7C7.87084 7 8.23335 6.89736 8.54169 6.70507C8.85004 6.51278 9.09036 6.23947 9.23227 5.9197C9.37419 5.59993 9.41132 5.24806 9.33897 4.90859C9.26663 4.56913 9.08805 4.25731 8.82583 4.01256C8.5636 3.76782 8.22951 3.60115 7.86579 3.53363C7.50208 3.4661 7.12508 3.50076 6.78247 3.63321C6.43986 3.76566 6.14702 3.98997 5.94099 4.27775C5.73497 4.56554 5.625 4.90388 5.625 5.25C5.62554 5.71397 5.82326 6.1588 6.17477 6.48688C6.52629 6.81496 7.00289 6.99949 7.5 7Z" fill="#F8832B"/>
+                            <path d="M7.5 6.125C6.98223 6.125 6.5625 5.73325 6.5625 5.25C6.5625 4.76675 6.98223 4.375 7.5 4.375C8.01777 4.375 8.4375 4.76675 8.4375 5.25C8.4375 5.73325 8.01777 6.125 7.5 6.125Z" fill="#F8832B" />
+                            <path d="M7.5 0.875C10.0846 0.875 12.1875 2.75215 12.1875 5.05859C12.1875 6.15699 11.6511 7.6177 10.5932 9.40024C9.74355 10.8314 8.76064 12.1256 8.24941 12.7695C8.16303 12.8796 8.05008 12.969 7.91972 13.0307C7.78937 13.0924 7.64527 13.1245 7.49912 13.1245C7.35297 13.1245 7.20888 13.0924 7.07852 13.0307C6.94816 12.969 6.83521 12.8796 6.74883 12.7695C6.23848 12.1256 5.25469 10.8314 4.40508 9.40024C3.34893 7.61824 2.8125 6.15754 2.8125 5.05859C2.8125 2.75215 4.91543 0.875 7.5 0.875ZM7.5 7C7.87084 7 8.23335 6.89736 8.54169 6.70507C8.85004 6.51278 9.09036 6.23947 9.23227 5.9197C9.37419 5.59993 9.41132 5.24806 9.33897 4.90859C9.26663 4.56913 9.08805 4.25731 8.82583 4.01256C8.5636 3.76782 8.22951 3.60115 7.86579 3.53363C7.50208 3.4661 7.12508 3.50076 6.78247 3.63321C6.43986 3.76566 6.14702 3.98997 5.94099 4.27775C5.73497 4.56554 5.625 4.90388 5.625 5.25C5.62554 5.71397 5.82326 6.1588 6.17477 6.48688C6.52629 6.81496 7.00289 6.99949 7.5 7Z" fill="#F8832B" />
                         </svg>
-                        <h1 class="text-[#787878] text-sm sm:text-base">{{ $item->jarak ?? '-' }} km</h1>
+                        @php $distanceInMeters = $listJarak[$index]; @endphp
+                        @if ($distanceInMeters < 1000) @php $formattedDistance=number_format($distanceInMeters, 0) . ' m' @endphp <h1 id="distance_{{ $index }}" class="text-[#787878] text-sm sm:text-base">{{ $formattedDistance ?? '-' }}</h1>
+                            @else
+                            @php $formattedDistance = number_format($distanceInMeters / 1000, 2) . ' km' @endphp
+                            <h1 id="distance_{{ $index }}" class="text-[#787878] text-sm sm:text-base">{{ $formattedDistance ?? '-' }}</h1>
+                            <input type="text" value="{{ $item->geo }}" id="umkmAddress" class="hidden">
+                            @endif
                     </div>
                 </div>
             </a>
@@ -79,7 +85,6 @@
         <p>Data is not Found</p>
         @endforelse
     </x-list.slider>
-
 
     {{-- Rekomendasi Makanan --}}
     <div class="flex flex-row justify-between items-center mt-7 md:mt-10  md:mb-5">
@@ -219,10 +224,12 @@
         <img src="logoFooter.svg" alt="" class="w-[15vw]">
         <h1 class="font-semibold text-center">© 2021 - 2023,Dkampus Indonesia</h1>
     </div>
+
 </footer>
 
 {{-- Scroll Behaviour --}}
 @include('components.scrollBehaviourr.scroll-behaviour')
+
 @endsection
 
 @push('search')
