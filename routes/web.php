@@ -89,6 +89,7 @@ Route::get('/promo', function () {
         'NavPromo' => 'Semua',
         'CategoryPromo' => PromoModel::promoCategory(),
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
+        'UmkmHavePromo' => PromoModel::promoUmkm(),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
         'FooterPart2Beli' => Footer::footerPart2Beli(),
@@ -127,6 +128,7 @@ Route::get('/promo/category/{value}', function ($value) {
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
         'menus' => Menu::all(),
         'CategoryPromo' => PromoModel::promoCategory(),
+        'UmkmHavePromo' => PromoModel::promoUmkm(),
         'NavPromo' => ucfirst($value),
         'CarouselPromo' => PromoModel::carouselPromo(),
         'FooterPart1' => Footer::footerPart1(),
@@ -150,6 +152,7 @@ Route::get('/promo/special', function (UmkmController $umkmController) {
     } else {
         $Jarak = null;
     }
+//    dd($Jarak);
     return view('pages.Users.PromoSpecialPage', [
         'Title' => 'Promo Special',
         'promoSpecial' => PromoModel::promoSpecial(),

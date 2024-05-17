@@ -33,10 +33,33 @@
         @endforelse
     </x-promo-slider.carousel>
 
-    {{-- Promotion Banner --}}
-    <div class="w-full h-60 px-4 mx-auto my-5 rounded-xl overflow-hidden">
-{{--        <img src="promote.jpg" alt="" class="w-full h-full object-cover rounded-xl">--}}
-        <div class="bg-[#F9832A] w-full h-full flex flex-col justify-center items-center rounded-xl"></div>
+    {{-- Promotion UMKM Header Mobile --}}
+    <div class="flex flex-row justify-between items-center px-5 mb-5 mt-7 md:hidden">
+        <h1 class="font-semibold text-2xl">Lagi Promo Juga!</h1>
+        {{--<a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>--}}
     </div>
+
+    {{-- Promotion UMKM Card --}}
+    @foreach($UmkmHavePromo->take(5) as $Item)
+        <div class="w-full h-60 px-4 mx-auto my-5 rounded-xl md:h-96 md:my-5 md:hidden">
+            <div class="w-full h-full bg-white rounded-xl shadow-xl border transition-all duration-300 overflow-hidden">
+                <a href="/detail-warung/{{$Item['nama_umkm']}}">
+                    <img src="{{Storage::url($Item['image_umkm'])}}" alt="" class="w-full h-32 object-cover">
+                </a>
+                <div class="p-4">
+                    <a href="/detail-warung/{{$Item['nama_umkm']}}" class="tracking-wide text-l text-black font-semibold truncate">
+                        {{$Item['nama_umkm'] ?? 'null'}}
+                    </a>
+                    <div class="flex items center mt-1">
+                        <a href="/detail-warung/{{$Item['nama_umkm']}}" class="text-[#5E5E5E] truncate">{{ucfirst($Item['Category']) ?? 'null'}}</a>
+                    </div>
+                </div>
+                {{-- rounded bottom --}}
+                <div class="w-full h-12 bg-[#F9832A]">
+                    <a class="text-white font-semibold text-sm ml-2">Warung ini lagi ada promo {{$Item['Discount'] ?? 'null'}}% loh!</a>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
 @include('components.navbar.navbar')

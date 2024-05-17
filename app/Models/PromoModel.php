@@ -39,6 +39,7 @@ class PromoModel
         ]
     ];
     private static $PromoTerlaris = [];
+    private static $UmkmHavePromo = [];
 
     private static function getDiscountedMenus(){
     // Mengambil data dari tabel 'menus' yang memiliki diskon
@@ -54,9 +55,12 @@ class PromoModel
             'Discount' => 'diskon.svg',
             'nama_makanan' => $menu->nama_makanan,
             'nama_umkm' => Data_umkm::where('id', $menu->data_umkm_id)->first()->nama_umkm,
+            'image_umkm' => Data_umkm::where('id', $menu->data_umkm_id)->first()->logo_umkm,
+            'Discount' => $menu->diskon,
             'PriceDiscount' => $menu->harga - ($menu->harga * $menu->diskon / 100),
             'PriceOri' => $menu->harga,
             'Ratings' => $menu->rating,
+            'Category' => $menu->category,
         ];
     }
     // Mengembalikan array yang berisi data menu yang didiskon
@@ -81,6 +85,28 @@ class PromoModel
         return $discountedSpecialMenus;
     }
 
+    private static function getUmkmHavePromo()
+    {
+        $menuHavePromo = [];
+        foreach (Menu::where('diskon', '>', 0)->get() as $menu) {
+            if (!array_key_exists($menu->data_umkm_id, $menuHavePromo)) {
+                $menuHavePromo[$menu->data_umkm_id] = $menu;
+            }
+        }
+
+        $UmkmHavePromo = [];
+        foreach ($menuHavePromo as $menu) {
+            $UmkmHavePromo[] = [
+                'nama_umkm' => Data_umkm::where('id', $menu->data_umkm_id)->first()->nama_umkm,
+                'image_umkm' => Data_umkm::where('id', $menu->data_umkm_id)->first()->logo_umkm,
+                'Ratings' => Data_umkm::where('id', $menu->data_umkm_id)->first()->rating,
+                'Category' => $menu->category,
+                'Discount' => $menu->diskon,
+            ];
+        }
+        return $UmkmHavePromo;
+    }
+
     public static function promoTerlaris(){
         self::$PromoTerlaris = self::getDiscountedMenus();
         return collect(self::$PromoTerlaris);
@@ -94,6 +120,12 @@ class PromoModel
     public static function promoMakanan(){
         return collect(self::$PromoTerlaris);
     }
+
+    public static function promoUmkm(){
+        self::$UmkmHavePromo = self::getUmkmHavePromo();
+        return collect(self::$UmkmHavePromo);
+    }
+
     public static function carouselPromo(){
         return collect(self::$CarouselPromo);
     }

@@ -81,19 +81,27 @@
 </div>
 
 {{-- Promotion UMKM Card --}}
-<div class="w-full h-60 px-4 mx-auto my-5 rounded-xl md:h-96 md:my-5 md:hidden">
-    <div class="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
-        <img src="{{Storage::url('ayamgorengkarawaci.jpg')}}" alt="" class="w-full h-32 object-cover">
-        <div class="p-4">
-            <div class="tracking-wide text-l text-black font-semibold truncate">nama_umkm</div>
-            <div class="flex items center mt-1">
-                <p class="text-[#5E5E5E] truncate">kategori_umkm</p>
+@foreach($UmkmHavePromo->take(5) as $Item)
+    <div class="w-full h-60 px-4 mx-auto my-5 rounded-xl md:h-96 md:my-5 md:hidden">
+        <div class="w-full h-full bg-white rounded-xl shadow-xl border transition-all duration-300 overflow-hidden">
+            <a href="/detail-warung/{{$Item['nama_umkm']}}">
+                <img src="{{Storage::url($Item['image_umkm'])}}" alt="" class="w-full h-32 object-cover">
+            </a>
+            <div class="p-4">
+                <a href="/detail-warung/{{$Item['nama_umkm']}}" class="tracking-wide text-l text-black font-semibold truncate">
+                    {{$Item['nama_umkm'] ?? 'null'}}
+                </a>
+                <div class="flex items center mt-1">
+                    <a href="/detail-warung/{{$Item['nama_umkm']}}" class="text-[#5E5E5E] truncate">{{ucfirst($Item['Category']) ?? 'null'}}</a>
+                </div>
+            </div>
+            {{-- rounded bottom --}}
+            <div class="w-full h-12 bg-[#F9832A]">
+                <a class="text-white font-semibold text-sm ml-2">Warung ini lagi ada promo {{$Item['Discount'] ?? 'null'}}% loh!</a>
             </div>
         </div>
-        {{-- rounded bottom --}}
-        <div class="w-full h-12 bg-[#F9832A] flex justify-center items-center"></div>
     </div>
-</div>
+@endforeach
 
 
 {{-- Title Promo Mingguan Desktop --}}
