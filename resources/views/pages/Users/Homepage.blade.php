@@ -76,7 +76,6 @@
                             @else
                             @php $formattedDistance = number_format($distanceInMeters / 1000, 2) . ' km' @endphp
                             <h1 id="distance_{{ $index }}" class="text-[#787878] text-sm sm:text-base">{{ $formattedDistance ?? '-' }}</h1>
-                            <input type="text" value="{{ $item->geo }}" id="umkmAddress" class="hidden">
                             @endif
                             @endif
                     </div>

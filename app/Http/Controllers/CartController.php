@@ -31,32 +31,60 @@ class CartController extends Controller
             $alamat = User::find($userID);
             $database = app('firebase.database');
             $test = $database->getReference('cart/' . $userID . '/orders')->getValue();
-            $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
-            $namaUMKM = Data_umkm::find($idumkm);
             $listAlamat = $alamat->addresses()->where('user_id', $userID)->get();
+            $alamatUtama = $alamat->addresses()->where('user_id', $userID)->where('utama', 1)->first();
+            if ($test  !== null && $alamat !== null) {
+                $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+                $namaUMKM = Data_umkm::find($idumkm);
+                return view('pages.Users.Pesanan', [
+                    'Title' => 'Pesanan',
+                    'NavPesanan' => 'Pesanan',
+                    //"favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
+                    'data' => $test,
+                    'namaUMKM' => $namaUMKM->nama_umkm,
+                    'AddressList' => $listAlamat,
+                    'alamatUtama' => $alamatUtama,
+                    'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                    'SeputarDkampus' => HomeModel::seputarDkampus(),
+                ]);
+            } else if ($alamat !== null && $alamatUtama !== null) {
+                return view('pages.Users.Pesanan', [
+                    'Title' => 'Pesanan',
+                    'NavPesanan' => 'Pesanan',
+                    //"favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
+                    'data' => null,
+                    'namaUMKM' => null,
+                    'AddressList' => $listAlamat,
+                    'alamatUtama' => $alamatUtama,
+                    'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                    'SeputarDkampus' => HomeModel::seputarDkampus(),
+                ]);
+            } else if ($alamat !== null) {
+                return view('pages.Users.Pesanan', [
+                    'Title' => 'Pesanan',
+                    'NavPesanan' => 'Pesanan',
+                    //"favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
+                    'data' => null,
+                    'namaUMKM' => null,
+                    'AddressList' => $listAlamat,
+                    'alamatUtama' => null,
+                    'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                    'SeputarDkampus' => HomeModel::seputarDkampus(),
+                ]);
+            };
+        } catch (\Exception $e) {
             return view('pages.Users.Pesanan', [
                 'Title' => 'Pesanan',
                 'NavPesanan' => 'Pesanan',
-                //"favorites" => Favorit::where('user_id', auth()->user()->id)->get(),
-                'data' => $test,
-                'namaUMKM' => $namaUMKM->nama_umkm,
-                'AddressList' => $listAlamat,
+                'carts' => "",
+                'test' => "",
+                'data' => null,
+                'namaUMKM' => null,
+                'AddressList' => null,
                 'PengaturanAkun' => HomeModel::pengaturanAkun(),
                 'SeputarDkampus' => HomeModel::seputarDkampus(),
             ]);
-        } catch (\Exception $e) {
         }
-        return view('pages.Users.Pesanan', [
-            'Title' => 'Pesanan',
-            'NavPesanan' => 'Pesanan',
-            'carts' => "",
-            'test' => "",
-            'data' => null,
-            'namaUMKM' => null,
-            'AddressList' => null,
-            'PengaturanAkun' => HomeModel::pengaturanAkun(),
-            'SeputarDkampus' => HomeModel::seputarDkampus(),
-        ]);
     }
 
     public function status()

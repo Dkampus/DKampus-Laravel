@@ -130,10 +130,14 @@
             <img src="edit.svg" alt="" class="w-5">
         </div>
         @empty
+        <h1 class=" font-semibold text-lg">Silahkan Tambahkan Alamat</h1>
+        <a href="/daftar-alamat" class="btn flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md">
+            <h1 class="font-bold text-white text-md">Tambah Alamat</h1>
+        </a>
         @endforelse
         @endif
     </div>
-    <input type="hidden" id="selected_address_id" name="selected_address_id" value="">
+
     <div id="totalAndAddress">
         @if($data !== null)
         @php $total = 0; @endphp
@@ -147,7 +151,13 @@
             <a id="alamat" class="flex flex-row gap-3 items-center border-2 border-[#F9832A] p-3 h-12 rounded-lg">
                 <img src="Map.svg" alt="" class="w-6">
                 <div id="desc" class="flex flex-row gap-2 items-center">
-                    <h1 class="text-[#5e5e5e] font-medium" id="selected_address">Masukkan alamat Anda</h1>
+                    @if ($alamatUtama !== null)
+                    <h1 class="text-[#5e5e5e] font-medium" id="selected_address">{{ $alamatUtama->nama_alamat }}</h1>
+                    <input type="hidden" id="selected_address_id" name="selected_address_id" value="{{ $alamatUtama->id }}">
+                    @else
+                    <h1 class="text-[#5e5e5e] font-medium" id="selected_address">Masukan Alamat</h1>
+                    <input type="hidden" id="selected_address_id" name="selected_address_id" value="">
+                    @endif
                     <img src="ArrowTop.svg" alt="">
                 </div>
             </a>
