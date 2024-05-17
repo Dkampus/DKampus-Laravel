@@ -152,6 +152,7 @@ class CourierController extends Controller
             $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
             $orderId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orderID')->getValue();
             // dd($item);
+            $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders/item1/umkm_id')->getValue();
             $namaJumlahArray = [];
             foreach ($item as $order) {
                 $namaJumlahArray[] = $order['jumlah'] . ' ' . $order['nama'];
@@ -161,6 +162,7 @@ class CourierController extends Controller
             history::create([
                 'user_id' => $custId,
                 'cour_id' => $courId,
+                'umkm_id' => $umkmId,
                 'item' => $joinedNamaJumlah,
                 'harga' => $harga,
                 'ongkir' => $ongkir,
@@ -186,6 +188,7 @@ class CourierController extends Controller
             $harga = $database->getReference('onProgress/' . $custId . '-' . $courId . '/total')->getValue();
             $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
             $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
+            $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders/item1/umkm_id')->getValue();
             $namaJumlahArray = [];
             foreach ($item as $order) {
                 $namaJumlahArray[] = $order['jumlah'] . ' ' . $order['nama'];
@@ -195,6 +198,7 @@ class CourierController extends Controller
             history::create([
                 'user_id' => $custId,
                 'cour_id' => $courId,
+                'umkm_id' => $umkmId,
                 'item' => $joinedNamaJumlah,
                 'harga' => $harga,
                 'ongkir' => $ongkir,

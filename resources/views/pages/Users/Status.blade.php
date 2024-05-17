@@ -10,7 +10,7 @@
         </form>
         @if ($data != null)
         @php $i = 0 @endphp
-        @foreach ($data as $history)
+        @foreach ($data->sortByDesc('created_at') as $history)
         <!-- <section id="" class="bg-white w-full flex flex-col shadow-md justify-center items-center"> -->
         <div id="contentStatus" class="w-[29.5rem] relative h-auto overflow-hidden border-b-[3px] px-4 my-3 mx-auto flex flex-col items-center py-5">
             <div id="Title" class="border-b-[3px] pb-5 mx-auto flex flex-row justify-between items-center w-full">
@@ -62,6 +62,8 @@
         <!-- </section> -->
         @php $i++ @endphp
         @endforeach
+        @else
+        <h1>You Don't Have Any Orders</h1>
         @endif
     </section>
 </div>

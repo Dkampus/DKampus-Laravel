@@ -23,7 +23,7 @@ class history extends Model
         'harga',
         'ongkir',
         'status',
-        'order_Id'
+        'order_id'
     ];
 
     public function customer()
