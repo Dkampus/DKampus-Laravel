@@ -1,10 +1,8 @@
 @guest
-    <a href="/masuk"
-    class="text-white w-16 text-sm h-[2.5rem] rounded-lg text-center px-3 bg-[#F9832A] flex items-center justify-center font-semibold md:text-base md:w-[5vw]">
+    <a href="/masuk" class="text-white w-16 text-sm h-[2.5rem] rounded-lg text-center px-3 bg-[#F9832A] flex items-center justify-center font-semibold md:text-base md:w-[5vw]">
     Masuk
     </a>
-    <a href="/daftar"
-    class="text-[#F9832A] text-sm border-2 border-[#F9832A] w-16 h-[2.5rem] rounded-lg text-center px-3 bg-[#fff] flex items-center justify-center font-semibold md:text-base md:w-[5vw]">
+    <a href="/daftar" class="text-[#F9832A] text-sm border-2 border-[#F9832A] w-16 h-[2.5rem] rounded-lg text-center px-3 bg-[#fff] flex items-center justify-center font-semibold md:text-base md:w-[5vw]">
     Daftar
     </a>
 @endguest
@@ -20,18 +18,11 @@
             <a href="/masuk"
                 class="bg-[#F9832A] w-40 h-[3.4rem] rounded-2xl text-center text-white flex items-center justify-center font-semibold text-lg">Masuk</a>
     @endguest
-{{--        @auth--}}
-{{--            <form method="POST" action="{{ route('logout') }}">--}}
-{{--                @csrf--}}
-{{--                <button type="submit"--}}
-{{--                    class="bg-[#F9832A] w-40 h-[3.4rem] rounded-2xl text-center text-white flex items-center justify-center font-semibold text-lg">Keluar</button>--}}
-{{--            </form>--}}
-{{--        @endauth--}}
     <header class="flex flex-row absolute top-8 right-5 gap-10 justify-end items-center w-full">
         <h1 class="text-xl font-semibold">Menu Utama</h1>
         <button onclick="hideMenu()" class="font-bold text-xl text-[#FF9240]">
             <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#FF9240]" height="1.5em"
-                viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                viewBox="0 0 448 512">
                 <path
                     d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
             </svg>
@@ -46,18 +37,21 @@
             </button>
             <div id="infoPengguna" class="my-0.5 flex flex-col gap-0.5 mx-2">
                 {{--Nama pengguna--}}
-                <h1 class="font-bold text-lg">{{ Auth::user()->nama_user ?? 'unknownname' }}</h1>
+                <h1 class="font-bold text-lg">{{ Auth::user()->nama_user ?? 'null' }}</h1>
                 {{--Email pengguna--}}
-                <h1 class="text-xs">{{ Auth::user()->email ?? 'email' }}</h1>
+                <h1 class="text-xs">{{ Auth::user()->email ?? 'null' }}</h1>
                 {{--Alamat pengguna--}}
                 <div id="location" class="flex flex-row gap-1 items-center">
                     <img src="markLocation.svg" alt="" class="w-4">
-                    <h1 class="text-wrapper-location-profile">{{ Auth::user()->alamat ?? 'address' }}</h1>
+                    @if(Auth::user() != null)
+                        <h1 class="">{{ Auth::user()->addresses->where('utama', 1)->first()->nama_alamat ?? 'null' }}</h1>
+                    @endif
                 </div>
             </div>
-            <a href="/settings">
+            {{-- Settings button --}}
+            {{--<a href="/settings">
                 <img src="settings.svg" alt="" class="absolute right-3 top-3 w-5">
-            </a>
+            </a>--}}
         </div>
 
         <div id="pengaturanAkun" class="flex flex-col gap-7 w-[21rem] mx-auto mt-10">
