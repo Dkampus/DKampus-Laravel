@@ -62,10 +62,12 @@
                 <div class="flex flex-col px-3 h-24 justify-center">
                     <div class="flex w-max flex-row gap-1">
                         <img src=clock.svg alt="" class="w-5">
-                        <h1 class="text-[#F9832A] text-sm sm:text-base">09:00 - 21:00</h1>
+                        <h1 class="text-[#F9832A] text-sm sm:text-base">{{ date('H:i', strtotime($item->open_time ?? '00:00')) }} - {{ date('H:i', strtotime($item->close_time ?? '00:00')) }}</h1>
                     </div>
                     <h1 class="font-semibold text-[3vw] text-base sm:text-xl text-wrapper">{{ $item->nama_umkm }}</h1>
                     <div class="flex flex-row items-center gap-2">
+                        <img src='Iconly/Bold/Star.svg' alt="" class="w-3.2">
+                        <h1 class="text-[#787878] text-sm sm:text-base">{{ $item->rating }}</h1>
                         @if ($listJarak != null || Auth::id() != null)
                         @php $distanceInMeters = $listJarak[$index]; @endphp
                             @if ($distanceInMeters < 1000)
