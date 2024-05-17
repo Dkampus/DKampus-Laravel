@@ -43,12 +43,15 @@
                 {{--Alamat pengguna--}}
                 <div id="location" class="flex flex-row gap-1 items-center">
                     <img src="markLocation.svg" alt="" class="w-4">
-                    <h1 class="">{{ Auth::user()->addresses->where('utama', 1)->first()->nama_alamat ?? 'null' }}</h1>
+                    @if(Auth::user() != null)
+                        <h1 class="">{{ Auth::user()->addresses->where('utama', 1)->first()->nama_alamat ?? 'null' }}</h1>
+                    @endif
                 </div>
             </div>
-            <a href="/settings">
+            {{-- Settings button --}}
+            {{--<a href="/settings">
                 <img src="settings.svg" alt="" class="absolute right-3 top-3 w-5">
-            </a>
+            </a>--}}
         </div>
 
         <div id="pengaturanAkun" class="flex flex-col gap-7 w-[21rem] mx-auto mt-10">
