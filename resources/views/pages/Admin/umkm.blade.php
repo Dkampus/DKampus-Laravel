@@ -43,13 +43,13 @@
                                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editUser(this)" data-id="{{ $umkm->id }}" data-nama_umkm="{{ $umkm->nama_umkm }}" data-alamat="{{ $umkm->alamat }}" data-no_telp_umkm="{{ $umkm->no_telp_umkm }}" data-vip="{{ $umkm->vip }}" data-link="{{ $umkm->link }}" data-geo="{{ $umkm->geo }}">
                                                 Edit
                                             </button>
-                                            <form id=" deleteForm{{ $umkm->id }}" action="{{ route('umkm.destroy', $umkm->id) }}" method="POST">
+                                            <form id="deleteForm{{ $umkm->id }}" action="{{ route('umkm.destroy', $umkm->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onclick="confirmDelete('{{ $umkm->id }}', '{{ $umkm->nama_umkm }}')">
                                                     Hapus
                                                 </button>
-                                                </form>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -258,7 +258,7 @@
     </script>
     <script>
         function confirmDelete(id, nama_umkm) {
-            var isConfirmed = confirm("Are you sure you want to delete " + nama_umkm + "?");
+            var isConfirmed = confirm("Are you sure you want to delete " + id + ' ' + nama_umkm + "?");
 
             if (isConfirmed) {
                 document.getElementById('deleteForm' + id).submit();

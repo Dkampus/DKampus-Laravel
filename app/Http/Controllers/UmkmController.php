@@ -226,5 +226,6 @@ class UmkmController extends Controller
             session()->flash('error2', 'Umkm ' . $umkm->nama_umkm . ' Gagal Dihapus');
             return redirect()->back();
         }
+        dd('a');
     }
 }
