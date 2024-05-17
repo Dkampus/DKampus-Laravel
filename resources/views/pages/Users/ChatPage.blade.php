@@ -59,7 +59,7 @@
                     database.ref('chats/' + custId + '-' + courId).on('value', function(csnapshot) {
                         countMssg = csnapshot.val().courNewMssg;
                     });
-                    database.ref('chats/' + custId + '-' + courId).on('child_changed', function(countsnapshot) {
+                    database.ref('chats/' + custId + '-' + courId + '/courNewMssg').on('child_changed', function(countsnapshot) {
                         countMssg = countsnapshot.val();
                         if (countMssg != 0) {
                             $('div[data-count-id="' + courId + '"] .count-message').empty();

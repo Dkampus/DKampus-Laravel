@@ -61,7 +61,7 @@
                     database.ref('chats/' + custId + '-' + courId).on('value', function(csnapshot) {
                         countMssg = csnapshot.val().custNewMssg;
                     });
-                    database.ref('chats/' + custId + '-' + courId).on('child_changed', function(countsnapshot) {
+                    database.ref('chats/' + custId + '-' + courId + '/custNewMssg').on('child_changed', function(countsnapshot) {
                         countMssg = countsnapshot.val();
                         console.log(custId);
                         if (countMssg != 0) {

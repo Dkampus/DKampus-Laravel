@@ -73,7 +73,7 @@
                 timestamp: formattedTimestamp
             }
         });
-        var chatRef = database.ref('chats/' + custId + '-' + courId + '/courNewMssg');
+        var chatRef = database.ref('chats/' + custId + '-' + courId + '/custNewMssg');
         chatRef.transaction(function(currentValue) {
             return (currentValue || 0) + 1;
         });
