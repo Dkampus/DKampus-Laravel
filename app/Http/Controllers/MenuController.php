@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Data_umkm;
 use App\Models\Menu;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -62,6 +63,7 @@ class MenuController extends Controller
             ]);
         }
     }
+
     public function data_umkm()
     {
         return $this->belongsTo(Data_umkm::class);
@@ -69,102 +71,93 @@ class MenuController extends Controller
 
     public function search(Request $request)
     {
-        $keyword = $request->keyword;
-        $menus = Menu::where('nama_makanan', 'like', "%{$keyword}%")
-            ->with('data_umkm') // Add this line to get the related UMKM data
-            ->get();
+        try {
+            $keyword = $request->keyword;
+            $menus = Menu::where('nama_makanan', 'like', "%{$keyword}%")
+                ->with('data_umkm')
+                ->get();
 
-        // Transform the menus data to include the UMKM name
-        $menus = $menus->map(function ($menu) {
-            $menu->nama_umkm = $menu->data_umkm->nama_umkm;
-            return $menu;
-        });
 
-        return view('pages.Users.SearchPage', [
-            'Title' => 'Search',
-            'NavSearch' => 'Search',
-            'menus' => $menus,
-        ]);
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-    }
+            $menus = $menus->map(function ($menu) {
+                $menu->nama_umkm = $menu->data_umkm->nama_umkm;
+                return $menu;
+            });
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+            return view('pages.Users.SearchPage', [
+                'Title' => 'Search',
+                'NavSearch' => 'Search',
+                'menus' => $menus,
+            ]);
+        } catch (Exception $e) {
+            return redirect()->back()->with('error2', 'Error');
+        }
     }
 
     public function simpan($id, Request $request)
     {
-        $userID = Auth::user()->id;
-        $database = app('firebase.database');
-        $saved = Menu::find($id);
-        $idMakanan = $saved->id;
-        $umkmID = $saved->data_umkm_id;
-        $jumlah = $request->input('quantity');
-        $existingUmkmID = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->exists();
-        $postData = [
-            'id' => $idMakanan,
-            'nama' => $saved->nama_makanan,
-            'harga' => $saved->harga,
-            'umkm_id' => $umkmID,
-            'jumlah' => $jumlah,
-            'catatan' => $request->input('catatan')
-        ];
-        if ($existingUmkmID) {
-            $currentUmkmID = $database->getReference('cart/' . $userID . '/orders' . '/item1' . '/umkm_id')->getValue();
-            if ($currentUmkmID != $umkmID) {
-                $database->getReference('cart/' . $userID . '/orders')->remove();
-                $database->getReference('cart/' . $userID . '/orders' . '/item1')->set($postData);
-            } else {
-                $itemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
-                $itemNumber = $itemCount + 1;
-                $item = 'item' . $itemNumber;
-                $i = 1;
-                $checkid = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/id')->getValue();
-                while ($i <= $itemCount && $checkid != $id) {
-                    $i++;
-                    $checkid = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/id')->getValue();
-                }
-                if ($checkid == $id) {
-                    $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/jumlah')->set($jumlah);
+        try {
+            $userID = Auth::user()->id;
+            $database = app('firebase.database');
+            $saved = Menu::find($id);
+            $idMakanan = $saved->id;
+            $umkmID = $saved->data_umkm_id;
+            $jumlah = $request->input('quantity');
+            $existingUmkmID = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->exists();
+            $postData = [
+                'id' => $idMakanan,
+                'nama' => $saved->nama_makanan,
+                'harga' => $saved->harga,
+                'umkm_id' => $umkmID,
+                'jumlah' => $jumlah,
+                'catatan' => $request->input('catatan')
+            ];
+            if ($existingUmkmID) {
+                $currentUmkmID = $database->getReference('cart/' . $userID . '/orders' . '/item1' . '/umkm_id')->getValue();
+                if ($currentUmkmID != $umkmID) {
+                    $database->getReference('cart/' . $userID . '/orders')->remove();
+                    $database->getReference('cart/' . $userID . '/orders' . '/item1')->set($postData);
                 } else {
-                    $database->getReference('cart/' . $userID . '/orders' . '/' . $item)->set($postData);
+                    $itemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
+                    $itemNumber = $itemCount + 1;
+                    $item = 'item' . $itemNumber;
+                    $i = 1;
+                    $checkid = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/id')->getValue();
+                    while ($i <= $itemCount && $checkid != $id) {
+                        $i++;
+                        $checkid = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/id')->getValue();
+                    }
+                    if ($checkid == $id) {
+                        $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/jumlah')->set($jumlah);
+                    } else {
+                        $database->getReference('cart/' . $userID . '/orders' . '/' . $item)->set($postData);
+                    }
                 }
+            } else {
+                $database->getReference('cart/' . $userID . '/orders' . '/item1')->set($postData);
             }
-        } else {
-            $database->getReference('cart/' . $userID . '/orders' . '/item1')->set($postData);
-        }
-        $count = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
-        $j = 1;
-        $total = 0;
-        while ($j <= $count) {
-            $pricePerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $j . '/harga')->getValue();
-            $quantityPerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $j . '/jumlah')->getValue();
-            $currentTotal = $pricePerItem * $quantityPerItem;
-            $total += $currentTotal;
-            $j++;
-        }
-        $postTotal =
-            $database->getReference('cart/' . $userID . '/total')->set($total);
-        if ($postTotal) {
-            $database->getReference('cart/' . $userID . '/alamat')->set(Data_umkm::find($umkmID)->alamat);
-            $database->getReference('cart/' . $userID . '/link')->set(Data_umkm::find($umkmID)->link);
-            $database->getReference('cart/' . $userID . '/alamatUmkm')->set(Data_umkm::find($umkmID)->link);
-            return redirect()->back()->with('status', 'success');
+            $count = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
+            $j = 1;
+            $total = 0;
+            while ($j <= $count) {
+                $pricePerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $j . '/harga')->getValue();
+                $quantityPerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $j . '/jumlah')->getValue();
+                $currentTotal = $pricePerItem * $quantityPerItem;
+                $total += $currentTotal;
+                $j++;
+            }
+            $postTotal =
+                $database->getReference('cart/' . $userID . '/total')->set($total);
+            if ($postTotal) {
+                $database->getReference('cart/' . $userID . '/alamat')->set(Data_umkm::find($umkmID)->alamat);
+                $database->getReference('cart/' . $userID . '/link')->set(Data_umkm::find($umkmID)->link);
+                $database->getReference('cart/' . $userID . '/alamatUmkm')->set(Data_umkm::find($umkmID)->link);
+                return redirect()->back()->with('status', 'success');
+            }
+        } catch (Exception $e) {
+            return redirect()->back()->with('error2', 'Error');
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validate = $request->validate([
@@ -173,8 +166,6 @@ class MenuController extends Controller
         $findUmkm = Data_umkm::find($request->umkm);
 
         try {
-
-
             Menu::create([
                 "data_umkm_id" => $findUmkm->id,
                 "nama_makanan" => $request->nama_makanan,
@@ -186,59 +177,35 @@ class MenuController extends Controller
             ]);
             return redirect()->back()->with('success', 'Menu stored successfully.');
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->back()->with('error', 'Failed to store the menu.');
         }
     }
 
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'edit_nama_makanan' => 'required|string',
-            'edit_deskripsi' => 'required|string',
-            'edit_harga' => 'required|numeric',
-            'edit_promo' => 'nullable|string',
-            // Add validation rules for other fields if needed
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'edit_nama_makanan' => 'required|string',
+                'edit_deskripsi' => 'required|string',
+                'edit_harga' => 'required|numeric',
+                'edit_promo' => 'nullable|string',
 
-        // Find the Menu item by its ID
-        $menu = Menu::findOrFail($id);
+            ]);
 
-        // Update the Menu item with the validated data
-        $menu->update([
-            'nama_makanan' => $validatedData['edit_nama_makanan'],
-            'deskripsi' => $validatedData['edit_deskripsi'],
-            'harga' => $validatedData['edit_harga'],
-            'promo' => $validatedData['edit_promo'],
-            // Update other fields as needed
-        ]);
+            $menu = Menu::findOrFail($id);
 
-        // Handle file upload if necessary
+            $menu->update([
+                'nama_makanan' => $validatedData['edit_nama_makanan'],
+                'deskripsi' => $validatedData['edit_deskripsi'],
+                'harga' => $validatedData['edit_harga'],
+                'promo' => $validatedData['edit_promo'],
 
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Menu item updated successfully.');
+            ]);
+
+            return redirect()->back()->with('success', 'Menu item updated successfully.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error2', 'Error');
+        }
     }
     /**
      * Remove the specified resource from storage.
