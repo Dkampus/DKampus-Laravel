@@ -83,30 +83,9 @@ class UmkmController extends Controller
         }
     }
 
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function storeUmkm(Request $request)
     {
         try {
-            // Validasi data input
             $validatedData = $request->validate([
                 'user_id' => 'required',
                 'nama_umkm' => 'required',
@@ -130,10 +109,10 @@ class UmkmController extends Controller
                 "link" => $request->link,
                 "geo" => $request->geo,
             ]);
+            return redirect()->route('umkm')->with('success', 'Data UMKM berhasil ditambahkan');
         } catch (\Exception $e) {
-            dd($e);
+            return redirect()->back()->with('error2', 'Error');
         }
-        return redirect()->route('umkm')->with('success', 'Data UMKM berhasil ditambahkan');
     }
 
     public function addProduct(Request $request)
@@ -160,30 +139,10 @@ class UmkmController extends Controller
             ]);
             return redirect()->back()->with('success', 'Menu stored successfully.');
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->back()->with('error', 'Failed to store the menu.');
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         try {
@@ -206,8 +165,7 @@ class UmkmController extends Controller
 
             return redirect()->back()->with('success', 'Data UMKM berhasil diupdate');
         } catch (\Exception $e) {
-            // Handle any exceptions
-            dd($e);
+            return redirect()->back()->with('error2', 'Error');
         }
     }
 
@@ -224,8 +182,7 @@ class UmkmController extends Controller
             return redirect()->back();
         } catch (\Exception $e) {
             session()->flash('error2', 'Umkm ' . $umkm->nama_umkm . ' Gagal Dihapus');
-            return redirect()->back();
+            return redirect()->back()->with('error2', 'Error');
         }
-        dd('a');
     }
 }
