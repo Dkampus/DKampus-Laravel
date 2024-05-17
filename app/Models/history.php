@@ -9,7 +9,7 @@ class history extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $guarded = [
         'id',
@@ -22,7 +22,8 @@ class history extends Model
         'item',
         'harga',
         'ongkir',
-
+        'status',
+        'order_Id'
     ];
 
     public function customer()

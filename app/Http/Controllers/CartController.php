@@ -12,6 +12,7 @@ use App\Models\PesananModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Data_umkm;
+use App\Models\history;
 use Exception;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Client;
@@ -90,13 +91,33 @@ class CartController extends Controller
     public function status()
     {
         $userID = Auth::user()->id;
-        return view('pages.Users.Status', [
-            'Title' => 'Status',
-            'NavPesanan' => 'Status',
-            'custId' => $userID,
-            'PengaturanAkun' => HomeModel::pengaturanAkun(),
-            'SeputarDkampus' => HomeModel::seputarDkampus(),
-        ]);
+        try {
+            $data = User::find($userID)->custHistory;
+            foreach ($data as $history) {
+                $dataCustId[] = $history->user_id;
+                $dataCourId[] = $history->cour_id;
+                $namaUmkm[] = Data_umkm::find($history->umkm_id)->nama_umkm;
+            }
+            return view('pages.Users.Status', [
+                'Title' => 'Status',
+                'NavPesanan' => 'Status',
+                'custId' => $userID,
+                'data' => $data,
+                'nama_umkm' => $namaUmkm,
+                'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                'SeputarDkampus' => HomeModel::seputarDkampus(),
+            ]);
+        } catch (Exception $e) {
+            return view('pages.Users.Status', [
+                'Title' => 'Status',
+                'NavPesanan' => 'Status',
+                'custId' => $userID,
+                'data' => null,
+                'nama_umkm' => null,
+                'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                'SeputarDkampus' => HomeModel::seputarDkampus(),
+            ]);
+        }
     }
 
     public function StatusOrder(Request $request)
@@ -147,16 +168,35 @@ class CartController extends Controller
                 'nama_umkm' => $nama_umkm,
                 'nama_driver' => null,
                 'orders' => $orders,
+                'items' => null,
             ]);
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function detailHistory()
     {
-        //
+
+        $courId = request()->courId;
+        $custId = Auth::user()->id;
+        $data = User::find($custId)->custHistory;
+        foreach ($data as $history) {
+            if ($history->user_id == $custId) {
+                return view('pages.Users.StatusOrder', [
+                    'Title' => 'Detail Order',
+                    'NavPesanan' => 'Detail Order',
+                    'id' => $custId,
+                    'orderId' => $history->order_id,
+                    'status' => $history->status,
+                    'subTotal' => $history->harga,
+                    'ongkir' => $history->ongkir,
+                    'total' => $history->ongkir + $history->harga,
+                    'nama_umkm' => Data_umkm::find($history->umkm_id)->nama_umkm,
+                    'nama_driver' => User::find($courId)->nama_user,
+                    'orders' => null,
+                    'items' => $history->item,
+                ]);
+            }
+        }
     }
 
     /**
@@ -325,10 +365,10 @@ class CartController extends Controller
         ]);
 
         if ($request->file('bukti')->isValid()) {
-            //$request->file('fileToUpload')->store('uploads');
-            $database->getReference('cart/' . $userID . '/status')->set('searching');
+            $request->file('bukti')->store('payment');
             $order = $database->getReference('cart/' . $userID)->getValue();
             $database->getReference('needToDeliver/' . $userID . '-')->set($order);
+            $database->getReference('needToDeliver/' . $userID . '-/status')->set('searching');
             $nama_penerima = Auth::user()->nama_user;
             $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
             $namaUMKM = Data_umkm::find($idumkm)->nama_umkm;
@@ -338,10 +378,8 @@ class CartController extends Controller
             $timestamp = date('Y-m-d H:i:s');
             $database->getReference('needToDeliver/' . $userID . '-/timestamp')->set($timestamp);
             $database->getReference('cart/' . $userID)->remove();
-            $orderID = $database->getReference('needToDeliver/' . $userID . '/orderID')->getValue();
             return redirect('/pesanan/status');
         } else {
-
             return redirect()->back()->withErrors('error2', 'Invalid file uploaded.');
         }
     }

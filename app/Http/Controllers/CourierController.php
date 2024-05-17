@@ -91,6 +91,7 @@ class CourierController extends Controller
         $database = app('firebase.database');
         $data = $database->getReference('needToDeliver/' . $id)->getValue();
         $database->getReference('onProgress/' . $id . $courId)->set($data);
+        $database->getReference('onProgress/' . $id . $courId . '/status')->set('on Delivery');
         date_default_timezone_set('Asia/Jakarta');
         $timestamp = date('Y-m-d H:i:s');
         $custId = explode("-", $id);
@@ -108,6 +109,7 @@ class CourierController extends Controller
         $database->getReference('chats/' . $id . $courId . '/cour_name')->set($cour_name);
         $database->getReference('chats/' . $id . $courId . '/courNewMssg')->set(1);
         $database->getReference('chats/' . $id . $courId . '/custNewMssg')->set(0);
+        $database->getReference('needToDeliver/' . $id)->remove();
         return redirect('courier/dashboard');
     }
 
@@ -148,6 +150,7 @@ class CourierController extends Controller
             $harga = $database->getReference('onProgress/' . $custId . '-' . $courId . '/total')->getValue();
             $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
             $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
+            $orderId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orderID')->getValue();
             // dd($item);
             $namaJumlahArray = [];
             foreach ($item as $order) {
@@ -161,6 +164,8 @@ class CourierController extends Controller
                 'item' => $joinedNamaJumlah,
                 'harga' => $harga,
                 'ongkir' => $ongkir,
+                'status' => 'completed',
+                'order_id' => $orderId,
             ]);
 
             $database->getReference('onProgress/' . $custId . '-' . $courId)->remove();
@@ -177,6 +182,25 @@ class CourierController extends Controller
             $courId = Auth::user()->id;
             $custId = $request->input('custId');
             $database = app('firebase.database');
+            $orderId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orderID')->getValue();
+            $harga = $database->getReference('onProgress/' . $custId . '-' . $courId . '/total')->getValue();
+            $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
+            $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
+            $namaJumlahArray = [];
+            foreach ($item as $order) {
+                $namaJumlahArray[] = $order['jumlah'] . ' ' . $order['nama'];
+            }
+
+            $joinedNamaJumlah = implode(', ', $namaJumlahArray);
+            history::create([
+                'user_id' => $custId,
+                'cour_id' => $courId,
+                'item' => $joinedNamaJumlah,
+                'harga' => $harga,
+                'ongkir' => $ongkir,
+                'status' => 'canceled',
+                'order_id' => $orderId,
+            ]);
             $database->getReference('onProgress/' . $custId . '-' . $courId)->remove();
             return redirect()->back();
         } catch (Exception $e) {

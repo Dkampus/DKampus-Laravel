@@ -180,7 +180,7 @@ class MenuController extends Controller
                 "nama_makanan" => $request->nama_makanan,
                 "deskripsi" => $request->deskripsi,
                 "harga" => $request->harga,
-                "image" => $$request->image->store('public'),
+                "image" => $request->image->store('public'),
                 "rating" => 0,
                 "promo" => $request->promo,
             ]);

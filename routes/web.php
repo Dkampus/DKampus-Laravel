@@ -260,6 +260,7 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     Route::post('/product', [MenuController::class, 'simpan'])->name('product.store');
     Route::get('/pesanan/status', [CartController::class, 'status']);
     Route::post('/pesanan/status/detail', [CartController::class, 'StatusOrder'])->name('status.order');
+    Route::post('/detail-Order', [CartController::class, 'detailHistory'])->name('historydetail.cust');
     Route::get('/pesanan', [CartController::class, 'index']);
     Route::delete('/pesanan/delete', [CartController::class, 'destroy'])->name('cart.delete');
     Route::post("/pesanan/update-quantity", [CartController::class, 'updateQuantity'])->name('update.quantity');

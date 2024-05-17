@@ -45,12 +45,17 @@
     </div>
     <div class="flex justify-between items-center gap-x-2 p-2 mx-2">
         <p class="text-black"> Order</p>
+        @if ($orders !== null)
         @foreach ($orders as $order => $item)
         <p class="font-bold text-black">{{ $item['jumlah'] }} {{ $item['nama'] }}</p>
         @if (!$loop->last)
         <span>,</span>
         @endif
         @endforeach
+        @endif
+        @if ($items !== null)
+        <p class="font-bold text-black">{{ $items }}</p>
+        @endif
     </div>
     <div class="flex justify-between items-center gap-x-2 px-2 mx-2">
         <p class="text-black">Pembayaran</p>
