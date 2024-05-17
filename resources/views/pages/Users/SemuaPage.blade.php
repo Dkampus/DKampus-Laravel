@@ -74,11 +74,26 @@
     @endforelse
  </x-promo-slider.semua-promo-carousel>
 
-{{-- Promotion Banner --}}
-<div class="w-full h-60 px-4 mx-auto my-10 rounded-xl overflow-hidden md:h-96 md:my-10">
-<img src="promote.jpg" alt="" class="w-full h-full object-cover rounded-xl">
+{{-- Promotion UMKM Header Mobile --}}
+<div class="flex flex-row justify-between items-center px-5 mb-5 mt-7 md:hidden">
+    <h1 class="font-semibold text-2xl">Lagi Promo Juga!</h1>
+        {{--<a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>--}}
 </div>
 
+{{-- Promotion UMKM Card --}}
+<div class="w-full h-60 px-4 mx-auto my-5 rounded-xl md:h-96 md:my-5 md:hidden">
+    <div class="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
+        <img src="{{Storage::url('ayamgorengkarawaci.jpg')}}" alt="" class="w-full h-32 object-cover">
+        <div class="p-4">
+            <div class="tracking-wide text-l text-black font-semibold truncate">nama_umkm</div>
+            <div class="flex items center mt-1">
+                <p class="text-[#5E5E5E] truncate">kategori_umkm</p>
+            </div>
+        </div>
+        {{-- rounded bottom --}}
+        <div class="w-full h-12 bg-[#F9832A] flex justify-center items-center"></div>
+    </div>
+</div>
 
 
 {{-- Title Promo Mingguan Desktop --}}
@@ -86,6 +101,7 @@
     <h1 class="font-semibold text-2xl">Ada Promo Mingguan loh!</h1>
     <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>
 </div>
+
 <x-promo-slider.semua-promo-carousel>
     @forelse ($PromoTerlarisSlider as $Item)
      <swiper-slide class="border transition-all hidden duration-300 w-40 h-60 rounded-xl overflow-hidden shadow-md mb-2 md:flex md:flex-col">

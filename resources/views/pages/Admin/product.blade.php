@@ -33,7 +33,8 @@
                             <tbody>
                                 @foreach($menus as $menu)
                                 <tr>
-                                    <td>{{ $umkms[$menu->data_umkm_id-1]->nama_umkm }}</td> {{--Ini bug atau gatau kenapa data umkm id + 1, jadi di - 1 ya wwkkwkwkw--}}
+                                    {{--<td>{{ $umkms[$menu->data_umkm_id-1]->nama_umkm }}</td>--}} {{--Ini bug atau gatau kenapa data umkm id + 1, jadi di - 1 ya wwkkwkwkw--}}
+                                    <td>{{ \App\Models\Data_umkm::where('id', $menu->data_umkm_id)->first()->nama_umkm }}</td>
                                     <td>{{ $menu->nama_makanan }}</td>
                                     <td>{{ $menu->deskripsi }}</td>
                                     {{-- <td><img src="{{ Storage::url($menu->image) }}" alt="img" class="mx-2 max-w-xs"></td>--}}
