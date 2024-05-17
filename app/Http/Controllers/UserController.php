@@ -157,54 +157,19 @@ class UserController extends Controller
 
     public function alamatUtama()
     {
-        $checkAddress = Addresse::where('user_id', request()->custId)->where('utama', 1)->first();
-        // dd($checkAddress);
-        if ($checkAddress) {
-            $checkAddress->update(['utama' => 0]);
-            Addresse::where('id', request()->id)->update(['utama' => 1]);
-        } else {
-            Addresse::where('id', request()->id)->update(['utama' => 1]);
+        try {
+            $checkAddress = Addresse::where('user_id', request()->custId)->where('utama', 1)->first();
+            // dd($checkAddress);
+            if ($checkAddress) {
+                $checkAddress->update(['utama' => 0]);
+                Addresse::where('id', request()->id)->update(['utama' => 1]);
+            } else {
+                Addresse::where('id', request()->id)->update(['utama' => 1]);
+            }
+
+            return redirect()->back();
+        } catch (Exception $e) {
+            return redirect()->back()->with('error2', 'Error');
         }
-
-        return redirect()->back();
-    }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
