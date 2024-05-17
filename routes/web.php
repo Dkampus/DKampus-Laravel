@@ -20,6 +20,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UntukKamuController;
 use App\View\Components\CourierLayout;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,12 +100,12 @@ Route::get('/promo', function () {
 
 Route::get('/promo/semua', function (UmkmController $umkmController) {
     $Jarak = [];
-    if(\Illuminate\Support\Facades\Auth::user() != null){
+    if (\Illuminate\Support\Facades\Auth::user() != null) {
         $umkmGeo = [];
-        for($i = 0; $i < count(PromoModel::promoSpecial()); $i++){
+        for ($i = 0; $i < count(PromoModel::promoSpecial()); $i++) {
             $umkmGeo[] = Data_umkm::where('id', PromoModel::promoSpecial()[$i]->data_umkm_id)->first()->id;
         }
-        for($i = 0; $i < count($umkmGeo); $i++){
+        for ($i = 0; $i < count($umkmGeo); $i++) {
             $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
         }
     } else {
@@ -138,12 +139,12 @@ Route::get('/promo/category/{value}', function ($value) {
 
 Route::get('/promo/special', function (UmkmController $umkmController) {
     $Jarak = [];
-    if(\Illuminate\Support\Facades\Auth::user() != null){
+    if (\Illuminate\Support\Facades\Auth::user() != null) {
         $umkmGeo = [];
-        for($i = 0; $i < count(PromoModel::promoSpecial()); $i++){
+        for ($i = 0; $i < count(PromoModel::promoSpecial()); $i++) {
             $umkmGeo[] = Data_umkm::where('id', PromoModel::promoSpecial()[$i]->data_umkm_id)->first()->id;
         }
-        for($i = 0; $i < count($umkmGeo); $i++){
+        for ($i = 0; $i < count($umkmGeo); $i++) {
             $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
         }
     } else {
