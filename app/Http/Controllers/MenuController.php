@@ -75,13 +75,15 @@ class MenuController extends Controller
             $menus = Menu::where('nama_makanan', 'like', "%{$keyword}%")
                 ->with('data_umkm')
                 ->get();
-
-
             $menus = $menus->map(function ($menu) {
                 $menu->nama_umkm = $menu->data_umkm->nama_umkm;
                 return $menu;
             });
-
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ]);
+        }
         return view('pages.Users.SearchPage', [
             'Title' => 'Search ' . $keyword,
             'NavSearch' => 'Search',
@@ -93,14 +95,6 @@ class MenuController extends Controller
      */
     public function index()
     {
-            return view('pages.Users.SearchPage', [
-                'Title' => 'Search',
-                'NavSearch' => 'Search',
-                'menus' => $menus,
-            ]);
-        } catch (Exception $e) {
-            return redirect()->back()->with('error2', 'Error');
-        }
     }
 
     public function simpan($id, Request $request)
