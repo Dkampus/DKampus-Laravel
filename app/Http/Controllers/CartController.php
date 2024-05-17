@@ -361,7 +361,7 @@ class CartController extends Controller
         $database = app('firebase.database');
 
         $request->validate([
-            'bukti' => 'required|file|mimes:jpeg,jpg|max:2048',
+            'bukti' => 'required|file|mimes:jpeg,jpg,png,heic|max:2048',
         ]);
 
         if ($request->file('bukti')->isValid()) {

@@ -25,25 +25,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($datas as $key => $data)
+                                @foreach($datas->sortByDesc('created_at') as $key => $data)
                                 <tr>
-                                    <td>#TRX{{ strtoupper(substr($data['id'], 0, 20)) }}</td>
-                                    <td class="text-center">{{ $data['date'] }}</td>
+                                    <td>#TRX{{substr($data->order_id, 0, 10)}}</td>
+                                    <td class="text-center">{{ $data->created_at }}</td>
                                     <td class="text-center">
-                                        Rp. {{
-                                            number_format(array_reduce($data['cart'], function ($carry, $item) {
-                                                return $carry + ($item['price'] * $item['qty']);
-                                            }, 0), 0, ',', '.')
-                                        }}
+                                        Rp. {{number_format($data->harga + $data->ongkir), 0, ',', '.' }}
                                     </td>
                                     <td class="text-center">QRIS</td>
                                     <td class="text-center">
-                                        @if ($data['status'] == 'Success')
-                                        <span class="text-green-400 font-bold">{{ $data['status'] }}</span>
-                                        @elseif ($data['status'] == 'Pending')
-                                        <span class="text-yellow-400 font-bold">{{ $data['status'] }}</span>
+                                        @if ($data->status == 'completed')
+                                        <span class="text-green-400 font-bold">{{ $data->status }}</span>
+                                        @elseif ($data->status == 'Pending')
+                                        <span class="text-yellow-400 font-bold">{{ $data->status }}</span>
                                         @else
-                                        <span class="text-red-400 font-bold">{{ $data['status'] }}</span>
+                                        <span class="text-red-400 font-bold">{{ $data->status }}</span>
                                         @endif
                                     <td class="text-center">
                                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
