@@ -36,21 +36,22 @@
                 </p>
                 </p>
                 <p id="orderid" class="">Order ID
-                    <span class="font-semibold flex">#TRX{{substr($history->order_id, 0, 10)}}</span>
+                    <span class="font-semibold flex uppercase">#TRX{{substr($history->order_id, 0, 10)}}</span>
                 </p>
             </div>
         </div>
 
         <div class="flex flex-row justify-between w-[29.5rem] px-5 py-1">
             <div id="totalHarga">
-                <h1>Ongkir</h1>
-                <p class="text-lg text-[#F9832A] font-semibold">Rp {{ number_format($history->ongkir, 0, ',', '.') }}</p>
+                <h1>Total</h1>
+                <p class="text-lg text-[#F9832A] font-semibold">Rp {{ number_format($history->ongkir + $history->harga, 0, ',', '.') }}</p>
             </div>
             <div id="LacakAndChat" class="flex flex-row items-center gap-5">
                 <form action="{{ route('historydetail.cust') }}" method="POST">
                     @csrf
                     <button type="submit" class="bg-[#F9832A] w-20 h-9 flex flex-col items-center justify-center rounded-xl text-white">Detail</button>
                     <input type="text" class="hidden" value="{{ $history->cour_id }}" name="courId">
+                    <input type="text" class="hidden" value="{{ $history->id }}" name="id">
                 </form>
                 <form action="{{ route('room.chat') }}" method="POST">
                     @csrf
@@ -179,7 +180,7 @@
 
         var divItem = $('<div>').addClass('w-full grid grid-cols-1 grid-rows-2 gap-y-1 gap-x-5 my-5 place-content-between');
         var p_item = $('<p>').addClass('font-semibold').text(items);
-        var p_orderId = $('<p>').addClass('font-semibold flex').text('#trx' + orderId);
+        var p_orderId = $('<p>').addClass('font-semibold flex uppercase').text('#trx' + orderId);
 
         var divFooter = $('<div>').addClass('flex flex-row justify-between w-[29.5rem] px-5 py-1')
         var divTotalHarga = $('<div>').attr('id', 'totalHarga');
@@ -230,7 +231,7 @@
 
         var divItem = $('<div>').addClass('w-full grid grid-cols-1 grid-rows-2 gap-y-1 gap-x-5 my-5 place-content-between');
         var p_item = $('<p>').addClass('font-semibold').text(items);
-        var p_orderId = $('<p>').addClass('font-semibold flex').text('#trx' + orderId);
+        var p_orderId = $('<p>').addClass('font-semibold flex uppercase').text('#trx' + orderId);
 
         var divFooter = $('<div>').addClass('flex flex-row justify-between w-[29.5rem] px-5 py-1')
         var divTotalHarga = $('<div>').attr('id', 'totalHarga');

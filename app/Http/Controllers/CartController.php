@@ -146,6 +146,7 @@ class CartController extends Controller
                 'nama_umkm' => $nama_umkm,
                 'nama_driver' => $nama_driver,
                 'orders' => $orders,
+                'items' => null,
             ]);
         } else {
             $stringOrder = $database->getReference('needToDeliver/' . $id . '-/orderID')->getValue();
@@ -175,12 +176,12 @@ class CartController extends Controller
 
     public function detailHistory()
     {
-
         $courId = request()->courId;
+        $id = request()->id;
         $custId = Auth::user()->id;
         $data = User::find($custId)->custHistory;
         foreach ($data as $history) {
-            if ($history->user_id == $custId) {
+            if ($history->user_id == $custId && $id == $history->id) {
                 return view('pages.Users.StatusOrder', [
                     'Title' => 'Detail Order',
                     'NavPesanan' => 'Detail Order',
