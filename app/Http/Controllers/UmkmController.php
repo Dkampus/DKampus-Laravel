@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Addresse;
 use App\Models\Data_umkm;
 use App\Models\Menu;
+use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Kreait\Firebase\Contract\Auth;
 
 class UmkmController extends Controller
 {
@@ -47,6 +51,35 @@ class UmkmController extends Controller
                 'message' => 'Gagal menampilkan data toko',
                 'data' => ''
             ], 400);
+        }
+    }
+
+    public function getDistance($userId, $umkmId)
+    {
+        $user = User::all()->find($userId);
+        $umkm = Data_umkm::all()->find($umkmId);
+
+        if (!$user || !$umkm) {
+            return back()->withErrors(['error' => 'User or UMKM not found.']);
+        }
+
+        $userLocation = Addresse::all()->where('user_id', $userId)->where('utama', 1)->first()->geo;
+        $umkmLocation = $umkm->geo;
+
+        $apiKey = env('GOOGLE_MAPS_API_KEY');
+
+        $client = new Client();
+
+        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=$userLocation&destinations=$umkmLocation&key=$apiKey";
+
+        $response = $client->get($url);
+
+        if ($response->getStatusCode() === 200) {
+            $data = json_decode($response->getBody(), true);
+            $distance = $data['rows'][0]['elements'][0]['distance']['value'];
+            return $distance;
+        } else {
+            return back()->withErrors(['error' => 'Failed to calculate distance.']);
         }
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Addresse;
 use App\Models\Menu;
 use App\Models\User;
 use App\Models\Footer;
@@ -96,11 +97,24 @@ Route::get('/promo', function () {
     ]);
 });
 
-Route::get('/promo/semua', function () {
+Route::get('/promo/semua', function (UmkmController $umkmController) {
+    $Jarak = [];
+    if(\Illuminate\Support\Facades\Auth::user() != null){
+        $umkmGeo = [];
+        for($i = 0; $i < count(PromoModel::promoSpecial()); $i++){
+            $umkmGeo[] = Data_umkm::where('id', PromoModel::promoSpecial()[$i]->data_umkm_id)->first()->id;
+        }
+        for($i = 0; $i < count($umkmGeo); $i++){
+            $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
+        }
+    } else {
+        $Jarak = null;
+    }
     return view('pages.Users.PromoSemuaPage', [
         'Title' => 'Semua Promo',
         'promoSpecial' => PromoModel::promoSpecial(),
         'umkm' => Data_umkm::all(),
+        'jarakUmkm' => $Jarak,
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
     ]);
@@ -122,11 +136,24 @@ Route::get('/promo/category/{value}', function ($value) {
     ]);
 });
 
-Route::get('/promo/special', function () {
+Route::get('/promo/special', function (UmkmController $umkmController) {
+    $Jarak = [];
+    if(\Illuminate\Support\Facades\Auth::user() != null){
+        $umkmGeo = [];
+        for($i = 0; $i < count(PromoModel::promoSpecial()); $i++){
+            $umkmGeo[] = Data_umkm::where('id', PromoModel::promoSpecial()[$i]->data_umkm_id)->first()->id;
+        }
+        for($i = 0; $i < count($umkmGeo); $i++){
+            $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
+        }
+    } else {
+        $Jarak = null;
+    }
     return view('pages.Users.PromoSpecialPage', [
         'Title' => 'Promo Special',
         'promoSpecial' => PromoModel::promoSpecial(),
         'umkm' => Data_umkm::all(),
+        'jarakUmkm' => $Jarak,
     ]);
 });
 
