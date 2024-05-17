@@ -19,15 +19,19 @@
                         {{--Umkm--}}
                         <div class="flex justify-between items-center mb-2">
                             <a href="/detail-warung/{{$warung->nama_umkm}}" class="flex items-center gap-2 font-bold">{{$warung->nama_umkm}}</a>
-                            <div class="flex items-center gap-2">
-                                <img src="{{ asset('/Iconly/Bold/Star.svg') }}" alt="" class="w-5 h-5">
-                                <p class="text-[#5E5E5E] text-sm">{{$promoSpecial->where('data_umkm_id', $warung->id)->first()->rating ?? '0.0'}}</p>
-                                <a class="text-[#5E5E5E] text-sm font-semibold">{{$umkmItem->jarak ?? '0.0'}} KM</a>
+                            <div class="flex items-center gap-1.5">
+                                <img src="{{ asset('/Iconly/Bold/Star.svg') }}" alt="" class="w-4 h-4">
+                                <p class="text-[#5E5E5E] text-sm">{{$warung->rating ?? '0.0'}}</p>
+                                @if($jarakUmkm != null)
+                                    <a class="text-[#5E5E5E] text-sm font-semibold"> | {{ $jarakUmkm[$umkmItem] > 1000 ? round($jarakUmkm[$umkmItem] / 1000) . ' km' : $jarakUmkm[$umkmItem] . ' m' }}</a>
+                                @else
+                                    <a class="text-[#5E5E5E] text-sm font-semibold"></a>
+                                @endif
                             </div>
                         </div>
                         <div class="flex justify-between items-center mb-2">
                             <a class="">{{ucfirst($promoSpecial->where('data_umkm_id', $warung->id)->first()->category) ?? 'n/a'}}</a>
-                            <a class="">{{$umkmItem->jam_buka ?? 'n/a'}} - {{$umkmItem->jam_tutup ?? 'n/a'}}</a>
+                            <a class="">{{date('H:i', strtotime($warung->open_time ?? '00:00'))}} - {{date('H:i', strtotime($warung->close_time ?? '00:00'))}}</a>
                         </div>
                     </div>
                     <div class="border-b border-[#E5E5E5] mb-2"></div>
