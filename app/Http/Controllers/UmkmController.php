@@ -131,6 +131,7 @@ class UmkmController extends Controller
                 'deskripsi' => 'required',
                 'harga' => 'required',
                 //'promo' => 'required',
+                'category' => 'required',
             ]);
             Menu::create([
                 "data_umkm_id" => $idUmkm,
@@ -141,6 +142,7 @@ class UmkmController extends Controller
                 "rating" => 0,
                 "slug" => "",
                 "diskon" => $request->promo,
+                "category" => $request->category,
             ]);
             return redirect()->back()->with('success', 'Menu stored successfully.');
         } catch (\Exception $e) {
