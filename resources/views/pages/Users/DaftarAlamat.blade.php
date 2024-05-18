@@ -26,15 +26,15 @@
         <div class="flex flex-col w-full h-auto bg-white rounded-md shadow-md p-5">
             <div id="openModalViewDetails{{$key}}">
                 @if ($alamat['utama'] == 1)
-                <p class="flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md">Alamat Utama</p>
+                <p class="flex items-center gap-x-2 bg-orange-500 text-white m-2 px-1 py-1 mr-5 rounded-md shadow-md">Alamat Utama</p>
                 @endif
                 <p class="font-bold text-black text-l">{{$alamat['nama_alamat']}}</p>
                 <p class="font-normal text-black text-md">{{$alamat['address']}}</p>
             </div>
-            <a href="#" id="openModal{{$key}}" class="text-blue-700" onclick="event.preventDefault(); openModalAddAddress('tambahAlamatModal', 'Edit Alamat');">Edit</a>
+{{--            <a href="#" id="openModal{{$key}}" class="text-blue-700" onclick="event.preventDefault(); openModalAddAddress('tambahAlamatModal', 'Edit Alamat');">Edit</a>--}}
             <form action="{{ route('alamatUtama') }}" method="POST">
                 @csrf
-                <button type="submit" class="flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md">
+                <button type="submit" class="flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md mt-5">
                     <h2 class="text-white text-md">Set As Default</h2>
                     <input type="text" class="hidden" value="{{ $alamat['id'] }}" name="id">
                     <input type="text" class="hidden" value="{{ $alamat['user_id'] }}" name="custId">
@@ -70,6 +70,15 @@
                     <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" id="closeModalViewDetails{{$key}}">
                         Close
                     </button>
+                    {{-- Delete alamat --}}
+                    <form action="{{ route('delete.alamat') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-danger mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                            Delete
+                        </button>
+                        <input type="text" class="hidden" value="{{ $alamat['id'] }}" name="id">
+                        <input type="text" class="hidden" value="{{ $alamat['user_id'] }}" name="custId">
+                    </form>
                 </div>
             </div>
         </div>

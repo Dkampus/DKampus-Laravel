@@ -172,4 +172,14 @@ class UserController extends Controller
             return redirect()->back()->with('error2', 'Error');
         }
     }
+
+    public function deleteAlamat()
+    {
+        try {
+            Addresse::where('id', request()->id)->delete();
+            return redirect()->back();
+        } catch (Exception $e) {
+            return redirect()->back()->with('error2', 'Error');
+        }
+    }
 }

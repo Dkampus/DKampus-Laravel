@@ -249,13 +249,26 @@ Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
     ]);
 })->name('detail-makanan');
 
-//Favorite Routes
-Route::get('/favorit', function () {
+//Favorit Routes
+Route::get('/favorit', function (UmkmController $umkmController) {
+    $Jarak = [];
+    if (\Illuminate\Support\Facades\Auth::user() != null) {
+        $umkmGeo = [];
+        for ($i = 0; $i < count(PromoModel::promoSpecial()); $i++) {
+            $umkmGeo[] = Data_umkm::where('id', PromoModel::promoSpecial()[$i]->data_umkm_id)->first()->id;
+        }
+        for ($i = 0; $i < count($umkmGeo); $i++) {
+            $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
+        }
+    } else {
+        $Jarak = null;
+    }
     return view('pages.Users.Favorit', [
         'Title' => 'Favorit',
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'RekomendasiWarung' => Data_umkm::all(),
+        'listJarak' => $Jarak,
         'RekomendasiMakanan' => Menu::take(5)->get(),
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
     ]);
@@ -310,6 +323,7 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     Route::get('/daftar-alamat', [UserController::class, 'indexAlamat'])->name('alamat');
     Route::post('/daftar_alamat', [UserController::class, 'daftarAlamat'])->name('daftar.alamat');
     Route::post('/defaul-address', [UserController::class, 'alamatUtama'])->name('alamatUtama');
+    Route::post('/delete-address', [UserController::class, 'deleteAlamat'])->name('delete.alamat');
 });
 
 

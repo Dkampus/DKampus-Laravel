@@ -37,12 +37,15 @@
                     success: function(data) {
                         var searchResults = '';
                         for (var i = 0; i < data.length; i++) {
-                            searchResults += '<div class="flex flex-row justify-start rounded-lg border w-full p-3 border-black/30 items-center gap-3">' +
-                                '<img src="{{ asset('ewewewewe.png') }}" alt="" class="w-14 h-14 rounded-full object-cover">' +
+                            searchResults +=
+                                '<div class="flex flex-row justify-start rounded-lg border w-full p-3 border-black/30 items-center gap-3">' +
+                                    '<img src="{{ '/storage/' }}' + data[i].image + '" alt="" class="w-16 h-16 rounded-lg">' +
                                 '<div class="flex flex-col">' +
-                                '<h1 class="font-bold text-black">' + data[i].nama_makanan + '</h1>' +
-                                '<p class="text-gray-400 text-s">Rp ' + new Intl.NumberFormat('id-ID', { style: 'decimal' }).format(data[i].harga) + '</p>' +
-                                '<div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F9832A" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg><p class="text-gray-400 ml-2">' + data[i].rating + '</p></div>' +
+                                    '<a href="{{ '/detail-makanan/' }}' + data[i].nama_makanan + '" class="font-bold text-black">' + data[i].nama_makanan + '</a>' +
+                                    '<a href="{{ '/detail-makanan/' }}' + data[i].nama_makanan + '" class="text-gray-400 text-s">Rp ' + new Intl.NumberFormat('id-ID', { style: 'decimal' }).format(data[i].harga) + '</a>' +
+                                '<div class="flex items-center">' +
+                                    '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F9832A" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>' +
+                                    '<a href="{{ '/detail-makanan/' }}' + data[i].nama_makanan + '" class="text-gray-400 ml-2">' + data[i].rating + '</a></div>' +
                                 '</div></div>';
                         }
                         $('#search-content').html(searchResults);

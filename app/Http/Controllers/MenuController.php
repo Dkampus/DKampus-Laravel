@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Data_umkm;
 use App\Models\Menu;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -76,21 +75,26 @@ class MenuController extends Controller
             $menus = Menu::where('nama_makanan', 'like', "%{$keyword}%")
                 ->with('data_umkm')
                 ->get();
-
-
             $menus = $menus->map(function ($menu) {
                 $menu->nama_umkm = $menu->data_umkm->nama_umkm;
                 return $menu;
             });
-
-            return view('pages.Users.SearchPage', [
-                'Title' => 'Search',
-                'NavSearch' => 'Search',
-                'menus' => $menus,
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
             ]);
-        } catch (Exception $e) {
-            return redirect()->back()->with('error2', 'Error');
         }
+        return view('pages.Users.SearchPage', [
+            'Title' => 'Search ' . $keyword,
+            'NavSearch' => 'Search',
+            'menus' => $menus,
+        ]);
+    }
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
     }
 
     public function simpan($id, Request $request)
@@ -158,6 +162,9 @@ class MenuController extends Controller
         }
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $validate = $request->validate([
@@ -166,6 +173,8 @@ class MenuController extends Controller
         $findUmkm = Data_umkm::find($request->umkm);
 
         try {
+
+
             Menu::create([
                 "data_umkm_id" => $findUmkm->id,
                 "nama_makanan" => $request->nama_makanan,
@@ -177,35 +186,59 @@ class MenuController extends Controller
             ]);
             return redirect()->back()->with('success', 'Menu stored successfully.');
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->with('error', 'Failed to store the menu.');
         }
     }
 
+
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, $id)
     {
-        try {
-            $validatedData = $request->validate([
-                'edit_nama_makanan' => 'required|string',
-                'edit_deskripsi' => 'required|string',
-                'edit_harga' => 'required|numeric',
-                'edit_promo' => 'nullable|string',
+        // Validate the request data
+        $validatedData = $request->validate([
+            'edit_nama_makanan' => 'required|string',
+            'edit_deskripsi' => 'required|string',
+            'edit_harga' => 'required|numeric',
+            'edit_promo' => 'nullable|string',
+            // Add validation rules for other fields if needed
+        ]);
 
-            ]);
+        // Find the Menu item by its ID
+        $menu = Menu::findOrFail($id);
 
-            $menu = Menu::findOrFail($id);
+        // Update the Menu item with the validated data
+        $menu->update([
+            'nama_makanan' => $validatedData['edit_nama_makanan'],
+            'deskripsi' => $validatedData['edit_deskripsi'],
+            'harga' => $validatedData['edit_harga'],
+            'promo' => $validatedData['edit_promo'],
+            // Update other fields as needed
+        ]);
 
-            $menu->update([
-                'nama_makanan' => $validatedData['edit_nama_makanan'],
-                'deskripsi' => $validatedData['edit_deskripsi'],
-                'harga' => $validatedData['edit_harga'],
-                'promo' => $validatedData['edit_promo'],
+        // Handle file upload if necessary
 
-            ]);
-
-            return redirect()->back()->with('success', 'Menu item updated successfully.');
-        } catch (Exception $e) {
-            return redirect()->back()->with('error2', 'Error');
-        }
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Menu item updated successfully.');
     }
     /**
      * Remove the specified resource from storage.
