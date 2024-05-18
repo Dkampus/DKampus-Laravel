@@ -60,10 +60,7 @@
                 (function(custId) {
                     database.ref('chats/' + custId + '-' + courId).on('value', function(csnapshot) {
                         countMssg = csnapshot.val().custNewMssg;
-                    });
-                    database.ref('chats/' + custId + '-' + courId + '/custNewMssg').on('child_changed', function(countsnapshot) {
-                        countMssg = countsnapshot.val();
-                        console.log(custId);
+                        console.log(countMssg);
                         if (countMssg != 0) {
                             $('div[data-count-id="' + custId + '"] .count-message').empty();
                             $('div[data-count-id="' + custId + '"] .count-message').text(countMssg);
@@ -72,6 +69,17 @@
                             $('div[data-count-id="' + custId + '"]').addClass('hidden');
                         }
                     });
+                    // database.ref('chats/' + custId + '-' + courId + '/custNewMssg').on('child_changed', function(countsnapshot) {
+                    //     countMssg = countsnapshot.val();
+                    //     console.log(countMssg);
+                    //     if (countMssg != 0) {
+                    //         $('div[data-count-id="' + custId + '"] .count-message').empty();
+                    //         $('div[data-count-id="' + custId + '"] .count-message').text(countMssg);
+                    //         $('div[data-count-id="' + custId + '"]').removeClass('hidden');
+                    //     } else {
+                    //         $('div[data-count-id="' + custId + '"]').addClass('hidden');
+                    //     }
+                    // });
                     lastMessageQuery.on('child_added', function(childSnapshot) {
                         var mssgData = childSnapshot.val();
                         var messageData = mssgData.msgs;
@@ -180,7 +188,7 @@
             $('input[name="custId"]').val(custId);
 
             $('form').submit();
-            chatRef = database.ref('chats/' + custId + '-' + courId + '/courNewMssg');
+            chatRef = database.ref('chats/' + custId + '-' + courId + '/custNewMssg');
             chatRef.set(0);
         }
     </script>

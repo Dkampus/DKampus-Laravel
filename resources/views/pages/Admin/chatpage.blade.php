@@ -12,7 +12,7 @@
                     <div class="bg-white dark:bg-gray-800">
                         <div class="flex flex-row items-center justify-between p-4 border-b dark:border-gray-600">
                             <p class="font-semibold text-gray-800 dark:text-gray-200">Chats</p>
-                            <button class="text-gray-500 dark:text-gray-400 focus:outline-none">
+                            <button id="addNewChat" class="text-gray-500 dark:text-gray-400 focus:outline-none">
                                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
@@ -35,8 +35,9 @@
                         <form id="message-form" action="#" method="POST">
                             @csrf
                             <div class="flex flex-row items-center space-x-4">
-                                <input id="message-input" type="text" class="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none" placeholder="Type a message...">
-                                <button class="bg-blue-500 text-white p-2 rounded-lg focus:outline-none" type="submit">Send</button>
+                                <input type="text" id="custId" class="hidden" value="">
+                                <input id="message-input" type="text" class="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none" placeholder="Type a message..." disabled>
+                                <button class="bg-blue-500 text-white p-2 rounded-lg focus:outline-none" type="submit" id="send-btn">Send</button>
                             </div>
                         </form>
                     </div>
@@ -78,7 +79,7 @@
         var formattedTimestamp = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
         database.ref('chats/' + custId + '-' + courId).push().set({
             msgs: {
-                role: 'driver',
+                role: 'admin',
                 msg: message,
                 timestamp: formattedTimestamp
             }
@@ -117,7 +118,7 @@
         var messageText = $('<p>').text(message);
         var timestampText = $('<p>').addClass('text-xs').text(timestamp);
 
-        if (role === 'driver') {
+        if (role === 'admin') {
             var messageContainer = $('<div>').addClass('flex flex-row items-center space-x-4 justify-end');
             // var avatarImg = $('<img>').addClass('h-10 w-10 rounded-full').attr('src', 'https://randomuser.me/api/port').attr('alt', 'avatar');
             messageDiv.addClass('items-end');
@@ -135,14 +136,12 @@
             firstDiv.append(messageDiv);
         }
 
-        // Append elements to container
         containerDiv.append(messageText, timestampText);
 
-        // Append container to chat messages
         $('#room-chat').append(firstDiv);
     }
 
-    var courId = 40;
+    var courId = 1;
     var custId;
     var chatItemCreated = true;
 
@@ -152,13 +151,14 @@
         var ifx = $('#ifx');
         ifx.addClass('hidden');
         var chatRef = database.ref('chats/' + custId + '-' + courId);
+        console.log(custId)
         chatRef.on('child_added', function(snapshot) {
             var messageData = snapshot.val().msgs;
             if (messageData) {
                 roomChat(messageData.role, messageData.msg, messageData.timestamp);
                 $('#message-input').prop('disabled', false);
                 $('#send-btn').prop('disabled', false);
-                $('#custId').attr('data-id', custId);
+                $('#custId').attr('value', custId);
             }
         });
     }
@@ -197,7 +197,7 @@
                         formattedTimestamp = hours + ':' + minutes;
                         if (!chatItemCreated) {
                             chatItem = listChat(sender, message, timestamp, custId, countMssg);
-                            chatItemCreated = true; // Set flag to true indicating chat item is created
+                            chatItemCreated = true;
                         } else {
                             chatItem = listChat(sender, message, timestamp, custId, countMssg);
                             var chatList = $('#list-chat');
@@ -251,13 +251,23 @@
         event.preventDefault(); // Prevent form submission
 
         var message = $('#message-input').val().trim();
-        var custId = $('#custId').data('id');
+        var custId = $('#custId').val();
         console.log(custId);
-        if (message !== '') {
+        if (message !== '' && custId !== null) {
             sendMessage(message, custId);
 
             $('#message-input').val('');
         }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const addNewChatBtn = document.getElementById('addNewChat');
+
+        addNewChatBtn.addEventListener('click', function() {
+            const message = "Hello, can i help you?!";
+            const custId = 24;
+            sendMessage(message, custId);
+        });
     });
 </script>
 
@@ -269,7 +279,9 @@
 
     /* Hide scrollbar for IE, Edge and Firefox */
     .no-scrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
     }
 </style>

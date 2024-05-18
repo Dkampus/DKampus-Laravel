@@ -25,6 +25,59 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if ($dataNTD !== null)
+                                @foreach($dataNTD as $key => $data)
+                                <tr>
+                                    <td>#TRX{{substr($data['orderID'], 0, 10)}}</td>
+                                    <td class="text-center">{{ $data['timestamp'] }}</td>
+                                    <td class="text-center">
+                                        Rp. {{number_format($data['total'] + $data['ongkir']), 0, ',', '.' }}
+                                    </td>
+                                    <td class="text-center">QRIS</td>
+                                    <td class="text-center">
+                                        @if ($data['status'] == 'completed')
+                                        <span class="text-green-400 font-bold">{{ $data['status'] }}</span>
+                                        @elseif ($data['status'] == 'on Delivery')
+                                        <span class="text-yellow-400 font-bold">{{ $data['status'] }}</span>
+                                        @else
+                                        <span class="text-red-400 font-bold">{{ $data['status'] }}</span>
+                                        @endif
+                                    <td class="text-center">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                            Detail
+                                        </button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endif
+
+                                @if ($dataOP !== null)
+                                @foreach($dataOP as $key => $data)
+                                <tr>
+                                    <td>#TRX{{substr($data['orderID'], 0, 10)}}</td>
+                                    <td class="text-center">{{ $data['timestamp'] }}</td>
+                                    <td class="text-center">
+                                        Rp. {{number_format($data['total'] + $data['ongkir']), 0, ',', '.' }}
+                                    </td>
+                                    <td class="text-center">QRIS</td>
+                                    <td class="text-center">
+                                        @if ($data['status'] == 'completed')
+                                        <span class="text-green-400 font-bold">{{ $data['status'] }}</span>
+                                        @elseif ($data['status'] == 'on Delivery')
+                                        <span class="text-yellow-400 font-bold">{{ $data['status'] }}</span>
+                                        @else
+                                        <span class="text-red-400 font-bold">{{ $data['status'] }}</span>
+                                        @endif
+                                    <td class="text-center">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                            Detail
+                                        </button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endif
+
+                                @if ($datas != null)
                                 @foreach($datas->sortByDesc('created_at') as $key => $data)
                                 <tr>
                                     <td>#TRX{{substr($data->order_id, 0, 10)}}</td>
@@ -48,6 +101,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
