@@ -54,7 +54,7 @@
             var total = orderData.total;
             var jarak = orderData.jarak;
             if (jarak > 1000) {
-                convert = parseFloat((jarak / 1000).toFixed(1));
+                convert = parseFloat((jarak / 1000).toFixed(2));
                 var hasilJarak = convert + " km"
             } else {
                 var hasilJarak = jarak + " m"
@@ -140,8 +140,8 @@
             <p class="text-l">${orderData.nama_umkm }</p>
         </div>
         <div class="flex flex-col">
-            <h1 class="text-l font-bold">Status:</h1>
-            <p class="text-l">${ orderData.status }</p>
+            <h1 class="text-l font-bold">Notes:</h1>
+            <p class="text-l">${ orderData.notesAlamat }</p>
         </div>
         <div class="flex flex-col">
             <h1 class="text-l font-bold">Total:</h1>
