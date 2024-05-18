@@ -56,7 +56,7 @@
     <x-list.slider>
         @forelse ($RekomendasiWarung as $index => $item)
         <swiper-slide class="w-96 h-[17rem] mx-0.5 relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
-            <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5 md:w-[4vw]">
+            {{--<img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5 md:w-[4vw]">--}}
             <a href="/detail-warung/{{ $item->nama_umkm }}" class="w-full h-full bg-white overflow-hidden">
                 <img src="{{ Storage::url($item->logo_umkm) }}" alt="" class="w-[45rem] h-40 object-cover rounded-xl">
                 <div class="flex flex-col px-3 h-24 justify-center">
