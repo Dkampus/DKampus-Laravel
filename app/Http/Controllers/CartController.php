@@ -335,6 +335,7 @@ class CartController extends Controller
                 $namaUMKM = Data_umkm::find($idumkm);
                 $geoUmkm = Data_umkm::find($idumkm)->geo;
                 $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
+                $notesAlamat = $alamat->addresses()->where('id', $id)->first()->notes;
                 $ongkir = $this->ongkir($geoUmkm, $geoUser);
                 $jarak = $this->calculteDistance($geoUmkm, $geoUser);
                 $database->getReference('cart/' . $userID . '/cust_address')->set($alamat->addresses()->where('id', $id)->first()->address);
@@ -343,6 +344,7 @@ class CartController extends Controller
                 $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($idumkm)->link);
                 $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir);
                 $database->getReference('cart/' . $userID . '/jarak')->set($jarak);
+                $database->getReference('cart/' . $userID . '/notesAlamat')->set($notesAlamat);
                 return view('pages.Users.CheckoutPage', [
                     'Title' => 'Checkout',
                     'NavPesanan' => 'Checkout',
