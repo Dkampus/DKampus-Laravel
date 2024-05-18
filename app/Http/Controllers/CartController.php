@@ -323,44 +323,50 @@ class CartController extends Controller
     // Temporary function, should be moved to another controller.
     public function checkout()
     {
+
         try {
-            if (request()->selected_address_id != null) {
-                $id = request()->selected_address_id;
-                $userID = Auth::user()->id;
-                $alamat = User::find($userID);
-                $database = app('firebase.database');
-                $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
-                $total = $database->getReference('cart/' . $userID . '/total')->getValue();
-                $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
-                $namaUMKM = Data_umkm::find($idumkm);
-                $geoUmkm = Data_umkm::find($idumkm)->geo;
-                $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
-                $notesAlamat = $alamat->addresses()->where('id', $id)->first()->notes;
-                $ongkir = $this->ongkir($geoUmkm, $geoUser);
-                $jarak = $this->calculteDistance($geoUmkm, $geoUser);
-                $database->getReference('cart/' . $userID . '/cust_address')->set($alamat->addresses()->where('id', $id)->first()->address);
-                $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamat->addresses()->where('id', $id)->first()->link);
-                $database->getReference('cart/' . $userID . '/umkm_address')->set(Data_umkm::find($idumkm)->alamat);
-                $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($idumkm)->link);
-                $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir);
-                $database->getReference('cart/' . $userID . '/jarak')->set($jarak);
-                $database->getReference('cart/' . $userID . '/notesAlamat')->set($notesAlamat);
-                return view('pages.Users.CheckoutPage', [
-                    'Title' => 'Checkout',
-                    'NavPesanan' => 'Checkout',
-                    'carts' => $carts,
-                    'total' => $total,
-                    'nama_umkm' => $namaUMKM->nama_umkm,
-                    'ongkir' => $ongkir,
-                    // 'AddressList' => PesananModel::alamatUser(),
-                    'PengaturanAkun' => HomeModel::pengaturanAkun(),
-                    'SeputarDkampus' => HomeModel::seputarDkampus(),
-                ]);
+            $userID = Auth::user()->id;
+            $database = app('firebase.database');
+            if (!$database->getReference('needToDeliver/' . $userID . '-')->getSnapshot()->exists()) {
+                if (request()->selected_address_id != null) {
+                    $id = request()->selected_address_id;
+                    $alamat = User::find($userID);
+                    $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
+                    $total = $database->getReference('cart/' . $userID . '/total')->getValue();
+                    $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+                    $namaUMKM = Data_umkm::find($idumkm);
+                    $geoUmkm = Data_umkm::find($idumkm)->geo;
+                    $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
+                    $notesAlamat = $alamat->addresses()->where('id', $id)->first()->notes;
+                    $ongkir = $this->ongkir($geoUmkm, $geoUser);
+                    $jarak = $this->calculteDistance($geoUmkm, $geoUser);
+                    $database->getReference('cart/' . $userID . '/cust_address')->set($alamat->addresses()->where('id', $id)->first()->address);
+                    $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamat->addresses()->where('id', $id)->first()->link);
+                    $database->getReference('cart/' . $userID . '/umkm_address')->set(Data_umkm::find($idumkm)->alamat);
+                    $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($idumkm)->link);
+                    $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir);
+                    $database->getReference('cart/' . $userID . '/jarak')->set($jarak);
+                    $database->getReference('cart/' . $userID . '/notesAlamat')->set($notesAlamat);
+                    return view('pages.Users.CheckoutPage', [
+                        'Title' => 'Checkout',
+                        'NavPesanan' => 'Checkout',
+                        'carts' => $carts,
+                        'total' => $total,
+                        'nama_umkm' => $namaUMKM->nama_umkm,
+                        'ongkir' => $ongkir,
+                        // 'AddressList' => PesananModel::alamatUser(),
+                        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                        'SeputarDkampus' => HomeModel::seputarDkampus(),
+                    ]);
+                } else {
+                    return redirect()->back()->with('error2', 'please select the address first');
+                }
             } else {
-                return redirect()->back()->with('error2', 'please select the address first');
+                return redirect()->back()->with('error2', "you already have an order that isn't complete");
             }
         } catch (Exception $e) {
-            return redirect()->back()->with('error2', 'You Dont Have Any Orders');
+            dd($e);
+            return redirect()->back()->with('error2', "some error");
         }
     }
 

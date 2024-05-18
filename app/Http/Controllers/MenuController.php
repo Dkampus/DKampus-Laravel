@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Exception;
 
 class MenuController extends Controller
 {
@@ -107,14 +108,26 @@ class MenuController extends Controller
             $umkmID = $saved->data_umkm_id;
             $jumlah = $request->input('quantity');
             $existingUmkmID = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->exists();
-            $postData = [
-                'id' => $idMakanan,
-                'nama' => $saved->nama_makanan,
-                'harga' => $saved->harga,
-                'umkm_id' => $umkmID,
-                'jumlah' => $jumlah,
-                'catatan' => $request->input('catatan')
-            ];
+            if ($request->input('catatan') != null) {
+                $postData = [
+                    'id' => $idMakanan,
+                    'nama' => $saved->nama_makanan,
+                    'harga' => $saved->harga,
+                    'umkm_id' => $umkmID,
+                    'jumlah' => $jumlah,
+                    'catatan' => $request->input('catatan')
+                ];
+            } else {
+                $postData = [
+                    'id' => $idMakanan,
+                    'nama' => $saved->nama_makanan,
+                    'harga' => $saved->harga,
+                    'umkm_id' => $umkmID,
+                    'jumlah' => $jumlah,
+                    'catatan' => "-"
+                ];
+            }
+
             if ($existingUmkmID) {
                 $currentUmkmID = $database->getReference('cart/' . $userID . '/orders' . '/item1' . '/umkm_id')->getValue();
                 if ($currentUmkmID != $umkmID) {

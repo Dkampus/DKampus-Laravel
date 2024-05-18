@@ -116,7 +116,7 @@
             $('#modalOrderDetails').empty();
             console.log(orderData);
             var orderNames = Object.values(orderData.orders).map(function(order) {
-                return order.jumlah + ' ' + order.nama;
+                return order.jumlah + ' ' + order.nama + ' (' + order.catatan + ')';
             });
 
             var ordersHtml = "";

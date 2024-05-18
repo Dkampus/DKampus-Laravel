@@ -17,11 +17,17 @@
                             <p class="text-lg font-bold text-[#F9832A]">Nama Umkm: {{ $item['nama_umkm'] }}</p>
                             <p class=" text-lg font-bold text-[#F9832A]">Alamat Umkm: <a href=" {{ $item['link'] }}">{{ $item['alamat'] }}</a></p>
                             <p class="text-lg font-bold text-[#F9832A]">Nomor Telp Umkm: {{ $no_telp_umkm[$i] }}</p>
+                            <p class="text-lg font-bold text-[#F9832A]">Orders:</p>
+                            @foreach ($item['orders'] as $order => $orders)
+                            <span class="text-lg font-bold text-[#F9832A]">{{ $orders['jumlah'] }} - {{ $orders['nama'] }} ( {{ $orders['catatan'] }} )</span>
+                            @endforeach
                             <p class="text-lg font-bold text-[#F9832A]">Nama Penerima: {{ $item['nama_penerima'] }}</p>
                             <p class="text-lg font-bold text-[#F9832A]">Alamat Penerima: <a href=" {{ $item['cust_link_address'] }}">{{ $item['cust_address'] }}</a></p>
+                            <p class="text-lg font-bold text-[#F9832A]">Notes Alamat: {{ $item['notesAlamat'] }}</p>
                             <p class="text-lg font-bold text-[#F9832A]">SubTotal: Rp. {{number_format($item['total'], 0, ',', '.')}}</p>
                             <p class="text-lg font-bold text-[#F9832A]">Ongkir: Rp. {{number_format($item['ongkir'], 0, ',', '.')}}</p>
                             <p class="text-lg font-bold text-[#F9832A]">No Telp Cust: {{ $no_telp_cust }}</p>
+
 
                             <div class="flex flex-row gap-2">
                                 <form action="{{ route('complete.orders') }}" method="POST">
