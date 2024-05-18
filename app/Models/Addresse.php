@@ -16,6 +16,7 @@ class Addresse extends Model
         'address',
         'link',
         'nama_alamat',
+        'notes',
         'geo',
         'utama',
     ];
