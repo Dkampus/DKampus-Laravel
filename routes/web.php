@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Models\Addresse;
 use App\Models\Menu;
 use App\Models\User;
@@ -152,7 +153,7 @@ Route::get('/promo/special', function (UmkmController $umkmController) {
     } else {
         $Jarak = null;
     }
-//    dd($Jarak);
+    //    dd($Jarak);
     return view('pages.Users.PromoSpecialPage', [
         'Title' => 'Promo Special',
         'promoSpecial' => PromoModel::promoSpecial(),
@@ -342,16 +343,7 @@ Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')
 // Admin Routes
 Route::resource('umkm', 'UmkmController');
 Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->group(function () {
-    Route::view(
-        '/dashboard',
-        'pages/Admin/dashboard',
-        [
-            'data_umkm' => Data_umkm::all(),
-            'menu' => Menu::all(),
-            'user' => User::all(),
-            'transaction' => app(TransactionController::class)->index(), //temporary data
-        ]
-    )->name('dashboard');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::view('/umkm', 'pages/Admin/umkm', [
         'umkms' => Data_umkm::paginate(10),
     ])->name('umkm');
@@ -405,7 +397,7 @@ Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->gr
     Route::delete('/umkm/{id}', [UmkmController::class, 'destroy'])->name('umkm.destroy');
 
     //transaction route
-    Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');
+    Route::get('/transaction', [AdminController::class, 'transacation'])->name('transaction');
 
     //account-user management route
     Route::view('/account', 'pages/Admin/account', [
@@ -422,13 +414,6 @@ Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->gr
             'Title' => 'Chat',
         ]
     )->name('chatpage.admin');
-
-    Route::get('/chats/{id}', function ($id) {
-        return view('pages/Admin/chatroom', [
-            'Title' => 'Chat Room',
-            'id' => $id,
-        ]);
-    })->name('chatroom.admin');
 });
 
 Route::middleware('auth')->group(function () {

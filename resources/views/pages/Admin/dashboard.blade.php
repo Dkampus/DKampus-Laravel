@@ -60,7 +60,15 @@
                                 <p class="text-gray-500 dark:text-gray-400">Detail dari semua Transaksi</p>
                             </div>
                             <div class="flex items-center justify-center bg-white h-12 w-12 rounded-full">
-                                <div class="text-l font-semibold text-black">{{ count(app(\App\Http\Controllers\TransactionController::class)->index()['datas']) }}</div>
+                                @if ($dataNTD == 0 && $dataOP == 0)
+                                <div class="text-l font-semibold text-black">{{ count($transaction) }}</div>
+                                @elseif ($dataNTD == 0 && $dataOP > 0)
+                                <div class="text-l font-semibold text-black">{{ count($transaction) + $dataOP }}</div>
+                                @elseif ($dataNTD > 0 && $dataOP == 0)
+                                <div class="text-l font-semibold text-black">{{ count($transaction) + $dataNTD }}</div>
+                                @else
+                                <div class="text-l font-semibold text-black">{{ count($transaction) + $dataNTD + $dataOP }}</div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -70,44 +78,44 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if (session('error2'))
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            Toast.fire({
-                icon: 'error',
-                title: '{{ session('error2') }}'
-            })
-        </script>
+        Toast.fire({
+            icon: 'error',
+            title: "{{ session('error2') }}"
+        })
+    </script>
     @endif
     @if (session('success'))
-        <script>
-            const ToastSuccess = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+    <script>
+        const ToastSuccess = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            ToastSuccess.fire({
-                icon: 'success',
-                title: '{{ session('success') }}'
-            })
-        </script>
+        ToastSuccess.fire({
+            icon: 'success',
+            title: "{{ session('success') }}"
+        })
+    </script>
     @endif
     <script>
         // Ambil semua tombol hapus
@@ -136,5 +144,5 @@
                 });
             });
         });
-        </script>
+    </script>
 </x-app-layout>
