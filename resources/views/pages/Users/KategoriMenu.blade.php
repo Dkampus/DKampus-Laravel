@@ -20,7 +20,7 @@
                         <div class="tracking-wide text-l text-black font-semibold">{{ $menu->nama_makanan }}</div>
                         <div class="flex items-center mt-1">
                             <img src="{{ asset('shop.svg') }}" alt="" class="w-5 h-5">
-                            <p class="text-[#5E5E5E] ml-2 truncate">{{ $umkm->nama_umkm }}</p>
+                            <p class="text-[#5E5E5E] ml-2 truncate">{{ \App\Models\Data_umkm::where('id', $menu->data_umkm_id)->first()->nama_umkm }}</p>
                         </div>
                         <div class="flex justify-between items-center mt-1">
                             <p class="block text-lg leading-tight font-medium text-black">Rp {{ number_format($menu->harga, 0, ',', '.') }}</p>
