@@ -117,7 +117,6 @@
                                     <div class="mb-4">
                                         <label for="category" class="block text sm font-medium text-gray-700 dark:text-gray-200">Kategori</label>
                                         <select name="category" id="category" class="form-select mt-1 block w-full">
-                                            {{--('minuman', 'jajanan', 'aneka nasi', 'ayam & bebek', 'cepat saji', 'roti', 'bakso & soto', 'bakmie', 'mie', 'sate');--}}
                                             <option value="minuman">Minuman</option>
                                             <option value="jajanan">Jajanan</option>
                                             <option value="aneka nasi">Aneka Nasi</option>
@@ -191,7 +190,6 @@
                                     <div class="mb-4">
                                         <label for="edit_category" class="block text sm font-medium text-gray-700 dark:text-gray-200">Kategori</label>
                                         <select name="edit_category" id="edit_category" class="form-select mt-1 block w-full">
-                                            {{--('minuman', 'jajanan', 'aneka nasi', 'ayam & bebek', 'cepat saji', 'roti', 'bakso & soto', 'bakmie', 'mie', 'sate');--}}
                                             <option value="minuman">Minuman</option>
                                             <option value="jajanan">Jajanan</option>
                                             <option value="aneka nasi">Aneka Nasi</option>
@@ -288,8 +286,6 @@
             var harga = button.getAttribute('data-harga');
             var promo = button.getAttribute('data-promo');
             var category = button.getAttribute('data-category');
-
-            console.log(id + ' ' + umkm + ' ' + nama_makanan + ' ' + deskripsi + ' ' + harga + ' ' + promo + ' ' + category);
 
             // Fill the form in the modal with the data
             document.getElementById('edit_umkm').value = umkm;

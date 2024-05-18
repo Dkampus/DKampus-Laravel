@@ -167,13 +167,6 @@
                                         <label for="edit_open_time" class="block text sm font-medium text-gray-700 dark:text-gray-200">Waktu Buka - Tutup</label>
                                         <input type="time" name="edit_open_time" id="edit_open_time" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
                                         <input type="time" name="edit_close_time" id="edit_close_time" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
-                                        <a href="javascript:void(0)" class="text-white" onclick="debug()">debug</a>
-                                        <script> function debug() {
-                                            //convert to iso 8601 format date "2023-12-06 04:28:47"
-                                            var conv = document.getElementById('edit_open_time').value + ':00';
-                                            console.log(conv);
-                                        }
-                                        </script>
                                     </div>
                                     {{-- debug time --}}
                                     <div class="mb-4">
@@ -358,7 +351,6 @@
 
             // Update the form action to point to the update route
             var form = document.querySelector('#editForm');
-            console.log( edit_link.value + ' ' + edit_geo.value + ' ' + edit_nama_umkm.value + ' ' + edit_alamat.value + ' ' + edit_open_time.value + ' ' + edit_close_time.value + ' ' + edit_no_telp_umkm.value + ' ' + edit_vip.value);
             form.action = '{{ route("umkm.update", ["id" => ":id"]) }}'.replace(':id', id);
 
             // Show the modal
