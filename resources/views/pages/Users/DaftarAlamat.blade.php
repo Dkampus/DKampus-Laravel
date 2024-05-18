@@ -31,7 +31,7 @@
                 <p class="font-bold text-black text-l">{{$alamat['nama_alamat']}}</p>
                 <p class="font-normal text-black text-md">{{$alamat['address']}}</p>
             </div>
-{{--            <a href="#" id="openModal{{$key}}" class="text-blue-700" onclick="event.preventDefault(); openModalAddAddress('tambahAlamatModal', 'Edit Alamat');">Edit</a>--}}
+            {{-- <a href="#" id="openModal{{$key}}" class="text-blue-700" onclick="event.preventDefault(); openModalAddAddress('tambahAlamatModal', 'Edit Alamat');">Edit</a>--}}
             <form action="{{ route('alamatUtama') }}" method="POST">
                 @csrf
                 <button type="submit" class="flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md mt-5">
@@ -115,7 +115,11 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="alamatLengkap" class="form-label text-gray-700">Alamat Lengkap</label>
-                                        <textarea id="autocomplete" placeholder="" class="form-control border border-gray-300 rounded p-2 w-full" type="text" name="address"></textarea>
+                                        <input id="autocomplete" placeholder="" class="form-control border border-gray-300 rounded p-2 w-full" type="text" name="address">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="alamatLengkap" class="form-label text-gray-700">Catatan</label>
+                                        <textarea id="autocomplete" placeholder="Tuliskan Alamat Lengkap Jika tidak terdaftar" class="form-control border border-gray-300 rounded p-2 w-full" type="text" name="notes"></textarea>
                                     </div>
                                     <div class="mb-3 hidden">
                                         <input type="text" class="form-control border border-gray-300 rounded p-2 w-full" id="linkGmaps" name="link">

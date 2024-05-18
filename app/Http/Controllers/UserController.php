@@ -119,14 +119,15 @@ class UserController extends Controller
                 'address' => 'required',
                 'link' => 'required',
                 'namaAlamat' => 'required',
-
             ]);
             Addresse::create([
                 'user_id' => $userId,
                 'address' => $request->address,
                 'link' => $request->link,
                 'nama_alamat' => $request->namaAlamat,
+                'notes' => $request->notes,
                 'geo' => $request->geo,
+                'utama' => 0,
             ]);
             return redirect()->back();
         } catch (\Exception $e) {
