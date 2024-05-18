@@ -85,12 +85,15 @@ class UmkmController extends Controller
 
     public function storeUmkm(Request $request)
     {
+        $staticDate = '2024-01-01 ';
         try {
             $validatedData = $request->validate([
                 'user_id' => 'required',
                 'nama_umkm' => 'required',
                 'logo_umkm' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'alamat' => 'required',
+                'open_time' => 'required',
+                'close_time' => 'required',
                 'no_telp_umkm' => 'required',
                 'vip' => 'required',
                 'alamat' => 'required',
@@ -103,6 +106,8 @@ class UmkmController extends Controller
                 'nama_umkm' => $request->nama_umkm,
                 'logo_umkm' => $request->logo_umkm->store('public'),
                 'alamat' => $request->alamat,
+                'open_time' => $staticDate . $request->open_time . ':00',
+                'close_time' => $staticDate . $request->close_time . ':00',
                 'no_telp_umkm' => $request->no_telp_umkm,
                 'vip' => $request->vip,
                 "alamat" => $request->alamat,
@@ -147,9 +152,11 @@ class UmkmController extends Controller
     {
         try {
             $umkm = Data_umkm::findOrFail($id);
-
+            $staticDate = '2024-01-01 ';
             $umkm->nama_umkm = $request->edit_nama_umkm;
             $umkm->alamat = $request->edit_alamat;
+            $umkm->open_time = $staticDate . $request->edit_open_time . ':00';
+            $umkm->close_time = $staticDate . $request->edit_close_time . ':00';
             $umkm->no_telp_umkm = $request->edit_no_telp_umkm;
             $umkm->vip = $request->edit_vip;
             $umkm->link = $request->edit_link;

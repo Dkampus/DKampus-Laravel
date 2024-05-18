@@ -22,9 +22,11 @@
                                 <tr>
                                     <th scope="col" class="px-6 py-3 tracking-wider">Nama UMKM</th>
                                     <th scope="col" class="px-6 py-3 tracking-wider">Alamat</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Waktu Buka</th>
                                     <th class="hidden" scope="col">link</th>
                                     <th scope="col" class="px-6 py-3 tracking-wider">No. Telp</th>
                                     <th scope="col" class="px-6 py-3 tracking-wider">VIP</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Rating</th>
                                     <th scope="col" class="px-6 py-3 tracking-wider">Aksi</th>
                                 </tr>
                             </thead>
@@ -35,12 +37,13 @@
                                     <td class="">{{ $umkm->alamat }}</td>
                                     <td class="hidden"> {{ $umkm->link }} </td>
                                     {{-- <td><img src="{{ Storage::url($umkm->logo_umkm) }}" alt="umkm_img" width="50"></td>--}}
+                                    <td class="">{{ date('H:i', strtotime($umkm->open_time)) }} - {{ date('H:i', strtotime($umkm->close_time)) }}</td>
                                     <td class="text-center">{{ $umkm->no_telp_umkm }}</td>
                                     <td class="text-center">{{ $umkm->vip ? 'Ya' : 'Tidak' }}</td>
-
+                                    <td class="text-center">{{ $umkm->rating }}</td>
                                     <td class="text-center">
                                         <div class="flex justify-center space-x-2">
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editUser(this)" data-id="{{ $umkm->id }}" data-nama_umkm="{{ $umkm->nama_umkm }}" data-alamat="{{ $umkm->alamat }}" data-no_telp_umkm="{{ $umkm->no_telp_umkm }}" data-vip="{{ $umkm->vip }}" data-link="{{ $umkm->link }}" data-geo="{{ $umkm->geo }}">
+                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editUser(this)" data-id="{{ $umkm->id }}" data-nama_umkm="{{ $umkm->nama_umkm }}" data-alamat="{{ $umkm->alamat }}" data-open_time="{{ $umkm->open_time }}" data-close_time="{{ $umkm->close_time }}" data-no_telp_umkm="{{ $umkm->no_telp_umkm }}" data-vip="{{ $umkm->vip }}" data-link="{{ $umkm->link }}" data-geo="{{ $umkm->geo }}">
                                                 Edit
                                             </button>
                                             <form id="deleteForm{{ $umkm->id }}" action="{{ route('umkm.destroy', $umkm->id) }}" method="POST">
@@ -93,6 +96,11 @@
                                         <input type="text" id="autocomplete" name="alamat" id="alamat" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
                                         <input type="text" name="link" class="hidden" id="link">
                                         <input type="text" name="geo" class="hidden" id="geo">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="open_time" class="block text sm font-medium text-gray-700 dark:text-gray-200">Waktu Buka - Tutup</label>
+                                        <input type="time" name="open_time" id="open_time" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                        <input type="time" name="close_time" id="close_time" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
                                     </div>
                                     <div class="mb-4">
                                         <label for="no_telp_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">No. Telp</label>
@@ -155,6 +163,19 @@
                                         <input type="text" name="edit_geo" class="hidden" id="edit_geo">
                                         <input type="text" name="edit_alamat" id="edit_alamat" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
                                     </div>
+                                    <div class="mb-4">
+                                        <label for="edit_open_time" class="block text sm font-medium text-gray-700 dark:text-gray-200">Waktu Buka - Tutup</label>
+                                        <input type="time" name="edit_open_time" id="edit_open_time" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                        <input type="time" name="edit_close_time" id="edit_close_time" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                                        <a href="javascript:void(0)" class="text-white" onclick="debug()">debug</a>
+                                        <script> function debug() {
+                                            //convert to iso 8601 format date "2023-12-06 04:28:47"
+                                            var conv = document.getElementById('edit_open_time').value + ':00';
+                                            console.log(conv);
+                                        }
+                                        </script>
+                                    </div>
+                                    {{-- debug time --}}
                                     <div class="mb-4">
                                         <label for="edit_no_telp_umkm" class="block text sm font-medium text-gray-700 dark:text-gray-200">No. Telp</label>
                                         <input type="text" name="edit_no_telp_umkm" id="edit_no_telp_umkm" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
@@ -299,6 +320,10 @@
             var id = button.getAttribute('data-id');
             var nama_umkm = button.getAttribute('data-nama_umkm');
             var alamat = button.getAttribute('data-alamat');
+            var dateOpen_Time = button.getAttribute('data-open_time'); // "2024-05-17 06:00:00"
+            var dateClose_Time = button.getAttribute('data-close_time'); // "2024-05-17 07:00:00"
+            var open_time = dateOpen_Time.slice(11, 16); // "06:00"
+            var close_time = dateClose_Time.slice(11, 16); // "07:00"
             var no_telp_umkm = button.getAttribute('data-no_telp_umkm');
             var vip = button.getAttribute('data-vip');
             var link = button.getAttribute('data-link');
@@ -307,6 +332,8 @@
             document.getElementById('edit_link').value = link;
             document.getElementById('edit_nama_umkm').value = nama_umkm;
             document.getElementById('edit_alamat').value = alamat;
+            document.getElementById('edit_open_time').value = open_time;
+            document.getElementById('edit_close_time').value = close_time;
             document.getElementById('edit_no_telp_umkm').value = no_telp_umkm;
             document.getElementById('edit_vip').value = vip;
             document.getElementById('edit_geo').value = geo;
@@ -331,6 +358,7 @@
 
             // Update the form action to point to the update route
             var form = document.querySelector('#editForm');
+            console.log( edit_link.value + ' ' + edit_geo.value + ' ' + edit_nama_umkm.value + ' ' + edit_alamat.value + ' ' + edit_open_time.value + ' ' + edit_close_time.value + ' ' + edit_no_telp_umkm.value + ' ' + edit_vip.value);
             form.action = '{{ route("umkm.update", ["id" => ":id"]) }}'.replace(':id', id);
 
             // Show the modal
