@@ -4,6 +4,39 @@ const validationEmail = document.getElementById("validation_email");
 const email = document.getElementById("email");
 const inputs = document.getElementById("inputs");
 const daftar = document.getElementById("daftar");
+const modal_error_msg = document.getElementById("modal_error_msg");
+const overlayErrorMsg = document.getElementById("overlayErrorMsg");
+const errorMsg = document.getElementById("errorMsg");
+
+function showErrorModal(message) {
+    errorMsg.innerHTML = message;
+
+    modal_error_msg.style.visibility = "visible";
+    modal_error_msg.style.opacity = "100";
+    modal_error_msg.style.zIndex = "99";
+    modal_error_msg.classList.add("scale-100");
+    modal_error_msg.classList.remove("scale-0");
+
+    document.body.style.overflow = "hidden";
+
+    overlayErrorMsg.style.visibility = "visible";
+    overlayErrorMsg.style.opacity = "100";
+    overlayErrorMsg.style.zIndex = "90";
+}
+
+function hideErrorModal() {
+    modal_error_msg.style.visibility = "invisible";
+    modal_error_msg.style.opacity = "0";
+    modal_error_msg.style.zIndex = "-2";
+    modal_error_msg.classList.remove("scale-100");
+    modal_error_msg.classList.add("scale-0");
+
+    document.body.style.overflow = "auto";
+
+    overlayErrorMsg.style.visibility = "invisible";
+    overlayErrorMsg.style.opacity = "0";
+    overlayErrorMsg.style.zIndex = "-2";
+}
 
 inputs.addEventListener("submit", function (event) {
     event.preventDefault();

@@ -59,6 +59,7 @@
     </a>
 </form>
 
+{{-- Modal email Confirmation --}}
 <x-modals.modal>
     <h1 class="font-semibold" id="validation_email"></h1>
     <p class="text-[#5C5C5C]">Apakah email anda sudah benar?</p>
@@ -67,4 +68,17 @@
         <button onclick="hideModal()" class="bg-white border-2 w-28 h-9 rounded-lg text-[#F9832A] border-[#F9832A]">Salah</button>
     </div>
 </x-modals.modal>
+
+{{-- Modal Information Error --}}
+<div id="modal_error_msg" class="flex flex-col absolute opacity-0 transition-all z-0 rounded-xl justify-center gap-3 py-5 items-center scale-0 mx-auto border w-96 bg-white">
+    <p id="errorMsg"></p>
+    <button onclick="hideErrorModal()" class="bg-[#F9832A] w-28 h-9 rounded-lg text-white">Tutup</button>
+</div>
+@if (session('error'))
+    <script>
+        window.onload = function() {
+            showErrorModal("{{ session('error') }}");
+        }
+    </script>
+@endif
 @endsection

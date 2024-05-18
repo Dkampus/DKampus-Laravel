@@ -40,8 +40,10 @@ class RegisteredUserController extends Controller
         DB::beginTransaction();
         try {
             $request->validate([
+                'nama' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'phone_number' => ['required', 'string', 'max:13', 'unique:' . User::class],
             ]);
 
             $user = User::create([
@@ -53,17 +55,13 @@ class RegisteredUserController extends Controller
             ]);
             DB::commit();
         } catch (\Exception $e) {
-            // dd($e);
             DB::rollback();
-            flash('Gagal mendaftar, silahkan coba lagi')->error();
-            return redirect()->back();
+            // return error for specific error
+            return redirect()->back()->with('error', $e->getMessage());
         }
 
         event(new Registered($user));
 
-        // Auth::login($user);
-
-        flash('Berhasil melakukan mendaftar')->success();
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success', 'Berhasil melakukan mendaftar');
     }
 }
