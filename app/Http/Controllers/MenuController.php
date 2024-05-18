@@ -196,6 +196,7 @@ class MenuController extends Controller
                 "image" => $request->image->store('public'),
                 "rating" => 0,
                 "promo" => $request->promo,
+                "category" => $request->category,
             ]);
             return redirect()->back()->with('success', 'Menu stored successfully.');
         } catch (\Exception $e) {
@@ -233,6 +234,7 @@ class MenuController extends Controller
             'edit_deskripsi' => 'required|string',
             'edit_harga' => 'required|numeric',
             'edit_promo' => 'nullable|string',
+            'edit_category' => 'required|string',
             // Add validation rules for other fields if needed
         ]);
 
@@ -245,6 +247,7 @@ class MenuController extends Controller
             'deskripsi' => $validatedData['edit_deskripsi'],
             'harga' => $validatedData['edit_harga'],
             'promo' => $validatedData['edit_promo'],
+            'category' => $validatedData['edit_category'],
             // Update other fields as needed
         ]);
 

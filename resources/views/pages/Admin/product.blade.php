@@ -26,7 +26,8 @@
                                     <th scope="col" class="px-6 py-3 tracking-wider">Deskripsi</th>
                                     {{-- <th scope="col" class="px-6 py-3 tracking-wider">Image Makanan</th>--}}
                                     <th scope="col" class="px-6 py-3 tracking-wider">Harga</th>
-                                    <th scope="col" class="px-6 py-3 tracking-wider">Promo</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Diskon</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Kategori</th>
                                     <th scope="col" class="px-6 py-3 tracking-wider">Aksi</th>
                                 </tr>
                             </thead>
@@ -42,8 +43,9 @@
                                         Rp. {{ number_format($menu->harga, 0, ',', '.') }}
                                     </td>
                                     <td class="text-center">{{ $menu->diskon }}%</td>
+                                    <td class="text-center">{{ ucfirst($menu->category ?? 'Tidak ada kategori') }}</td>
                                     <td class="text-center">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editProduct(this)" data-id="{{ $menu->id }}" data-umkm="{{ $menu->data_umkm_id }}" data-nama_makanan="{{ $menu->nama_makanan }}" data-deskripsi="{{ $menu->deskripsi }}" data-harga="{{ $menu->harga }}" data-promo="{{ $menu->diskon }}">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editProduct(this)" data-id="{{ $menu->id }}" data-umkm="{{ $menu->data_umkm_id }}" data-nama_makanan="{{ $menu->nama_makanan }}" data-deskripsi="{{ $menu->deskripsi }}" data-harga="{{ $menu->harga }}" data-promo="{{ $menu->diskon }} " data-category="{{ $menu->category }}">
                                             Edit
                                         </button>
                                         <form action="{{ route('product.destroy', $menu->id) }}" method="post" class="inline">
@@ -73,7 +75,7 @@
                             <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                 <div class="sm:flex sm:items-start">
                                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                        <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200" id="modal-headline">
+                                        <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200 mb-5" id="modal-headline">
                                             Tambah Product
                                         </h3>
                                     </div>
@@ -113,6 +115,22 @@
                                         <input type="text" name="promo" id="promo" class="form-input mt-1 block w-full">
                                     </div>
                                     <div class="mb-4">
+                                        <label for="category" class="block text sm font-medium text-gray-700 dark:text-gray-200">Kategori</label>
+                                        <select name="category" id="category" class="form-select mt-1 block w-full">
+                                            {{--('minuman', 'jajanan', 'aneka nasi', 'ayam & bebek', 'cepat saji', 'roti', 'bakso & soto', 'bakmie', 'mie', 'sate');--}}
+                                            <option value="minuman">Minuman</option>
+                                            <option value="jajanan">Jajanan</option>
+                                            <option value="aneka nasi">Aneka Nasi</option>
+                                            <option value="ayam & bebek">Ayam & Bebek</option>
+                                            <option value="cepat saji">Cepat Saji</option>
+                                            <option value="roti">Roti</option>
+                                            <option value="bakso & soto">Bakso & Soto</option>
+                                            <option value="bakmie">Bakmie</option>
+                                            <option value="mie">Mie</option>
+                                            <option value="sate">Sate</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4 mt-4">
                                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tambah</button>
                                         <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="document.getElementById('modalProductumkm').classList.add('hidden')">Batal</button>
                                     </div>
@@ -139,7 +157,7 @@
                                 <form action="{{ route('product.update', ['id' => $menu->id]) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-                                    <div class="mb-4">
+                                    <div class="mb-4 mt-4">
                                         <label for="edit_umkm" class="block text-sm font-medium text-gray-700 dark:text-gray-200">UMKM</label>
                                         <select name="edit_umkm" id="edit_umkm" class="form-select mt-1 block w-full">
                                             @foreach($umkms as $umkm)
@@ -169,6 +187,22 @@
                                     <div class="mb-4">
                                         <label for="edit_promo" class="block text sm font-medium text-gray-700 dark:text-gray-200">Promo</label>
                                         <input type="text" name="edit_promo" id="edit_promo" class="form-input mt-1 block w-full">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="edit_category" class="block text sm font-medium text-gray-700 dark:text-gray-200">Kategori</label>
+                                        <select name="edit_category" id="edit_category" class="form-select mt-1 block w-full">
+                                            {{--('minuman', 'jajanan', 'aneka nasi', 'ayam & bebek', 'cepat saji', 'roti', 'bakso & soto', 'bakmie', 'mie', 'sate');--}}
+                                            <option value="minuman">Minuman</option>
+                                            <option value="jajanan">Jajanan</option>
+                                            <option value="aneka nasi">Aneka Nasi</option>
+                                            <option value="ayam & bebek">Ayam & Bebek</option>
+                                            <option value="cepat saji">Cepat Saji</option>
+                                            <option value="roti">Roti</option>
+                                            <option value="bakso & soto">Bakso & Soto</option>
+                                            <option value="bakmie">Bakmie</option>
+                                            <option value="mie">Mie</option>
+                                            <option value="sate">Sate</option>
+                                        </select>
                                     </div>
                                     <div class="mb-4">
                                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan</button>
@@ -253,6 +287,9 @@
             var deskripsi = button.getAttribute('data-deskripsi');
             var harga = button.getAttribute('data-harga');
             var promo = button.getAttribute('data-promo');
+            var category = button.getAttribute('data-category');
+
+            console.log(id + ' ' + umkm + ' ' + nama_makanan + ' ' + deskripsi + ' ' + harga + ' ' + promo + ' ' + category);
 
             // Fill the form in the modal with the data
             document.getElementById('edit_umkm').value = umkm;
@@ -260,6 +297,7 @@
             document.getElementById('edit_deskripsi').value = deskripsi;
             document.getElementById('edit_harga').value = harga;
             document.getElementById('edit_promo').value = promo;
+            document.getElementById('edit_category').value = category;
 
             // Update the form action to point to the update route
             var form = document.querySelector('#modalEditProductumkm form');
