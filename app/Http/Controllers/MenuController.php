@@ -85,11 +85,6 @@ class MenuController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
-        return view('pages.Users.SearchPage', [
-            'Title' => 'Search ' . $keyword,
-            'NavSearch' => 'Search',
-            'menus' => $menus,
-        ]);
     }
     /**
      * Display a listing of the resource.
