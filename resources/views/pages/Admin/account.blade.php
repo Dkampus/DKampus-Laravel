@@ -30,7 +30,7 @@
                                     <td>{{ $user->nama_user ?? 'null' }}</td>
                                     <td>{{ $user->email ?? 'null' }}</td>
                                     <td class="text-center">{{ $user->no_telp ?? 'null' }}</td>
-                                    <td class="text-center">{{ $user->role ?? 'null' }}</td>
+                                    <td class="text-center">{{ ucfirst($user->role) ?? 'null' }}</td>
                                     <td class="text-center">{{ $user->restriction ? 'True' : 'False' ?? 'null' }}</td>
                                     <td class="text-center">
                                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -70,28 +70,32 @@
                     <form action="#" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="mb-4">
+                        <div class="mb-4 mt-4">
                             <label for="nama_user" class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2">Name</label>
-                            <input type="text" name="nama_user" id="nama_user" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline" value="{{ $user->nama_user }}">
+                            <input type="text" name="nama_user" id="nama_user" class="block w-full" value="{{ $user->nama_user }}">
                         </div>
                         <div class="mb-4">
                             <label for="email" class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2">Email</label>
-                            <input type="email" name="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline" value="{{ $user->email }}">
+                            <input type="email" name="email" id="email" class="block w-full" value="{{ $user->email }}">
                         </div>
                         <div class="mb-4">
-                            <label for="no_telp" class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2">Phone Number</label>
-                            <input type="text" name="no_telp" id="no_telp" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline" value="{{ $user->no_telp }}">
+                            <label for="no_telp" class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2">No. Telp</label>
+                            <input type="text" name="no_telp" id="no_telp" class="block w-full" value="{{ $user->no_telp }}">
                         </div>
                         <div class="mb-4">
                             <label for="role" class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2">Role</label>
-                            <input type="text" name="role" id="role" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline" value="{{ $user->role }}">
+                            <select name="role" id="role" class="block w-full">
+                                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="customer" {{ $user->role == 'customer' ? 'selected' : '' }}>Customer</option>
+                                <option value="courier" {{ $user->role == 'courier' ? 'selected' : '' }}>Courier</option>
+                            </select>
                         </div>
                         <div class="mb-4">
                             <label for="restriction" class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2">Restriction</label>
-                            <input type="text" name="restriction"
-                                      id="restriction"
-                                      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                                      value="FALSE">
+                            <select name="restriction" id="restriction" class="block w-full">
+                                <option value="1" {{ $user->restriction == 1 ? 'selected' : '' }}>True</option>
+                                <option value="0" {{ $user->restriction == 0 ? 'selected' : '' }}>False</option>
+                            </select>
                         </div>
                         <div class="mb-4">
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
