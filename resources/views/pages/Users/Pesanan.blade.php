@@ -44,16 +44,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-col gap-2 ml-5">
-                                    {{-- Increment Button --}}{{-- Masih belum sync sama js & db fb --}}
-                                    <button type="button" class="increment-btn bg-[#F9832A] text-white w-8 h-8 rounded-md">
+                                <div id="count" class="flex flex-col gap-2 ml-3 mt-[0.2rem]">
+                                    {{-- Masih belum sync sama js & db fb --}}
+                                    {{-- Increment Button --}}
+                                    <button id="increment" type="button" value="{{ $item['id'] }}" class="increment-btn bg-[#F9832A] text-white w-9 h-9 rounded-md">
                                         +
                                     </button>
                                     {{-- Quantity Input --}}
-                                    <input type="number" name="quantity" id="quantity" value="{{ $item['jumlah'] }}" class="quantity-input w-8 h-8 text-center border-2 border-[#F9832A] rounded-md" min="1" max="100">
+                                    <input id="number" type="number" name="items[quantity][]" onchange="calculateTotal()" value="{{ $item['jumlah'] }}" class="quantity-input w-9 h-9 text-center border-2 border-[#F9832A] rounded-md" min="1" max="100"  readonly>
                                     {{-- Decrement Button --}}
-                                    <button type="button" class="decrement-btn bg-[#F9832A] text-white w-8 h-8 rounded-md">
+                                    <button id="decrement" type="button" value="{{ $item['id'] }}" class="decrement-btn bg-[#F9832A] text-white w-9 h-9 rounded-md">
                                         -
+                                    </button>
+                                    {{-- Delete Button --}}
+                                    <button id="delete" type="button" value="{{ $item['id'] }}" class="hidden delete bg-[#F9832A] text-white w-9 h-9 rounded-md">
+                                        <svg height="20" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1.36136 12.1029C1.36136 12.4932 1.52167 12.8675 1.80702 13.1435C2.09236 13.4195 2.47938 13.5745 2.88292 13.5745H8.96914C9.37269 13.5745 9.7597 13.4195 10.045 13.1435C10.3304 12.8675 10.4907 12.4932 10.4907 12.1029V3.2731H1.36136V12.1029ZM2.88292 4.74473H8.96914V12.1029H2.88292V4.74473ZM8.58876 1.06565L7.82798 0.329834H4.02409L3.26331 1.06565H0.600586V2.53728H11.2515V1.06565H8.58876Z" fill="#EEEEEE" />
+                                        </svg>
                                     </button>
                                 </div>
                             </div>
@@ -141,7 +148,7 @@
         $(document).ready(function() {
 
             console.log("ready!");
-
+            // for favorite menus button
             $(document).on("click", '#like', function(e) {
                 e.preventDefault();
 
@@ -166,117 +173,70 @@
             });
 
 
-            // Loop through all quantity inputs
-            quantityInputs.forEach(function(quantityInput, index) {
-                const itemQuantity = parseInt(quantityInput.value);
-                const decrementBtn = decrementBtns[index];
-                const incrementBtn = incrementBtns[index];
+            $(document).ready(function() {
+                // Increment Button
+                $(".increment-btn").click(function() {
+                    let quantityInput = $(this).siblings('.quantity-input');
+                    let newValue = parseInt(quantityInput.val()) + 1;
+                    quantityInput.val(newValue);
 
-                // Show or hide decrement button based on quantity value
-                if (itemQuantity == 1) {
-                    decrementBtn.style.display = "none";
-                    decrementBtn.style.pointerEvents = "none";
-                    incrementBtn.style.pointerEvents = "auto";
-                    deleteBtn[index].style.display = "flex";
-                }
-
-                // Show or hide increment button based on quantity value
-                if (itemQuantity === 100) {
-                    incrementBtn.style.opacity = "0";
-                    incrementBtn.style.pointerEvents = "none";
-                }
-
-                // Add click event listener to decrement button
-                decrementBtn.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    let currentQuantity = parseInt(quantityInput.value);
-
-                    if (currentQuantity > 1) {
-                        decrementBtn.style.display = "absolute";
-                        decrementBtn.style.pointerEvents = "auto";
-                        quantityInput.value = currentQuantity - 1;
-                        currentQuantity--;
-
-                        const cartId = $(this).val();
-
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-
-                        $.ajax({
-                            type: "POST",
-                            url: "/pesanan/update-quantity",
-                            data: {
-                                // _method: "PATCH", // Emulate PATCH request
-                                id: cartId,
-                                quantity: currentQuantity,
-                                _token: "{{ csrf_token() }}"
-                            },
-                            success: function(response) {
-
-                            },
-                            error: function(error) {
-                                alert('Terjadi kesalahan. Silakan coba lagi.');
-                            }
-                        });
-                    }
-
-                    if (currentQuantity == 1) {
-                        decrementBtn.style.display = "none";
-                        decrementBtn.style.pointerEvents = "none";
-                        incrementBtn.style.pointerEvents = "auto";
-                        deleteBtn[index].style.display = "flex";
-                    }
-
-                    calculateTotal();
+                    $.ajax({
+                        type: "POST",
+                        url: "/pesanan/update-quantity",
+                        data: {
+                            id: $(this).val(),
+                            quantity: newValue,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            // Handle success
+                        },
+                        error: function(error) {
+                            alert('Terjadi kesalahan. Silakan coba lagi.');
+                        }
+                    });
                 });
 
-                // Add click event listener to increment button
-                incrementBtn.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    let currentQuantity = parseInt(quantityInput.value);
+                // Quantity Input
+                $(".quantity-input").on('input', function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "/pesanan/update-quantity",
+                        data: {
+                            id: $(this).siblings('.increment-btn').val(),
+                            quantity: $(this).val(),
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            // Handle success
+                        },
+                        error: function(error) {
+                            alert('Terjadi kesalahan. Silakan coba lagi.');
+                        }
+                    });
+                });
 
-                    if (currentQuantity < 100) {
-                        currentQuantity++;
-                        quantityInput.value = currentQuantity;
-                        incrementBtn.style.opacity = currentQuantity === 100 ? "0" : "1";
-                        incrementBtn.style.pointerEvents =
-                            currentQuantity === 100 ? "none" : "auto";
+                // Decrement Button
+                $(".decrement-btn").click(function() {
+                    let quantityInput = $(this).siblings('.quantity-input');
+                    let newValue = parseInt(quantityInput.val()) - 1;
+                    quantityInput.val(newValue);
 
-                        const cartId = $(this).val();
-
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-
-                        $.ajax({
-                            type: "POST",
-                            url: "/pesanan/update-quantity",
-                            contentType: "application/json", // Set the content type to JSON
-                            data: JSON.stringify({
-                                id: cartId,
-                                quantity: currentQuantity
-                            }),
-                            success: function(response) {
-                                // Handle success
-                            },
-                            error: function(error) {
-
-                            }
-                        });
-                    }
-
-                    if (currentQuantity == 2) {
-                        deleteBtn[index].style.display = "none";
-                        decrementBtn.style.display = "flex";
-                        decrementBtn.style.pointerEvents = "auto";
-                    }
-
-                    calculateTotal();
+                    $.ajax({
+                        type: "POST",
+                        url: "/pesanan/update-quantity",
+                        data: {
+                            id: $(this).val(),
+                            quantity: newValue,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            // Handle success
+                        },
+                        error: function(error) {
+                            alert('Terjadi kesalahan. Silakan coba lagi.');
+                        }
+                    });
                 });
             });
 
