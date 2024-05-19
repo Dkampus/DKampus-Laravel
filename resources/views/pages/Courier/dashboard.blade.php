@@ -19,7 +19,11 @@
                             <p class="text-lg font-bold text-[#F9832A]">Nomor Telp Umkm: {{ $no_telp_umkm[$i] }}</p>
                             <p class="text-lg font-bold text-[#F9832A]">Orders:</p>
                             @foreach ($item['orders'] as $order => $orders)
+                            @if ($orders['catatan'] != "-")
                             <span class="text-lg font-bold text-[#F9832A]">{{ $orders['jumlah'] }} - {{ $orders['nama'] }} ( {{ $orders['catatan'] }} )</span>
+                            @else
+                            <span class="text-lg font-bold text-[#F9832A]">{{ $orders['jumlah'] }} - {{ $orders['nama'] }}</span>
+                            @endif
                             @endforeach
                             <p class="text-lg font-bold text-[#F9832A]">Nama Penerima: {{ $item['nama_penerima'] }}</p>
                             <p class="text-lg font-bold text-[#F9832A]">Alamat Penerima: <a href=" {{ $item['cust_link_address'] }}">{{ $item['cust_address'] }}</a></p>
@@ -30,12 +34,12 @@
 
 
                             <div class="flex flex-row gap-2">
-                                <form action="{{ route('complete.orders') }}" method="POST">
+                                <form action="{{ route('complete.orders') }}" method="POST" onsubmit="return confirmCompleteOrder()">
                                     @csrf
                                     <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                                         Selesaikan
                                     </button>
-                                    <input type="text" class="hidden" value="{{ $custId[$i] }}" name="custId">
+                                    <input type="text" class="hidden" value="{{ $custId[$i] }}" name="custId" onsubmit="return confirmDeleteOrder()">
                                 </form>
                                 <form action="{{ route('delete.orders') }}" method="POST">
                                     @csrf
@@ -57,3 +61,12 @@
             </div>
         </div>
 </x-courier-layout>
+<script>
+    function confirmCompleteOrder() {
+        return confirm('Are you sure you want to complete this order?');
+    }
+
+    function confirmDeleteOrder() {
+        return confirm('Are you sure you want to cancel this order?');
+    }
+</script>
