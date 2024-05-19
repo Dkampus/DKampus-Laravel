@@ -13,66 +13,74 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <div class="flex items center justify-between">
-                            <div>
-                                <h2 class="text-2xl font-semibold">UMKM</h2>
-                                <p class="text-gray-500 dark:text-gray-400">Total UMKM yang terdaftar</p>
-                            </div>
-                            <div class="flex items-center justify-center bg-white h-12 w-12 rounded-full">
-                                <div class="text-l font-semibold text-black">{{ count($data_umkm) }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <div class="flex items center justify-between">
-                            <div>
-                                <h2 class="text-2xl font-semibold">Product</h2>
-                                <p class="text-gray-500 dark:text-gray-400">Total menu dari semua umkm</p>
-                            </div>
-                            <div class="flex items-center justify-center bg-white h-12 w-12 rounded-full">
-                                <div class="text-l font-semibold text-black">{{ count($menu) }}</div>
+                <a href="{{url('/admin/umkm')}}">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <div class="flex items center justify-between">
+                                <div>
+                                    <h2 class="text-2xl font-semibold">UMKM</h2>
+                                    <p class="text-gray-500 dark:text-gray-400">Total UMKM yang terdaftar</p>
+                                </div>
+                                <div class="flex items-center justify-center bg-white h-12 w-12 rounded-full">
+                                    <div class="text-l font-semibold text-black">{{ count($data_umkm) }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <div class="flex items center justify-between">
-                            <div>
-                                <h2 class="text-2xl font-semibold">User</h2>
-                                <p class="text-gray-500 dark:text-gray-400">Total user yang terdaftar</p>
-                            </div>
-                            <div class="flex items-center justify-center bg-white h-12 w-12 rounded-full">
-                                <div class="text-l font-semibold text-black">{{ count($user) }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <div class="flex items center justify-between">
-                            <div>
-                                <h2 class="text-2xl font-semibold">Transacation</h2>
-                                <p class="text-gray-500 dark:text-gray-400">Detail dari semua Transaksi</p>
-                            </div>
-                            <div class="flex items-center justify-center bg-white h-12 w-12 rounded-full">
-                                @if ($dataNTD == 0 && $dataOP == 0)
-                                <div class="text-l font-semibold text-black">{{ count($transaction) }}</div>
-                                @elseif ($dataNTD == 0 && $dataOP > 0)
-                                <div class="text-l font-semibold text-black">{{ count($transaction) + $dataOP }}</div>
-                                @elseif ($dataNTD > 0 && $dataOP == 0)
-                                <div class="text-l font-semibold text-black">{{ count($transaction) + $dataNTD }}</div>
-                                @else
-                                <div class="text-l font-semibold text-black">{{ count($transaction) + $dataNTD + $dataOP }}</div>
-                                @endif
+                </a>
+                <a href="{{url('/admin/product')}}">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <div class="flex items center justify-between">
+                                <div>
+                                    <h2 class="text-2xl font-semibold">Product</h2>
+                                    <p class="text-gray-500 dark:text-gray-400">Total menu dari semua umkm</p>
+                                </div>
+                                <div class="flex items-center justify-center bg-white h-12 w-12 rounded-full">
+                                    <div class="text-l font-semibold text-black">{{ count($menu) }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
+                <a href="{{url('/admin/account')}}">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <div class="flex items center justify-between">
+                                <div>
+                                    <h2 class="text-2xl font-semibold">User</h2>
+                                    <p class="text-gray-500 dark:text-gray-400">Total user yang terdaftar</p>
+                                </div>
+                                <div class="flex items-center justify-center bg-white h-12 w-12 rounded-full">
+                                    <div class="text-l font-semibold text-black">{{ count($user) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{{url('/admin/transaction')}}">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <div class="flex items center justify-between">
+                                <div>
+                                    <h2 class="text-2xl font-semibold">Transacation</h2>
+                                    <p class="text-gray-500 dark:text-gray-400">Detail dari semua Transaksi</p>
+                                </div>
+                                <div class="flex items-center justify-center bg-white h-12 w-12 rounded-full">
+                                    @if ($dataNTD == 0 && $dataOP == 0)
+                                    <div class="text-l font-semibold text-black">{{ count($transaction) }}</div>
+                                    @elseif ($dataNTD == 0 && $dataOP > 0)
+                                    <div class="text-l font-semibold text-black">{{ count($transaction) + $dataOP }}</div>
+                                    @elseif ($dataNTD > 0 && $dataOP == 0)
+                                    <div class="text-l font-semibold text-black">{{ count($transaction) + $dataNTD }}</div>
+                                    @else
+                                    <div class="text-l font-semibold text-black">{{ count($transaction) + $dataNTD + $dataOP }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
