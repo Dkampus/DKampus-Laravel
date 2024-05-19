@@ -66,10 +66,10 @@
                             </div>
                         </form>
                     @empty
-                        <h1 class="text-center font-semibold">Tidak ada pesanan</h1>
+                        <h1 class="text-center font-semibold text-lg">Ups, pesanan kamu kosong nih :)</h1>
                     @endforelse
                 @else
-                    <h1 class="text-center font-semibold">Tidak ada pesanan</h1>
+                    <h1 class="text-center font-semibold text-lg">Ups, pesanan kamu kosong nih :)</h1>
                 @endif
             </div>
         </section>
