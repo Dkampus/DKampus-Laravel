@@ -1,7 +1,7 @@
 @extends('layouts.Root')
 @section('content')
 <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10 shadow-md py-4">
-    <a href="{{url()->previous()}}" class="absolute top-5 left-5 flex items-center gap-x-2">
+    <a href="{{url('/pesanan')}}" class="absolute top-5 left-5 flex items-center gap-x-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#F9832A" class="bi bi-arrow-left" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M10.354 1.646a.5.5 0 0 1 0 .708L5.707 7l4.647 4.646a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z" />
         </svg>
@@ -9,14 +9,6 @@
     <h1 class="font-bold text-black text-xl">Pemesanan</h1>
 </header>
 <main class="flex flex-col w-full h-full">
-    <?php
-    //temporary data alamat
-    $nama_alamat = "Kost";
-    $alamat = "Jl. Sukapura No.20, Sukapura, Kec. Dayeuhkolot Kabupaten Bandung";
-    //end of temporary data alamat
-    $userid = 25;
-    $temp_orderid = hash('sha256', $userid . time());
-    ?>
     <div class="bg-[#F8832B] flex items-center p-3 rounded">
         <svg height="30" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M1.50596 0.214355C1.35633 0.214355 1.22294 0.318064 1.17148 0.474022L0.257897 3.24921C0.229051 3.33697 0.214353 3.42877 0.214355 3.52115V4.62513C0.214355 5.24936 0.66996 5.75602 1.23204 5.75602C1.79413 5.75602 2.25013 5.24936 2.25013 4.62513C2.25013 5.24975 2.70573 5.75602 3.26781 5.75602C3.8299 5.75602 4.2859 5.24936 4.2859 4.62513C4.2859 5.24975 4.7415 5.75602 5.30359 5.75602C5.86567 5.75602 6.32088 5.25015 6.32167 4.62592C6.32167 5.25015 6.77727 5.75602 7.33936 5.75602C7.90144 5.75602 8.35704 5.24936 8.35704 4.62513C8.35704 5.24975 8.81304 5.75602 9.37513 5.75602C9.93721 5.75602 10.3924 5.25015 10.3928 4.62592C10.3932 5.25015 10.8488 5.75602 11.4109 5.75602C11.973 5.75602 12.4286 5.24936 12.4286 4.62513C12.4286 5.24975 12.8842 5.75602 13.4467 5.75602C14.0088 5.75602 14.4644 5.24936 14.4644 4.62513V3.52115C14.4644 3.42877 14.4497 3.33697 14.4208 3.24921L13.5072 0.474418C13.4558 0.318064 13.3224 0.214355 13.1728 0.214355H1.50596Z" fill="#FFFFFF" />
@@ -37,20 +29,10 @@
             </div>
             <p class="font-normal text-black text-md ml-auto">Rp{{ number_format($items['harga'] * $items['jumlah'], 0, '.', ',') }}</p>
         </div>
-        <div class="flex items-center gap-x-2 ml-5">
-            {{--Edit item on carts belum--}}
-            <a href="#" class="flex items-center gap-x-3 text-blue-700 text-sm">Edit</a>
-        </div>
     </div>
     @endforeach
     <div class="flex flex-col w-full h-auto px-1 py-2 bg-gray-200"></div>
-    @php
-    //temporary data total harga dan ongkir
-    $total = 0;
-    foreach($carts as $cart => $items){
-    $total += $items['harga'] * $items['jumlah'];
-    }
-    @endphp
+
     {{-- Detail Transaksi --}}
     <div class="flex flex-col w-full h-auto px-1 py-2">
         <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-4">
@@ -78,40 +60,40 @@
         {{--Selection pembayaran belum, as default baru qris aja.--}}
         <a href="#" id="paymentSelection" class="flex items-center">
             <img src="{{ asset('qris.svg') }}" alt="QRIS" class="w-12 h-12 mx-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 ml-auto text-orange-500"> <!-- Ubah ukuran dan margin sesuai kebutuhan -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 ml-auto text-orange-500">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
         </a>
     </div>
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
     {{--Alamat Pengiriman--}}
-    <div class="flex flex-col w-full h-auto px-1 py-2 overflow-auto mb-12">
-        <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-4">
-            <p class="font-bold text-black text-l">Diantarkan ke {{$nama_alamat}}</p>
-            <a href="#" class="ml-auto text-[#F9832A]">Ubah</a>
-        </div>
-        <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-4">
-            <p class="font-normal text-black text-md">{{$alamat}}</p>
-        </div>
-    </div>
-    {{--Button Pesan--}}
-    <a href="#" id="pesanButton" class="fixed bottom-0 left-0 right-0 flex items-center justify-center h-12 bg-[#F8832B]">
-        <p class="font-bold text-white text-lg">Pembayaran</p>
-    </a>
-    {{-- modal confirmation --}}
-    <div class="fixed bottom-0 left-0 w-full h-full bg-black bg-opacity-50 hidden" id="modalConfrimation">
-        <div class="flex flex-col w-11/12 h-auto bg-white rounded-md p-4 absolute bottom-20 left-1/2 transform -translate-x-1/2">
-            <p class="font-bold text-black text-xl">Apakah anda yakin?</p>
-            <p class="font-normal text-black text-md mt-2">Pastikan semua informasi sudah benar sebelum melanjutkan.</p>
-            <div class="flex flex-col w-full h-auto mt-4">
-                <form action="{{ route('confirm.pay') }}" method="POST">
-                    @csrf
-                    <button href="#" id="konfirmasiButton" class="flex items-center justify-center text-white h-12 bg-orange-500 w-full rounded-md mb-2" type="submit">Konfrimasi</button>
-                </form>
-                <a href="#" class="flex items-center justify-center text-black h-12 bg-gray-300 w-full rounded-md">Batal</a>
+    <form action="{{ route('confirm.pay') }}" method="POST">
+        @csrf
+        <div class="flex flex-col w-full h-auto px-1 py-2 overflow-auto mb-12">
+            <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-4">
+                <p class="font-bold text-black text-l">Notes Pesanan</p>
+                <p class="ml-auto text-[#F9832A]">optional</p>
+            </div>
+            <div class="flex flex-row items-center w-full h-auto bg-white rounded-md p-4">
+                <textarea name="notesPesanan" id="notesPesanan" class="w-full rounded-md h-auto" placeholder="Tambahkan notes pesanan"></textarea>
             </div>
         </div>
-    </div>
+        {{--Button Pesan--}}
+        <a href="#" id="pesanButton" class="fixed bottom-0 left-0 right-0 flex items-center justify-center h-12 bg-[#F8832B]">
+            <p class="font-bold text-white text-lg">Pembayaran</p>
+        </a>
+        {{-- modal confirmation --}}
+        <div class="fixed bottom-0 left-0 w-full h-full bg-black bg-opacity-50 hidden" id="modalConfrimation">
+            <div class="flex flex-col w-11/12 h-auto bg-white rounded-md p-4 absolute bottom-20 left-1/2 transform -translate-x-1/2">
+                <p class="font-bold text-black text-xl">Apakah anda yakin?</p>
+                <p class="font-normal text-black text-md mt-2">Pastikan semua informasi sudah benar sebelum melanjutkan.</p>
+                <div class="flex flex-col w-full h-auto mt-4">
+                    <button href="#" id="konfirmasiButton" class="flex items-center justify-center text-white h-12 bg-orange-500 w-full rounded-md mb-2" type="submit">Konfrimasi</button>
+                    <a href="#" class="flex items-center justify-center text-black h-12 bg-gray-300 w-full rounded-md">Batal</a>
+                </div>
+            </div>
+        </div>
+    </form>
     {{-- Modal Payment selection --}}
     <div class="fixed bottom-0 left-0 w-full h-full bg-black bg-opacity-50 hidden" id="modalPaymentSelection">
         <div class="flex flex-col w-11/12 h-auto bg-white rounded-md p-4 absolute bottom-20 left-1/2 transform -translate-x-1/2">
@@ -149,11 +131,6 @@
         // Ubah tampilan setelah memilih metode pembayaran COD
         document.getElementById('modalPaymentSelection').classList.add('hidden');
         // Tambahkan logika Anda setelah memilih metode pembayaran COD di sini
-    });
-
-    document.getElementById('konfirmasiButton').addEventListener('click', function() {
-        // route ke /pay/{orderid}
-        window.location.href = "/pay/{{$temp_orderid}}";
     });
 </script>
 @endsection

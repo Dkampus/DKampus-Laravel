@@ -64,7 +64,7 @@
         @php $i++ @endphp
         @endforeach
         @else
-        <h1>You Don't Have Any Orders</h1>
+        <h1 class="font-semibold text-md mt-5">You Don't Have Any Complete Orders</h1>
         @endif
     </section>
 </div>

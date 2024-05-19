@@ -305,15 +305,15 @@ class CartController extends Controller
                 $ongkir = 0;
                 if ($distance > 1000 && $distance < 1500) {
                     return $ongkir = 6000;
-                } elseif ($distance < 1000) {
+                } elseif ($distance < 1000 && $distance > 0) {
                     return $ongkir = 4000;
                 } elseif ($distance > 1500 && $distance <= 2000) {
                     return $ongkir = 8000;
                 } else {
-                    return back()->with('error2', 'Your distance is to far max 2km');
+                    return redirect()->back()->with('error2', 'Your distance is to far max 2km');
                 }
             } else {
-                return back()->withErrors(['error2' => 'Failed to calculate distance.']);
+                return redirect()->back()->with('error2', 'Failed to calculate distance.');
             }
         } catch (Exception $e) {
             return redirect()->back()->with('error2', 'Error');
@@ -323,50 +323,105 @@ class CartController extends Controller
     // Temporary function, should be moved to another controller.
     public function checkout()
     {
-
         try {
             $userID = Auth::user()->id;
             $database = app('firebase.database');
-            if (!$database->getReference('needToDeliver/' . $userID . '-')->getSnapshot()->exists()) {
-                if (request()->selected_address_id != null) {
-                    $id = request()->selected_address_id;
-                    $alamat = User::find($userID);
-                    $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
-                    $total = $database->getReference('cart/' . $userID . '/total')->getValue();
-                    $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
-                    $namaUMKM = Data_umkm::find($idumkm);
-                    $geoUmkm = Data_umkm::find($idumkm)->geo;
-                    $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
-                    $notesAlamat = $alamat->addresses()->where('id', $id)->first()->notes;
-                    $ongkir = $this->ongkir($geoUmkm, $geoUser);
-                    $jarak = $this->calculteDistance($geoUmkm, $geoUser);
-                    $database->getReference('cart/' . $userID . '/cust_address')->set($alamat->addresses()->where('id', $id)->first()->address);
-                    $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamat->addresses()->where('id', $id)->first()->link);
-                    $database->getReference('cart/' . $userID . '/umkm_address')->set(Data_umkm::find($idumkm)->alamat);
-                    $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($idumkm)->link);
-                    $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir);
-                    $database->getReference('cart/' . $userID . '/jarak')->set($jarak);
-                    $database->getReference('cart/' . $userID . '/notesAlamat')->set($notesAlamat);
-                    return view('pages.Users.CheckoutPage', [
-                        'Title' => 'Checkout',
-                        'NavPesanan' => 'Checkout',
-                        'carts' => $carts,
-                        'total' => $total,
-                        'nama_umkm' => $namaUMKM->nama_umkm,
-                        'ongkir' => $ongkir,
-                        // 'AddressList' => PesananModel::alamatUser(),
-                        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-                        'SeputarDkampus' => HomeModel::seputarDkampus(),
-                    ]);
-                } else {
-                    return redirect()->back()->with('error2', 'please select the address first');
+            if ($database->getReference('onProgress')->getSnapshot()->exists() && $database->getReference('onProgress')->getSnapshot()->hasChildren()) {
+                $refId = $database->getReference('onProgress')->getChildKeys();
+                foreach ($refId as $id) {
+                    $parts = explode("-", $id);
+                    $courId = $parts[1];
+                    $refOP = $database->getReference('onProgress/' . $userID . '-' . $courId)->getSnapshot()->exists();
+                    $refNTD = $database->getReference('needToDeliver/' . $userID . '-')->getSnapshot()->exists();
+                    if (!$refNTD && !$refOP) {
+                        if (request()->selected_address_id != null) {
+                            $id = request()->selected_address_id;
+                            $alamat = User::find($userID);
+                            $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
+                            $total = $database->getReference('cart/' . $userID . '/total')->getValue();
+                            $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+                            $namaUMKM = Data_umkm::find($idumkm);
+                            $geoUmkm = Data_umkm::find($idumkm)->geo;
+                            $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
+                            $notesAlamat = $alamat->addresses()->where('id', $id)->first()->notes;
+                            $ongkir = $this->ongkir($geoUmkm, $geoUser);
+                            if (is_numeric($ongkir)) {
+                                $jarak = $this->calculteDistance($geoUmkm, $geoUser);
+                                $database->getReference('cart/' . $userID . '/cust_address')->set($alamat->addresses()->where('id', $id)->first()->address);
+                                $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamat->addresses()->where('id', $id)->first()->link);
+                                $database->getReference('cart/' . $userID . '/umkm_address')->set(Data_umkm::find($idumkm)->alamat);
+                                $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($idumkm)->link);
+                                $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir);
+                                $database->getReference('cart/' . $userID . '/jarak')->set($jarak);
+                                $database->getReference('cart/' . $userID . '/notesAlamat')->set($notesAlamat);
+                                return view('pages.Users.CheckoutPage', [
+                                    'Title' => 'Checkout',
+                                    'NavPesanan' => 'Checkout',
+                                    'carts' => $carts,
+                                    'total' => $total,
+                                    'nama_umkm' => $namaUMKM->nama_umkm,
+                                    'ongkir' => $ongkir,
+                                    // 'AddressList' => PesananModel::alamatUser(),
+                                    'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                                    'SeputarDkampus' => HomeModel::seputarDkampus(),
+                                ]);
+                            } else {
+                                return redirect()->back()->with('error2', 'Your Distance Is To Far Max 2KM');
+                            }
+                        } else {
+                            return redirect()->back()->with('error2', 'please select the address first');
+                        }
+                    } else {
+                        return redirect()->back()->with('error2', "you already have an order that isn't complete");
+                    }
                 }
             } else {
-                return redirect()->back()->with('error2', "you already have an order that isn't complete");
+                $refNTD = $database->getReference('needToDeliver/' . $userID . '-')->getSnapshot()->exists();
+                if (!$refNTD) {
+                    if (request()->selected_address_id != null) {
+                        $id = request()->selected_address_id;
+                        $alamat = User::find($userID);
+                        $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
+                        $total = $database->getReference('cart/' . $userID . '/total')->getValue();
+                        $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+                        $namaUMKM = Data_umkm::find($idumkm);
+                        $geoUmkm = Data_umkm::find($idumkm)->geo;
+                        $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
+                        $notesAlamat = $alamat->addresses()->where('id', $id)->first()->notes;
+                        $ongkir = $this->ongkir($geoUmkm, $geoUser);
+                        if (is_numeric($ongkir)) {
+                            $jarak = $this->calculteDistance($geoUmkm, $geoUser);
+                            $database->getReference('cart/' . $userID . '/cust_address')->set($alamat->addresses()->where('id', $id)->first()->address);
+                            $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamat->addresses()->where('id', $id)->first()->link);
+                            $database->getReference('cart/' . $userID . '/umkm_address')->set(Data_umkm::find($idumkm)->alamat);
+                            $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($idumkm)->link);
+                            $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir);
+                            $database->getReference('cart/' . $userID . '/jarak')->set($jarak);
+                            $database->getReference('cart/' . $userID . '/notesAlamat')->set($notesAlamat);
+                            return view('pages.Users.CheckoutPage', [
+                                'Title' => 'Checkout',
+                                'NavPesanan' => 'Checkout',
+                                'carts' => $carts,
+                                'total' => $total,
+                                'nama_umkm' => $namaUMKM->nama_umkm,
+                                'ongkir' => $ongkir,
+                                // 'AddressList' => PesananModel::alamatUser(),
+                                'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                                'SeputarDkampus' => HomeModel::seputarDkampus(),
+                            ]);
+                        } else {
+                            return redirect()->back()->with('error2', 'Your Distance Is To Far Max 2KM');
+                        }
+                    } else {
+                        return redirect()->back()->with('error2', 'please select the address first');
+                    }
+                } else {
+                    return redirect()->back()->with('error2', "you already have an order that isn't complete");
+                }
             }
         } catch (Exception $e) {
-            dd($e);
-            return redirect()->back()->with('error2', "some error");
+            // dd($e);
+            return redirect()->back()->with('error2', "");
         }
     }
 
@@ -375,9 +430,10 @@ class CartController extends Controller
         try {
             $userID = Auth::user()->id;
             $orderID = hash('sha256', $userID . time());
+            $notePesanan = request()->notesPesanan;
             $database = app('firebase.database');
             $database->getReference('cart/' . $userID . '/orderID')->set($orderID);
-
+            $database->getReference('cart/' . $userID . '/notesPesanan')->set($notePesanan);
             $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
             $total = $database->getReference('cart/' . $userID . '/total')->getValue();
             $ongkir = $database->getReference('cart/' . $userID . '/ongkir')->getValue();

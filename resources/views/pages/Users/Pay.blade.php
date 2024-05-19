@@ -1,7 +1,7 @@
 @extends('layouts.Root')
 @section('content')
 <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10 shadow-md py-4">
-    <a href="{{url()->previous()}}" class="absolute top-5 left-5 flex items-center gap-x-2">
+    <a href="{{url('/pesanan')}}" class="absolute top-5 left-5 flex items-center gap-x-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#F9832A" class="bi bi-arrow-left" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M10.354 1.646a.5.5 0 0 1 0 .708L5.707 7l4.647 4.646a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z" />
         </svg>

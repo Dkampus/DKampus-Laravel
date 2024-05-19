@@ -76,7 +76,7 @@
 
             var formattedTotal = "Rp. " + total.toLocaleString('id-ID');
             var html = `
-            <div class="flex flex-col gap-2 border border-[#F9832A] p-2">
+            <div class="flex flex-col gap-2 border border-[#F9832A] p-2" id="order_${idOrder}">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-2 flex flex-row">
                         <svg height="30" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -157,7 +157,6 @@
             $('#orderDetailModal').removeClass('hidden');
         }
 
-        // Close modal button click event
         $('#closeModalBtn').click(function() {
             $('#orderDetailModal').addClass('hidden');
         });
@@ -168,13 +167,11 @@
             renderOrder(orderData, id);
         });
 
-        // Listen for removed orders
-        // database.ref('needToDeliver').on('child_removed', function(snapshot) {
-        // // Get the ID of the removed order
-        // var orderId = snapshot.key;
-        // // Remove the corresponding HTML element
-        // $('#order_' + orderId).remove();
-        // });
+        database.ref('needToDeliver').on('child_removed', function(snapshot) {
+            var orderId = snapshot.key;
+            console(orderId)
+            $('#order_' + orderId).remove();
+        });
     </script>
 </main>
 @endsection
