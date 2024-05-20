@@ -34,6 +34,21 @@ class UmkmController extends Controller
         }
     }
 
+    public function search(Request $request)
+    {
+        try {
+            $keyword = $request->keyword;
+            $umkm = Data_umkm::where('nama_umkm', 'like', '%' . $keyword . '%')->get();
+            $umkm = $umkm->map(function ($umkms) {
+                return $umkms;
+            });
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
     public function shopData(Request $request)
     {
 

@@ -22,6 +22,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UntukKamuController;
 use App\View\Components\CourierLayout;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -435,8 +436,23 @@ Route::post('/favoritStore/{menuId}', [FavoritController::class, 'favoritStore']
 
 
 //searching routes
-Route::get('/search-item', [MenuController::class, 'search_item'])->name('search-item'); // this will return nama_makanan from menu table (json)
-Route::get('/search/{keyword}', [MenuController::class, 'search'])->name('search.keyword');
+Route::get('/search/menu', [MenuController::class, 'search'])->name('search.menu');
+Route::get('/search/umkm', [UmkmController::class, 'search'])->name('search.umkm');
+Route::get('/search', function (Request $request) {
+    $keyword = $request->keyword;
+    $umkms = Data_umkm::where('nama_umkm', 'like', '%' . $keyword . '%')->get();
+    $menus = Menu::where('nama_makanan', 'like', '%' . $keyword . '%')->with('data_umkm')->get();
+    $menus = $menus->map(function ($menu) {
+        $menu->nama_umkm = $menu->data_umkm->nama_umkm;
+        return $menu;
+    });
+    return view('pages.Users.SearchPage', [
+        'Title' => 'Search ' . ucfirst($keyword),
+        'umkms' => $umkms,
+        'menus' => $menus,
+    ]);
+});
+
 
 // User Route
 Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () {
