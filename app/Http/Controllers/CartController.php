@@ -207,10 +207,6 @@ class CartController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-
     public function updateQuantity(Request $request)
     {
         try {
@@ -420,7 +416,6 @@ class CartController extends Controller
                 }
             }
         } catch (Exception $e) {
-            // dd($e);
             return redirect()->back()->with('error2', "");
         }
     }
@@ -463,7 +458,8 @@ class CartController extends Controller
             ]);
 
             if ($request->file('bukti')->isValid()) {
-                $request->file('bukti')->store('payment');
+                $filePath = $request->file('bukti')->store('payment');
+                $fileName = basename($filePath);
                 $order = $database->getReference('cart/' . $userID)->getValue();
                 $database->getReference('needToDeliver/' . $userID . '-')->set($order);
                 $database->getReference('needToDeliver/' . $userID . '-/status')->set('searching');
@@ -475,6 +471,7 @@ class CartController extends Controller
                 date_default_timezone_set('Asia/Jakarta');
                 $timestamp = date('Y-m-d H:i:s');
                 $database->getReference('needToDeliver/' . $userID . '-/timestamp')->set($timestamp);
+                $database->getReference('needToDeliver/' . $userID . '-/bukti')->set($fileName);
                 $database->getReference('cart/' . $userID)->remove();
                 return redirect('/pesanan/status');
             } else {
@@ -485,9 +482,6 @@ class CartController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Request $request)
     {
         try {
