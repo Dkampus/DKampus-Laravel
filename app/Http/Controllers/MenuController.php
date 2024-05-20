@@ -124,7 +124,8 @@ class MenuController extends Controller
             }
 
             if ($existingUmkmID) {
-                $currentUmkmID = $database->getReference('cart/' . $userID . '/orders' . '/item1' . '/umkm_id')->getValue();
+                $item = $database->getReference('cart/' . $userID . '/orders')->getChildKeys();
+                $currentUmkmID = $database->getReference('cart/' . $userID . '/orders' . '/' . $item[0] . '/umkm_id')->getValue();
                 if ($currentUmkmID != $umkmID) {
                     $database->getReference('cart/' . $userID . '/orders')->remove();
                     $database->getReference('cart/' . $userID . '/orders' . '/item1')->set($postData);

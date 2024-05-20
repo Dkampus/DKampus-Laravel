@@ -34,7 +34,8 @@ class CourierController extends Controller
                         $custId = $getUid[0];
                         $idCust[] = $getUid[0];
                         $result[] = $database->getReference('onProgress/' . $custId . '-' . $courId)->getValue();
-                        $umkmId[] = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders/item1/umkm_id')->getValue();
+                        $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getChildKeys();
+                        $umkmId[] = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders' . '/' . $item[0] . '/umkm_id')->getValue();
                         $nama_penerima[] = $database->getReference('onProgress/' . $custId . '-' . $courId . '/nama_penerima')->getValue();
                     }
                     $i++;
@@ -172,7 +173,8 @@ class CourierController extends Controller
             $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
             $orderId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orderID')->getValue();
             // dd($item);
-            $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders/item1/umkm_id')->getValue();
+            $itemNum = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getChildKeys();
+            $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders' . '/' . $itemNum[0] . '/umkm_id')->getValue();
             $namaJumlahArray = [];
             foreach ($item as $order) {
                 $namaJumlahArray[] = $order['jumlah'] . ' ' . $order['nama'];
@@ -207,7 +209,8 @@ class CourierController extends Controller
             $harga = $database->getReference('onProgress/' . $custId . '-' . $courId . '/total')->getValue();
             $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
             $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
-            $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders/item1/umkm_id')->getValue();
+            $itemNum = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getChildKeys();
+            $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders' . '/' . $itemNum[0] . '/umkm_id')->getValue();
             $namaJumlahArray = [];
             foreach ($item as $order) {
                 $namaJumlahArray[] = $order['jumlah'] . ' ' . $order['nama'];

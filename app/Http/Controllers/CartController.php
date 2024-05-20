@@ -337,7 +337,8 @@ class CartController extends Controller
                             $alamat = User::find($userID);
                             $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
                             $total = $database->getReference('cart/' . $userID . '/total')->getValue();
-                            $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+                            $item = $database->getReference('cart/' . $userID . '/orders')->getChildKeys();
+                            $idumkm = $database->getReference('cart/' . $userID . '/orders' . '/' . $item[0] . '/umkm_id')->getValue();
                             $namaUMKM = Data_umkm::find($idumkm);
                             $geoUmkm = Data_umkm::find($idumkm)->geo;
                             $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
@@ -381,7 +382,8 @@ class CartController extends Controller
                         $alamat = User::find($userID);
                         $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
                         $total = $database->getReference('cart/' . $userID . '/total')->getValue();
-                        $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+                        $item = $database->getReference('cart/' . $userID . '/orders')->getChildKeys();
+                        $idumkm = $database->getReference('cart/' . $userID . '/orders' . '/' . $item[0] . '/umkm_id')->getValue();
                         $namaUMKM = Data_umkm::find($idumkm);
                         $geoUmkm = Data_umkm::find($idumkm)->geo;
                         $geoUser = $alamat->addresses()->where('id', $id)->first()->geo;
@@ -434,7 +436,8 @@ class CartController extends Controller
             $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
             $total = $database->getReference('cart/' . $userID . '/total')->getValue();
             $ongkir = $database->getReference('cart/' . $userID . '/ongkir')->getValue();
-            $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+            $item = $database->getReference('cart/' . $userID . '/orders')->getChildKeys();
+            $idumkm = $database->getReference('cart/' . $userID . '/orders' . '/' . $item[0] . '/umkm_id')->getValue();
             $namaUMKM = Data_umkm::find($idumkm);
             return view('pages.Users.Pay', [
                 'Title' => 'Pay',
@@ -466,7 +469,8 @@ class CartController extends Controller
                 $database->getReference('needToDeliver/' . $userID . '-')->set($order);
                 $database->getReference('needToDeliver/' . $userID . '-/status')->set('searching');
                 $nama_penerima = Auth::user()->nama_user;
-                $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+                $item = $database->getReference('needToDeliver/' . $userID . '-/orders')->getChildKeys();
+                $idumkm = $database->getReference('needToDeliver/' . $userID . '-/orders' . '/' . $item[0] . '/umkm_id')->getValue();
                 $namaUMKM = Data_umkm::find($idumkm)->nama_umkm;
                 $database->getReference('needToDeliver/' . $userID . '-/nama_penerima')->set($nama_penerima);
                 $database->getReference('needToDeliver/' . $userID . '-/nama_umkm')->set($namaUMKM);
@@ -480,7 +484,8 @@ class CartController extends Controller
                 return redirect()->back()->withErrors('error2', 'Invalid file uploaded.');
             }
         } catch (Exception $e) {
-            return redirect()->back()->with('error2', 'Error');
+            dd($e);
+            return redirect('/pesanan')->with('error2', 'Error');
         }
     }
 
