@@ -117,8 +117,6 @@ const decrementBtns = document.querySelectorAll("#decrement");
 const quantityInputs = document.querySelectorAll("#number");
 const deleteBtn = document.querySelectorAll("#delete");
 
-// console.log("memek");
-
 function calculateTotal() {
     const quantities = document.querySelectorAll(
         'input[name="items[quantity][]"]'

@@ -34,7 +34,8 @@ class CartController extends Controller
             $listAlamat = $alamat->addresses()->where('user_id', $userID)->get();
             $alamatUtama = $alamat->addresses()->where('user_id', $userID)->where('utama', 1)->first();
             if ($test  !== null && $alamat !== null) {
-                $idumkm = $database->getReference('cart/' . $userID . '/orders/item1/umkm_id')->getValue();
+                $item = $database->getReference('cart/' . $userID . '/orders')->getChildKeys();
+                $idumkm = $database->getReference('cart/' . $userID . '/orders' . '/' . $item[0] . '/umkm_id')->getValue();
                 $namaUMKM = Data_umkm::find($idumkm);
                 return view('pages.Users.Pesanan', [
                     'Title' => 'Pesanan',
@@ -81,6 +82,7 @@ class CartController extends Controller
                 'data' => null,
                 'namaUMKM' => null,
                 'AddressList' => null,
+                'alamatUtama' => null,
                 'PengaturanAkun' => HomeModel::pengaturanAkun(),
                 'SeputarDkampus' => HomeModel::seputarDkampus(),
             ]);
