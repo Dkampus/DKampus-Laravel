@@ -2,7 +2,7 @@
 @section('content')
 <header class="sticky top-0 left-0 flex justify-start w-full bg-white z-10 shadow-md py-3 mb-5">
     <div class="flex flex-row items-center h-full">
-        <a href="{{'/'}}" class="top-5 left-5 flex items-center px-5">
+        <a href="{{ 'pesanan/status' }}" class="top-5 left-5 flex items-center px-5">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#F9832A" class="bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M10.354 1.646a.5.5 0 0 1 0 .708L5.707 7l4.647 4.646a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z" />
             </svg>
@@ -14,7 +14,7 @@
     {{--Status--}}
     <div class="flex flex-col items-center justify-start gap-1">
         {{-- Status Pesanan --}}
-        <p class="font-bold text-[#F9832A] text-xl">{{ $status }}</p>
+        <p class="font-bold text-[#F9832A] text-xl">{{ ucfirst($status) }}</p>
     </div>
     {{-- Driver information --}}
     @if ($nama_driver != null)
@@ -41,7 +41,7 @@
     </div>
     <div class="flex justify-between items-center gap-x-2 p-2 mx-2">
         <p class="text-black"> Order ID</p>
-        <p class="text-black text-right uppercase">#{{ $orderId }}</p>
+        <p class="text-black font-bold text-right uppercase">#TRX{{ substr($orderId, 0, 10) }}</p>
     </div>
     <div class="flex justify-between items-center gap-x-2 p-2 mx-2">
         <p class="text-black"> Order</p>
