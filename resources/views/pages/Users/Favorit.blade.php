@@ -9,10 +9,10 @@
 {{--    </div>--}}
 {{--</header>--}}
 <main class="px-5">
-{{--    <div class="flex flex-row justify-between items-center my-5 md:mt-10 md:mb-5">--}}
-{{--        <h1 class="font-semibold w-max text-[4.5vw] sm:text-2xl">List Favorit Warung</h1>--}}
+    <div class="flex flex-row justify-between items-center my-5 md:mt-10 md:mb-5">
+        <h1 class="font-semibold w-max text-[4.5vw] sm:text-2xl">List Favorit Warung</h1>
 {{--        <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>--}}
-{{--    </div>--}}
+    </div>
 
     {{-- Slider Rekomendasi Warung --}}
 
@@ -69,6 +69,29 @@
         {{--<a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>--}}
     </div>
 
+    <x-list.slider>
+        @forelse ($RekomendasiMakanan as $index => $item)
+            <swiper-slide class="w-96 h-[17rem] relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
+                <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5 md:w-[4vw]">
+                <a href="/detail-makanan/{{$item->nama_makanan}}" class="w-full h-full bg-white overflow-hidden">
+                    <img src="{{Storage::url($item->image)}}" alt="" class="w-[45rem] h-40 object-cover rounded-xl">
+                    <div class="flex flex-col px-3 h-24 justify-center">
+                        <h1 class="font-semibold text-[3vw] text-base sm:text-xl truncate">{{$item->nama_makanan}}</h1>
+                        <div class="flex flex-row items-center gap-1">
+                            <img src="Iconly/Bold/Star.svg" alt="" class="w-5">
+                            <h1 class="text-[#787878] text-sm sm:text-base">{{$item->rating}}</h1>
+                            <h1 class="text-[#787878] text-sm sm:text-base">•</h1>
+                            <h1 class="text-[#787878] text-sm sm:text-base">{{$item->data_umkm->nama_umkm}}</h1>
+                        </div>
+                        <h1 class="text-[#F9832A] font-semibold text-[3vw] sm:text-xl">Rp. {{number_format($item->harga, 0, ',', '.')}}</h1>
+                    </div>
+                </a>
+            </swiper-slide>
+        @empty
+        <p>Data is not Found</p>
+        @endforelse
+    </x-list.slider>
+
     {{-- Carousel Promo Terlaris --}}
     <x-promo-slider.carousel>
         @forelse ($PromoTerlarisSlider as $Item)
@@ -99,15 +122,15 @@
 {{--            <h1 class="font-semibold w-max text-[4.5vw] sm:text-2xl">Rekomendasi Makanan</h1>--}}
 {{--            <a href="" class="text-[#F9832A] text-lg font-semibold">Lihat Semua</a>--}}
 {{--    </div>--}}
- {{-- Card list Rekomendasi Makanan --}}
+{{--  Card list Rekomendasi Makanan--}}
 {{-- <x-list-food.slider>--}}
 {{--    @foreach ($RekomendasiMakanan as $menu)--}}
 {{--    @php $harga = number_format($menu->harga, 0, ',', '.'); @endphp--}}
 {{--        <div class="food-list-scrollTrigger w-full h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">--}}
 {{--            <img src="{{Storage::url($menu->image)}}" alt="" class="w-[40rem] h-60 object-cover relative top-0">--}}
-{{--            --}}{{--Description Card--}}
+{{--            Description Card--}}
 {{--            <div class="w-full flex flex-row items-center justify-between px-3 py-4">--}}
-{{--            --}}{{--Title & Warung--}}
+{{--            Title & Warung--}}
 {{--            <div class="flex flex-col justify-between items-start h-full">--}}
 {{--                <h1 class="text-wrapper font-semibold text-[4vw] sm:text-2xl">{{$menu->nama_makanan}}</h1>--}}
 {{--                <div class="flex flex-row items-center gap-1">--}}
@@ -116,7 +139,7 @@
 {{--                </div>--}}
 {{--            </div>--}}
 
-{{--            --}}{{--Ratings & Price--}}
+{{--            Ratings & Price--}}
 {{--            <div class="flex flex-col justify-between items-end h-full">--}}
 {{--                <div class="flex flex-row gap-2 items-center">--}}
 {{--                    <img src="shop.svg" alt="" class="w-4">--}}
