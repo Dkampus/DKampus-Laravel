@@ -103,77 +103,92 @@ class MenuController extends Controller
             $umkmID = $saved->data_umkm_id;
             $jumlah = $request->input('quantity');
             $existingUmkmID = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->exists();
-            if ($request->input('catatan') != null) {
-                $postData = [
-                    'id' => $idMakanan,
-                    'nama' => $saved->nama_makanan,
-                    'harga' => $saved->harga,
-                    'umkm_id' => $umkmID,
-                    'jumlah' => $jumlah,
-                    'catatan' => $request->input('catatan')
-                ];
-            } else {
-                $postData = [
-                    'id' => $idMakanan,
-                    'nama' => $saved->nama_makanan,
-                    'harga' => $saved->harga,
-                    'umkm_id' => $umkmID,
-                    'jumlah' => $jumlah,
-                    'catatan' => "-"
-                ];
-            }
+
+            $postData = [
+                'id' => $idMakanan,
+                'nama' => $saved->nama_makanan,
+                'harga' => $saved->harga,
+                'umkm_id' => $umkmID,
+                'jumlah' => $jumlah,
+                'catatan' => $request->input('catatan') ?? "-"
+            ];
 
             if ($existingUmkmID) {
-                $item = $database->getReference('cart/' . $userID . '/orders')->getChildKeys();
-                $currentUmkmID = $database->getReference('cart/' . $userID . '/orders' . '/' . $item[0] . '/umkm_id')->getValue();
+                $items = $database->getReference('cart/' . $userID . '/orders')->getValue();
+                $itemKeys = array_keys($items);
+                $currentUmkmID = $items[$itemKeys[0]]['umkm_id'];
+
                 if ($currentUmkmID != $umkmID) {
                     $database->getReference('cart/' . $userID . '/orders')->remove();
-                    $database->getReference('cart/' . $userID . '/orders' . '/item1')->set($postData);
+                    $database->getReference('cart/' . $userID . '/orders/item1')->set($postData);
                 } else {
-                    $itemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
-                    $itemNumber = $itemCount + 1;
-                    $item = 'item' . $itemNumber;
-                    $i = 1;
-                    $checkid = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/id')->getValue();
-                    while ($i <= $itemCount && $checkid != $id) {
-                        $i++;
-                        $checkid = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/id')->getValue();
+                    $itemExists = false;
+                    foreach ($items as $key => $item) {
+                        if ($item['id'] == $idMakanan) {
+                            $database->getReference('cart/' . $userID . '/orders/' . $key . '/jumlah')->set($jumlah);
+                            $itemExists = true;
+                            break;
+                        }
                     }
-                    if ($checkid == $id) {
-                        $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/jumlah')->set($jumlah);
-                    } else {
-                        $database->getReference('cart/' . $userID . '/orders' . '/' . $item)->set($postData);
+
+                    if (!$itemExists) {
+                        $newItemNumber = $this->findNextAvailableItemNumber($items);
+                        $itemKey = 'item' . $newItemNumber;
+                        $database->getReference('cart/' . $userID . '/orders/' . $itemKey)->set($postData);
                     }
                 }
             } else {
-                $database->getReference('cart/' . $userID . '/orders' . '/item1')->set($postData);
+                $database->getReference('cart/' . $userID . '/orders/item1')->set($postData);
             }
-            $count = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
-            $j = 1;
-            $total = 0;
-            while ($j <= $count) {
-                $pricePerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $j . '/harga')->getValue();
-                $quantityPerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $j . '/jumlah')->getValue();
-                $currentTotal = $pricePerItem * $quantityPerItem;
-                $total += $currentTotal;
-                $j++;
-            }
-            $postTotal =
-                $database->getReference('cart/' . $userID . '/total')->set($total);
-            if ($postTotal) {
-                $database->getReference('cart/' . $userID . '/alamat')->set(Data_umkm::find($umkmID)->alamat);
-                $database->getReference('cart/' . $userID . '/link')->set(Data_umkm::find($umkmID)->link);
-                $database->getReference('cart/' . $userID . '/alamatUmkm')->set(Data_umkm::find($umkmID)->link);
-                return redirect()->back()->with('status', 'success');
-            }
+
+            $total = $this->calculateTotalPrice($userID);
+            $database->getReference('cart/' . $userID . '/total')->set($total);
+            $database->getReference('cart/' . $userID . '/alamat')->set(Data_umkm::find($umkmID)->alamat);
+            $database->getReference('cart/' . $userID . '/link')->set(Data_umkm::find($umkmID)->link);
+            $database->getReference('cart/' . $userID . '/alamatUmkm')->set(Data_umkm::find($umkmID)->link);
+
+            return redirect()->back()->with('status', 'success');
         } catch (Exception $e) {
+            dd($e);
             return redirect()->back()->with('error2', 'Error');
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    private function findNextAvailableItemNumber($items)
+    {
+        $existingNumbers = array_map(function ($key) {
+            return intval(str_replace('item', '', $key));
+        }, array_keys($items));
+
+        $i = 1;
+        while (in_array($i, $existingNumbers)) {
+            $i++;
+        }
+        return $i;
+    }
+
+    private function calculateTotalPrice($userID)
+    {
+        try {
+            $database = app('firebase.database');
+            $total = 0;
+            $items = $database->getReference('cart/' . $userID . '/orders')->getValue();
+
+            if ($items) {
+                foreach ($items as $item) {
+                    $pricePerItem = $item['harga'];
+                    $quantityPerItem = $item['jumlah'];
+                    $total += $pricePerItem * $quantityPerItem;
+                }
+            }
+
+            return $total;
+        } catch (Exception $e) {
+            // Handle exception if necessary
+            return 0; // Return 0 or handle the error appropriately
+        }
+    }
+
     public function store(Request $request)
     {
         $validate = $request->validate([

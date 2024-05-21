@@ -172,6 +172,7 @@ class CourierController extends Controller
             $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
             $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
             $orderId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orderID')->getValue();
+            $bukti = $database->getReference('onProgress/' . $custId . '-' . $courId . '/bukti')->getValue();
             // dd($item);
             $itemNum = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getChildKeys();
             $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders' . '/' . $itemNum[0] . '/umkm_id')->getValue();
@@ -190,6 +191,7 @@ class CourierController extends Controller
                 'ongkir' => $ongkir,
                 'status' => 'completed',
                 'order_id' => $orderId,
+                'bukti' => $bukti,
             ]);
 
             $database->getReference('onProgress/' . $custId . '-' . $courId)->remove();
@@ -209,6 +211,7 @@ class CourierController extends Controller
             $harga = $database->getReference('onProgress/' . $custId . '-' . $courId . '/total')->getValue();
             $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
             $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
+            $bukti = $database->getReference('onProgress/' . $custId . '-' . $courId . '/bukti')->getValue();
             $itemNum = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getChildKeys();
             $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders' . '/' . $itemNum[0] . '/umkm_id')->getValue();
             $namaJumlahArray = [];
@@ -226,6 +229,7 @@ class CourierController extends Controller
                 'ongkir' => $ongkir,
                 'status' => 'canceled',
                 'order_id' => $orderId,
+                'bukti' => $bukti,
             ]);
             $database->getReference('onProgress/' . $custId . '-' . $courId)->remove();
             return redirect()->back();

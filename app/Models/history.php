@@ -23,6 +23,7 @@ class history extends Model
         'harga',
         'ongkir',
         'status',
+        'bukti',
         'order_id'
     ];
 

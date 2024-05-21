@@ -212,47 +212,42 @@ class CartController extends Controller
     public function updateQuantity(Request $request)
     {
         try {
-
             $userID = Auth::user()->id;
             $idBarang = $request->id;
             $database = app('firebase.database');
 
             $kuantitas = $request->quantity;
-
+            $items = $database->getReference('cart/' . $userID . '/orders')->getChildKeys();
             $itemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
-            $i = 1;
 
-            while ($i <= $itemCount) {
-                $item = 'item' . $i;
-                $id = $database->getReference('cart/' . $userID . '/orders' . '/' . $item . '/id')->getValue();
+            for ($i = 0; $i < $itemCount; $i++) {
+                $id = $database->getReference('cart/' . $userID . '/orders/' . $items[$i] . '/id')->getValue();
                 if ($id == $idBarang) {
-                    $database->getReference('cart/' . $userID . '/orders' . '/' . $item . '/jumlah')->set($kuantitas);
+                    $database->getReference('cart/' . $userID . '/orders/' . $items[$i] . '/jumlah')->set($kuantitas);
                     $total = $this->calculateTotalPrice($userID);
                     $database->getReference('cart/' . $userID . '/total')->set($total);
+                    break;
                 }
-                $i++;
             }
-
-            return redirect('/pesanan');
+            $total = $this->calculateTotalPrice($userID);
+            return response()->json(['success' => true, 'total' => $total]);
         } catch (Exception $e) {
-            return redirect()->back()->with('error2', 'Error');
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }
 
     private function calculateTotalPrice($userID)
     {
         try {
-
             $database = app('firebase.database');
             $total = 0;
-            $itemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
-            $i = 1;
-            while ($i <= $itemCount) {
-                $pricePerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/harga')->getValue();
-                $quantityPerItem = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/jumlah')->getValue();
+            $items = $database->getReference('cart/' . $userID . '/orders')->getValue();
+
+            foreach ($items as $item) {
+                $pricePerItem = $item['harga'];
+                $quantityPerItem = $item['jumlah'];
                 $currentTotal = $pricePerItem * $quantityPerItem;
                 $total += $currentTotal;
-                $i++;
             }
 
             return $total;
@@ -463,7 +458,7 @@ class CartController extends Controller
             ]);
 
             if ($request->file('bukti')->isValid()) {
-                $filePath = $request->file('bukti')->store('payment');
+                $filePath = $request->file('bukti')->store('/public/payment');
                 $fileName = basename($filePath);
                 $order = $database->getReference('cart/' . $userID)->getValue();
                 $database->getReference('needToDeliver/' . $userID . '-')->set($order);
@@ -494,18 +489,28 @@ class CartController extends Controller
         try {
             $userID = Auth::user()->id;
             $database = app('firebase.database');
-            $itemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
-            $menuId = $request->id;
-            for ($i = 1; $i <= $itemCount; $i++) {
-                $ref = $database->getReference('cart/' . $userID . '/orders' . '/item' . $i . '/id')->getValue();
-                if ($ref == $menuId) {
-                    $database->getReference('cart/' . $userID . '/orders' . '/item' . $i)->remove();
-                    $newItemCount = $database->getReference('cart/' . $userID . '/orders')->getSnapshot()->numChildren();
-                    if ($newItemCount == 0) {
-                        $database->getReference('cart/' . $userID)->remove();
+            $items = $database->getReference('cart/' . $userID . '/orders')->getValue();
+
+            if ($items) {
+                foreach ($items as $key => $item) {
+                    if ($item['id'] == $request->id) {
+                        $database->getReference('cart/' . $userID . '/orders/' . $key)->remove();
+                        break;
                     }
                 }
+
+                $remainingItems = $database->getReference('cart/' . $userID . '/orders')->getValue();
+                $newTotal = 0;
+                if ($remainingItems) {
+                    foreach ($remainingItems as $item) {
+                        $newTotal += $item['harga'] * $item['jumlah'];
+                    }
+                    $database->getReference('cart/' . $userID . '/total')->set($newTotal);
+                } else {
+                    $database->getReference('cart/' . $userID)->remove();
+                }
             }
+
             return redirect('/pesanan');
         } catch (Exception $e) {
             return redirect()->back()->with('error2', 'Error');

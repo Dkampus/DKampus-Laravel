@@ -44,7 +44,7 @@
                                         @endif
                                     <td class="text-center">
                                         @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('app/payment/' . $data['bukti']) }}">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}">
                                             Detail
                                         </button>
                                     </td>
@@ -72,7 +72,7 @@
                                         @endif
                                     <td class="text-center">
                                         @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('app/payment/' . $data['bukti']) }}">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}">
                                             Detail
                                         </button>
                                     </td>
@@ -100,7 +100,7 @@
                                         <span class="text-red-400 font-bold">{{ ucfirst($data->status) }}</span>
                                         @endif
                                     <td class="text-center">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data->order_id }}" data-date="{{ $data->created_at }}" data-total="{{ $data->harga + $data->ongkir }}" data-payment="QRIS" data-status="{{ $data->status }}" data-bukti="{{ Storage::url('app/payment/' . $data['bukti']) }}">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data->order_id }}" data-date="{{ $data->created_at }}" data-total="{{ $data->harga + $data->ongkir }}" data-payment="QRIS" data-status="{{ $data->status }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}">
                                             Detail
                                         </button>
                                     </td>
