@@ -36,10 +36,10 @@
         <x-carousel.slider-category-desktop>
             @foreach ($CarouselDesktop as $item)
             <swiper-slide id="category" class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
-                <div class="flex flex-col justify-evenly h-full items-center">
+                <a href="/kategori/{{ strtolower($item['Title']) }}" class="flex flex-col justify-evenly h-full items-center">
                     <img src="{{ $item['Icon'] }}" alt="" class="scale-150 md:scale-[2]">
                     <h1 class="font-normal text-lg">{{ $item['Title'] }}</h1>
-                </div>
+                </a>
             </swiper-slide>
             @endforeach
         </x-carousel.slider-category-desktop>
@@ -113,12 +113,12 @@
         <swiper-slide class="h-[20rem] w-96 flex flex-col relative justify-between bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
             <img src="{{ Storage::url($menu->image) }}" alt="" class="w-full h-[14rem] object-cover relative">
             {{-- Description Card --}}
-            <div class="w-full flex flex-row items-center justify-between px-3 py-4">
+            <a href="/detail-makanan/{{ $menu->nama_makanan }}" class="w-full flex flex-row items-center justify-between px-3 py-4">
                 {{-- Title & Warung --}}
                 <div class="flex flex-col justify-between gap-3 items-start h-full">
                     <h1 class="text-wrapper font-semibold text-[4vw] sm:text-2xl">{{ $menu->nama_makanan }}</h1>
                     <div class="flex flex-row items-center gap-1">
-                        <img src='Iconly/Bold/Star.svg' alt="" class="w-5">
+                            <img src='Iconly/Bold/Star.svg' alt="" class="w-5">
                         <h1 class="text-black font-light">{{ $menu->rating }}</h1>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                     <h1 class="text-[#F9832A] font-semibold text-[4vw] sm:text-2xl">Rp. {{ $harga }}</h1>
                 </div>
 
-            </div>
+            </a>
         </swiper-slide>
         @endforeach
     </x-list.slider-makanan>
@@ -170,10 +170,11 @@
         @endforeach
     </x-list-food.slider>
 
-    <div class="pt-11 pb-5 hidden md:flex md:flex-col">
+    {{-- Disable subnav promos --}}
+    {{--<div class="pt-11 pb-5 hidden md:flex md:flex-col">
         <nav class="flex flex-row items-center gap-3">@include('components.navbar.subnavbar-homepage')</nav>
         @yield('subnav-homepage')
-    </div>
+    </div>--}}
     <x-floatingcshelp />
 </main>
 
@@ -181,7 +182,7 @@
     <div id="part1" class="flex flex-col justify-between mx-auto">
         <h1 class="font-bold text-2xl">Dkampus</h1>
         @forelse ($FooterPart1 as $part1)
-        <a href="{{ $part1['url'] }}">
+        <a href="#">
             {{ $part1['title'] }}
         </a>
         @empty
@@ -191,7 +192,7 @@
         <div class="flex flex-col justify-center">
             <h1 class="font-bold text-2xl">Beli</h1>
             @forelse ($FooterPart2Beli as $part2Beli)
-            <a href="{{ $part2Beli['url'] }}">
+            <a href="#">
                 {{ $part2Beli['title'] }}
             </a>
             @empty
@@ -200,7 +201,7 @@
         <div class="flex flex-col justify-center self-end">
             <h1 class="font-bold text-2xl">Jual</h1>
             @forelse ($FooterPart2Jual as $part2Jual)
-            <a href="{{ $part2Jual['url'] }}">
+            <a href="#">
                 {{ $part2Jual['title'] }}
             </a>
             @empty
@@ -214,7 +215,7 @@
                 @forelse ($FooterPart3KeamananDanPrivasi as $part3KeamananDanPrivasi)
                 <div class="flex flex-row items-center gap-1">
                     <img src="{{ $part3KeamananDanPrivasi['img'] }}" alt="" class="w-5">
-                    <a href="{{ $part3KeamananDanPrivasi['url'] }}">
+                    <a href="#">
                         {{ $part3KeamananDanPrivasi['title'] }}
                     </a>
                 </div>
@@ -226,7 +227,7 @@
             <h1 class="font-bold text-2xl">Ikuti Kami</h1>
             <div class="flex flex-row items-center gap-2">
                 @forelse ($FooterPart3IkutiKami as $part3IkutiKami)
-                <a href="{{ $part3IkutiKami['url'] }}">
+                <a href="#">
                     <img src="{{ $part3IkutiKami['img'] }}" alt="" class="w-8">
                 </a>
                 @empty
@@ -236,7 +237,7 @@
     </div>
     <div id="part4" class="flex flex-col justify-center items-center gap-5 mx-auto">
         <img src="logoFooter.svg" alt="" class="w-[15vw]">
-        <h1 class="font-semibold text-center">© 2021 - 2023,Dkampus Indonesia</h1>
+        <h1 class="font-semibold text-center">© 2021 - 2024,Dkampus Indonesia</h1>
     </div>
 
 </footer>

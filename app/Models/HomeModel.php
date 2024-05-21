@@ -78,16 +78,44 @@ class HomeModel
 
     private static $CarouselDesktop = [
         [
+            'Icon' => 'colas.svg',
+            'Title' => 'Minuman'
+        ],
+        [
+            'Icon' => 'ramens.svg',
+            'Title' => 'Jajanan'
+        ],
+        [
             'Icon' => 'ramen.svg',
             'Title' => 'Mie'
         ],
         [
-            'Icon' => 'coke.svg',
-            'Title' => 'Minuman'
+            'Icon' => 'rice.svg',
+            'Title' => 'Aneka Nasi'
+        ],
+        [
+            'Icon' => 'chicken.svg',
+            'Title' => 'Ayam & Bebek'
+        ],
+        [
+            'Icon' => 'fastfood.svg',
+            'Title' => 'Cepat saji'
         ],
         [
             'Icon' => 'breakfast.svg',
             'Title' => 'Roti'
+        ],
+        [
+            'Icon' => 'soup.svg',
+            'Title' => 'Bakso & Soto'
+        ],
+        [
+            'Icon' => 'bakmie.svg',
+            'Title' => 'Bakmie'
+        ],
+        [
+            'Icon' => 'sate.svg',
+            'Title' => 'Sate'
         ],
         [
             'Icon' => 'cookies.svg',
@@ -98,25 +126,9 @@ class HomeModel
             'Title' => 'Cemilan'
         ],
         [
-            'Icon' => 'ramen.svg',
-            'Title' => 'Makanan'
+            'Icon' => 'lainnya.svg',
+            'Title' => 'Lainnya'
         ],
-        [
-            'Icon' => 'coke.svg',
-            'Title' => 'Minuman'
-        ],
-        [
-            'Icon' => 'breakfast.svg',
-            'Title' => 'Roti'
-        ],
-        [
-            'Icon' => 'cookies.svg',
-            'Title' => 'Biskuit'
-        ],
-        [
-            'Icon' => 'ramen.svg',
-            'Title' => 'Makanan'
-        ]
     ];
 
     private static $rekomendasiWarung = [

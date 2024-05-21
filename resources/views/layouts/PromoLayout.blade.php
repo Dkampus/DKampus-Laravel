@@ -75,7 +75,7 @@
                 </svg>
                 <h1 class="text-[#F9832A] font-bold text-2xl w-max">Promo Special</h1>
             </div>
-            <a href="" class="text-[#F9832A] text-lg w-max">Lihat semua</a>
+            <a href="/promo/special" class="text-[#F9832A] text-lg w-max">Lihat semua</a>
         </div>
         <x-promo-slider.carousel>
             @forelse ($PromoTerlarisSlider as $Item)
@@ -84,7 +84,7 @@
                  {{-- Header Card --}}
                  <div id="headerCard" class="w-96">
                      <img src="{{$Item['Discount']}}" alt="" class="absolute">
-                     <img src="{{$Item['Img']}}" alt="" class="w-full h-32">
+                         <img src="{{Storage::url($Item['Img'])}}" alt="" class="w-full h-[8rem] object-cover">
                  </div>
 
                  {{-- Content card --}}
@@ -92,8 +92,8 @@
 
                      {{-- Prices --}}
                      <div id="prices" class="flex flex-row items-center gap-2.5 mt-1 h-max overflow-x-auto">
-                         <h1 class="text-[#F9832A] font-bold text-xl">{{$Item['PriceDiscount']}}</h1>
-                         <h1 class="line-through text-[#BCBCBC] text-sm sm:text-base font-semibold">{{$Item['PriceOri']}}</h1>
+                         <h1 class="text-[#F9832A] font-bold text-xl">Rp. {{number_format($Item['PriceDiscount'],0,',','.')}}</h1>
+                         <h1 class="line-through text-[#BCBCBC] text-sm sm:text-base font-semibold">{{number_format($Item['PriceOri'],0,',','.')}}</h1>
                      </div>
 
                      {{-- Desc --}}
@@ -130,7 +130,7 @@
                      {{-- Header Card --}}
                      <div id="headerCard" class="w-96">
                          <img src="{{$Item['Discount']}}" alt="" class="absolute">
-                         <img src="{{$Item['Img']}}" alt="" class="w-full h-32">
+                         <img src="{{Storage::url($Item['Img'])}}" alt="" class="w-full h-[8rem] object-cover">
                      </div>
 
                      {{-- Content card --}}
@@ -138,8 +138,8 @@
 
                          {{-- Prices --}}
                          <div id="prices" class="flex flex-row items-center gap-2.5 mt-1 h-max overflow-x-auto">
-                             <h1 class="text-[#F9832A] font-bold text-xl">{{$Item['PriceDiscount']}}</h1>
-                             <h1 class="line-through text-[#BCBCBC] text-sm sm:text-base font-semibold">{{$Item['PriceOri']}}</h1>
+                             <h1 class="text-[#F9832A] font-bold text-xl">Rp. {{number_format($Item['PriceDiscount'],0,',','.')}}</h1>
+                             <h1 class="line-through text-[#BCBCBC] text-sm sm:text-base font-semibold">{{number_format($Item['PriceOri'],0,',','.')}}</h1>
                          </div>
 
                          {{-- Desc --}}
