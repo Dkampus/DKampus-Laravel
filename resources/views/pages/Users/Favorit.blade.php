@@ -19,7 +19,7 @@
     <x-list.slider>
         @forelse ($RekomendasiWarung as $index => $item)
             <swiper-slide class="w-96 h-[17rem] relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
-                <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5 md:w-[4vw]">
+{{--                <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5 md:w-[4vw]">--}}
                 <a href="/detail-warung/{{$item->nama_umkm}}" class="w-full h-full bg-white overflow-hidden">
                     <img src="{{Storage::url($item->logo_umkm)}}" alt="" class="w-[45rem] h-40 object-cover rounded-xl">
                     <div class="flex flex-col px-3 h-24 justify-center">
@@ -71,7 +71,7 @@
 
     <x-list.slider>
         @forelse ($RekomendasiMakanan as $index => $item)
-            <swiper-slide class="w-96 h-[17rem] relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
+            <swiper-slide class="w-96 h-[17rem] relative border-2 rounded-xl transition-all duration-300 hover:shadow-md hidden md:block">
                 <img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5 md:w-[4vw]">
                 <a href="/detail-makanan/{{$item->nama_makanan}}" class="w-full h-full bg-white overflow-hidden">
                     <img src="{{Storage::url($item->image)}}" alt="" class="w-[45rem] h-40 object-cover rounded-xl">
@@ -88,7 +88,7 @@
                 </a>
             </swiper-slide>
         @empty
-        <p>Data is not Found</p>
+            <p class="hidden md:block">Data is not Found</p>
         @endforelse
     </x-list.slider>
 
