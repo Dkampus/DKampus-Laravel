@@ -4,7 +4,7 @@
         {{-- Logo --}}
         <div class="flex flex-row my-auto h-max items-center md:gap-2">
             <a href="/">
-                <img src="logoDkampus.svg" alt="" class="min-w-[100%] max-w-[120%] md:min-w-[2vw]">
+                <img src="{{asset('logoDkampus.svg')}}" alt="" class="min-w-[100%] max-w-[120%] md:min-w-[2vw]">
             </a>
             <h1 class="font-bold text-[#F9832A] text-2xl hidden md:flex">Dkampus</h1>
         </div>
@@ -17,7 +17,7 @@
         @include('components.header.searchDesktop')
 
         <button class="hidden mx-auto md:flex">
-            <img src="./cart.svg" alt="">
+            <img src="{{asset('/cart.svg')}}" alt="">
         </button>
 
         {{-- Sidebar --}}
@@ -27,7 +27,7 @@
             </button> --}}
             @auth
             <a href = "/chats" class="text-[#F9832A] text-2xl font-semibold">
-                <img src="chat.svg" alt="" class="w-8 mr-5">
+                <img src="{{asset('chat.svg')}}" alt="" class="w-8 mr-5">
             </a>
             @endauth
             @include('components.header.menuDesktop')
