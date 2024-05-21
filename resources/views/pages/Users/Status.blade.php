@@ -192,7 +192,7 @@
         var formHistory = $('<form>').attr('action', "{{ route('status.order') }}").attr('method', 'POST');
         var divLacak = $('<div>').addClass('bg-[#F9832A] w-20 h-9 flex flex-col items-center justify-center rounded-xl text-white mt-[0.5rem]');
         var a_lacak = $('<button>').addClass('w-full h-full').text('Lacak').attr('type', 'submit');
-        var inputId = $('<input>').attr('type', 'text').addClass('hidden').attr('name', 'courId');
+        var inputId = $('<input>').attr('type', 'text').addClass('hidden').attr('name', 'courId').val(courId);
 
         var csrfToken = '{{ csrf_token() }}';
         formHistory.append($('<input>')
@@ -215,12 +215,11 @@
     }
 
     function display(umkm, tanggal, status, items, orderId, jumlah, courId, custId) {
-        var divParrent = $('<div>').attr('data-id', orderId);
-        var divContent = $('<div>').addClass('w-[29.5rem] relative h-auto overflow-hidden border-b-[3px] px-4 my-3 mx-auto flex flex-col items-center py-5');
+        var divContent = $('<div>').addClass('w-full relative h-auto overflow-hidden border-b-[3px] px-4 my-3 mx-auto flex flex-col items-center py-5 sm:w-[29.5rem]').attr('data-id', orderId);
         var divTitle = $('<div>').addClass('border-b-[3px] pb-5 mx-auto flex flex-row justify-between items-center w-full');
 
         var divSvg = $('<div>').addClass('flex flex-row items-center gap-5');
-        var divStatus = $('<div>').addClass('bg-[#FFEEE1] rounded-2xl text-center flex flex-col justify-center text-[#FF6E00] text-sm font-semibold py-2.5 px-3 status-text').text(status).attr('data-order', orderId).attr('id', orderId);
+        var divStatus = $('<div>').addClass('bg-[#FFEEE1] rounded-2xl text-center capitalize flex flex-col justify-center text-[#FF6E00] text-sm font-semibold py-2.5 px-3').text(status).attr('data-order', orderId).attr('id', orderId);
 
         var divHeadContent = $('<div>').attr('id', 'head');
 
@@ -234,44 +233,53 @@
         <path d="M4.17261 8.72485C4.17261 8.67236 4.19346 8.62202 4.23058 8.58491C4.26769 8.54779 4.31803 8.52694 4.37052 8.52694H5.55802C5.61051 8.52694 5.66086 8.54779 5.69797 8.58491C5.73509 8.62202 5.75594 8.67236 5.75594 8.72485V9.12069C5.75594 9.17318 5.73509 9.22352 5.69797 9.26064C5.66086 9.29775 5.61051 9.3186 5.55802 9.3186H4.37052C4.31803 9.3186 4.26769 9.29775 4.23058 9.26064C4.19346 9.22352 4.17261 9.17318 4.17261 9.12069V8.72485ZM7.33927 8.72485C7.33927 8.88233 7.27672 9.03335 7.16537 9.1447C7.05402 9.25605 6.903 9.3186 6.74552 9.3186C6.58805 9.3186 6.43703 9.25605 6.32568 9.1447C6.21433 9.03335 6.15177 8.88233 6.15177 8.72485C6.15177 8.56738 6.21433 8.41636 6.32568 8.30501C6.43703 8.19366 6.58805 8.1311 6.74552 8.1311C6.903 8.1311 7.05402 8.19366 7.16537 8.30501C7.27672 8.41636 7.33927 8.56738 7.33927 8.72485Z" fill="#F9832A" />
     </svg>`;
 
+        var divNamaAndDate = $('<div>')
         var divItem = $('<div>').addClass('w-full grid grid-cols-1 grid-rows-2 gap-y-1 gap-x-5 my-5 place-content-between');
         var p_item = $('<p>').addClass('font-semibold').text(items);
         var p_orderId = $('<p>').addClass('font-semibold flex uppercase').text('#trx' + orderId);
 
-        var divFooter = $('<div>').addClass('flex flex-row justify-between w-[29.5rem] px-5 py-1')
-        var divTotalHarga = $('<div>').attr('id', 'totalHarga');
-        var h1Total = $('<h1>').text('Total Harga');
+        var divFooter = $('<div>').addClass('flex flex-row justify-between items-center w-full px-5 py-1 sm:flex-row sm:w-[29.5rem]')
+        var divTotalHarga = $('<div>').attr('id', 'totalHarga').addClass('flex flex-row');
+        var h1Total = $('<p>').text('Total').addClass('font-semibold text-lg');
 
-        var p_harga = $('<p>').addClass('text-lg text-[#F9832A] font-semibold').text(jumlah);
+        var p_harga = $('<p>').addClass('text-lg text-[#F9832A] font-semibold ml-2').text(jumlah);
 
-        var divRightFoot = $('<div>').addClass('flex flex-row items-center gap-5');
-        var a_lacak = $('<button>').addClass('bg-[#F9832A] w-20 h-9 flex flex-col items-center justify-center rounded-xl text-white').text('Lacak');
-        var a_chat = $('<button>').addClass('w-6');
-        var imgChat = $('<img>').addClass('w-full').attr('src', '/bubbleChat.svg').attr('alt', courId);
+        var divRightFoot = $('<div>').addClass('flex flex-row gap-5');
+        var formHistory = $('<form>').attr('action', "{{ route('status.order') }}").attr('method', 'POST');
+        var formChat = $('<form>').attr('action', "{{ route('room.chat') }}").attr('method', 'POST');
+        var divLacak = $('<div>').addClass('bg-[#F9832A] w-20 h-9 flex flex-col items-center justify-center rounded-xl text-white mt-[0.5rem]');
+        var divChat = $('<div>').addClass('flex flex-col items-center justify-center rounded-xl text-white mt-[0.5rem]')
+        var a_lacak = $('<button>').addClass('w-full h-full').text('Lacak').attr('type', 'submit');
+        var a_chat = $('<button>').addClass('w-6 mt-2').attr('type', 'submit');
+        var chatIcon = $('<img>').addClass('w-full').attr('src', 'bubbleChat.svg');
+        var inputId = $('<input>').attr('type', 'text').addClass('hidden').attr('name', 'courId').val(courId);
+        var inputCour = $('<input>').addClass('hidden').attr('id', courId).attr('name', 'courId').val(courId);
 
-        a_chat.append(imgChat)
-        divItem.append(p_item, p_orderId)
-        divHeadContent.append(nama_umkm, tanggal);
-        divSvg.append(svgContent, divHeadContent)
-        divTitle.append(divSvg, divStatus)
-        divRightFoot.append(a_lacak, a_chat)
-        divTotalHarga.append(h1Total, p_harga)
-        divFooter.append(divTotalHarga, divRightFoot)
-        divContent.append(divTitle, divItem)
+        var csrfToken = '{{ csrf_token() }}';
+        formHistory.append($('<input>')
+            .attr('type', 'hidden')
+            .attr('name', '_token')
+            .attr('value', csrfToken)
+        );
+        formChat.append($('<input>')
+            .attr('type', 'hidden')
+            .attr('name', '_token')
+            .attr('value', csrfToken)
+        );
+        a_chat.append(chatIcon);
+        divChat.append(a_chat, inputCour);
+        divLacak.append(a_lacak, inputId);
+        formChat.append(divChat);
+        formHistory.append(divLacak);
+        divRightFoot.append(formHistory, formChat);
+        divTotalHarga.append(h1Total, p_harga);
+        divFooter.append(divTotalHarga, divRightFoot);
+        divItem.append(p_item, p_orderId);
+        divNamaAndDate.append(nama_umkm, tanggal);
+        divSvg.append(svgContent, divNamaAndDate);
+        divTitle.append(divSvg, divStatus);
+        divContent.append(divTitle, divItem);
 
-        divParrent.append(divContent, divFooter);
-        $('#card').append(divParrent);
-
-        a_lacak.click(function() {
-            $('#card').attr('action', "{{ route('status.order') }}");
-
-            $('#courId').val(courId);
-        });
-
-        a_chat.click(function() {
-            $('#card').attr('action', "{{ route('room.chat') }}");
-
-            $('#courId').val(courId);
-        });
+        $('#card').prepend(divContent, divFooter);
     }
 </script>

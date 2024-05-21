@@ -50,6 +50,7 @@ class ChatController extends Controller
                 'date' => $date,
             ]);
         } catch (Exception $e) {
+            // dd($e);
             return redirect()->back()->with('error2', 'Error');
         }
     }
