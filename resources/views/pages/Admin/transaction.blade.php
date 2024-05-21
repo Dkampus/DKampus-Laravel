@@ -43,7 +43,8 @@
                                         <span class="text-red-400 font-bold">{{ ucfirst($data['status']) }}</span>
                                         @endif
                                     <td class="text-center">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $data['total'] }}" data-payment="QRIS" data-status="{{ $data['status'] }}">
+                                        @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('app/payment/' . $data['bukti']) }}">
                                             Detail
                                         </button>
                                     </td>
@@ -70,7 +71,8 @@
                                         <span class="text-red-400 font-bold">{{ ucfirst($data['status']) }}</span>
                                         @endif
                                     <td class="text-center">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $data['total'] }}" data-payment="QRIS" data-status="{{ $data['status'] }}">
+                                        @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('app/payment/' . $data['bukti']) }}">
                                             Detail
                                         </button>
                                     </td>
@@ -81,7 +83,8 @@
                                 @if ($datas !== null)
                                 @foreach($datas->sortByDesc('created_at') as $key => $data)
                                 <tr>
-                                    <td class="uppercase">#TRX{{substr($data->order_id, 0, 10)}}</td>
+                                    <td class=" uppercase">#TRX{{substr($data->order_id, 0, 10)}}
+                                    </td>
                                     <td class=" text-center">{{ $data->created_at }}
                                     </td>
                                     <td class="text-center">
@@ -97,7 +100,7 @@
                                         <span class="text-red-400 font-bold">{{ ucfirst($data->status) }}</span>
                                         @endif
                                     <td class="text-center">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data->order_id }}" data-date="{{ $data->created_at }}" data-total="{{ $data->harga + $data->ongkir }}" data-payment="QRIS" data-status="{{ $data->status }}">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data->order_id }}" data-date="{{ $data->created_at }}" data-total="{{ $data->harga + $data->ongkir }}" data-payment="QRIS" data-status="{{ $data->status }}" data-bukti="{{ Storage::url('app/payment/' . $data['bukti']) }}">
                                             Detail
                                         </button>
                                     </td>
@@ -149,7 +152,7 @@
                             </div>
                             {{-- button untuk melihat image dari bukti pembayaran transaksi --}}
                             <div class="col-span-2">
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline show-proof-button" data-bukti="">
                                     Show Payment Proof
                                 </button>
                             </div>
@@ -159,6 +162,23 @@
                                 Close
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Modal untuk menampilkan bukti pembayaran --}}
+        <div id="payment-proof-modal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <img id="payment-proof-image" src="" alt="Payment Proof" class="w-full">
+                    </div>
+                    <div class="bg-white px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="document.getElementById('payment-proof-modal').classList.add('hidden');">
+                            Close
+                        </button>
                     </div>
                 </div>
             </div>
@@ -174,6 +194,19 @@
         const paymentElement = document.getElementById('payment');
         const statusElement = document.getElementById('status');
         const detailButtons = document.querySelectorAll('.detail-button');
+        const showProofButton = document.querySelector('.show-proof-button');
+        const paymentProofModal = document.getElementById('payment-proof-modal');
+        const paymentProofImage = document.getElementById('payment-proof-image');
+
+        showProofButton.addEventListener('click', function() {
+            const buktiUrl = this.getAttribute('data-bukti');
+            if (buktiUrl) {
+                paymentProofImage.src = buktiUrl;
+                paymentProofModal.classList.remove('hidden');
+            } else {
+                alert('No payment proof available.');
+            }
+        });
 
         detailButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -188,7 +221,7 @@
                 totalElement.textContent = total;
                 paymentElement.textContent = payment;
                 statusElement.textContent = status;
-
+                showProofButton.setAttribute('data-bukti', this.getAttribute('data-bukti'));
                 modal.classList.remove('hidden');
             });
         });
