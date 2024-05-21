@@ -247,15 +247,17 @@ Route::get('/detail-makanan/{menu:nama_makanan}', function (Menu $menu) {
 //Favorit Routes
 Route::get('/favorit', function (UmkmController $umkmController) {
     $Jarak = [];
-    if (\Illuminate\Support\Facades\Auth::user() != null) {
-        $umkmGeo = [];
-        for ($i = 0; $i < count(PromoModel::promoSpecial()); $i++) {
-            $umkmGeo[] = Data_umkm::where('id', PromoModel::promoSpecial()[$i]->data_umkm_id)->first()->id;
+    try {
+        if (\Illuminate\Support\Facades\Auth::user() != null) {
+            $umkmGeo = [];
+            for ($i = 0; $i < count(PromoModel::promoSpecial()); $i++) {
+                $umkmGeo[] = Data_umkm::where('id', PromoModel::promoSpecial()[$i]->data_umkm_id)->first()->id;
+            }
+            for ($i = 0; $i < count($umkmGeo); $i++) {
+                $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
+            }
         }
-        for ($i = 0; $i < count($umkmGeo); $i++) {
-            $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
-        }
-    } else {
+    } catch (Exception $e) {
         $Jarak = null;
     }
     return view('pages.Users.Favorit', [
