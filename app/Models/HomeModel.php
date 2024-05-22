@@ -11,13 +11,12 @@ class HomeModel
     //use HasFactory;
     private static $Banner = [
         [
-            'Img' => 'carousel.jpg'
+            'Img' => 'bannerWelcome.jpg',
+            'link' => '#'
         ],
         [
-            'Img' => 'carousel.jpg'
-        ],
-        [
-            'Img' => 'carousel.jpg'
+            'Img' => 'bannerJastip.png',
+            'link' => 'jastip'
         ],
     ];
 

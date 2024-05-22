@@ -75,6 +75,17 @@ Route::get('/rekomendasi-menu', function () {
     ]);
 });
 
+// Jastip Page
+Route::get('/jastip', function () {
+    return view('pages.Users.JastipPage', [
+        'Title' => 'Jastip',
+        'Jastip' => Data_umkm::all(),
+        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+        'SeputarDkampus' => HomeModel::seputarDkampus(),
+        'FooterPart1' => Footer::footerPart1(),
+    ]);
+});
+
 // Promo Page
 Route::get('/promo', function () {
     return view('pages.Users.SemuaPage', [

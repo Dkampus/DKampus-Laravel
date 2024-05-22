@@ -11,10 +11,15 @@
         @foreach ($Banner as $item)
         <swiper-slide class="w-full flex flex-row items-center relative rounded-xl overflow-hidden">
             <div class="absolute w-[50%] text-center">
-                <h1 class="text-white font-semibold md:leading-snug text-3xl md:text-6xl">Welcome to <br> Dkampus👋
+                @if ($item['Img'] != str_contains($item['Img'], 'Jastip'))
+                    <h1 class="text-white font-semibold md:leading-snug text-3xl md:text-6xl">Welcome to <br> Dkampus👋
+                @else
+                @endif
                 </h1>
             </div>
-            <img src="{{ $item['Img'] }}" alt="" class="h-full w-full">
+            <a href="{{ $item['link'] }}" class="w-full h-full">
+                <img src="{{ $item['Img'] }}" alt="" class="h-full w-full">
+            </a>
         </swiper-slide>
         @endforeach
     </x-banner.carousel>
