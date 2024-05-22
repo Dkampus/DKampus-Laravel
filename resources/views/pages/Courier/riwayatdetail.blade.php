@@ -8,61 +8,61 @@
             <h1 class="font-bold text-black text-xl mb-1">Status Order</h1>
         </a>
     </header>
-<main>
-    {{--Status--}}
-    <div class="flex flex-col items-center justify-start gap-1">
-        {{-- Status Pesanan --}}
-        <p class="font-bold text-[#F9832A] text-xl">{{ $status }}</p>
-        {{-- Time --}}
-        <p class="text-gray-400 text-xs">
-            <!-- time -->
-        </p>
-    </div>
-    <div class="w-full h-0.5 bg-gray-300 mb-2 mt-2"></div>
-    {{-- Driver information --}}
-    <div class="flex justify-between items-center gap-3 p-2">
-        <div class="flex items-center">
-            <img src="{{ asset('images/ProfilePicture.png') }}" alt="" class="w-14 h-14 rounded-full object-cover bg-gray-300">
-            <div class="flex flex-col gap-1 mx-2">
-                <h1 class="font-bold text-black">{{ $cust_name }}</h1>
-            </div>
+
+    <main class="px-4 sm:px-6 py-4">
+        <div class="flex flex-col items-center justify-start gap-1">
+            <p class="font-bold text-[#F9832A] text-lg sm:text-xl">{{ ucfirst($status) }}</p>
+            <p class="text-gray-400 text-xs">
+                <a href="#" class="text-[#F9832A]">2024-12-12 12:12:12</a>
+            </p>
         </div>
-        {{-- Chat button --}}
-        <form action="{{ route('room.chat.courier') }}" method="POST">
-            @csrf
-            <button type="submit" class="w-6"><img src="/bubbleChat.svg" alt="" class="w-full"></button>
-            <input type="text" class="hidden" value="{{ $custId }}" name="custId">
-        </form>
-    </div>
-    {{-- Order items --}}
-    <div class="w-full h-0.5 bg-gray-300 mb-2 mt-2"></div>
-    <div class="flex justify-start items-center gap-x-2 p-2 mx-2">
-        <img src="{{ asset('shop-orange.svg') }}" alt="" class="w-6 h-6">
-        <p class="font-bold text-black">{{ $umkm }}</p>
-    </div>
-    <div class="flex justify-between items-center gap-x-2 p-2 mx-2">
-        <p class="text-black"> Order ID</p>
-        <p class="text-black text-right">#{{ $id }}</p>
-    </div>
-    <div class="flex justify-between items-center gap-x-2 px-2 mx-2">
-        <p class="text-black">Pembayaran</p>
-        <img src="{{ asset('qris.svg') }}" alt="" class="w-10 h-10">
-    </div>
-    <div class="flex justify-between items-center gap-x-2 p-2 mx-2">
-        <p class="text-black">Subtotal</p>
-        <p class="text-black text-right">Rp {{ number_format($total, 0, ',', '.') }}</p>
-    </div>
-    <div class="flex justify-between items-center gap-x-2 p-2 mx-2">
-        <p class="text-black">Ongkir</p>
-        <p class="text-black text-right">Rp {{ number_format($ongkir, 0, ',', '.') }} </p>
-    </div>
-    <div class="flex justify-between items-center gap-x-2 p-2 mx-2">
-        <p class="text-black">Total</p>
-        <p class="text-black text-right">Rp {{ number_format($total + $ongkir, 0, ',', '.') }}</p>
-    </div>
-    {{-- Button kembali ke halaman status order --}}
-    <div class="flex justify-center items-center gap-2 p-2 mx-2">
-        <a href="{{ 'history' }}" class="flex items center gap-2 bg-[#F9832A] text-white px-5 py-2 rounded-md">Kembali ke Status Order</a>
-    </div>
-</main>
+        <div class="w-full h-px bg-gray-300 my-3"></div>
+
+        <div class="flex justify-between items-center gap-3 p-2">
+            <div class="flex items-center">
+                <img src="{{ asset('images/ProfilePicture.png') }}" alt="" class="w-10 h-10 sm:w-14 sm:h-14 rounded-full object-cover bg-gray-300">
+                <div class="flex flex-col gap-1 mx-2">
+                    <h1 class="font-bold text-black text-sm sm:text-base">{{ $cust_name }}</h1>
+                </div>
+            </div>
+            <form action="{{ route('room.chat.courier') }}" method="POST">
+                @csrf
+                <button type="submit" class="w-7 sm:w-6">
+                    <img src="/bubbleChat.svg" alt="Chat Icon" class="w-full">
+                </button>
+                <input type="hidden" value="{{ $custId }}" name="custId">
+            </form>
+        </div>
+
+        <div class="w-full h-px bg-gray-300 my-3"></div>
+        <div class="grid grid-cols-2 gap-2">
+            <div class="flex items-center gap-x-2">
+                <img src="{{ asset('shop-orange.svg') }}" alt="" class="w-4 h-4 sm:w-6 sm:h-6">
+                <p class="font-bold text-black text-sm sm:text-base">{{ $umkm }}</p>
+            </div>
+            <div class="text-right">
+                <p class="text-black text-sm sm:text-base"> Order ID:</p>
+                <p class="text-black font-bold text-right uppercase text-sm sm:text-base">#TRX{{ strtoupper(substr($id, 0, 10)) }}</p>
+            </div>
+
+            <p class="text-black text-sm sm:text-base">Pembayaran</p>
+            <img src="{{ asset('qris.svg') }}" alt="" class="w-8 h-8 sm:w-10 sm:h-10 ml-auto">
+
+            <p class="text-black text-sm sm:text-base">Subtotal</p>
+            <p class="text-black text-right text-sm sm:text-base">Rp {{ number_format($total, 0, ',', '.') }}</p>
+
+            <p class="text-black text-sm sm:text-base">Ongkir</p>
+            <p class="text-black text-right text-sm sm:text-base">Rp {{ number_format($ongkir, 0, ',', '.') }} </p>
+
+            <p class="text-black text-sm sm:text-base">Total</p>
+            <p class="text-black text-right text-sm sm:text-base">Rp {{ number_format($total + $ongkir, 0, ',', '.') }}</p>
+        </div>
+        <div class="w-full h-px bg-gray-300 my-3"></div>
+
+        <div class="flex justify-center items-center mt-4">
+            <a href="{{ 'history' }}" class="bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md text-sm sm:text-base">
+                Kembali ke Status Order
+            </a>
+        </div>
+    </main>
 @endsection

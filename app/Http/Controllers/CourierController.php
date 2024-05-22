@@ -48,7 +48,7 @@ class CourierController extends Controller
                         $no_telp_umkm[] = Data_umkm::find($id)->no_telp_umkm;
                     }
                     return view('pages/Courier/dashboard', [
-                        'Title' => 'Dashboard',
+                        'Title' => 'Dashboard Courier',
                         // 'nama_umkm' => $nama_umkm,
                         'PengaturanAkun' => HomeModel::pengaturanAkun(),
                         'SeputarDkampus' => HomeModel::seputarDkampus(),
@@ -61,7 +61,7 @@ class CourierController extends Controller
                     ]);
                 } else {
                     return view('pages/Courier/dashboard', [
-                        'Title' => 'Dashboard',
+                        'Title' => 'Dashboard Courier',
                         // 'nama_umkm' => $nama_umkm,
                         'PengaturanAkun' => HomeModel::pengaturanAkun(),
                         'SeputarDkampus' => HomeModel::seputarDkampus(),
@@ -74,7 +74,7 @@ class CourierController extends Controller
                 }
             } else {
                 return view('pages/Courier/dashboard', [
-                    'Title' => 'Dashboard',
+                    'Title' => 'Dashboard Courier',
                     // 'nama_umkm' => $nama_umkm,
                     'SeputarDkampus' => HomeModel::seputarDkampus(),
                     'PengaturanAkun' => HomeModel::pengaturanAkun(),
@@ -279,7 +279,7 @@ class CourierController extends Controller
             foreach ($data as $history) {
                 if ($history->user_id == $custId) {
                     return view('pages/Courier/riwayatdetail', [
-                        'Title' => 'detail history',
+                        'Title' => 'Detail history' . ' | #TRX' . strtoupper(substr($history->order_id, 0, 10)),
                         'cust_name' => $cust_name,
                         'status' => $history->status,
                         'custId' => $custId,
