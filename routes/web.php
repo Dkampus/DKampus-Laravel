@@ -20,7 +20,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UntukKamuController;
-use App\View\Components\CourierLayout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 

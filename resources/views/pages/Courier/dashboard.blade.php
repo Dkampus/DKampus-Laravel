@@ -1,66 +1,86 @@
-<x-courier-layout>
+@extends('layouts.Root')
+@section('content')
+    @include('components.header.courierHeader')
     {{-- Main content --}}
-    <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col gap-4">
-            <div class="flex flex-col gap-2">
-                <h1 class="text-2xl font-bold text-[#F9832A]">Dashboard</h1>
-                <p class="text-lg text-[#F9832A]">Selamat datang, {{ $cour_name }}</p>
-            </div>
+    <main class="bg-[#F0F3F8] w-full h-screen mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col gap-4">
                 <div class="flex flex-col gap-2">
-                    <h1 class="text-xl font-bold text-[#F9832A]">Pesanan yang harus diantar</h1>
+                    @if($orders != null)
+                        <h1 class="text-xl font-bold text-[#F9832A]">Pesanan yang harus diantar</h1>
+                    @endif
                     <div class="flex flex-col gap-2">
                         @if ($orders != null)
                         <?php $i = 0; ?>
-                        @foreach ($orders as $order => $item)
-                        <div class="flex flex-col gap-2 border border-[#F9832A] p-2">
-                            <p class="text-lg font-bold text-[#F9832A]">Nama Umkm: {{ $item['nama_umkm'] }}</p>
-                            <p class=" text-lg font-bold text-[#F9832A]">Alamat Umkm: <a href=" {{ $item['link'] }}">{{ $item['alamat'] }}</a></p>
-                            <p class="text-lg font-bold text-[#F9832A]">Nomor Telp Umkm: {{ $no_telp_umkm[$i] }}</p>
-                            <p class="text-lg font-bold text-[#F9832A]">Orders:</p>
-                            @foreach ($item['orders'] as $order => $orders)
-                            @if ($orders['catatan'] != "-")
-                            <span class="text-lg font-bold text-[#F9832A]">{{ $orders['jumlah'] }} - {{ $orders['nama'] }} ( {{ $orders['catatan'] }} )</span>
-                            @else
-                            <span class="text-lg font-bold text-[#F9832A]">{{ $orders['jumlah'] }} - {{ $orders['nama'] }}</span>
-                            @endif
+                            @foreach ($orders as $order => $item)
+                                <div class="bg-white rounded-lg shadow-md overflow-hidden mb-4">
+                                    <div class="p-4">
+                                        {{-- logo shop and the name of umkms--}}
+                                        <div class="flex items-center gap-2">
+                                            <img src="{{ asset('shop-orange.svg') }}" alt="" class="w-10 h-10 rounded-full">
+                                            <h1 class="text-lg font-semibold text-gray-700">{{ $item['nama_umkm'] }}</h1>
+                                        </div>
+
+                                        {{-- information of orders --}}
+                                        <div class="text-sm text-gray-600 mb-2">
+                                            <p><span class="font-semibold">Alamat UMKM:</span> <a href="{{ $item['link'] }}" class="text-[#F9832A] hover:underline">{{ $item['alamat'] }}</a></p>
+                                            <p><span class="font-semibold">No. Telp UMKM:</span> {{ $no_telp_umkm[$i] }}</p>
+                                        </div>
+
+                                        <h3 class="text-md font-semibold text-gray-700 mb-2">Pesanan:</h3>
+                                        <ul class="list-disc list-inside text-sm text-gray-600 mb-2">
+                                            @foreach ($item['orders'] as $order)
+                                                @if ($order['catatan'] != "-")
+                                                    <li>{{ $order['jumlah'] }} ({{ $order['nama'] }}) - {{ $order['catatan'] }}</li>
+                                                @else
+                                                    <li>{{ $order['jumlah'] }} ({{ $order['nama'] }})</li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                        <div class="text-sm text-gray-600 mb-4">
+                                            <p><span class="font-semibold">Nama Penerima:</span> {{ $item['nama_penerima'] }}</p>
+                                            <p><span class="font-semibold">Alamat Penerima:</span> <a href="{{ $item['cust_link_address'] }}" class="text-[#F9832A] hover:underline">{{ $item['cust_address'] }}</a></p>
+{{--                                            @if ($item['notesAlamat'] != "-")--}}
+{{--                                                <p><span class="font-semibold">Catatan Alamat:</span> {{ $item['notesAlamat'] }}</p>--}}
+{{--                                            @endif--}}
+                                            <p><span class="font-semibold">No. Telp Cust:</span> {{ $no_telp_cust }}</p>
+                                        </div>
+
+                                        <div class="flex items-center justify-between">
+                                            <div class="text-sm text-gray-600">
+                                                <p><span class="font-semibold">Subtotal:</span> Rp. {{ number_format($item['total'], 0, ',', '.') }}</p>
+                                                <p><span class="font-semibold">Ongkir:</span> Rp. {{ number_format($item['ongkir'], 0, ',', '.') }}</p>
+                                            </div>
+
+                                            <div class="flex flex-row gap-2">
+                                                <form action="{{ route('complete.orders') }}" method="POST" onsubmit="return confirmCompleteOrder()">
+                                                    @csrf
+                                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full text-sm">
+                                                        Selesaikan
+                                                    </button>
+                                                    <input type="hidden" value="{{ $custId[$i] }}" name="custId">
+                                                </form>
+
+                                                <form action="{{ route('delete.orders') }}" method="POST" onsubmit="return confirmDeleteOrder()">
+                                                    @csrf
+                                                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full text-sm">
+                                                        Batalkan
+                                                    </button>
+                                                    <input type="hidden" value="{{ $custId[$i] }}" name="custId">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              <?php $i++ ?>
                             @endforeach
-                            <p class="text-lg font-bold text-[#F9832A]">Nama Penerima: {{ $item['nama_penerima'] }}</p>
-                            <p class="text-lg font-bold text-[#F9832A]">Alamat Penerima: <a href=" {{ $item['cust_link_address'] }}">{{ $item['cust_address'] }}</a></p>
-                            <p class="text-lg font-bold text-[#F9832A]">Notes Alamat: {{ $item['notesAlamat'] }}</p>
-                            <p class="text-lg font-bold text-[#F9832A]">SubTotal: Rp. {{number_format($item['total'], 0, ',', '.')}}</p>
-                            <p class="text-lg font-bold text-[#F9832A]">Ongkir: Rp. {{number_format($item['ongkir'], 0, ',', '.')}}</p>
-                            <p class="text-lg font-bold text-[#F9832A]">No Telp Cust: {{ $no_telp_cust }}</p>
-
-
-                            <div class="flex flex-row gap-2">
-                                <form action="{{ route('complete.orders') }}" method="POST" onsubmit="return confirmCompleteOrder()">
-                                    @csrf
-                                    <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-                                        Selesaikan
-                                    </button>
-                                    <input type="text" class="hidden" value="{{ $custId[$i] }}" name="custId" onsubmit="return confirmDeleteOrder()">
-                                </form>
-                                <form action="{{ route('delete.orders') }}" method="POST">
-                                    @csrf
-                                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
-                                        Batalkan Pesanan
-                                    </button>
-                                    <input type="text" class="hidden" value="{{ $custId[$i] }}" name="custId">
-                                </form>
-                            </div>
-                        </div>
-                        <?php $i++ ?>
-                        @endforeach
-                        @else
-                        <p class="text-lg font-bold text-[#F9832A]">Tidak ada pesanan yang harus diantar <br><a href="#" class="text-blue-500">Lihat semua pesanan</a></p>
                         @endif
                     </div>
                     <a href="{{ route('courierorder') }}" class="text-blue-500">Lihat semua pesanan</a>
                 </div>
             </div>
         </div>
-</x-courier-layout>
+    </main>
+    @include('components.navbar.navbarCourier')
 <script>
     function confirmCompleteOrder() {
         return confirm('Are you sure you want to complete this order?');

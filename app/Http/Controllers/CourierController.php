@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Addresse;
+use App\Models\HomeModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -48,6 +50,8 @@ class CourierController extends Controller
                     return view('pages/Courier/dashboard', [
                         'Title' => 'Dashboard',
                         // 'nama_umkm' => $nama_umkm,
+                        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                        'SeputarDkampus' => HomeModel::seputarDkampus(),
                         'nama_penerima' => $nama_penerima,
                         'no_telp_umkm' => $no_telp_umkm,
                         'orders' => $result,
@@ -59,6 +63,8 @@ class CourierController extends Controller
                     return view('pages/Courier/dashboard', [
                         'Title' => 'Dashboard',
                         // 'nama_umkm' => $nama_umkm,
+                        'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                        'SeputarDkampus' => HomeModel::seputarDkampus(),
                         // 'nama_penerima' => $nama_penerima,
                         'no_telp_umkm' => null,
                         'orders' => $result,
@@ -70,6 +76,8 @@ class CourierController extends Controller
                 return view('pages/Courier/dashboard', [
                     'Title' => 'Dashboard',
                     // 'nama_umkm' => $nama_umkm,
+                    'SeputarDkampus' => HomeModel::seputarDkampus(),
+                    'PengaturanAkun' => HomeModel::pengaturanAkun(),
                     // 'nama_penerima' => $nama_penerima,
                     'no_telp_umkm' => null,
                     'orders' => null,
@@ -249,13 +257,13 @@ class CourierController extends Controller
                 $namaUmkm[] = Data_umkm::find($history->umkm_id)->nama_umkm;
             }
             return view('pages/Courier/riwayat', [
-                'Title' => 'history',
+                'Title' => 'History',
                 'data' => $data,
                 'nama_umkm' => $namaUmkm,
             ]);
         } catch (Exception $e) {
             return view('pages/Courier/riwayat', [
-                'Title' => 'history',
+                'Title' => 'History',
                 'data' => null,
             ]);
         }
