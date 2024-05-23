@@ -2,7 +2,7 @@
 @section('content')
     @include('components.header.courierHeader')
         @php $i = 0 @endphp
-    <main class="bg-[#F0F3F8] py-2 px-2 sm:px-6 lg:px-8">
+    <main class="bg-[#F0F3F8] py-2 px-2 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:item-center">
         @foreach ($data as $history)
             <div class="bg-white rounded-lg shadow-md overflow-hidden mx-4 my-4 {{ $loop->last ? 'mb-32' : '' }}">
                 <div class="p-4">
