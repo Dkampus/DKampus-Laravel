@@ -3,13 +3,13 @@
 <div class="flex flex-col sm:flex-row items-center justify-center px-2">
     <section class="bg-white rounded-lg shadow-md w-full sm:w-1/2 max-w-4xl overflow-hidden">
         {{-- Header Section --}}
-        <div class="bg-[#F9832A] text-white p-4 flex items-center justify-between">
-            @if($data !== null)
-            <img src="{{asset('shop-white.svg')}}" alt="" class="w-10 h-10">
-            <h1 class="font-semibold text-xl sm:text-2xl">{{$namaUMKM}}</h1>
-            @else
-            @endif
-        </div>
+        @if($data !== null)
+            <div class="bg-[#F9832A] text-white p-4 flex items-center justify-between">
+                <img src="{{asset('shop-white.svg')}}" alt="" class="w-10 h-10">
+                <h1 class="font-semibold text-xl sm:text-2xl">{{$namaUMKM}}</h1>
+            </div>
+        @else
+        @endif
         {{-- Border Line --}}
         @if ($data !== null)
         <div class="border-b-2 border-[#F9832A] w-1/2 mx-auto my-5"></div>
@@ -23,8 +23,12 @@
                     <div id="contentPesanan{{ $item['id'] }}" class="shadow-md w-full md:w-full">
                         <div class="flex flex-row md:flex-row justify-between items-center mb-2 w-full h-36">
                             @php
-                            $menu = \App\Models\Menu::where('id', $item['id'])->first();
-                            $imagePath = $menu->image;
+                            try{
+                                $menu = \App\Models\Menu::where('id', $item['id'])->first();
+                                $imagePath = $menu->image;
+                            } catch (\Exception $e) {
+                                $imagePath = '';
+                            }
                             @endphp
                             <div class="flex flex-row justify-center items-center w-full h-full">
                                 <img src="{{Storage::url($imagePath)}}" alt="" class="w-full h-24 object-cover rounded-lg">
@@ -32,7 +36,7 @@
                             <div class="flex flex-col gap-2 px-5 w-full">
                                 {{-- Nama Makanan --}}
                                 <div class="flex flex-row justify-between">
-                                    <h1 class="font-semibold text-lg">{{ $menu->nama_makanan }}</h1>
+                                    <h1 class="font-semibold text-lg">{{ $menu->nama_makanan ?? 'null' }}</h1>
                                 </div>
                                 {{-- Text area for catatan --}}
                                 <div class="flex flex-row justify-between">
@@ -40,7 +44,7 @@
                                 </div>
                                 {{-- Harga Makanan --}}
                                 <div class="flex flex-row justify-between">
-                                    <h1 class="text-[#F9832A] font-semibold">Rp. {{ number_format($menu->harga, 0, ',', '.') }}</h1>
+                                    <h1 class="text-[#F9832A] font-semibold">Rp. {{ number_format($menu->harga ?? 0, 0, ',', '.') }}</h1>
                                 </div>
                             </div>
                             <div id="count" class="flex flex-col gap-2 ml-3 mt-[0.2rem]">
