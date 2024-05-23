@@ -131,7 +131,7 @@ class CartController extends Controller
         try {
             $database = app('firebase.database');
             $id = Auth::user()->id;
-            $courId = $request->courId;
+            $courId = $request->input('courId');
             if ($courId !== null) {
                 $orderId = substr($database->getReference('onProgress/' . $id . '-' . $courId . '/orderID')->getValue(), 0, 10);
                 $status = $database->getReference('onProgress/' . $id . '-' . $courId . '/status')->getValue();
@@ -153,6 +153,7 @@ class CartController extends Controller
                     'nama_umkm' => $nama_umkm,
                     'nama_driver' => $nama_driver,
                     'orders' => $orders,
+                    'courId' => $courId,
                     'items' => null,
                 ]);
             } else {

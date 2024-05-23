@@ -239,6 +239,7 @@
         var buttonDetail = $('<button>').addClass('bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-full text-sm').text('Detail');
         var formDetail = $('<form>').attr('action', "{{ route('status.order') }}").attr('method', "POST").addClass('mr-2 mt-2');
         $('<input>').attr('type', 'text').val(custId).attr('name', 'custId').appendTo(formDetail).addClass('hidden');
+        $('<input>').attr('type', 'text').val(courId).attr('name', 'courId').appendTo(formDetail).addClass('hidden');
         $('<input>').attr('type', 'text').val(orderId).attr('name', 'id').appendTo(formDetail).addClass('hidden');
 
         var csrfToken = '{{ csrf_token() }}';
@@ -258,8 +259,8 @@
         divLeft.append(svgIcon, divInfo);
         divHeader.append(divLeft, spanStatus);
         divTotal.append(pTotalLabel, pTotal);
-        buttonDetail.append(inputCourId, inputId);
-        formDetail.append(buttonDetail);
+        buttonDetail.append(inputId);
+        formDetail.append(buttonDetail, inputCourId);
         buttonChat.append(imgChat);
         formChat.append(buttonChat, inputCourId);
         divActions.append(formDetail, formChat);

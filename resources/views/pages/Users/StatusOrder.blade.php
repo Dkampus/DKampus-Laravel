@@ -15,8 +15,8 @@
             <a href="#" class="text-[#F9832A]">2024-12-12 12:12:12</a>
         </p>
     </div>
+    @if ($nama_driver != null)
     <div class="w-full h-px bg-gray-300 my-3"></div>
-
     <div class="flex justify-between items-center gap-3 p-2">
         <div class="flex items-center">
             <img src="{{ asset('images/ProfilePicture.png') }}" alt="" class="w-10 h-10 sm:w-14 sm:h-14 rounded-full object-cover bg-gray-300">
@@ -29,11 +29,11 @@
             <button type="submit" class="w-7 sm:w-6">
                 <img src="/bubbleChat.svg" alt="Chat Icon" class="w-full">
             </button>
-            <input type="text" class="hidden" value="{{ $history->cour_id ?? '' }}" name="courId">
+            <input type="text" class="hidden" value="{{ $courId ?? '' }}" name="courId">
         </form>
     </div>
-
     <div class="w-full h-px bg-gray-300 my-3"></div>
+    @endif
     <div class="grid grid-cols-2 gap-2">
         <div class="flex items-center gap-x-2">
             <img src="{{ asset('shop-orange.svg') }}" alt="" class="w-4 h-4 sm:w-6 sm:h-6">
