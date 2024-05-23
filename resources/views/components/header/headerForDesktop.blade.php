@@ -16,15 +16,12 @@
         {{-- Search --}}
         @include('components.header.searchDesktop')
 
-        <button class="hidden mx-auto md:flex">
-            <img src="{{asset('/cart.svg')}}" alt="">
-        </button>
+{{--        <button class="hidden mx-auto md:flex">--}}
+{{--            <img src="{{asset('/cart.svg')}}" alt="">--}}
+{{--        </button>--}}
 
         {{-- Sidebar --}}
         <div class="flex flex-row items-center gap-3">
-            {{-- <button>
-            <img src="chat.svg" alt="" class="w-8 mr-5">
-            </button> --}}
             @auth
             <a href = "/chats" class="text-[#F9832A] text-2xl font-semibold">
                 <img src="{{asset('chat.svg')}}" alt="" class="w-8 mr-5">
