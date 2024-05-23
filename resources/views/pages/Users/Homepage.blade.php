@@ -31,7 +31,7 @@
             @foreach ($Carousel as $item)
             <swiper-slide class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
                 <a href="/kategori/{{ strtolower($item['Title']) }}" class="flex flex-col justify-evenly h-full items-center">
-                    <img src="{{ $item['Icon'] }}" alt="" class="scale-150 md:scale-[2]">
+                    <img src="{{ $item['Icon'] }}" alt="" class="scale-150 md:scale-[1.7]">
                     <h1 class="font-normal">{{ $item['Title'] }}</h1>
                 </a>
             </swiper-slide>
@@ -42,7 +42,7 @@
             @foreach ($CarouselDesktop as $item)
             <swiper-slide id="category" class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
                 <a href="/kategori/{{ strtolower($item['Title']) }}" class="flex flex-col justify-evenly h-full items-center">
-                    <img src="{{ $item['Icon'] }}" alt="" class="scale-150 md:scale-[2]">
+                    <img src="{{ $item['Icon'] }}" alt="" class="scale-150 md:scale-[1.5]">
                     <h1 class="font-normal text-lg">{{ $item['Title'] }}</h1>
                 </a>
             </swiper-slide>
