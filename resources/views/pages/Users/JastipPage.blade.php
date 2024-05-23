@@ -11,24 +11,26 @@
 
         <form action="{{ route('jastip.order') }}" method="POST">
             @csrf
-            <div class="mb-4" id="menuContainer">
-                <label class="block text-sm font-medium text-gray-700 mb-2">List menu yang ingin kamu pesan :</label>
-                <div class="flex items-center mb-2">
-                    <input type="text" name="nama_menu[]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
-                    <input type="number" name="kuantitas[]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
-                    <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
+            <div id="warungContainer">
+                <div class="warung mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Warung:</label>
+                    <input type="text" name="warung[]" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" placeholder="Nama UMKM pilihanmu" required>
+
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Menu:</label>
+                    <div class="menuContainer">
+                        <div class="menu flex items-center mb-2">
+                            <input type="text" name="nama_menu[][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
+                            <input type="number" name="kuantitas[][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
+                            <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
+                        </div>
+                    </div>
+                    <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this)">Tambah Menu</button>
                 </div>
             </div>
-
-            <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu()">Tambah Menu</button>
-
-            <div class="mb-4">
-                <label for="warung" class="block text-sm font-medium text-gray-700">Nama Warung:</label>
-                <input type="text" id="warung" name="warung" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
-            </div>
+            <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addWarung()">Tambah Warung</button>
 
             <div class="mb-4">
-                <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat Warung (Autocomplete):</label>
+                <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat Warung:</label>
                 <input type="text" id="alamat" name="alamat" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50">
                 <input type="text" id="geo" name="geo" class="hidden">
                 <input type="text" id="link" name="link" class="hidden">
@@ -56,10 +58,15 @@
                         });
                     }
                 </script>
+                {{-- Notes info --}}
+                <span class="text-xs text-gray-500">*Masukan alamat lengkap warung yang dituju, dan jika lebih dari 1 warung tolong yang searah antar warung</span>
             </div>
+
             <div class="mb-6">
                 <label for="catatan" class="block text-sm font-medium text-gray-700">Catatan Tambahan:</label>
                 <textarea id="catatan" name="catatan" rows="3" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50"></textarea>
+                {{-- Notes info --}}
+                <span class="text-xs text-gray-500">*Catatan tambahan untuk driver, seperti menu/lokasi warung/lokasi pengantaran.</span>
             </div>
 
             <div class="flex justify-between items-center">
@@ -166,20 +173,41 @@
     });
 
 
-    function addMenu() {
-        const menuContainer = document.getElementById('menuContainer');
+    function addMenu(button) {
+        const menuContainer = button.previousElementSibling;
         const newMenuInput = document.createElement('div');
-        newMenuInput.classList.add('flex', 'items-center', 'mb-2');
+        newMenuInput.classList.add('menu', 'flex', 'items-center', 'mb-2');
         newMenuInput.innerHTML = `
-            <input type="text" name="nama_menu[]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50">
-            <input type="number" name="kuantitas[]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50">
-            <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
-        `;
+        <input type="text" name="nama_menu[][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
+        <input type="number" name="kuantitas[][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
+        <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
+    `;
         menuContainer.appendChild(newMenuInput);
     }
 
     function removeMenu(button) {
         button.parentNode.remove();
+    }
+
+    function addWarung() {
+        const warungContainer = document.getElementById('warungContainer');
+        const newWarungInput = document.createElement('div');
+        newWarungInput.classList.add('warung', 'mb-4');
+        newWarungInput.innerHTML = `
+        <label class="block text-sm font-medium text-gray-700 mb-2">Nama Warung:</label>
+        <input type="text" name="warung[]" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" placeholder="Nama UMKM pilihanmu" required>
+
+        <label class="block text-sm font-medium text-gray-700 mb-2">Menu:</label>
+        <div class="menuContainer">
+            <div class="menu flex items-center mb-2">
+                <input type="text" name="nama_menu[][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
+                <input type="number" name="kuantitas[][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
+                <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
+            </div>
+        </div>
+        <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this)">Tambah Menu</button>
+    `;
+        warungContainer.appendChild(newWarungInput);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
