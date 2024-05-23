@@ -75,17 +75,6 @@ Route::get('/rekomendasi-menu', function () {
     ]);
 });
 
-// Jastip Page
-Route::get('/jastip', function () {
-    return view('pages.Users.JastipPage', [
-        'Title' => 'Jastip',
-        'Jastip' => Data_umkm::all(),
-        'PengaturanAkun' => HomeModel::pengaturanAkun(),
-        'SeputarDkampus' => HomeModel::seputarDkampus(),
-        'FooterPart1' => Footer::footerPart1(),
-    ]);
-});
-
 // Promo Page
 Route::get('/promo', function () {
     return view('pages.Users.SemuaPage', [
@@ -331,6 +320,10 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     Route::post('/daftar_alamat', [UserController::class, 'daftarAlamat'])->name('daftar.alamat');
     Route::post('/defaul-address', [UserController::class, 'alamatUtama'])->name('alamatUtama');
     Route::post('/delete-address', [UserController::class, 'deleteAlamat'])->name('delete.alamat');
+
+    // Jastip Page
+    Route::get('/jastip', [CartController::class, 'jastipIndex'])->name('jastip.index');
+    Route::post('/jastip-post', [CartController::class, 'jastip'])->name('jastip.order');
 });
 
 

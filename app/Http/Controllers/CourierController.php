@@ -42,10 +42,13 @@ class CourierController extends Controller
                     }
                     $i++;
                 }
-                // dd($idCust);
                 if ($umkmId != null) {
                     foreach ($umkmId as $id) {
-                        $no_telp_umkm[] = Data_umkm::find($id)->no_telp_umkm;
+                        if ($id == 'Jastip') {
+                            $no_telp_umkm[] = '-';
+                        } else {
+                            $no_telp_umkm[] = Data_umkm::find($id)->no_telp_umkm;
+                        }
                     }
                     return view('pages/Courier/dashboard', [
                         'Title' => 'Dashboard Courier',
@@ -205,7 +208,8 @@ class CourierController extends Controller
             $database->getReference('onProgress/' . $custId . '-' . $courId)->remove();
             return redirect()->back();
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'gagal menghapus data');
+            // dd($e);
+            return redirect()->back()->with('error', 'gagal');
         }
     }
 

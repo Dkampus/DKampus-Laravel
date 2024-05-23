@@ -143,13 +143,11 @@ class MenuController extends Controller
 
             $total = $this->calculateTotalPrice($userID);
             $database->getReference('cart/' . $userID . '/total')->set($total);
-            $database->getReference('cart/' . $userID . '/alamat')->set(Data_umkm::find($umkmID)->alamat);
-            $database->getReference('cart/' . $userID . '/link')->set(Data_umkm::find($umkmID)->link);
-            $database->getReference('cart/' . $userID . '/alamatUmkm')->set(Data_umkm::find($umkmID)->link);
+            $database->getReference('cart/' . $userID . '/umkm_address')->set(Data_umkm::find($umkmID)->alamat);
+            $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($umkmID)->link);
 
             return redirect()->back()->with('status', 'success');
         } catch (Exception $e) {
-            dd($e);
             return redirect()->back()->with('error2', 'Error');
         }
     }
@@ -184,8 +182,7 @@ class MenuController extends Controller
 
             return $total;
         } catch (Exception $e) {
-            // Handle exception if necessary
-            return 0; // Return 0 or handle the error appropriately
+            return 0;
         }
     }
 
@@ -197,8 +194,6 @@ class MenuController extends Controller
         $findUmkm = Data_umkm::find($request->umkm);
 
         try {
-
-
             Menu::create([
                 "data_umkm_id" => $findUmkm->id,
                 "nama_makanan" => $request->nama_makanan,
@@ -216,60 +211,29 @@ class MenuController extends Controller
         }
     }
 
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
-        // Validate the request data
         $validatedData = $request->validate([
             'edit_nama_makanan' => 'required|string',
             'edit_deskripsi' => 'required|string',
             'edit_harga' => 'required|numeric',
             'edit_promo' => 'nullable|string',
             'edit_category' => 'required|string',
-            // Add validation rules for other fields if needed
         ]);
 
-        // Find the Menu item by its ID
         $menu = Menu::findOrFail($id);
 
-        // Update the Menu item with the validated data
         $menu->update([
             'nama_makanan' => $validatedData['edit_nama_makanan'],
             'deskripsi' => $validatedData['edit_deskripsi'],
             'harga' => $validatedData['edit_harga'],
             'promo' => $validatedData['edit_promo'],
             'category' => $validatedData['edit_category'],
-            // Update other fields as needed
         ]);
 
-        // Handle file upload if necessary
-
-        // Redirect back with a success message
         return redirect()->back()->with('success', 'Menu item updated successfully.');
     }
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Menu $menu)
     {
         DB::beginTransaction();

@@ -66,8 +66,8 @@
                     </div>
                 </div>
             </form>
-            <input type="hidden" name="items[harga][]" value="{{ $item['harga'] }}">
-            <input type="hidden" name="items[id][]" value="{{ $item['id'] }}">
+            <input type="text" class="hidden" name="items[harga][]" value="{{ $item['harga'] }}">
+            <input type="text" class="hidden" name="items[id][]" value="{{ $item['id'] }}">
             @empty
             <h1 class="text-center font-semibold text-lg">Ups, pesanan kamu kosong nih :)</h1>
             @endforelse
@@ -121,10 +121,10 @@
                 <div id="desc" class="flex flex-row gap-2 items-center">
                     @if ($alamatUtama !== null)
                     <h1 class="text-[#5e5e5e] font-medium" id="selected_address">{{ $alamatUtama->nama_alamat }}</h1>
-                    <input type="hidden" id="selected_address_id" name="selected_address_id" value="{{ $alamatUtama->id }}">
+                    <input type="text" class="hidden" id="selected_address_id" name="selected_address_id" value="{{ $alamatUtama->id }}">
                     @else
                     <h1 class="text-[#5e5e5e] font-medium" id="selected_address">Masukan Alamat</h1>
-                    <input type="hidden" id="selected_address_id" name="selected_address_id" value="">
+                    <input type="text" class="hidden" id="selected_address_id" name="selected_address_id" value="">
                     @endif
                     <img src="ArrowTop.svg" alt="">
                 </div>
@@ -147,7 +147,7 @@
 <form action="{{ route('cart.delete') }}" method="POST" class="delete-form hidden">
     @csrf
     @method('DELETE')
-    <input type="hidden" name="id" id="deleteInput">
+    <input type="text" class="hidden" name="id" id="deleteInput">
 </form>
 
 @endsection

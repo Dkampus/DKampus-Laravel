@@ -16,6 +16,7 @@ use App\Models\history;
 use Exception;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Client;
+use App\Models\Footer;
 
 use function PHPSTORM_META\type;
 
@@ -97,7 +98,11 @@ class CartController extends Controller
             foreach ($data as $history) {
                 $dataCustId[] = $history->user_id;
                 $dataCourId[] = $history->cour_id;
-                $namaUmkm[] = Data_umkm::find($history->umkm_id)->nama_umkm;
+                if ($history->umkm_id == 0) {
+                    $namaUmkm[] = "Jastip";
+                } else {
+                    $namaUmkm[] = Data_umkm::find($history->umkm_id)->nama_umkm;
+                }
             }
             return view('pages.Users.Status', [
                 'Title' => 'Status',
@@ -186,8 +191,12 @@ class CartController extends Controller
             $id = request()->id;
             $custId = Auth::user()->id;
             $data = User::find($custId)->custHistory;
+
             foreach ($data as $history) {
                 if ($history->user_id == $custId && $id == $history->id) {
+                    $nama_umkm = $history->umkm_id == 0 ? "Jastip" : Data_umkm::find($history->umkm_id)->nama_umkm;
+                    $nama_driver = User::find($courId)->nama_user;
+
                     return view('pages.Users.StatusOrder', [
                         'Title' => 'Detail Order',
                         'NavPesanan' => 'Detail Order',
@@ -197,8 +206,8 @@ class CartController extends Controller
                         'subTotal' => $history->harga,
                         'ongkir' => $history->ongkir,
                         'total' => $history->ongkir + $history->harga,
-                        'nama_umkm' => Data_umkm::find($history->umkm_id)->nama_umkm,
-                        'nama_driver' => User::find($courId)->nama_user,
+                        'nama_umkm' => $nama_umkm,
+                        'nama_driver' => $nama_driver,
                         'orders' => null,
                         'items' => $history->item,
                     ]);
@@ -466,7 +475,11 @@ class CartController extends Controller
                 $nama_penerima = Auth::user()->nama_user;
                 $item = $database->getReference('needToDeliver/' . $userID . '-/orders')->getChildKeys();
                 $idumkm = $database->getReference('needToDeliver/' . $userID . '-/orders' . '/' . $item[0] . '/umkm_id')->getValue();
-                $namaUMKM = Data_umkm::find($idumkm)->nama_umkm;
+                if ($idumkm == 'Jastip') {
+                    $namaUMKM = 'Jastip';
+                } else {
+                    $namaUMKM = Data_umkm::find($idumkm)->nama_umkm;
+                }
                 $database->getReference('needToDeliver/' . $userID . '-/nama_penerima')->set($nama_penerima);
                 $database->getReference('needToDeliver/' . $userID . '-/nama_umkm')->set($namaUMKM);
                 date_default_timezone_set('Asia/Jakarta');
@@ -514,6 +527,157 @@ class CartController extends Controller
             return redirect('/pesanan');
         } catch (Exception $e) {
             return redirect()->back()->with('error2', 'Error');
+        }
+    }
+
+    public function jastip(Request $request)
+    {
+        try {
+            $userID = Auth::user()->id;
+            $database = app('firebase.database');
+            $namaMenus = $request->input('nama_menu');
+            $kuantitas = $request->input('kuantitas');
+            $idMakanan = '-';
+            $umkmID = 'Jastip';
+            $alamat = $request->input('alamat');
+            $link = $request->input('link');
+            $geoUmkm = $request->input('geo');
+            $orderID = hash('sha256', $userID . time());
+
+
+            $refNTD = $database->getReference('needToDeliver/' . $userID . '-')->getSnapshot()->exists();
+            if ($database->getReference('onProgress')->getSnapshot()->exists() && $database->getReference('onProgress')->getSnapshot()->hasChildren()) {
+                $refId = $database->getReference('onProgress')->getChildKeys();
+                foreach ($refId as $id) {
+                    $parts = explode("-", $id);
+                    $courId = $parts[1];
+                    $refOP = $database->getReference('onProgress/' . $userID . '-' . $courId)->getSnapshot()->exists();
+                    $refNTD = $database->getReference('needToDeliver/' . $userID . '-')->getSnapshot()->exists();
+                    if (!$refNTD && !$refOP) {
+                        if (!empty($namaMenus) && !empty($kuantitas)) {
+                            foreach ($namaMenus as $index => $namaMenu) {
+                                $postData = [
+                                    'id' => $idMakanan,
+                                    'nama' => $namaMenu,
+                                    'umkm_id' => $umkmID,
+                                    'harga' => 0,
+                                    'jumlah' => $kuantitas[$index],
+                                    'catatan' => '-',
+                                ];
+                                $database->getReference('cart/' . $userID . '/orders/item' . ($index + 1))->set($postData);
+                            }
+                            if (request()->selected_address_id != null) {
+                                $id = request()->selected_address_id;
+                                $alamatUser = User::find($userID);
+                                $geoUser = $alamatUser->addresses()->where('id', $id)->first()->geo;
+                                $notesAlamat = $alamatUser->addresses()->where('id', $id)->first()->notes;
+                                $ongkir = $this->ongkir($geoUmkm, $geoUser);
+                                if (is_numeric($ongkir)) {
+                                    $jarak = $this->calculteDistance($geoUmkm, $geoUser);
+                                    $database->getReference('cart/' . $userID . '/cust_address')->set($alamat->addresses()->where('id', $id)->first()->address);
+                                    $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamat->addresses()->where('id', $id)->first()->link);
+                                    $database->getReference('cart/' . $userID . '/jarak')->set($jarak);
+                                    $database->getReference('cart/' . $userID . '/notesAlamat')->set($notesAlamat);
+                                    $database->getReference('cart/' . $userID . '/notesPesanan')->set($request->input('catatan'));
+                                    $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir + 1000);
+                                    $database->getReference('cart/' . $userID . '/orderID')->set($orderID);
+                                    $database->getReference('cart/' . $userID . '/total')->set(5000);
+                                    $database->getReference('cart/' . $userID . '/umkm_address')->set($alamat);
+                                    $database->getReference('cart/' . $userID . '/umkm_link_address')->set($link);
+                                    $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
+                                    $total = $database->getReference('cart/' . $userID . '/total')->getValue();
+                                    return view('pages.Users.Pay', [
+                                        'Title' => 'Pay',
+                                        'orderID' => $orderID,
+                                        'carts' => $carts,
+                                        'total' => $total + $ongkir,
+                                        'nama_umkm' => "Jastip",
+                                    ]);
+                                } else {
+                                    return redirect()->back()->with('error2', 'Your Distance Is To Far Max 2KM');
+                                }
+                            } else {
+                                return redirect()->back()->with('error2', 'please select the address first');
+                            }
+                        }
+                    }
+                }
+            } else if (!$refNTD) {
+                if (!empty($namaMenus) && !empty($kuantitas)) {
+                    foreach ($namaMenus as $index => $namaMenu) {
+                        $postData = [
+                            'id' => $idMakanan,
+                            'nama' => $namaMenu,
+                            'umkm_id' => $umkmID,
+                            'harga' => 0,
+                            'jumlah' => $kuantitas[$index],
+                            'catatan' => '-',
+                        ];
+                        $database->getReference('cart/' . $userID . '/orders/item' . ($index + 1))->set($postData);
+                    }
+                    if (request()->selected_address_id != null) {
+                        $id = request()->selected_address_id;
+                        $alamatUser = User::find($userID);
+                        $geoUser = $alamatUser->addresses()->where('id', $id)->first()->geo;
+                        $notesAlamat = $alamatUser->addresses()->where('id', $id)->first()->notes;
+                        $ongkir = $this->ongkir($geoUmkm, $geoUser);
+                        if (is_numeric($ongkir)) {
+                            $jarak = $this->calculteDistance($geoUmkm, $geoUser);
+                            $database->getReference('cart/' . $userID . '/cust_address')->set($alamatUser->addresses()->where('id', $id)->first()->address);
+                            $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamatUser->addresses()->where('id', $id)->first()->link);
+                            $database->getReference('cart/' . $userID . '/jarak')->set($jarak);
+                            $database->getReference('cart/' . $userID . '/notesAlamat')->set($notesAlamat);
+                            $database->getReference('cart/' . $userID . '/notesPesanan')->set($request->input('catatan'));
+                            $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir + 1000);
+                            $database->getReference('cart/' . $userID . '/orderID')->set($orderID);
+                            $database->getReference('cart/' . $userID . '/total')->set(5000);
+                            $database->getReference('cart/' . $userID . '/umkm_address')->set($alamat);
+                            $database->getReference('cart/' . $userID . '/umkm_link_address')->set($link);
+                            $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
+                            $total = $database->getReference('cart/' . $userID . '/total')->getValue();
+                            return view('pages.Users.payJastip', [
+                                'Title' => 'Pay',
+                                'orderID' => $orderID,
+                                'carts' => $carts,
+                                'subtotal' => $total,
+                                'ongkir' => $database->getReference('cart/' . $userID . '/ongkir')->getValue(),
+                                'nama_umkm' => "Jastip",
+                            ]);
+                        } else {
+                            return redirect()->back()->with('error2', 'Your Distance Is To Far Max 2KM');
+                        }
+                    } else {
+                        return redirect()->back()->with('error2', 'please select the address first');
+                    }
+                }
+            } else {
+                return redirect()->back()->with('error2', "you already have an order that isn't complete");
+            }
+            return redirect()->back()->with('status', 'success');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error2', 'Error');
+        }
+    }
+
+    public function jastipIndex()
+    {
+        try {
+            $userID = Auth::user()->id;
+            $alamat = User::find($userID);
+            $listAlamat = $alamat ? $alamat->addresses()->where('user_id', $userID)->get() : null;
+            $alamatUtama = $listAlamat ? $listAlamat->where('utama', 1)->first() : null;
+
+            return view('pages.Users.JastipPage', [
+                'Title' => 'Jastip',
+                'Jastip' => Data_umkm::all(),
+                'PengaturanAkun' => HomeModel::pengaturanAkun(),
+                'SeputarDkampus' => HomeModel::seputarDkampus(),
+                'FooterPart1' => Footer::footerPart1(),
+                'AddressList' => $listAlamat,
+                'alamatUtama' => $alamatUtama,
+            ]);
+        } catch (Exception $e) {
+            return redirect('/')->with('error2', 'Terjadi kesalahan');
         }
     }
 }

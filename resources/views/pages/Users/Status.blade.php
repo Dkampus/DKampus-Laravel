@@ -192,7 +192,7 @@
         var formHistory = $('<form>').attr('action', "{{ route('status.order') }}").attr('method', 'POST');
         var divLacak = $('<div>').addClass('bg-[#F9832A] w-20 h-9 flex flex-col items-center justify-center rounded-xl text-white mt-[0.5rem]');
         var a_lacak = $('<button>').addClass('w-full h-full').text('Lacak').attr('type', 'submit');
-        var inputId = $('<input>').attr('type', 'text').addClass('hidden').attr('name', 'courId').val(courId);
+        var inputId = $('<input>').attr('type', 'text').addClass('hidden').attr('name', 'courId').val();
 
         var csrfToken = '{{ csrf_token() }}';
         formHistory.append($('<input>')

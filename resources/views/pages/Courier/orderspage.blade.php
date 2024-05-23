@@ -12,6 +12,7 @@
     <div id="orderContainer" class="flex flex-col gap-5">
 
     </div>
+
     <div id="orderDetailModal" class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
         <div class="bg-white p-8 rounded-lg w-5/6 max-w-lg">
             <h2 class="text-2xl font-bold mb-4">Order Details</h2>
@@ -21,9 +22,51 @@
             <button id="closeModalBtn" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Close</button>
         </div>
     </div>
+
+    <!-- Modal Konfirmasi dengan Tailwind CSS -->
+    <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="confirmationModal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+            <!-- Ini adalah elemen overlay untuk menutup modal dengan klik luar -->
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <!-- Icon -->
+                            <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                Konfirmasi Pengambilan Order
+                            </h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">
+                                    Apakah Anda yakin ingin mengambil order ini?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm" id="confirmTakeOrder">
+                        Ambil Order
+                    </button>
+                    <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeModal()">
+                        Batal
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
         // Initialize Firebase
         var firebaseConfig = {
@@ -101,7 +144,7 @@
                     <form action="{{ route('take.order') }}" method="POST" class="mr-2">
                     @csrf
                     <input type="hidden" name="orderId" value="${id}">
-                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Take Order</button>
+                    <button type="submit" class="takeOrderBtn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Take Order</button>
                     </form>
                     <button onclick="showOrderDetailModal(${JSON.stringify(orderData).replace(/"/g, '&quot;')})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View Details</button>
                 </div>
@@ -167,8 +210,31 @@
 
         database.ref('needToDeliver').on('child_removed', function(snapshot) {
             var orderId = snapshot.key;
-            console(orderId)
+            console.log(orderId);
             $('#order_' + orderId).remove();
+        });
+
+        function closeModal() {
+            document.getElementById('confirmationModal').classList.add('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const takeOrderButtons = document.querySelectorAll('.takeOrderBtn');
+            takeOrderButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const orderId = this.previousElementSibling.value;
+                    document.getElementById('confirmTakeOrder').dataset.orderId = orderId;
+                    document.getElementById('confirmationModal').classList.remove('hidden');
+                });
+            });
+
+            document.getElementById('confirmTakeOrder').addEventListener('click', function() {
+                const orderId = this.dataset.orderId;
+                form = document.querySelector(input[value = "${orderId}"]).closest('form');
+                form.submit();
+                closeModal();
+            });
         });
     </script>
 </main>
