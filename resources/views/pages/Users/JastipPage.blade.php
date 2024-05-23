@@ -6,7 +6,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy7Wqkn0A1tWbQf9-LnGum9UucUooaQXY&libraries=places&callback=initAutocomplete" defer></script>
 </header>
 <main class="px-3 md:mx-2 md:mb-40">
-    <section class="bg-white rounded-lg shadow-md p-6 md:p-8 h-auto mb-28 overflow-y-auto">
+    <section class="bg-white rounded-lg shadow-md p-6 md:p-8 h-auto h-screen mb-28 overflow-y-auto">
         <h2 class="text-2xl font-semibold text-gray-800 mb-4">Dkampus Jasa Titip (Jastip)</h2>
 
         <form action="{{ route('jastip.order') }}" method="POST">
