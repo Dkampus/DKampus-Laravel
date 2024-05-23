@@ -26,7 +26,7 @@
 
     {{-- Carousel Category --}}
     <div class="flex flex-row items-start relative">
-        {{-- <div class="bg-gradient-to-r from-white from-[30%] to-transparent w-14 z-50 h-28 fixed  left-0"></div> --}}
+         <div class="bg-gradient-to-r from-white from-[30%] to-transparent w-14 z-50 h-28 fixed  left-0"></div>
         <x-carousel.slider-category>
             @foreach ($Carousel as $item)
             <swiper-slide class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
