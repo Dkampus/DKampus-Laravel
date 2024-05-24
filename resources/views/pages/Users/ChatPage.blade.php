@@ -23,14 +23,14 @@
     <script>
         // Initialize Firebase
         var firebaseConfig = {
-            apiKey: "AIzaSyBJK-ziJOe-oMgSkjI5MJK16OO0LjQDMQQ",
-            authDomain: "tester-6b415.firebaseapp.com",
-            databaseURL: "https://tester-6b415-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "tester-6b415",
-            storageBucket: "tester-6b415.appspot.com",
-            messagingSenderId: "829911681243",
-            appId: "1:829911681243:web:f6e4657da628304752e4fe",
-            measurementId: "G-7PCGVXL2MX"
+            apiKey: "{{ env('FIREBASE_API_KEY') }}",
+            authDomain: "{{ env('FIREBASE_AUTH_DOMAIN') }}",
+            databaseURL: "{{ env('FIREBASE_DATABASE_URL') }}",
+            projectId: "{{ env('FIREBASE_PROJECT_ID') }}",
+            storageBucket: "{{ env('FIREBASE_STORAGE_BUCKET') }}",
+            messagingSenderId: "{{ env('FIREBASE_MESSAGING_SENDER_ID') }}",
+            appId: "{{ env('FIREBASE_APP_ID') }}",
+            measurementId: "{{ env('FIREBASE_MEASUREMENT_ID') }}"
         };
         firebase.initializeApp(firebaseConfig);
 
@@ -74,7 +74,6 @@
                         var mssgData = lastMessageSnapshot.val();
                         var messageData = mssgData.msgs;
                         if (messageData) {
-                            console.log(custId, courId)
                             var sender = snapshot.val().cour_name;
                             var message = messageData.msg;
                             var timestamp = messageData.timestamp;
@@ -82,7 +81,7 @@
                             var hours = date.getHours().toString().padStart(2, '0');
                             var minutes = date.getMinutes().toString().padStart(2, '0');
                             var formattedTimestamp = hours + ':' + minutes;
-                            chatItem = createChatItem(sender, message, formattedTimestamp, courId, countMssg);
+                            chatItem = createChatItem(sender, message, timestamp, courId, countMssg);
                             chatList = $('#chat-list');
                             chatItems = chatList.children('.chat-item');
                             existingChatItem = chatItems.find('.chat-item[data-cour-id="' + courId + '"]');
