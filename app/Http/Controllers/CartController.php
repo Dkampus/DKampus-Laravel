@@ -471,29 +471,32 @@ class CartController extends Controller
                 $filePath = $request->file('bukti')->store('/public/payment');
                 $fileName = basename($filePath);
                 $order = $database->getReference('cart/' . $userID)->getValue();
-                $database->getReference('needToDeliver/' . $userID . '-')->set($order);
-                $database->getReference('needToDeliver/' . $userID . '-/status')->set('searching');
-                $nama_penerima = Auth::user()->nama_user;
-                $item = $database->getReference('needToDeliver/' . $userID . '-/orders')->getChildKeys();
-                $idumkm = $database->getReference('needToDeliver/' . $userID . '-/orders' . '/' . $item[0] . '/umkm_id')->getValue();
-                if ($idumkm == 'Jastip') {
-                    $namaUMKM = 'Jastip';
+                if ($order) {
+                    $database->getReference('needToDeliver/' . $userID . '-')->set($order);
+                    $database->getReference('needToDeliver/' . $userID . '-/status')->set('searching');
+                    $nama_penerima = Auth::user()->nama_user;
+                    $item = $database->getReference('needToDeliver/' . $userID . '-/orders')->getChildKeys();
+                    $idumkm = $database->getReference('needToDeliver/' . $userID . '-/orders' . '/' . $item[0] . '/umkm_id')->getValue();
+                    if ($idumkm == 'Jastip') {
+                        $namaUMKM = 'Jastip';
+                    } else {
+                        $namaUMKM = Data_umkm::find($idumkm)->nama_umkm;
+                    }
+                    $database->getReference('needToDeliver/' . $userID . '-/nama_penerima')->set($nama_penerima);
+                    $database->getReference('needToDeliver/' . $userID . '-/nama_umkm')->set($namaUMKM);
+                    date_default_timezone_set('Asia/Jakarta');
+                    $timestamp = date('Y-m-d H:i:s');
+                    $database->getReference('needToDeliver/' . $userID . '-/timestamp')->set($timestamp);
+                    $database->getReference('needToDeliver/' . $userID . '-/bukti')->set($fileName);
+                    $database->getReference('cart/' . $userID)->remove();
+                    return redirect('/pesanan/status');
                 } else {
-                    $namaUMKM = Data_umkm::find($idumkm)->nama_umkm;
+                    return redirect('/jastip')->with('error2', 'Error');
                 }
-                $database->getReference('needToDeliver/' . $userID . '-/nama_penerima')->set($nama_penerima);
-                $database->getReference('needToDeliver/' . $userID . '-/nama_umkm')->set($namaUMKM);
-                date_default_timezone_set('Asia/Jakarta');
-                $timestamp = date('Y-m-d H:i:s');
-                $database->getReference('needToDeliver/' . $userID . '-/timestamp')->set($timestamp);
-                $database->getReference('needToDeliver/' . $userID . '-/bukti')->set($fileName);
-                $database->getReference('cart/' . $userID)->remove();
-                return redirect('/pesanan/status');
             } else {
                 return redirect()->back()->withErrors('error2', 'Invalid file uploaded.');
             }
         } catch (Exception $e) {
-            dd($e);
             return redirect('/pesanan')->with('error2', 'Error');
         }
     }
