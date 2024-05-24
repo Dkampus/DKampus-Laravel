@@ -97,7 +97,7 @@
     </div>
     {{-- Cancel Transaction --}}
     <div class="flex justify-center items-center mb-10">
-        <a href="#" class="flex justify-center items-center">
+        <a href="/jastip" class="flex justify-center items-center">
             <h1 class="text-black text-s underline">Batalkan transaksi?</h1>
         </a>
     </div>
