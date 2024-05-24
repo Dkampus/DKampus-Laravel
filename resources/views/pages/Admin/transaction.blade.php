@@ -45,7 +45,7 @@
                                     <td class="text-center">
                                         @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
                                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}">
-                                            Detail
+                                            Details
                                         </button>
                                     </td>
                                 </tr>
@@ -73,7 +73,7 @@
                                     <td class="text-center">
                                         @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
                                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}">
-                                            Detail
+                                            Details
                                         </button>
                                     </td>
                                 </tr>
@@ -101,7 +101,7 @@
                                         @endif
                                     <td class="text-center">
                                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data->order_id }}" data-date="{{ $data->created_at }}" data-total="{{ $data->harga + $data->ongkir }}" data-payment="QRIS" data-status="{{ $data->status }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}">
-                                            Detail
+                                            Details
                                         </button>
                                     </td>
                                 </tr>
@@ -123,7 +123,7 @@
                         <div class="sm:flex sm:items-start">
                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                 <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200" id="modal-headline">
-                                    Detail Transaction
+                                    Details Transaction
                                 </h3>
                             </div>
                         </div>
@@ -139,6 +139,14 @@
                                 <p id="date" class="mt-1 text-sm text-gray-900 dark:text-gray-200"></p>
                             </div>
                             <div>
+                                <label for="orderBy" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Ordered by</label>
+                                <p id="orderBy" class="mt-1 text-sm text-gray-900 dark:text-gray-200"></p>
+                            </div>
+                            <div>
+                                <label for="takenBy" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Taken by</label>
+                                <p id="takenBy" class="mt-1 text-sm text-gray-900 dark:text-gray-200"></p>
+                            </div>
+                            <div>
                                 <label for="total" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Total</label>
                                 <p id="total" class="mt-1 text-sm text-gray-900 dark:text-gray-200"></p>
                             </div>
@@ -150,6 +158,7 @@
                                 <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Status</label>
                                 <p id="status" class="mt-1 text-sm text-gray-900 dark:text-gray-200"></p>
                             </div>
+
                             {{-- button untuk melihat image dari bukti pembayaran transaksi --}}
                             <div class="col-span-2">
                                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline show-proof-button" data-bukti="">
@@ -190,6 +199,8 @@
         const modal = document.getElementById('modal-edit');
         const orderIdElement = document.getElementById('orderID');
         const dateElement = document.getElementById('date');
+        const orderByElement = document.getElementById('orderBy');
+        const takenByElement = document.getElementById('takenBy');
         const totalElement = document.getElementById('total');
         const paymentElement = document.getElementById('payment');
         const statusElement = document.getElementById('status');
@@ -212,12 +223,16 @@
             button.addEventListener('click', function() {
                 const orderId = '#TRX' + this.getAttribute('data-order-id').substring(0, 10).toUpperCase();
                 const date = this.getAttribute('data-date');
+                const user = 'User Name';
+                const courier = 'Courier Name';
                 const total = 'Rp. ' + this.getAttribute('data-total').replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 const payment = this.getAttribute('data-payment');
                 const status = this.getAttribute('data-status').charAt(0).toUpperCase() + this.getAttribute('data-status').slice(1);
 
                 orderIdElement.textContent = orderId;
                 dateElement.textContent = date;
+                orderByElement.textContent = user;
+                takenByElement.textContent = courier;
                 totalElement.textContent = total;
                 paymentElement.textContent = payment;
                 statusElement.textContent = status;
