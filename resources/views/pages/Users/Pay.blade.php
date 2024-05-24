@@ -22,7 +22,7 @@
     </div>
     {{-- Order Details --}}
 
-    <div class="flex flex-col gap-y-4 p-5">
+    <div class="flex flex-col gap-y-2 p-5">
         @php
         $order = '';
         foreach ($carts as $cart => $items) {
@@ -63,20 +63,24 @@
         {{-- Temporary QR Code --}}
         <img src="{{ asset('qrcode-payment.png') }}" alt="QR Code" class="w-52 h-52">
     </div>
-    <a href="#" class="flex justify-center items-center w-full h-12 mt-2">
+    <button onclick="downloadQRImage()" class="flex justify-center items-center w-full h-12 mt-2">
         <h1 class="text-[#F8832B] text-s">Simpan Kode QR</h1>
-    </a>
+    </button>
     {{-- Upload Bukti Pembayaran --}}
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
     <div class="justify-center items-center p-5">
         {{-- upload file --}}
         <form action="{{ route('order') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="file" name="bukti" id="bukti" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;" accept=".jpg,.jpeg" required>
+            <input type="file" name="bukti" id="bukti" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;" accept=".jpg,.jpeg,.png" required>
             <button type="button" id="uploadButton" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Pilih File</button>
+            <span id="uploadFileName" class="text-xs text-gray-500">*File belum dipilih</span>
             <button type="submit" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Unggah Bukti Pembayaran</button>
         </form>
-        <span class="text-xs font-bold text-gray-500">*Unggah bukti pembayaran setelah melakukan pembayaran</span>
+        <div class="flex flex-col items-center mt-2">
+            <span class="text-xs font-bold text-gray-500">*Unggah bukti pembayaran setelah melakukan pembayaran</span>
+            <span class="text-xs text-gray-500">*File harus berformat .jpg, .jpeg, .png dan tidak lebih dari 2MB</span>
+        </div>
     </div>
     {{-- Tos --}}
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
@@ -84,8 +88,8 @@
         <p class="text-xs text-gray-500 max-w-sm">Dengan Melanjutkan, artinya Anda setuju dengan <a class="underline text-[#F9832A]" href="#">Syarat dan Ketentuan</a> dan juga <a class="underline text-[#F9832A]" href="#">Kebijakan Privasi</a> kami</p>
     </div>
     {{-- Cancel Transaction --}}
-    <div class="flex justify-center items-center">
-        <a href="#" class="flex justify-center items-center">
+    <div class="flex justify-center items-center mb-10">
+        <a href="/pesanan" class="flex justify-center items-center">
             <h1 class="text-black text-s underline">Batalkan transaksi?</h1>
         </a>
     </div>
@@ -105,8 +109,50 @@
             document.getElementById("timer").innerHTML = "EXPIRED";
         }
     }, 1000);
+
+    //if countdown expired, redirect to /pesanan
+    setTimeout(function() {
+        window.location.href = "{{url('/pesanan')}}";
+    }, 180000);
+
+    //function download qr image
+    function downloadQRImage() {
+        var a = document.createElement('a');
+        a.href = "{{ asset('qrcode-payment.png') }}";
+        a.download = 'dkampus-qrcode-payment.png';
+        a.click();
+    }
+
     document.getElementById('uploadButton').addEventListener('click', function() {
         document.getElementById('bukti').click();
+        //change file name on element
+        document.getElementById('bukti').addEventListener('change', function() {
+            document.getElementById('uploadFileName').innerHTML = this.files[0].name;
+        });
+    });
+
+    //if file size more than 2MB
+    document.getElementById('bukti').addEventListener('change', function() {
+        if (this.files[0].size > 2000000) {
+            this.value = '';
+            document.getElementById('uploadFileName').style.color = 'red';
+            document.getElementById('uploadFileName').innerHTML = '*File terlalu besar';
+        }
+    });
+
+    //if file format not jpg, jpeg, png
+    document.getElementById('bukti').addEventListener('change', function() {
+        var ext = this.value.match(/\.([^\.]+)$/)[1];
+        switch (ext) {
+            case 'jpg':
+            case 'jpeg':
+            case 'png':
+                break;
+            default:
+                this.value = '';
+                document.getElementById('uploadFileName').style.color = 'red';
+                document.getElementById('uploadFileName').innerHTML = '*File harus berformat .jpg, .jpeg, .png';
+        }
     });
 </script>
 @endsection

@@ -58,12 +58,10 @@
             <p class="font-bold text-black text-l">Pembayaran</p>
         </div>
         {{--Selection pembayaran belum, as default baru qris aja.--}}
-        <a href="#" id="paymentSelection" class="flex items-center">
+        <a id="paymentSelection" class="flex items-center">
             <img src="{{ asset('qris.svg') }}" alt="QRIS" class="w-12 h-12 mx-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 ml-auto text-orange-500">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
         </a>
+        <span class="text-xs text-gray-500 text-center">*Dkampus hanya menerima pembayaran dengan QRIS</span>
     </div>
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
     {{--Alamat Pengiriman--}}
@@ -94,16 +92,6 @@
             </div>
         </div>
     </form>
-    {{-- Modal Payment selection --}}
-    <div class="fixed bottom-0 left-0 w-full h-full bg-black bg-opacity-50 hidden" id="modalPaymentSelection">
-        <div class="flex flex-col w-11/12 h-auto bg-white rounded-md p-4 absolute bottom-20 left-1/2 transform -translate-x-1/2">
-            <p class="font-bold text-black text-xl">Pilih Metode Pembayaran</p>
-            <div class="flex flex-col w-full h-auto mt-4">
-                <a href="#" id="qrisPayment" class="flex items-center justify-center text-white h-12 bg-orange-500 w-full rounded-md mb-2">QRIS</a>
-                <a href="#" id="codPayment" class="flex items-center justify-center text-black h-12 bg-gray-300 w-full rounded-md">COD</a>
-            </div>
-        </div>
-    </div>
 </main>
 <script>
     document.getElementById('pesanButton').addEventListener('click', function(event) {
@@ -112,25 +100,6 @@
     });
     document.querySelector('#modalConfrimation .bg-gray-300').addEventListener('click', function() {
         document.getElementById('modalConfrimation').classList.add('hidden');
-    });
-
-    document.getElementById('paymentSelection').addEventListener('click', function(event) {
-        event.preventDefault();
-        document.getElementById('modalPaymentSelection').classList.remove('hidden');
-    });
-
-    document.getElementById('qrisPayment').addEventListener('click', function(event) {
-        event.preventDefault();
-        // Ubah tampilan setelah memilih metode pembayaran QRIS
-        document.getElementById('modalPaymentSelection').classList.add('hidden');
-        // Tambahkan logika Anda setelah memilih metode pembayaran QRIS di sini
-    });
-
-    document.getElementById('codPayment').addEventListener('click', function(event) {
-        event.preventDefault();
-        // Ubah tampilan setelah memilih metode pembayaran COD
-        document.getElementById('modalPaymentSelection').classList.add('hidden');
-        // Tambahkan logika Anda setelah memilih metode pembayaran COD di sini
     });
 </script>
 @endsection
