@@ -143,6 +143,9 @@
         const listAddNewAddress = document.getElementById("addNewAddress");
         const overlayAddNewAddress = document.getElementById("overlayAddNewAddress");
         const ToggleAddress = document.getElementById("alamatshow");
+        //disable sidebar menu and hide remove
+        let sidebar = document.querySelector('button[onclick="showMenu()"]');
+        sidebar.remove();
 
         const state = {
             condition: false,
