@@ -351,7 +351,7 @@ Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')
             'id' => $id,
         ]);
     })->name('orderdetail');
-    Route::post('/takeOrder', [CourierController::class, 'takeOrder'])->name('take.order');
+    Route::post('/take-Order', [CourierController::class, 'takeOrder'])->name('take.order');
 });
 
 // Admin Routes

@@ -143,6 +143,29 @@ class CourierController extends Controller
                         return redirect()->back()->with('error2', 'Anda Masih Memiliki Pesanan Yang Belum Selesai');
                     }
                 }
+            } else {
+                $data = $database->getReference('needToDeliver/' . $id)->getValue();
+                $database->getReference('onProgress/' . $id . $courId)->set($data);
+                $database->getReference('onProgress/' . $id . $courId . '/status')->set('on Delivery');
+                date_default_timezone_set('Asia/Jakarta');
+                $timestamp = date('Y-m-d H:i:s');
+                $custId = explode("-", $id);
+                $cust_name = User::find($custId[0])->nama_user;
+                $cour_name = User::find($courId)->nama_user;
+                $postData = [
+                    'msgs' => [
+                        'msg' => "Apakah pesanan sudah sesuai",
+                        'timestamp' => $timestamp,
+                        'role' => "driver",
+                    ],
+                ];
+                $database->getReference('chats/' . $id . $courId)->push()->set($postData);
+                $database->getReference('chats/' . $id . $courId . '/cust_name')->set($cust_name);
+                $database->getReference('chats/' . $id . $courId . '/cour_name')->set($cour_name);
+                $database->getReference('chats/' . $id . $courId . '/courNewMssg')->set(1);
+                $database->getReference('chats/' . $id . $courId . '/custNewMssg')->set(0);
+                $database->getReference('needToDeliver/' . $id)->remove();
+                return redirect('courier/dashboard');
             }
         } catch (Exception $e) {
             return redirect()->back()->with('error2', 'Error');

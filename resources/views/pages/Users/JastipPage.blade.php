@@ -22,12 +22,12 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Menu:</label>
                     <div class="menuContainer">
                         <div class="menu flex items-center mb-2">
-                            <input type="text" name="nama_menu[][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
-                            <input type="number" name="kuantitas[][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
+                            <input type="text" name="nama_menu[0][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
+                            <input type="number" name="kuantitas[0][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
                             <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
                         </div>
                     </div>
-                    <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this)">Tambah Menu</button>
+                    <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this, this.dataset.index)" data-index="0">Tambah Menu</button>
                 </div>
             </div>
             <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addWarung()">Tambah Warung</button>
@@ -175,14 +175,13 @@
         }
     });
 
-
-    function addMenu(button) {
-        const menuContainer = button.previousElementSibling;
+    function addMenu(button, warungIndex) {
+        const menuContainer = button.closest('.warung').querySelector('.menuContainer');
         const newMenuInput = document.createElement('div');
         newMenuInput.classList.add('menu', 'flex', 'items-center', 'mb-2');
         newMenuInput.innerHTML = `
-        <input type="text" name="nama_menu[][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
-        <input type="number" name="kuantitas[][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
+        <input type="text" name="nama_menu[${warungIndex}][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
+        <input type="number" name="kuantitas[${warungIndex}][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
         <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
     `;
         menuContainer.appendChild(newMenuInput);
@@ -196,6 +195,8 @@
         const warungElement = button.parentNode.parentNode;
         warungElement.remove();
     }
+
+    let warungIndex = 1;
 
     function addWarung() {
         const warungContainer = document.getElementById('warungContainer');
@@ -211,14 +212,15 @@
         <label class="block text-sm font-medium text-gray-700 mb-2">Menu:</label>
         <div class="menuContainer">
             <div class="menu flex items-center mb-2">
-                <input type="text" name="nama_menu[][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
-                <input type="number" name="kuantitas[][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
+                <input type="text" name="nama_menu[${warungIndex}][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
+                <input type="number" name="kuantitas[${warungIndex}][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
                 <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
             </div>
         </div>
-        <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this)">Tambah Menu</button>
+        <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this, this.dataset.index)" data-index="${warungIndex}">Tambah Menu</button>
     `;
         warungContainer.appendChild(newWarungInput);
+        warungIndex++;
     }
 
     document.addEventListener('DOMContentLoaded', function() {

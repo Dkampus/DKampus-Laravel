@@ -12,7 +12,7 @@
     <div id="orderContainer" class="bg-white rounded-lg shadow-md overflow-hidden mx-4 my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {{-- Data Orders list will rendered here --}}
     </div>
-        {{-- Modal for order details --}}
+    {{-- Modal for order details --}}
     <div id="orderDetailModal" class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
         <div class="bg-white p-8 rounded-lg w-5/6 max-w-lg">
             <h2 class="text-2xl font-bold mb-4">Order Details</h2>
@@ -24,59 +24,59 @@
     </div>
 </main>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script>
-        // Initialize Firebase
-        var firebaseConfig = {
-            apiKey: "AIzaSyBJK-ziJOe-oMgSkjI5MJK16OO0LjQDMQQ",
-            authDomain: "tester-6b415.firebaseapp.com",
-            databaseURL: "https://tester-6b415-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "tester-6b415",
-            storageBucket: "tester-6b415.appspot.com",
-            messagingSenderId: "829911681243",
-            appId: "1:829911681243:web:f6e4657da628304752e4fe",
-            measurementId: "G-7PCGVXL2MX"
-        };
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script>
+    // Initialize Firebase
+    var firebaseConfig = {
+        apiKey: "AIzaSyBJK-ziJOe-oMgSkjI5MJK16OO0LjQDMQQ",
+        authDomain: "tester-6b415.firebaseapp.com",
+        databaseURL: "https://tester-6b415-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "tester-6b415",
+        storageBucket: "tester-6b415.appspot.com",
+        messagingSenderId: "829911681243",
+        appId: "1:829911681243:web:f6e4657da628304752e4fe",
+        measurementId: "G-7PCGVXL2MX"
+    };
 
-        firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
 
-        // Get a reference to the Firebase database
-        var database = firebase.database();
+    // Get a reference to the Firebase database
+    var database = firebase.database();
 
-        function renderOrder(orderData, id) {
-            console.log(id);
-            var idOrder = id;
-            var nama_penerima = orderData.nama_penerima;
-            var nama_umkm = orderData.nama_umkm;
-            var ongkir = orderData.ongkir;
-            var status = orderData.status;
-            var total = orderData.total;
-            var jarak = orderData.jarak;
-            if (jarak > 1000) {
-                convert = parseFloat((jarak / 1000).toFixed(2));
-                var hasilJarak = convert + " km"
-            } else {
-                var hasilJarak = jarak + " m"
-            }
-            var ordersHtml = "";
-            var orderNames = Object.values(orderData.orders).map(function(order) {
-                return order.jumlah + order.nama;
-            });
+    function renderOrder(orderData, id) {
+        console.log(id);
+        var idOrder = id;
+        var nama_penerima = orderData.nama_penerima;
+        var nama_umkm = orderData.nama_umkm;
+        var ongkir = orderData.ongkir;
+        var status = orderData.status;
+        var total = orderData.total;
+        var jarak = orderData.jarak;
+        if (jarak > 1000) {
+            convert = parseFloat((jarak / 1000).toFixed(2));
+            var hasilJarak = convert + " km"
+        } else {
+            var hasilJarak = jarak + " m"
+        }
+        var ordersHtml = "";
+        var orderNames = Object.values(orderData.orders).map(function(order) {
+            return order.jumlah + order.nama;
+        });
 
-            var combinedOrderNames = orderNames.join(", ");
+        var combinedOrderNames = orderNames.join(", ");
 
-            if (combinedOrderNames) {
-                ordersHtml += `
+        if (combinedOrderNames) {
+            ordersHtml += `
                 <div class="flex flex-row justify-between">
                     <span class="font-semibold text-l">Orders</span>
                     <span class="font-semibold text-l">${combinedOrderNames}</span>
                 </div>`;
-            }
+        }
 
-            var formattedTotal = "Rp. " + total.toLocaleString('id-ID');
-            var html = `
+        var formattedTotal = "Rp. " + total.toLocaleString('id-ID');
+        var html = `
             <div class="p-4">
             <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center id="order_${idOrder}">
@@ -114,28 +114,28 @@
                 <button onclick="showOrderDetailModal(${JSON.stringify(orderData).replace(/"/g, '&quot;')})" class="bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-full text-sm">View Details</button>
             </div>
             `;
-            $('#orderContainer').append(html);
-        }
+        $('#orderContainer').append(html);
+    }
 
-        function showOrderDetailModal(orderData) {
-            $('#modalOrderDetails').empty();
-            console.log(orderData);
-            var orderNames = Object.values(orderData.orders).map(function(order) {
-                return order.jumlah + ' ' + order.nama + ' (' + order.catatan + ')';
-            });
+    function showOrderDetailModal(orderData) {
+        $('#modalOrderDetails').empty();
+        console.log(orderData);
+        var orderNames = Object.values(orderData.orders).map(function(order) {
+            return order.jumlah + ' ' + order.nama + ' (' + order.catatan + ')';
+        });
 
-            var ordersHtml = "";
+        var ordersHtml = "";
 
-            var combinedOrderNames = orderNames.join(", ");
+        var combinedOrderNames = orderNames.join(", ");
 
-            if (combinedOrderNames) {
-                ordersHtml += `
+        if (combinedOrderNames) {
+            ordersHtml += `
                 <div class="flex flex-row justify-between">
                     <span class="font-semibold text-l">${combinedOrderNames}</span>
                 </div>`;
-            }
+        }
 
-            var orderDetailsHtml = `
+        var orderDetailsHtml = `
         <div class="flex flex-col">
             <h1 class="text-l font-bold">Nama Penerima:</h1>
             <p class="text-l">${ orderData.nama_penerima }</p>
@@ -157,26 +157,26 @@
             <p class="text-l">${ ordersHtml }</p>
         `;
 
-            $('#modalOrderDetails').append(orderDetailsHtml);
+        $('#modalOrderDetails').append(orderDetailsHtml);
 
-            $('#orderDetailModal').removeClass('hidden');
-        }
+        $('#orderDetailModal').removeClass('hidden');
+    }
 
-        $('#closeModalBtn').click(function() {
-            $('#orderDetailModal').addClass('hidden');
-        });
+    $('#closeModalBtn').click(function() {
+        $('#orderDetailModal').addClass('hidden');
+    });
 
-        database.ref('needToDeliver').on('child_added', function(snapshot) {
-            var id = snapshot.key;
-            var orderData = snapshot.val();
-            renderOrder(orderData, id);
-        });
+    database.ref('needToDeliver').on('child_added', function(snapshot) {
+        var id = snapshot.key;
+        var orderData = snapshot.val();
+        renderOrder(orderData, id);
+    });
 
-        database.ref('needToDeliver').on('child_removed', function(snapshot) {
-            var orderId = snapshot.key;
-            console.log(orderId);
-            $('#order_' + orderId).remove();
-        });
-    </script>
+    database.ref('needToDeliver').on('child_removed', function(snapshot) {
+        var orderId = snapshot.key;
+        console.log(orderId);
+        $('#order_' + orderId).remove();
+    });
+</script>
 </main>
 @endsection
