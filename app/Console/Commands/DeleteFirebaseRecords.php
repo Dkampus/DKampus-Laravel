@@ -36,10 +36,13 @@ class DeleteFirebaseRecords extends Command
         $chatsRef = $database->getReference('chats');
         $onProgressRef = $database->getReference('onProgress');
 
-        $twoHoursAgo = now()->subHours(2);
+        $twoHoursAgo = now()->setTimezone('Asia/Jakarta')->subHour(2);
 
         // Ambil semua ID dari onProgress
         $onProgressIds = $onProgressRef->getSnapshot()->getValue();
+
+        // Pastikan $onProgressIds diinisialisasi sebagai array jika belum ada
+        $onProgressIds = $onProgressIds ?? [];
 
         // Ambil semua chats
         $chats = $chatsRef->getSnapshot()->getValue();
@@ -54,11 +57,26 @@ class DeleteFirebaseRecords extends Command
 
                     // Pastikan $record adalah array dan memiliki kunci 'msgs' dan 'timestamp'
                     if (is_array($record) && isset($record['msgs']['timestamp'])) {
-                        $recordTimestamp = Carbon::createFromFormat('Y-m-d H:i:s', $record['msgs']['timestamp']);
+                        $recordTimestamp = Carbon::createFromFormat('Y-m-d H:i:s', $record['msgs']['timestamp'], 'Asia/Jakarta');
+
+                        $this->info("Current time minus two minutes: " . $twoHoursAgo->toDateTimeString());
+                        $this->info("Record timestamp: " . $recordTimestamp->toDateTimeString());
+
+                        if (!($recordTimestamp instanceof Carbon)) {
+                            $this->error("Record timestamp is not a Carbon instance.");
+                        }
+
+                        if (!($twoHoursAgo instanceof Carbon)) {
+                            $this->error("Current time minus two minutes is not a Carbon instance.");
+                        }
+
                         if ($recordTimestamp->lessThan($twoHoursAgo)) {
-                            // Menghapus seluruh subfolder jika item terakhir lebih tua dari dua jam
+                            $this->info("Condition is true, should delete.");
                             $chatsRef->getChild($subfolder)->remove();
+                            $this->info("Deleted subfolder: " . $subfolder);
                             break; // Keluar dari loop setelah menghapus subfolder
+                        } else {
+                            $this->info("Condition is false, not deleting.");
                         }
                     } else {
                         $this->error("Invalid record structure in subfolder '$subfolder'");
