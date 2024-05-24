@@ -202,25 +202,37 @@
         const warungContainer = document.getElementById('warungContainer');
         const newWarungInput = document.createElement('div');
         newWarungInput.classList.add('warung', 'mb-4');
-        newWarungInput.innerHTML = `
-        <label class="block text-sm font-medium text-gray-700 mb-2">Nama Warung:</label>
-        <div class="flex item-center mb-2">
-            <input type="text" name="warung[]" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" placeholder="Nama UMKM pilihanmu" required>
-            <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeWarung(this)">-</button>
-        </div>
+        //limit if warungIndex > 4
+        try {
+            if (warungIndex < 4) {
+                newWarungInput.innerHTML = `
+                <label class="block text-sm font-medium text-gray-700 mb-2">Nama Warung:</label>
+                <div class="flex item-center mb-2">
+                    <input type="text" name="warung[]" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" placeholder="Nama UMKM pilihanmu" required>
+                    <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeWarung(this)">-</button>
+                </div>
 
-        <label class="block text-sm font-medium text-gray-700 mb-2">Menu:</label>
-        <div class="menuContainer">
-            <div class="menu flex items-center mb-2">
-                <input type="text" name="nama_menu[${warungIndex}][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
-                <input type="number" name="kuantitas[${warungIndex}][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
-                <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
-            </div>
-        </div>
-        <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this, this.dataset.index)" data-index="${warungIndex}">Tambah Menu</button>
-    `;
-        warungContainer.appendChild(newWarungInput);
-        warungIndex++;
+                <label class="block text-sm font-medium text-gray-700 mb-2">Menu:</label>
+                <div class="menuContainer">
+                    <div class="menu flex items-center mb-2">
+                        <input type="text" name="nama_menu[${warungIndex}][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
+                        <input type="number" name="kuantitas[${warungIndex}][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
+                        <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
+                    </div>
+                </div>
+                <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this, this.dataset.index)" data-index="${warungIndex}">Tambah Menu</button>
+            `;
+                warungContainer.appendChild(newWarungInput);
+            } else {
+                //disable button add warung
+                let buttonAddWarung = document.querySelector('button[onclick="addWarung()"]');
+                buttonAddWarung.disabled = true;
+                buttonAddWarung.classList.add('bg-gray-300', 'cursor-not-allowed');
+                throw new Error('Limit of warung has been reached');
+            }
+            warungIndex++;
+        } catch (error) {
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
