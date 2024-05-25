@@ -79,40 +79,73 @@
             <a href="{{ route('courierorder') }}" class="text-blue-500">Lihat semua pesanan</a>
         </div>
     </div>
-    <!-- Cancel Order Modal -->
+    {{-- Cancel Order Modal --}}
     @if($orders != null)
-    <div id="cancelModal" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
-        <div class="bg-white p-4 rounded-lg shadow-lg">
-            <form action="{{ route('delete.orders') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <h2 class="text-lg font-bold">Konfirmasi Pembatalan</h2>
-                <label for="alasan">Masukan Alasan Pembatalan</label>
-                <input type="text" name="alasan" id="alasan" placeholder="" class="mt-2 p-2 border rounded w-full" required>
-                <input type="number" name="total-price-cancel" id="total-price-cancel" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Rp. 30.000" required>
-                <span class="text-xs text-gray-500">*Total harga menu yang kamu keluarakan (isi 0 jika belum membeli menu)</span>
-                <div class="mt-1">
-                    <input type="file" name="bukti_batal" id="bukti_batal" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;" accept=".jpg, .jpeg, .png" required>
-                    <button type="button" id="uploadButton_batal" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Pilih File</button>
-                    <span id="fileName_batal" class="text-sm text-gray-500"></span>
+        <div id="cancelModal" class="hidden fixed z-10 inset-0 overflow-y-auto flex items-center justify-center">
+            <div class="flex items-center justify-center h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-headline">
+                                    Batalkan Pesanan
+                                </h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500">
+                                        Apakah kamu yakin ingin membatalkan pesanan ini?
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="{{ route('delete.orders') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="bg-white overflow-hidden mb-2 mx-2">
+                            <div class="p-4">
+                                <label for="alasan" class="block text-sm font-medium text-gray-700">Alasan Pembatalan</label>
+                                <div class="mt-1">
+                                    <textarea name="alasan" id="alasan" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Alasan pembatalan" required></textarea>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <label for="total-price" class="block text-sm font-medium text-gray-700">Total Harga</label>
+                                <div class="mt-1">
+                                    <input type="number" name="total-price-cancel" id="total-price-cancel" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Rp. 30.000" required>
+                                    <span class="text-xs text-gray-500">*Total harga menu yang kamu keluarakan (isi 0 jika belum membeli menu)</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <label for="bukti_batal" class="block text sm font-medium text-gray-700">Bukti Pembatalan</label>
+                                <div class="mt-1">
+                                    <input type="file" name="bukti_batal" id="bukti_batal" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;" accept=".jpg, .jpeg, .png" required>
+                                    <button type="button" id="uploadButton_batal" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Pilih File</button>
+                                    <span id="fileName_batal" class="text-sm text-gray-500"></span>
+                                </div>
+                                <div class="mt-1">
+                                    <span class="text-xs text-gray-500">*Unggah bukti pembatalan pesanan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button type="submit" id="confirmCancel" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#F9832A] text-base font-medium text-white hover:bg-[#F9832A] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                Batalkan
+                            </button>
+                            <input type="hidden" value="{{ $custId[0] }}" name="custId">
+                            <button type="button" id="closeCancelModal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">
+                                Batal
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="mt-1">
-                    <span class="text-xs text-gray-500">*Unggah bukti pembatalan (contoh: foto makanan yang telah dibeli)</span>
-                </div>
-                <div class="mt-4 flex justify-between">
-                    <button id="confirmCancel" type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                        Konfirmasi Pembatalan
-                    </button>
-                    <input type="hidden" value="{{ $custId[0] }}" name="custId">
-                    <button id="closeCancelModal" class="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded">
-                        Tutup
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
+    @endif
+
     {{-- Modal selesaikan pesanan --}}
     <div class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="modalConfirmation">
-        <div class="flex items end justify-center h-auto pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="flex items-center justify-center h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
             <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
@@ -188,9 +221,8 @@
             </div>
         </div>
     </div>
-    @endif
-    </div>
 </main>
+@endsection
 @include('components.navbar.navbarCourier')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
