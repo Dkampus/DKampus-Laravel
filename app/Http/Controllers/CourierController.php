@@ -214,37 +214,53 @@ class CourierController extends Controller
             $custId = $request->input('custId');
             $database = app('firebase.database');
 
-            $harga = $database->getReference('onProgress/' . $custId . '-' . $courId . '/total')->getValue();
-            $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
-            $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
-            $orderId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orderID')->getValue();
-            $bukti = $database->getReference('onProgress/' . $custId . '-' . $courId . '/bukti')->getValue();
-            // dd($item);
-            $itemNum = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getChildKeys();
-            $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders' . '/' . $itemNum[0] . '/umkm_id')->getValue();
-            $namaJumlahArray = [];
-            foreach ($item as $order) {
-                $namaJumlahArray[] = $order['jumlah'] . ' ' . $order['nama'];
-            }
-
-            $joinedNamaJumlah = implode(', ', $namaJumlahArray);
-            history::create([
-                'user_id' => $custId,
-                'cour_id' => $courId,
-                'umkm_id' => $umkmId,
-                'item' => $joinedNamaJumlah,
-                'harga' => $harga,
-                'ongkir' => $ongkir,
-                'status' => 'completed',
-                'order_id' => $orderId,
-                'bukti' => $bukti,
+            $check = $request->validate([
+                'bukti' => 'required|file|mimes:jpeg,jpg,png,heic|max:2048',
             ]);
 
-            $database->getReference('onProgress/' . $custId . '-' . $courId)->remove();
-            return redirect()->back();
+            if ($check) {
+                $file = $request->file('bukti')->store('/public/payment/driver');
+                $fileName = basename($file);
+
+                $harga = $database->getReference('onProgress/' . $custId . '-' . $courId . '/total')->getValue();
+                $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
+                $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
+                $orderId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orderID')->getValue();
+                $bukti = $database->getReference('onProgress/' . $custId . '-' . $courId . '/bukti')->getValue();
+                $jarak = $database->getReference('onProgress/' . $custId . '-' . $courId . '/jarak')->getValue();
+                // dd($item);
+                $itemNum = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getChildKeys();
+                $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders' . '/' . $itemNum[0] . '/umkm_id')->getValue();
+                $namaJumlahArray = [];
+                foreach ($item as $order) {
+                    $namaJumlahArray[] = $order['jumlah'] . ' ' . $order['nama'] . ' (' . $order['catatan'] . ')';
+                }
+
+                $joinedNamaJumlah = implode(', ', $namaJumlahArray);
+                history::create([
+                    'user_id' => $custId,
+                    'cour_id' => $courId,
+                    'umkm_id' => $umkmId,
+                    'item' => $joinedNamaJumlah,
+                    'harga' => $harga,
+                    'ongkir' => $ongkir,
+                    'jarak' => $jarak,
+                    'status' => 'completed',
+                    'bukti' => $bukti,
+                    'bukti_akhir' => $fileName,
+                    'alasan' => null,
+                    'total_driver' => $request->input('total-price'),
+                    'order_id' => $orderId,
+                ]);
+
+                $database->getReference('onProgress/' . $custId . '-' . $courId)->remove();
+                return redirect()->back();
+            } else {
+                return redirect()->back()->with('error2', 'File Bukti Tidak Valid');
+            }
         } catch (Exception $e) {
-            // dd($e);
-            return redirect()->back()->with('error', 'gagal');
+            dd($e);
+            return redirect()->back()->with('error2', 'Gagal Menyelesaikan Order');
         }
     }
 
@@ -257,13 +273,14 @@ class CourierController extends Controller
             $orderId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orderID')->getValue();
             $harga = $database->getReference('onProgress/' . $custId . '-' . $courId . '/total')->getValue();
             $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
+            $jarak = $database->getReference('onProgress/' . $custId . '-' . $courId . '/jarak')->getValue();
             $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
             $bukti = $database->getReference('onProgress/' . $custId . '-' . $courId . '/bukti')->getValue();
             $itemNum = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getChildKeys();
             $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders' . '/' . $itemNum[0] . '/umkm_id')->getValue();
             $namaJumlahArray = [];
             foreach ($item as $order) {
-                $namaJumlahArray[] = $order['jumlah'] . ' ' . $order['nama'];
+                $namaJumlahArray[] = $order['jumlah'] . ' ' . $order['nama'] . ' (' . $order['catatan'] . ')';
             }
 
             $joinedNamaJumlah = implode(', ', $namaJumlahArray);
@@ -274,14 +291,18 @@ class CourierController extends Controller
                 'item' => $joinedNamaJumlah,
                 'harga' => $harga,
                 'ongkir' => $ongkir,
+                'jarak' => $jarak,
                 'status' => 'canceled',
-                'order_id' => $orderId,
                 'bukti' => $bukti,
+                'bukti_akhir' => null,
+                'alasan' => $request->input('alasan'),
+                'total_driver' => $request->input('total-price'),
+                'order_id' => $orderId,
             ]);
             $database->getReference('onProgress/' . $custId . '-' . $courId)->remove();
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Berhasil Membatalkan Orderan');
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'gagal menghapus data');
+            return redirect()->back()->with('error2', 'gagal menghapus data');
         }
     }
 

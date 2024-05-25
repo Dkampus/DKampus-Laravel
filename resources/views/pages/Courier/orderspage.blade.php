@@ -62,7 +62,7 @@
         }
         var ordersHtml = "";
         var orderNames = Object.values(orderData.orders).map(function(order) {
-            return order.jumlah + order.nama;
+            return order.jumlah + ' ' + order.nama;
         });
 
         var combinedOrderNames = orderNames.join(", ");
