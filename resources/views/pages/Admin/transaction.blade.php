@@ -44,7 +44,7 @@
                                         @endif
                                     <td class="text-center">
                                         @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data['nama_penerima'] }}" data-cour="Not Taken Yet" data-jarak="{{ $data['jarak'] }}" data-bukti-akhir="{{ null }}">
                                             Details
                                         </button>
                                     </td>
@@ -72,7 +72,7 @@
                                         @endif
                                     <td class="text-center">
                                         @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data['nama_penerima'] }}" data-cour="{{ null }}" data-jarak="{{ $data['jarak'] }}" data-bukti-akhir="{{ null }}">
                                             Details
                                         </button>
                                     </td>
@@ -100,7 +100,7 @@
                                         <span class="text-red-400 font-bold">{{ ucfirst($data->status) }}</span>
                                         @endif
                                     <td class="text-center">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data->order_id }}" data-date="{{ $data->created_at }}" data-total="{{ $data->harga + $data->ongkir }}" data-payment="QRIS" data-status="{{ $data->status }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data->order_id }}" data-date="{{ $data->created_at }}" data-total="{{ $data->harga + $data->ongkir }}" data-payment="QRIS" data-status="{{ $data->status }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data->customer->nama_user }}" data-cour="{{ $data->courier->nama_user }}" data-jarak="{{ $data->jarak }}" data-bukti-akhir="{{ Storage::url('public/payment/driver/' . $data['bukti_akhir']) }}">
                                             Details
                                         </button>
                                     </td>
@@ -158,11 +158,18 @@
                                 <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Status</label>
                                 <p id="status" class="mt-1 text-sm text-gray-900 dark:text-gray-200"></p>
                             </div>
+                            <div>
+                                <label for="jarak" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Jarak</label>
+                                <p id="jarak" class="mt-1 text-sm text-gray-900 dark:text-gray-200"></p>
+                            </div>
 
                             {{-- button untuk melihat image dari bukti pembayaran transaksi --}}
                             <div class="col-span-2">
                                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline show-proof-button" data-bukti="">
                                     Show Payment Proof
+                                </button>
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline show-proof-button-driver" data-bukti-akhir="">
+                                    Show Payment Proof Driver
                                 </button>
                             </div>
                         </div>
@@ -204,8 +211,10 @@
         const totalElement = document.getElementById('total');
         const paymentElement = document.getElementById('payment');
         const statusElement = document.getElementById('status');
+        const jarakElement = document.getElementById('jarak');
         const detailButtons = document.querySelectorAll('.detail-button');
         const showProofButton = document.querySelector('.show-proof-button');
+        const showProofDriverButton = document.querySelector('.show-proof-button-driver');
         const paymentProofModal = document.getElementById('payment-proof-modal');
         const paymentProofImage = document.getElementById('payment-proof-image');
 
@@ -219,12 +228,23 @@
             }
         });
 
+        showProofDriverButton.addEventListener('click', function() {
+            const buktiUrl = this.getAttribute('data-bukti-akhir');
+            if (buktiUrl) {
+                paymentProofImage.src = buktiUrl;
+                paymentProofModal.classList.remove('hidden');
+            } else {
+                alert('No payment proof available.');
+            }
+        });
+
         detailButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const orderId = '#TRX' + this.getAttribute('data-order-id').substring(0, 10).toUpperCase();
                 const date = this.getAttribute('data-date');
-                const user = 'User Name';
-                const courier = 'Courier Name';
+                const user = this.getAttribute('data-user');
+                const courier = this.getAttribute('data-cour');
+                const jarak = this.getAttribute('data-jarak');
                 const total = 'Rp. ' + this.getAttribute('data-total').replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 const payment = this.getAttribute('data-payment');
                 const status = this.getAttribute('data-status').charAt(0).toUpperCase() + this.getAttribute('data-status').slice(1);
@@ -236,7 +256,16 @@
                 totalElement.textContent = total;
                 paymentElement.textContent = payment;
                 statusElement.textContent = status;
+                orderByElement.textContent = user;
+                takenByElement.textContent = courier;
+                if (jarak > 1000) {
+                    var jarakKm = (jarak / 1000).toFixed(2);
+                    jarakElement.textContent = jarakKm + ' km';
+                } else {
+                    jarakElement.textContent = jarak + ' m';
+                }
                 showProofButton.setAttribute('data-bukti', this.getAttribute('data-bukti'));
+                showProofDriverButton.setAttribute('data-bukti-akhir', this.getAttribute('data-bukti-akhir'));
                 modal.classList.remove('hidden');
             });
         });

@@ -22,8 +22,12 @@ class history extends Model
         'item',
         'harga',
         'ongkir',
+        'jarak',
         'status',
         'bukti',
+        'bukti_akhir',
+        'alasan',
+        'total_driver',
         'order_id'
     ];
 

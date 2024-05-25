@@ -82,7 +82,7 @@ class AdminController extends Controller
             $database = app('firebase.database');
             $checkExistDataNTD = $database->getReference('needToDeliver')->getSnapshot()->exists();
             $checkExistDataOP = $database->getReference('onProgress')->getSnapshot()->exists();
-            $data = history::all();
+            $data = history::with(['customer', 'courier'])->get();
             if ($checkExistDataNTD && $checkExistDataOP && $data->isNotEmpty()) {
                 $dataNeedToDeliver = $database->getReference('needToDeliver')->orderByChild('timestamp')->getValue();
                 $dataOnProgress = $database->getReference('onProgress')->orderByChild('timestamp')->getValue();
