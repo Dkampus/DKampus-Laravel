@@ -194,12 +194,19 @@
         button.parentNode.remove();
     }
 
+    let warungIndex = 1;
+
     function removeWarung(button) {
         const warungElement = button.parentNode.parentNode;
         warungElement.remove();
+        warungIndex--;
+        if (warungIndex != 4) {
+            let buttonAddWarung = document.querySelector('button[onclick="addWarung()"]');
+            buttonAddWarung.disabled = false;
+            buttonAddWarung.className = 'mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md';
+        }
     }
 
-    let warungIndex = 1;
 
     function addWarung() {
         const warungContainer = document.getElementById('warungContainer');
@@ -226,6 +233,7 @@
                 <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this, this.dataset.index)" data-index="${warungIndex}">Tambah Menu</button>
             `;
                 warungContainer.appendChild(newWarungInput);
+                warungIndex++;
             } else {
                 //disable button add warung
                 let buttonAddWarung = document.querySelector('button[onclick="addWarung()"]');
@@ -233,9 +241,7 @@
                 buttonAddWarung.classList.add('bg-gray-300', 'cursor-not-allowed');
                 throw new Error('Limit of warung has been reached');
             }
-            warungIndex++;
-        } catch (error) {
-        }
+        } catch (error) {}
     }
 
     document.addEventListener('DOMContentLoaded', function() {
