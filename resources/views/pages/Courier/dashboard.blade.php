@@ -83,15 +83,26 @@
     @if($orders != null)
     <div id="cancelModal" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
         <div class="bg-white p-4 rounded-lg shadow-lg">
-            <form action="{{ route('delete.orders') }}" method="POST">
+            <form action="{{ route('delete.orders') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <h2 class="text-lg font-bold">Konfirmasi Pembatalan</h2>
-                <input type="text" name="alasan" id="alasan" placeholder="Masukkan alasan pembatalan" class="mt-2 p-2 border rounded w-full" required>
+                <label for="alasan">Masukan Alasan Pembatalan</label>
+                <input type="text" name="alasan" id="alasan" placeholder="" class="mt-2 p-2 border rounded w-full" required>
+                <input type="number" name="total-price-cancel" id="total-price-cancel" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Rp. 30.000" required>
+                <span class="text-xs text-gray-500">*Total harga menu yang kamu keluarakan (isi 0 jika belum membeli menu)</span>
+                <div class="mt-1">
+                    <input type="file" name="bukti_batal" id="bukti_batal" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;" accept=".jpg, .jpeg, .png" required>
+                    <button type="button" id="uploadButton_batal" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Pilih File</button>
+                    <span id="fileName_batal" class="text-sm text-gray-500"></span>
+                </div>
+                <div class="mt-1">
+                    <span class="text-xs text-gray-500">*Unggah bukti pembatalan (contoh: foto makanan yang telah dibeli)</span>
+                </div>
                 <div class="mt-4 flex justify-between">
                     <button id="confirmCancel" type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                        Konfirmasi
+                        Konfirmasi Pembatalan
                     </button>
-                    <input type="hidden" value="{{ $custId[$i] }}" name="custId">
+                    <input type="hidden" value="{{ $custId[0] }}" name="custId">
                     <button id="closeCancelModal" class="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded">
                         Tutup
                     </button>
@@ -200,6 +211,23 @@
         var uploadButton = document.getElementById('uploadButton');
         var fileInput = document.getElementById('bukti');
         var fileNameDisplay = document.getElementById('fileName');
+
+        uploadButton.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', function() {
+            var files = fileInput.files;
+            if (files.length > 0) {
+                fileNameDisplay.textContent = files[0].name;
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var uploadButton = document.getElementById('uploadButton_batal');
+        var fileInput = document.getElementById('bukti_batal');
+        var fileNameDisplay = document.getElementById('fileName_batal');
 
         uploadButton.addEventListener('click', function() {
             fileInput.click();
