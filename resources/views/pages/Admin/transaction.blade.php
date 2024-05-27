@@ -100,7 +100,7 @@
                                                 <span class="text-red-400 font-bold">{{ ucfirst($data->status) }}</span>
                                         @endif
                                         <td class="text-center">
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data->order_id }}" data-date="{{ $data->created_at }}" data-total="{{ $data->harga + $data->ongkir }}" data-ongkir="{{$data->ongkir}}" data-payment="QRIS" data-status="{{ $data->status }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data->customer->nama_user }}" data-cour="{{ $data->courier->nama_user }}" data-jarak="{{ $data->jarak }}" data-bukti-akhir="{{ Storage::url('public/payment/driver/' . $data['bukti_akhir']) }}">
+                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data->order_id }}" data-date="{{ $data->created_at }}" data-total="{{ $data->harga + $data->ongkir }}" data-ongkir="{{$data->ongkir}}" data-umkm="{{\App\Models\Data_umkm::find($data->umkm_id)->nama_umkm ?? 'Jastip'}}" data-payment="QRIS" data-status="{{ $data->status }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data->customer->nama_user }}" data-cour="{{ $data->courier->nama_user }}" data-jarak="{{ $data->jarak }}" data-bukti-akhir="{{ Storage::url('public/payment/driver/' . $data['bukti_akhir']) }}">
                                                 Details
                                             </button>
                                         </td>
@@ -161,7 +161,7 @@
                             </div>
                             <div>
                                 <label for="umkm" class="block text-sm font-medium text-gray-700 dark:text-gray-200">UMKM</label>
-                                <p id="umkm" class="mt-1 text-sm text-gray-900 dark:text-gray-200">warung mak lo</p>
+                                <p id="umkm" class="mt-1 text-sm text-gray-900 dark:text-gray-200"></p>
                             </div>
                             <div>
                                 <label for="payment" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Payment</label>
@@ -222,6 +222,7 @@
         const takenByElement = document.getElementById('takenBy');
         const ongkirElement = document.getElementById('ongkir');
         const totalElement = document.getElementById('total');
+        const umkmElement = document.getElementById('umkm');
         const paymentElement = document.getElementById('payment');
         const statusElement = document.getElementById('status');
         const jarakElement = document.getElementById('jarak');
@@ -260,6 +261,7 @@
                 const jarak = this.getAttribute('data-jarak');
                 const ongkir = 'Rp. ' + this.getAttribute('data-ongkir').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                 const total = 'Rp. ' + this.getAttribute('data-total').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                const umkm = this.getAttribute('data-umkm');
                 const payment = this.getAttribute('data-payment');
                 const status = this.getAttribute('data-status').charAt(0).toUpperCase() + this.getAttribute('data-status').slice(1);
 
@@ -269,6 +271,7 @@
                 takenByElement.textContent = courier;
                 ongkirElement.textContent = ongkir;
                 totalElement.textContent = total;
+                umkmElement.textContent = umkm;
                 paymentElement.textContent = payment;
                 statusElement.textContent = status;
                 orderByElement.textContent = user;
@@ -277,7 +280,7 @@
                     var jarakKm = (jarak / 1000).toFixed(2);
                     jarakElement.textContent = jarakKm + ' km';
                 } else {
-                    jarakElement.textContent = jarak + '0 m';
+                    jarakElement.textContent = jarak + ' m';
                 }
                 showProofButton.setAttribute('data-bukti', this.getAttribute('data-bukti'));
                 showProofDriverButton.setAttribute('data-bukti-akhir', this.getAttribute('data-bukti-akhir'));
