@@ -92,25 +92,25 @@
             </div>
 
             <div id="overlayAddNewAddress" onclick="renderHideListAddress()" class="bg-black/10 transition-all duration-500 invisible opacity-0 -z-10 h-screen w-full absolute top-0 left-0"></div>
-            <div id="addNewAddress" class="w-full pt-5 pb-14 flex flex-col items-center gap-5 border overflow-auto fixed h-0 bg-white rounded-3xl -bottom-96 transition-all duration-500 shadow-top-for-total-harga">
+            <div id="addNewAddress" class="w-[85%] sm:w-full md:w-[28rem] pt-5 pb-14 flex flex-col items-center gap-5 border overflow-auto fixed h-0 bg-white rounded-3xl -bottom-96 transition-all duration-500 shadow-top-for-total-harga">
                 @if ($AddressList !== null)
-                @forelse ($AddressList as $Item)
-                <div class="flex flex-row items-end gap-10 border-b-2 pb-2">
-                    <a class="address-button flex flex-col gap-2" onclick="renderHideListAddress()" data-id="{{ $Item['id'] }}" data-name="{{ $Item['nama_alamat'] }}">
-                        <h1 class=" font-semibold text-lg">{{ $Item['nama_alamat'] }}</h1>
-                        <div id="location" class="flex flex-row gap-2 items-center">
-                            <img src="markLocation.svg" alt="" class="w-5">
-                            <h1 class="text-wrapper-location">{{ $Item['address'] }}</h1>
+                    @forelse ($AddressList as $Item)
+                        <div class="flex flex-row items-end gap-10 border-b-2 pb-2 w-[85%] sm:w-full md:w-[28rem]">
+                            <a class="address-button flex flex-col gap-2" onclick="renderHideListAddress()" data-id="{{ $Item['id'] }}" data-name="{{ $Item['nama_alamat'] }}">
+                                <h1 class=" font-semibold text-lg">{{ $Item['nama_alamat'] }}</h1>
+                                <div id="location" class="flex flex-row gap-2 items-center">
+                                    <img src="markLocation.svg" alt="" class="w-5">
+                                    <h1 class="text-wrapper-location">{{ $Item['address'] }}</h1>
+                                </div>
+                            </a>
+                            <img src="edit.svg" alt="" class="w-5">
                         </div>
-                    </a>
-                    <img src="edit.svg" alt="" class="w-5">
-                </div>
-                @empty
-                <h1 class=" font-semibold text-lg">Silahkan Tambahkan Alamat</h1>
-                <a href="/daftar-alamat" class="btn flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md">
-                    <h1 class="font-bold text-white text-md">Tambah Alamat</h1>
-                </a>
-                @endforelse
+                    @empty
+                        <h1 class=" font-semibold text-lg">Silahkan Tambahkan Alamat</h1>
+                        <a href="/daftar-alamat" class="btn flex items-center gap-x-2 bg-orange-500 text-white px-3 py-2 rounded-md shadow-md">
+                            <h1 class="font-bold text-white text-md">Tambah Alamat</h1>
+                        </a>
+                    @endforelse
                 @endif
             </div>
         </form>
