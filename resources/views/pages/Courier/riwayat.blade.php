@@ -1,9 +1,8 @@
 @extends('layouts.Root')
 @section('content')
     @include('components.header.courierHeader')
-        @php $i = 0 @endphp
     <main class="bg-[#F0F3F8] py-2 px-2 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:item-center">
-        @foreach ($data as $history)
+        @foreach ($data->sortByDesc('created_at') as $history)
             <div class="bg-white rounded-lg shadow-md overflow-hidden mx-4 my-4 {{ $loop->last ? 'mb-32' : '' }}">
                 <div class="p-4">
                     <div class="flex items-center justify-between mb-2">
@@ -15,7 +14,7 @@
                                 <path d="M4.17261 8.72485C4.17261 8.67236 4.19346 8.62202 4.23058 8.58491C4.26769 8.54779 4.31803 8.52694 4.37052 8.52694H5.55802C5.61051 8.52694 5.66086 8.54779 5.69797 8.58491C5.73509 8.62202 5.75594 8.67236 5.75594 8.72485V9.12069C5.75594 9.17318 5.73509 9.22352 5.69797 9.26064C5.66086 9.29775 5.61051 9.3186 5.55802 9.3186H4.37052C4.31803 9.3186 4.26769 9.29775 4.23058 9.26064C4.19346 9.22352 4.17261 9.17318 4.17261 9.12069V8.72485ZM7.33927 8.72485C7.33927 8.88233 7.27672 9.03335 7.16537 9.1447C7.05402 9.25605 6.903 9.3186 6.74552 9.3186C6.58805 9.3186 6.43703 9.25605 6.32568 9.1447C6.21433 9.03335 6.15177 8.88233 6.15177 8.72485C6.15177 8.56738 6.21433 8.41636 6.32568 8.30501C6.43703 8.19366 6.58805 8.1311 6.74552 8.1311C6.903 8.1311 7.05402 8.19366 7.16537 8.30501C7.27672 8.41636 7.33927 8.56738 7.33927 8.72485Z" fill="#F9832A" />
                             </svg>
                             <div class="ml-2">
-                                <h2 class="font-semibold text-lg text-gray-800">{{ $nama_umkm[$i] }}</h2>
+                                <h2 class="font-semibold text-lg text-gray-800">{{ \App\Models\Data_umkm::find($history->umkm_id)->nama_umkm ?? 'Jastip' }}</h2>
                                 <p class="text-sm text-gray-600">{{ DateTime::createFromFormat('Y-m-d H:i:s', $history->created_at)->format('d F Y H:i') }}</p>
                             </div>
                         </div>
@@ -54,7 +53,6 @@
                     </div>
                 </div>
             </div>
-            @php $i++ @endphp
         @endforeach
         @if ($data->isEmpty())
             <h1 class="text-center text-gray-600 mt-8">You Don't Have Any History</h1>

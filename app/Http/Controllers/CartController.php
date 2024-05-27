@@ -92,17 +92,13 @@ class CartController extends Controller
 
     public function status()
     {
-        $userID = Auth::user()->id;
         try {
+            $userID = Auth::user()->id;
             $data = User::find($userID)->custHistory;
             foreach ($data as $history) {
                 $dataCustId[] = $history->user_id;
                 $dataCourId[] = $history->cour_id;
-                if ($history->umkm_id == 0) {
-                    $namaUmkm[] = "Jastip";
-                } else {
-                    $namaUmkm[] = Data_umkm::find($history->umkm_id)->nama_umkm;
-                }
+                $namaUmkm[] = $history->umkm_id == 0 ? "Jastip" : Data_umkm::find($history->umkm_id)->nama_umkm;
             }
             return view('pages.Users.Status', [
                 'Title' => 'Status',

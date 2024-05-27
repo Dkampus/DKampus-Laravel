@@ -324,7 +324,7 @@ class CourierController extends Controller
             foreach ($data as $history) {
                 $dataCustId[] = $history->user_id;
                 $dataCourId[] = $history->cour_id;
-                $namaUmkm[] = Data_umkm::find($history->umkm_id)->nama_umkm;
+                $namaUmkm[] = $history->umkm_id == 0 ? 'Jastip' : Data_umkm::find($history->umkm_id)->nama_umkm;
             }
             return view('pages/Courier/riwayat', [
                 'Title' => 'History',
