@@ -20,6 +20,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UntukKamuController;
+use App\Http\Controllers\CsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -324,6 +325,9 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     // Jastip Page
     Route::get('/jastip', [CartController::class, 'jastipIndex'])->name('jastip.index');
     Route::post('/jastip-post', [CartController::class, 'jastip'])->name('jastip.order');
+
+    // Cs Help
+    Route::post('/help', [CsController::class, 'start'])->name('cs.help');
 });
 
 
