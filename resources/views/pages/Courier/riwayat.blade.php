@@ -41,6 +41,7 @@
                                     Detail
                                 </button>
                                 <input type="hidden" value="{{ $history->user_id }}" name="custId">
+                                <input type="hidden" value="{{ $history->id }}" name="id">
                             </form>
                             <form action="{{ route('room.chat.courier') }}" method="POST">
                                 @csrf

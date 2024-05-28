@@ -343,17 +343,19 @@ class CourierController extends Controller
     {
         try {
             $custId = request()->custId;
+            $id = request()->id;
             $cust_name = User::find($custId)->nama_user;
             $courId = Auth::user()->id;
             $data = User::find($courId)->courHistory;
             foreach ($data as $history) {
-                if ($history->user_id == $custId) {
+                if ($history->cour_id == $courId && $history->user_id == $custId && $history->id == $id) {
+                    $nama_umkm = $history->umkm_id == 0 ? 'Jastip' : Data_umkm::find($history->umkm_id)->nama_umkm;
                     return view('pages/Courier/riwayatdetail', [
                         'Title' => 'Detail history' . ' | #TRX' . strtoupper(substr($history->order_id, 0, 10)),
                         'cust_name' => $cust_name,
                         'status' => $history->status,
                         'custId' => $custId,
-                        'umkm' => Data_umkm::find($history->umkm_id)->nama_umkm,
+                        'umkm' => $nama_umkm,
                         'id' => $history->order_id,
                         'total' => $history->harga,
                         'ongkir' => $history->ongkir,
