@@ -8,7 +8,8 @@ use Exception;
 
 class CsController extends Controller
 {
-    public function start(){
+    public function start()
+    {
         try {
             $database = app('firebase.database');
             $custId = Auth::user()->id;
@@ -23,11 +24,11 @@ class CsController extends Controller
                     'role' => "driver",
                 ],
             ];
-            $database->getReference('chats/' . $custId . '1')->push()->set($postData);
-            $database->getReference('chats/' . $custId . '1' . '/cust_name')->set($cust_name);
-            $database->getReference('chats/' . $custId . '1' . '/cour_name')->set('Admin');
-            $database->getReference('chats/' . $custId . '1' . '/courNewMssg')->set(1);
-            $database->getReference('chats/' . $custId . '1' . '/custNewMssg')->set(0);
+            $database->getReference('chats/' . $custId . '-' . '1')->push()->set($postData);
+            $database->getReference('chats/' . $custId . '-' . '1' . '/cust_name')->set($cust_name);
+            $database->getReference('chats/' . $custId . '-' . '1' . '/cour_name')->set('Admin');
+            $database->getReference('chats/' . $custId . '-' . '1' . '/courNewMssg')->set(1);
+            $database->getReference('chats/' . $custId . '-' . '1' . '/custNewMssg')->set(0);
 
             return view('pages/Users/ChatRoomPage', [
                 'Title' => 'room-chat',

@@ -543,7 +543,7 @@ class CartController extends Controller
             $orderID = hash('sha256', $userID . time());
             $warungs = $request->input('warung');
             $jumlahWarungs = count($warungs);
-            $calculatedTotal = 2000 * $jumlahWarungs;
+            $calculatedTotal = 2500 * $jumlahWarungs;
 
             $refNTD = $database->getReference('needToDeliver/' . $userID . '-')->getSnapshot()->exists();
             if ($database->getReference('onProgress')->getSnapshot()->exists() && $database->getReference('onProgress')->getSnapshot()->hasChildren()) {
