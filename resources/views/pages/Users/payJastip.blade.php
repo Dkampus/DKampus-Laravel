@@ -25,8 +25,13 @@
     <div class="flex flex-col gap-y-2 p-5">
         @php
         $order = '';
+        $previousNote = null;
         foreach ($carts as $cart => $items) {
-        $order .= $items['jumlah']. ' ' . $items['nama']. ', ';
+        if ($previousNote !== $items['catatan']) {
+        $order .= $items['catatan'] . ' : ';
+        $previousNote = $items['catatan']; // Perbarui catatan sebelumnya
+        }
+        $order .= $items['jumlah'] . ' ' . $items['nama'] . ', ';
         }
         if (end($items)) {
         $order = substr($order, 0, -2);
@@ -44,10 +49,12 @@
             <h2 class="">Metode Pembayaran</h2>
             <img src="{{ asset('qris.svg') }}" alt="QRIS" class="w-12 h-12">
         </div>
+        @if ($umkmCount > 1)
         <div class="flex justify-between items-center">
-            <h2 class="font-bold">Down Payment</h2>
+            <h2 class="font-bold">biaya pembelian {{ $umkmCount }} toko</h2>
             <h2 class="font-bold">Rp. {{number_format($subtotal, 0, ',', '.')}}</h2>
         </div>
+        @endif
         <div class="flex justify-between items-center">
             <h2 class="font-bold">Ongkir</h2>
             <h2 class="font-bold">Rp. {{number_format($ongkir, 0, ',', '.')}}</h2>

@@ -542,8 +542,15 @@ class CartController extends Controller
             $geoUmkm = $request->input('geo');
             $orderID = hash('sha256', $userID . time());
             $warungs = $request->input('warung');
-            $jumlahWarungs = count($warungs);
-            $calculatedTotal = 2500 * $jumlahWarungs;
+            if (count($warungs) > 1) {
+                $umkmCount = count($warungs) - 1;
+                $jumlahWarungs = count($warungs);
+                $calculatedTotal = 2500 * $umkmCount;
+            } else {
+                $jumlahWarungs = 1;
+                $calculatedTotal = 0;
+            }
+
 
             $refNTD = $database->getReference('needToDeliver/' . $userID . '-')->getSnapshot()->exists();
             if ($database->getReference('onProgress')->getSnapshot()->exists() && $database->getReference('onProgress')->getSnapshot()->hasChildren()) {
@@ -583,6 +590,7 @@ class CartController extends Controller
                             $geoUser = $alamatUser->addresses()->where('id', $id)->first()->geo;
                             $notesAlamat = $alamatUser->addresses()->where('id', $id)->first()->notes;
                             $ongkir = $this->ongkir($geoUmkm, $geoUser);
+                            $ongkirAkhir = $ongkir + 1000;
                             if (is_numeric($ongkir)) {
                                 $jarak = $this->calculteDistance($geoUmkm, $geoUser);
                                 $database->getReference('cart/' . $userID . '/cust_address')->set($alamatUser->addresses()->where('id', $id)->first()->address);
@@ -590,7 +598,7 @@ class CartController extends Controller
                                 $database->getReference('cart/' . $userID . '/jarak')->set($jarak);
                                 $database->getReference('cart/' . $userID . '/notesAlamat')->set($notesAlamat);
                                 $database->getReference('cart/' . $userID . '/notesPesanan')->set($request->input('catatan'));
-                                $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir + 1000);
+                                $database->getReference('cart/' . $userID . '/ongkir')->set($ongkirAkhir);
                                 $database->getReference('cart/' . $userID . '/orderID')->set($orderID);
                                 $database->getReference('cart/' . $userID . '/total')->set($calculatedTotal);
                                 $database->getReference('cart/' . $userID . '/umkm_address')->set($alamat);
@@ -602,7 +610,8 @@ class CartController extends Controller
                                     'orderID' => $orderID,
                                     'carts' => $carts,
                                     'subtotal' => $total,
-                                    'ongkir' => $ongkir,
+                                    'umkmCount' => $jumlahWarungs,
+                                    'ongkir' => $ongkirAkhir,
                                     'nama_umkm' => "Jastip",
                                 ]);
                             } else {
@@ -643,6 +652,7 @@ class CartController extends Controller
                     $geoUser = $alamatUser->addresses()->where('id', $id)->first()->geo;
                     $notesAlamat = $alamatUser->addresses()->where('id', $id)->first()->notes;
                     $ongkir = $this->ongkir($geoUmkm, $geoUser);
+                    $ongkirAkhir = $ongkir + 1000;
                     if (is_numeric($ongkir)) {
                         $jarak = $this->calculteDistance($geoUmkm, $geoUser);
                         $database->getReference('cart/' . $userID . '/cust_address')->set($alamatUser->addresses()->where('id', $id)->first()->address);
@@ -650,7 +660,7 @@ class CartController extends Controller
                         $database->getReference('cart/' . $userID . '/jarak')->set($jarak);
                         $database->getReference('cart/' . $userID . '/notesAlamat')->set($notesAlamat);
                         $database->getReference('cart/' . $userID . '/notesPesanan')->set($request->input('catatan'));
-                        $database->getReference('cart/' . $userID . '/ongkir')->set($ongkir + 1000);
+                        $database->getReference('cart/' . $userID . '/ongkir')->set($ongkirAkhir);
                         $database->getReference('cart/' . $userID . '/orderID')->set($orderID);
                         $database->getReference('cart/' . $userID . '/total')->set($calculatedTotal);
                         $database->getReference('cart/' . $userID . '/umkm_address')->set($alamat);
@@ -662,7 +672,8 @@ class CartController extends Controller
                             'orderID' => $orderID,
                             'carts' => $carts,
                             'subtotal' => $total,
-                            'ongkir' => $ongkir,
+                            'umkmCount' => $jumlahWarungs,
+                            'ongkir' => $ongkirAkhir,
                             'nama_umkm' => "Jastip",
                         ]);
                     } else {
@@ -676,7 +687,7 @@ class CartController extends Controller
             }
             return redirect()->back()->with('status', 'success');
         } catch (Exception $e) {
-            return redirect()->back()->with('error2', 'Error');
+            return redirect()->back()->with('error2', 'error occured');
         }
     }
 
