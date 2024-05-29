@@ -24,8 +24,8 @@
 
         {{-- Phone Number Input --}}
         <div class="flex flex-col gap-3 mx-auto w-96">
-            <label for="phone_number">Nomor Telepon Anda</label>
-            <input id="phone_number" type="text" name="phone_number" class="rounded-2xl border-2 transition-all duration-100 border-[#5e5e5e]/30 focus:border-[#F9832A] focus:ring-[#F9832A] w-full h-[3.4rem] placeholder:text-[#5e5e5e]/50" placeholder="08xxxxxxxxxx">
+            <label for="no_telp">Nomor Telepon Anda</label>
+            <input id="no_telp" type="text" name="no_telp" class="rounded-2xl border-2 transition-all duration-100 border-[#5e5e5e]/30 focus:border-[#F9832A] focus:ring-[#F9832A] w-full h-[3.4rem] placeholder:text-[#5e5e5e]/50" placeholder="08xxxxxxxxxx">
         </div>
 
         {{-- Password Input --}}
@@ -75,10 +75,10 @@
     <button onclick="hideErrorModal()" class="bg-[#F9832A] w-28 h-9 rounded-lg text-white">Tutup</button>
 </div>
 @if (session('error'))
-    <script>
-        window.onload = function() {
-            showErrorModal("{{ session('error') }}");
-        }
-    </script>
+<script>
+    window.onload = function() {
+        showErrorModal("{{ session('error') }}");
+    }
+</script>
 @endif
 @endsection

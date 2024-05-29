@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
                 'nama' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                'phone_number' => ['required', 'string', 'max:13', 'unique:' . User::class],
+                'no_telp' => ['required', 'string', 'max:13', 'unique:' . User::class],
             ]);
 
             $user = User::create([
@@ -56,7 +56,7 @@ class RegisteredUserController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            // return error for specific error
+            // dd($e);
             return redirect()->back()->with('error', $e->getMessage());
         }
 
