@@ -12,6 +12,20 @@
         <form action="{{ route('jastip.order') }}" method="POST">
             @csrf
             <div id="warungContainer">
+                {{-- Switch button untuk memilih jenis jastip apakah makanan/barang saja --}}
+                <div class="flex justify-between items-center mb-4">
+                    <label for="jenisJastip" class="block text-sm font-medium text-gray-700">Jenis Jastip:</label>
+                    <button type="button" role="switch" aria-checked="true" aria-labelledby="jenisJastip" class="relative inline-flex items-center cursor-pointer switch-button">
+                        <span class="mr-3 text-gray-700">Makanan</span>
+                        <input type="checkbox" name="jenisJastip" id="jenisJastip" value="makanan" checked class="sr-only">
+                        <span class="switch-track w-11 h-6 bg-[#F9832A] rounded-full p-0.5 flex items-center justify-start transition-colors duration-200 ease-in-out" aria-hidden="true">
+                            <span class="switch-thumb w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-200 ease-in-out"></span>
+                        </span>
+                        <span class="ml-3 text-gray-700">Barang</span>
+                    </button>
+                </div>
+
+
                 <div class="warung mb-4">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Nama Warung:</label>
                     <div class="flex item-center mb-2">
@@ -19,15 +33,15 @@
                         <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeWarung(this)">-</button>
                     </div>
 
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Menu:</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Menu/Barang:</label>
                     <div class="menuContainer">
                         <div class="menu flex items-center mb-2">
-                            <input type="text" name="nama_menu[0][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
+                            <input type="text" name="nama_menu[0][]" placeholder="Nama Menu/Barang" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
                             <input type="number" name="kuantitas[0][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
                             <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
                         </div>
                     </div>
-                    <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this, this.dataset.index)" data-index="0">Tambah Menu</button>
+                    <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this, this.dataset.index)" data-index="0">Tambah Menu/Barang</button>
                 </div>
             </div>
             <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addWarung()">Tambah Warung</button>
@@ -183,7 +197,7 @@
         const newMenuInput = document.createElement('div');
         newMenuInput.classList.add('menu', 'flex', 'items-center', 'mb-2');
         newMenuInput.innerHTML = `
-        <input type="text" name="nama_menu[${warungIndex}][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
+        <input type="text" name="nama_menu[${warungIndex}][]" placeholder="Nama Menu/Barang" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
         <input type="number" name="kuantitas[${warungIndex}][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
         <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
     `;
@@ -222,10 +236,10 @@
                     <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeWarung(this)">-</button>
                 </div>
 
-                <label class="block text-sm font-medium text-gray-700 mb-2">Menu:</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Menu/Barang:</label>
                 <div class="menuContainer">
                     <div class="menu flex items-center mb-2">
-                        <input type="text" name="nama_menu[${warungIndex}][]" placeholder="Nama Menu" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
+                        <input type="text" name="nama_menu[${warungIndex}][]" placeholder="Nama Menu/Barang" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-opacity-50" required>
                         <input type="number" name="kuantitas[${warungIndex}][]" placeholder="Jumlah" min="1" class="mt-1 p-2 ml-2 w-20 border rounded-md focus:ring focus:ring-opacity-50" required>
                         <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
                     </div>
@@ -260,10 +274,38 @@
             });
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const switchButton = document.querySelector('.switch-button');
+        const switchTrack = switchButton.querySelector('.switch-track');
+        const switchThumb = switchButton.querySelector('.switch-thumb');
+        const switchValue = document.getElementById('jenisJastip');
+
+        switchButton.addEventListener('click', () => {
+            const isChecked = switchButton.getAttribute('aria-checked') === 'true';
+            switchButton.setAttribute('aria-checked', !isChecked);
+
+            if (!isChecked) {
+                switchTrack.classList.add('bg-[#F9832A]');
+                switchThumb.style.transform = 'translateX(calc(100% - 1.25rem))';
+                switchValue.value = 'makanan';
+                console.log('checked the value is:', switchValue.value);
+            } else {
+                switchThumb.style.transform = 'translateX(100%)';
+                switchValue.value = 'barang';
+                console.log('unchecked the value is:', switchValue.value);
+            }
+        });
+    });
 </script>
 <style>
     /* Style the "powered by Google" attribution */
     .pac-container:after {
         content: none !important;
+    }
+    /* Add this to your CSS file or <style> tag */
+    .switch-button:focus .switch-track,
+    .switch-button:focus-visible .switch-track { /* Style focus state */
+        box-shadow: 0 0 0 3px rgba(249, 131, 42, 0.4);
     }
 </style>
