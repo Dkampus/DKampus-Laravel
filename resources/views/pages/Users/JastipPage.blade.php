@@ -244,7 +244,7 @@
                         <button type="button" class="ml-2 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-1 px-2 rounded-md" onclick="removeMenu(this)">-</button>
                     </div>
                 </div>
-                <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this, this.dataset.index)" data-index="${warungIndex}">Tambah Menu</button>
+                <button type="button" class="mb-4 bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-md" onclick="addMenu(this, this.dataset.index)" data-index="${warungIndex}">Tambah Menu/Barang</button>
             `;
                 warungContainer.appendChild(newWarungInput);
                 warungIndex++;
@@ -289,11 +289,9 @@
                 switchTrack.classList.add('bg-[#F9832A]');
                 switchThumb.style.transform = 'translateX(calc(100% - 1.25rem))';
                 switchValue.value = 'makanan';
-                console.log('checked the value is:', switchValue.value);
             } else {
                 switchThumb.style.transform = 'translateX(100%)';
                 switchValue.value = 'barang';
-                console.log('unchecked the value is:', switchValue.value);
             }
         });
     });
