@@ -228,6 +228,7 @@ class CourierController extends Controller
                 $orderId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orderID')->getValue();
                 $bukti = $database->getReference('onProgress/' . $custId . '-' . $courId . '/bukti')->getValue();
                 $jarak = $database->getReference('onProgress/' . $custId . '-' . $courId . '/jarak')->getValue();
+                $kategori = $database->getReference('onProgress/' . $custId . '-' . $courId . '/kategori')->getValue();
                 // dd($item);
                 $itemNum = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getChildKeys();
                 $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders' . '/' . $itemNum[0] . '/umkm_id')->getValue();
@@ -250,6 +251,7 @@ class CourierController extends Controller
                     'bukti_akhir' => $fileName,
                     'alasan' => null,
                     'total_driver' => $request->input('total-price'),
+                    'kategori' => $kategori,
                     'order_id' => $orderId,
                 ]);
 
@@ -285,6 +287,7 @@ class CourierController extends Controller
                 $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
                 $bukti = $database->getReference('onProgress/' . $custId . '-' . $courId . '/bukti')->getValue();
                 $itemNum = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getChildKeys();
+                $kategori = $database->getReference('onProgress/' . $custId . '-' . $courId . '/kategori')->getValue();
                 $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders' . '/' . $itemNum[0] . '/umkm_id')->getValue();
                 $namaJumlahArray = [];
                 foreach ($item as $order) {
@@ -305,6 +308,7 @@ class CourierController extends Controller
                     'bukti_akhir' => $fileName,
                     'alasan' => $request->input('alasan'),
                     'total_driver' => $request->input('total-price-cancel'),
+                    'kategori' => $kategori,
                     'order_id' => $orderId,
                 ]);
                 $database->getReference('onProgress/' . $custId . '-' . $courId)->remove();

@@ -143,6 +143,7 @@ class MenuController extends Controller
 
             $total = $this->calculateTotalPrice($userID);
             $database->getReference('cart/' . $userID . '/total')->set($total);
+            $database->getReference('cart/' . $userID . '/kategori')->set('makanan');
             $database->getReference('cart/' . $userID . '/umkm_address')->set(Data_umkm::find($umkmID)->alamat);
             $database->getReference('cart/' . $userID . '/umkm_link_address')->set(Data_umkm::find($umkmID)->link);
 

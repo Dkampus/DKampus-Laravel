@@ -28,6 +28,7 @@ class history extends Model
         'bukti_akhir',
         'alasan',
         'total_driver',
+        'kategori',
         'order_id'
     ];
 

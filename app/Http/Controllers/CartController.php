@@ -550,6 +550,7 @@ class CartController extends Controller
                 $jumlahWarungs = 1;
                 $calculatedTotal = 0;
             }
+            $kategori = $request->input('jenisJastip');
 
 
             $refNTD = $database->getReference('needToDeliver/' . $userID . '-')->getSnapshot()->exists();
@@ -603,6 +604,7 @@ class CartController extends Controller
                                 $database->getReference('cart/' . $userID . '/total')->set($calculatedTotal);
                                 $database->getReference('cart/' . $userID . '/umkm_address')->set($alamat);
                                 $database->getReference('cart/' . $userID . '/umkm_link_address')->set($link);
+                                $database->getReference('cart/' . $userID . '/kategori')->set($kategori);
                                 $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
                                 $total = $database->getReference('cart/' . $userID . '/total')->getValue();
                                 return view('pages.Users.payJastip', [
@@ -665,6 +667,7 @@ class CartController extends Controller
                         $database->getReference('cart/' . $userID . '/total')->set($calculatedTotal);
                         $database->getReference('cart/' . $userID . '/umkm_address')->set($alamat);
                         $database->getReference('cart/' . $userID . '/umkm_link_address')->set($link);
+                        $database->getReference('cart/' . $userID . '/kategori')->set($kategori);
                         $carts = $database->getReference('cart/' . $userID . '/orders')->getValue();
                         $total = $database->getReference('cart/' . $userID . '/total')->getValue();
                         return view('pages.Users.payJastip', [
