@@ -102,9 +102,9 @@ Route::get('/promo/semua', function (UmkmController $umkmController) {
         for ($i = 0; $i < count(PromoModel::promoSpecial()); $i++) {
             $umkmGeo[] = Data_umkm::where('id', PromoModel::promoSpecial()[$i]->data_umkm_id)->first()->id;
         }
-        for ($i = 0; $i < count($umkmGeo); $i++) {
-            $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
-        }
+//        for ($i = 0; $i < count($umkmGeo); $i++) {
+//            $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
+//        }
     } else {
         $Jarak = null;
     }
@@ -112,7 +112,7 @@ Route::get('/promo/semua', function (UmkmController $umkmController) {
         'Title' => 'Semua Promo',
         'promoSpecial' => PromoModel::promoSpecial(),
         'umkm' => Data_umkm::all(),
-        'jarakUmkm' => $Jarak,
+//        'jarakUmkm' => $Jarak,
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
     ]);
@@ -142,9 +142,9 @@ Route::get('/promo/special', function (UmkmController $umkmController) {
         for ($i = 0; $i < count(PromoModel::promoSpecial()); $i++) {
             $umkmGeo[] = Data_umkm::where('id', PromoModel::promoSpecial()[$i]->data_umkm_id)->first()->id;
         }
-        for ($i = 0; $i < count($umkmGeo); $i++) {
-            $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
-        }
+//        for ($i = 0; $i < count($umkmGeo); $i++) {
+//            $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
+//        }
     } else {
         $Jarak = null;
     }
@@ -253,9 +253,9 @@ Route::get('/favorit', function (UmkmController $umkmController) {
             for ($i = 0; $i < count(PromoModel::promoSpecial()); $i++) {
                 $umkmGeo[] = Data_umkm::where('id', PromoModel::promoSpecial()[$i]->data_umkm_id)->first()->id;
             }
-            for ($i = 0; $i < count($umkmGeo); $i++) {
-                $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
-            }
+//            for ($i = 0; $i < count($umkmGeo); $i++) {
+//                $Jarak[] = $umkmController->getDistance(Auth::user()->id, $umkmGeo[$i]);
+//            }
         }
     } catch (Exception $e) {
         $Jarak = null;
@@ -265,7 +265,7 @@ Route::get('/favorit', function (UmkmController $umkmController) {
         'PengaturanAkun' => HomeModel::pengaturanAkun(),
         'SeputarDkampus' => HomeModel::seputarDkampus(),
         'RekomendasiWarung' => Data_umkm::all(),
-        'listJarak' => $Jarak,
+//        'listJarak' => $Jarak,
         'RekomendasiMakanan' => Menu::take(5)->get(),
         'PromoTerlarisSlider' => PromoModel::promoTerlaris(),
     ]);

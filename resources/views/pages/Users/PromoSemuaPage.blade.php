@@ -22,11 +22,11 @@
                             <div class="flex items-center gap-2">
                                 <img src="{{ asset('/Iconly/Bold/Star.svg') }}" alt="" class="w-4 h-4">
                                 <p class="text-[#5E5E5E] text-sm">{{$warung->rating ?? '0.0'}}</p>
-                                @if($jarakUmkm != null)
-                                    <a class="text-[#5E5E5E] text-sm font-semibold"> | {{ $jarakUmkm[$umkmItem] > 1000 ? round($jarakUmkm[$umkmItem] / 1000) . ' km' : $jarakUmkm[$umkmItem] . ' m' }}</a>
-                                @else
-                                    <a class="text-[#5E5E5E] text-sm font-semibold"></a>
-                                @endif
+{{--                                @if($jarakUmkm != null)--}}
+{{--                                    <a class="text-[#5E5E5E] text-sm font-semibold"> | {{ $jarakUmkm[$umkmItem] > 1000 ? round($jarakUmkm[$umkmItem] / 1000) . ' km' : $jarakUmkm[$umkmItem] . ' m' }}</a>--}}
+{{--                                @else--}}
+{{--                                    <a class="text-[#5E5E5E] text-sm font-semibold"></a>--}}
+{{--                                @endif--}}
                             </div>
                         </div>
                         <div class="flex justify-between items-center mb-2">

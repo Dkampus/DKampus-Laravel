@@ -24,9 +24,9 @@ class UserController extends Controller
             $alamat = Addresse::where('user_id', Auth::user()->id)->where('utama', 1)->first();
             $listJarak = [];
 
-            foreach (Data_umkm::all() as $data) {
-                $listJarak[] = $this->calculteDistance($alamat->geo, $data->geo);
-            }
+//            foreach (Data_umkm::all() as $data) {
+//                $listJarak[] = $this->calculteDistance($alamat->geo, $data->geo);
+//            }
             return view('pages.Users.Homepage', [
                 'Banner' => HomeModel::bannerData(),
                 'PengaturanAkun' => HomeModel::pengaturanAkun(),
