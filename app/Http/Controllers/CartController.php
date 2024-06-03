@@ -591,8 +591,8 @@ class CartController extends Controller
                             $geoUser = $alamatUser->addresses()->where('id', $id)->first()->geo;
                             $notesAlamat = $alamatUser->addresses()->where('id', $id)->first()->notes;
                             $ongkir = $this->ongkir($geoUmkm, $geoUser);
-                            $ongkirAkhir = $ongkir + 1000;
                             if (is_numeric($ongkir)) {
+                                $ongkirAkhir = $ongkir + 1000;
                                 $jarak = $this->calculteDistance($geoUmkm, $geoUser);
                                 $database->getReference('cart/' . $userID . '/cust_address')->set($alamatUser->addresses()->where('id', $id)->first()->address);
                                 $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamatUser->addresses()->where('id', $id)->first()->link);
@@ -654,8 +654,8 @@ class CartController extends Controller
                     $geoUser = $alamatUser->addresses()->where('id', $id)->first()->geo;
                     $notesAlamat = $alamatUser->addresses()->where('id', $id)->first()->notes;
                     $ongkir = $this->ongkir($geoUmkm, $geoUser);
-                    $ongkirAkhir = $ongkir + 1000;
                     if (is_numeric($ongkir)) {
+                        $ongkirAkhir = $ongkir + 1000;
                         $jarak = $this->calculteDistance($geoUmkm, $geoUser);
                         $database->getReference('cart/' . $userID . '/cust_address')->set($alamatUser->addresses()->where('id', $id)->first()->address);
                         $database->getReference('cart/' . $userID . '/cust_link_address')->set($alamatUser->addresses()->where('id', $id)->first()->link);

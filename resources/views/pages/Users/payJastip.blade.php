@@ -124,13 +124,10 @@
             document.getElementById("timer").innerHTML = "EXPIRED";
         }
     }, 1000);
-    document.getElementById('uploadButton').addEventListener('click', function() {
-        document.getElementById('bukti').click();
-    });
 
     //if countdown expired, redirect to /pesanan
     setTimeout(function() {
-        window.location.href = "{{url('/pesanan')}}";
+        window.location.href = "{{url('/jastip')}}";
     }, 180000);
 
     //function download qr image
