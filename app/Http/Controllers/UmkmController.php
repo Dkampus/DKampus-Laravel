@@ -153,7 +153,7 @@ class UmkmController extends Controller
                 "nama_makanan" => $request->nama_makanan,
                 "deskripsi" => $request->deskripsi,
                 "harga" => $request->harga,
-                "image" => $request->image->store('public'),
+                "image" => $request->image->store(),
                 "rating" => 0,
                 "slug" => "",
                 "diskon" => $request->promo,
@@ -182,7 +182,7 @@ class UmkmController extends Controller
             // Check if a new logo is uploaded
             if ($request->hasFile('logo_umkm')) {
                 // Store the new logo and update the logo_umkm attribute
-                $umkm->logo_umkm = $request->logo_umkm->store('public/' . $umkm->nama_umkm);
+                $umkm->logo_umkm = $request->logo_umkm->store($umkm->nama_umkm);
             }
 
             $umkm->save();
@@ -201,7 +201,7 @@ class UmkmController extends Controller
         try {
             $umkm = Data_umkm::find($id);
             Data_umkm::findOrFail($umkm->id)->delete();
-            Storage::deleteDirectory("public/" . $umkm->logo_umkm);
+            Storage::deleteDirectory($umkm->logo_umkm);
             session()->flash('success', 'Umkm ' . $umkm->nama_umkm . ' Berhasil Dihapus');
             return redirect()->back();
         } catch (\Exception $e) {
