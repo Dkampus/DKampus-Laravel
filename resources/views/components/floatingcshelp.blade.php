@@ -1,4 +1,4 @@
-<div class="fixed bottom-32 right-4 md:bottom-2 md:right-4 z-9">
+<div class="fixed bottom-32 right-4 md:bottom-2 md:right-4 z-[2]">
     <button class="bg-[#F9832A] w-20 h-10 rounded-2xl text-white font-semibold text-lg" onclick="showCSHelp()">
         CS Help
     </button>
