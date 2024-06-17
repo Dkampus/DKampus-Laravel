@@ -11,7 +11,7 @@
 <main class="flex flex-col gap-5 mt-3">
     <form action="{{ route('room.chat') }}" method="POST" id="chat-form">
         @csrf
-        <div id="chat-list" class="mx-auto shadow-lg rounded-lg overflow-hidden md:max-w-lg">
+        <div id="chat-list" class="mx-auto overflow-hidden md:max-w-lg">
             {{-- Chat items will be added here --}}
         </div>
     </form>
