@@ -8,6 +8,7 @@ use App\Models\Menu;
 use App\Models\Data_umkm;
 use App\Models\User;
 use App\Models\history;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
 class AdminController extends Controller
@@ -151,5 +152,11 @@ class AdminController extends Controller
         } catch (Exception $e) {
             dd($e);
         }
+    }
+
+    public function convertXls()
+    {
+        $data = DB::table('histories')->get();
+        return response()->json($data);
     }
 }

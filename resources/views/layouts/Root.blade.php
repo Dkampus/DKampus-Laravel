@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <title>{{ $Title }} - Welcome & Enjoy what you need</title>
-    @vite('resources/css/app.css')
+    <!-- @vite('resources/css/app.css') -->
+    <link rel="stylesheet" href="/build/assets/app-718e4e84.css">
 </head>
 
 <body>
@@ -76,11 +77,11 @@
         @yield('content')
 
         @if ($Title === 'Home' || $Title === 'Promo' || $Title === 'Pesanan' || $Title === 'Favorit' || $Title === 'Status')
-            {{-- <div class="w-full relative flex justify-center"> --}}
-            @include('components.navbar.navbar')
-            {{-- </div> --}}
+        {{-- <div class="w-full relative flex justify-center"> --}}
+        @include('components.navbar.navbar')
+        {{-- </div> --}}
         @else
-            {{-- @include('components.navbar.navbar') --}}
+        {{-- @include('components.navbar.navbar') --}}
         @endif
     </div>
     @stack('searchDesktop')
@@ -90,104 +91,106 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @switch($Title)
-        @case('Home')
-            <script src="{{ asset('js/homepage-script.js') }}"></script>
-            <script src="{{ asset('js/swiper.js') }}"></script>
-        @break
+    @case('Home')
+    <script src="{{ asset('js/homepage-script.js') }}"></script>
+    <script src="{{ asset('js/swiper.js') }}"></script>
+    @break
 
-        @case('Promo')
-            <script src="{{ asset('js/promo.js') }}"></script>
-            <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script>
-        @break
+    @case('Promo')
+    <script src="{{ asset('js/promo.js') }}"></script>
+    <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script>
+    @break
 
-        @case('Pesanan')
-            <script src="{{ asset('js/pesanan.js') }}"></script>
-            <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script>
-        @break
+    @case('Pesanan')
+    <script src="{{ asset('js/pesanan.js') }}"></script>
+    <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script>
+    @break
 
-        @case('Status')
-            <script src="{{ asset('js/status.js') }}"></script>
-            {{-- <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script> --}}
-        @break
+    @case('Status')
+    <script src="{{ asset('js/status.js') }}"></script>
+    {{-- <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script> --}}
+    @break
 
-        @case('Favorit')
-            <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script>
-        @break
+    @case('Favorit')
+    <script src="{{ asset('js/aside&SearchDesktop.js') }}"></script>
+    @break
 
-        @case('Detail-Warung')
-            <script src="{{ asset('js/DetailWarung-script.js') }}"></script>
-        @break
+    @case('Detail-Warung')
+    <script src="{{ asset('js/DetailWarung-script.js') }}"></script>
+    @break
 
-        @case('Detail-Makanan')
-            <script src="{{ asset('js/DetailMakanan-script.js') }}"></script>
-        @break
+    @case('Detail-Makanan')
+    <script src="{{ asset('js/DetailMakanan-script.js') }}"></script>
+    @break
 
-        @case('Log in')
-            <script src="{{ asset('js/login.js') }}"></script>
-        @break
+    @case('Log in')
+    <script src="{{ asset('js/login.js') }}"></script>
+    @break
 
-        @case('Register')
-            <script src="{{ asset('js/register.js') }}"></script>
-        @break
+    @case('Register')
+    <script src="{{ asset('js/register.js') }}"></script>
+    @break
 
-        @case('Code Verification')
-            <script src="{{ asset('js/codeVerification.js') }}"></script>
-        @break
+    @case('Code Verification')
+    <script src="{{ asset('js/codeVerification.js') }}"></script>
+    @break
 
-        @case('Input Registrasi')
-            <script src="{{ asset('js/inputRegistration.js') }}"></script>
-        @break
+    @case('Input Registrasi')
+    <script src="{{ asset('js/inputRegistration.js') }}"></script>
+    @break
 
-        @default
-            {{-- <script src="{{asset('js/DetailWarung-script.js')}}"></script>
-            <script src="{{asset('js/DetailMakanan-script.js')}}"></script>  --}}
-            {{-- <script src="{{asset('js/homepage-script.js')}}"></script>   --}}
-            {{-- <script src="{{asset('js/swiper.js')}}"></script> --}}
-            {{-- <script src="{{asset('js/gsap.js')}}"></script> --}}
-            {{-- <script src="{{asset('js/inputRegistration.js')}}"></script> --}}
-            {{-- <script src="{{asset('js/codeVerification.js')}}"></script> --}}
+    @default
+    {{-- <script src="{{asset('js/DetailWarung-script.js')}}"></script>
+    <script src="{{asset('js/DetailMakanan-script.js')}}"></script> --}}
+    {{-- <script src="{{asset('js/homepage-script.js')}}"></script> --}}
+    {{-- <script src="{{asset('js/swiper.js')}}"></script> --}}
+    {{-- <script src="{{asset('js/gsap.js')}}"></script> --}}
+    {{-- <script src="{{asset('js/inputRegistration.js')}}"></script> --}}
+    {{-- <script src="{{asset('js/codeVerification.js')}}"></script> --}}
     @endswitch
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if (session('error2'))
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            Toast.fire({
-                icon: 'error',
-                title: '{{ session('error2') }}'
-            })
-        </script>
+        Toast.fire({
+            icon: 'error',
+            title: '{{ session('
+            error2 ') }}'
+        })
+    </script>
     @endif
     @if (session('success'))
-        <script>
-            const ToastSuccess = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+    <script>
+        const ToastSuccess = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            ToastSuccess.fire({
-                icon: 'success',
-                title: '{{ session('success') }}'
-            })
-        </script>
+        ToastSuccess.fire({
+            icon: 'success',
+            title: '{{ session('
+            success ') }}'
+        })
+    </script>
     @endif
     @stack('js')
 </body>

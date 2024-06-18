@@ -36,6 +36,7 @@
 
         // Get a reference to the Firebase database
         var database = firebase.database();
+        
         var custId = "{{ $custId }}";
 
         function handleSubmitButtonClick(courId) {
@@ -110,10 +111,12 @@
                 var newestMessageTimestamp = timestamp;
                 var inserted = false;
                 chatItems.each(function() {
-                    var existingTimestamp = $(this).find('.timestamp').val();
+                    var existingTimestamp = $(this).find('.timestamp').attr('value');
                     if (newestMessageTimestamp > existingTimestamp) {
                         $(this).before(chatItem);
                         inserted = true;
+                        console.log(newestMessageTimestamp);
+                        console.log(existingTimestamp);
                         return false;
                     }
                 });
