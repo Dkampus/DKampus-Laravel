@@ -313,10 +313,8 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     Route::post('/checkout/confirm', [CartController::class, 'confirmPay'])->name('confirm.pay');
     // User Chat page
     Route::get('/chats', [ChatController::class, 'listChat']);
-    Route::post(
-        '/room-chat',
-        [ChatController::class, 'roomChat']
-    )->name('room.chat');
+    Route::post('/room-chat', [ChatController::class, 'roomChat'])->name('room.chat');
+    Route::post('/chatbot', [CsController::class, 'bot'])->name('chatbot');
     // Daftar Alamat
     Route::get('/daftar-alamat', [UserController::class, 'indexAlamat'])->name('alamat');
     Route::post('/daftar_alamat', [UserController::class, 'daftarAlamat'])->name('daftar.alamat');
