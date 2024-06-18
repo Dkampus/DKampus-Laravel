@@ -18,19 +18,7 @@
     <img src="menu.svg" alt="" class="w-8">
 </button> --}}
 
-<div id="bar-menu-desktop"
-    class="h-screen bg-white shadow-xl overflow-auto transition-all duration-500 fixed w-0 top-0 right-0 z-[80]">
-    {{-- @guest
-            <a href="/masuk"
-                class="bg-[#F9832A] w-40 h-[3.4rem] rounded-2xl text-center text-white flex items-center justify-center font-semibold text-lg">Masuk</a>
-        @endguest
-        @auth
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit"
-                    class="bg-[#F9832A] w-40 h-[3.4rem] rounded-2xl text-center text-white flex items-center justify-center font-semibold text-lg">Keluar</button>
-            </form>
-        @endauth --}}
+<div id="bar-menu-desktop" class="h-screen bg-white shadow-xl overflow-auto transition-all duration-500 fixed w-0 top-0 right-0 z-[80]">
     <header class="flex flex-row absolute top-8 right-5 gap-10 justify-end items-center w-full">
         <h1 class="text-xl font-semibold">Menu Utama</h1>
         <button onclick="hideMenuDesktop()" class="font-bold text-xl text-[#FF9240]">
@@ -42,7 +30,7 @@
         </button>
     </header>
 
-    <main class="mt-24 w-full">
+    <main class="mt-24 w-full z-50">
 
         <div id="profile"
             class="relative shadow-md w-[22rem] h-28 flex flex-row items-start border rounded-lg mx-auto px-3 pt-5">
@@ -60,9 +48,9 @@
                     <h1 class="text-wrapper-location-profile">{{ Auth::user()->alamat ?? 'address' }}</h1>
                 </div>
             </div>
-            <a href="/settings">
-                <img src="settings.svg" alt="" class="absolute right-3 top-3 w-5">
-            </a>
+{{--            <a href="/settings">--}}
+{{--                <img src="settings.svg" alt="" class="absolute right-3 top-3 w-5">--}}
+{{--            </a>--}}
         </div>
 
         <div id="pengaturanAkun" class="flex flex-col gap-7 w-[21rem] mx-auto mt-10">

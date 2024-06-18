@@ -17,9 +17,11 @@
 </header>
 <main>
     <div class="text-center my-2">
-        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{ $date }}</span>
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{ date('l, d F Y', strtotime($date)) }}</span>
     </div>
-    <div id="chat-messages"></div>
+    <div id="chat-messages" class="flex flex-col gap-3 m-4 overflow-y-auto pb-16">
+        {{-- Chat messages will be displayed here --}}
+    </div>
 </main>
 <footer class="fixed bottom-0 left-0 w-full bg-white z-10 shadow-md py-2 px-4">
     <form id="message-form" action="#" method="POST">
@@ -103,6 +105,10 @@
 
         // Append container to chat messages
         $('#chat-messages').append(messageDiv);
+
+        // Scroll to the bottom of the chat messages
+        var chatMessages = document.getElementById('chat-messages');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
     // Listen for new messages

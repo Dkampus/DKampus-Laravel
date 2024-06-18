@@ -86,7 +86,7 @@
         @php $harga = number_format($food->harga, 0, ',', '.'); @endphp
         <div class="w-[15rem] relative mb-2 border rounded-2xl transition-all duration-300 overflow-hidden hover:shadow-md">
             {{-- Discount Img --}}
-            <img src="../discount50%.svg" alt="" class="top-5 -left-[0.65rem] overflow-auto z-50 absolute w-[5rem]">
+{{--            <img src="../discount50%.svg" alt="" class="top-5 -left-[0.65rem] overflow-auto z-50 absolute w-[5rem]">--}}
             <a href="/detail-makanan/{{$food->nama_makanan}}">
                 <img src="{{Storage::url($food->image)}}" alt="" class="w-full">
 {{--                <div class="w-full h-[10rem] bg-gray-300"></div>--}}

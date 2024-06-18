@@ -36,7 +36,7 @@
 
         // Get a reference to the Firebase database
         var database = firebase.database();
-        
+
         var custId = "{{ $custId }}";
 
         function handleSubmitButtonClick(courId) {

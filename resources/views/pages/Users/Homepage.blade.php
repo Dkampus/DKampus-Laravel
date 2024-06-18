@@ -26,7 +26,6 @@
 
     {{-- Carousel Category --}}
     <div class="flex flex-row items-start relative">
-         <div class="bg-gradient-to-r from-white from-[30%] to-transparent w-14 z-50 h-28 fixed  left-0"></div>
         <x-carousel.slider-category>
             @foreach ($Carousel as $item)
             <swiper-slide class="w-28 h-24 border-2 shadow-md rounded-xl flex flex-col justify-center items-center transition-all duration-300 my-2 hover:shadow-none">
@@ -181,7 +180,9 @@
         <nav class="flex flex-row items-center gap-3">@include('components.navbar.subnavbar-homepage')</nav>
         @yield('subnav-homepage')
     </div>--}}
-    <x-floatingcshelp />
+    @if (Auth::user() != null)
+        <x-floatingcshelp />
+    @endif
 </main>
 
 <footer class="md:grid hidden grid-cols-4 w-full bg-gradient-to-t from-[#ED6600] to-[#F9832A] text-white h-[40vh] place-content-evenly px-10 place-items-stretch">

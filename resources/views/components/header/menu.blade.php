@@ -13,7 +13,7 @@
 </button>
 @endauth
 
-<div id="bar-menu" class="h-screen bg-white shadow-xl overflow-auto transition-all duration-500 fixed w-0 top-0 right-0 z-[80]">
+<div id="bar-menu" class="h-screen bg-white shadow-xl overflow-auto transition-all duration-500 fixed w-0 top-0 right-0 z-[100]">
      @guest
             <a href="/masuk"
                 class="bg-[#F9832A] w-40 h-[3.4rem] rounded-2xl text-center text-white flex items-center justify-center font-semibold text-lg">Masuk</a>
