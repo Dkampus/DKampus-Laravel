@@ -28,7 +28,7 @@ class CsController extends Controller
                         'msgs' => [
                             'msg' => $response->message,
                             'timestamp' => $timestamp,
-                            'role' => "driver",
+                            'role' => "admin",
                         ],
                     ];
                     $database->getReference('chats/' . $id . '-' . '1')->push()->set($postData);

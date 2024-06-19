@@ -96,7 +96,7 @@
         minutes = date.getMinutes().toString().padStart(2, '0');
         formattedTimestamp = hours + ':' + minutes;
         var button = $('<button>').addClass('flex flex-row items-center space-x-4 p-2 text-start w-full chat-item').attr('data-del-id', custId);
-        var photoProfile = $('<img>').addClass('h-10 w-10 rounded-full');
+        var photoProfile = $('<div>').addClass('h-10 w-12 rounded-full bg-red-200');
         var divChat = $('<div>').addClass('flex flex-col w-full chat-list');
         var senderAndTime = $('<div>').addClass('flex justify-between items-center w-full');
         var sender = $('<p>').addClass('font-semibold text-gray-800 dark:text-gray-200').text(sender);
@@ -112,13 +112,14 @@
     }
 
     function roomChat(role, message, timestamp) {
-        var firstDiv = $('<div>').addClass('p-4');
+        var firstDiv = $('<div>').addClass('p-2');
         var messageDiv = $('<div>').addClass('flex flex-col mb-3 m-4');
         var containerDiv = $('<div>').addClass('rounded-lg p-3');
         var messageText = $('<p>').text(message);
-        var timestampText = $('<p>').addClass('text-xs').text(timestamp);
+        let timeformated = new Date(timestamp);
+        var timestampText = $('<p>').addClass('text-xs').text(timeformated.getHours() + ':' + timeformated.getMinutes());
 
-        if (role === 'admin') {
+        if (role == 'courier' || role == 'admin') {
             var messageContainer = $('<div>').addClass('flex flex-row items-center space-x-4 justify-end');
             // var avatarImg = $('<img>').addClass('h-10 w-10 rounded-full').attr('src', 'https://randomuser.me/api/port').attr('alt', 'avatar');
             messageDiv.addClass('items-end');
@@ -151,9 +152,9 @@
         var ifx = $('#ifx');
         ifx.addClass('hidden');
         var chatRef = database.ref('chats/' + custId + '-' + courId);
-        console.log(custId)
         chatRef.on('child_added', function(snapshot) {
             var messageData = snapshot.val().msgs;
+            console.log(messageData);
             if (messageData) {
                 roomChat(messageData.role, messageData.msg, messageData.timestamp);
                 $('#message-input').prop('disabled', false);
@@ -204,7 +205,7 @@
                             var chatItems = chatList.children('.chat-item');
                             existingChatItem = chatList.find('.chat-item[data-del-id="' + custId + '"]');
                             if (existingChatItem.length > 0) {
-                                console.log(1);
+                                // console.log(1);
                                 chatItem = listChat(sender, message, timestamp, custId, countMssg);
                                 existingChatItem.find('.message').text(message);
                                 existingChatItem.find('.timestamp').text(formattedTimestamp);
