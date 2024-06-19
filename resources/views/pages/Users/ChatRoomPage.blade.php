@@ -57,6 +57,51 @@
     var custId = "{{ $custId }}";
     var courId = "{{ $courId }}";
 
+    // Function to send a message for chatbot
+    function sendChatbotMessage(message) {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+        var day = date.getDate().toString().padStart(2, '0');
+        var hours = date.getHours().toString().padStart(2, '0');
+        var minutes = date.getMinutes().toString().padStart(2, '0');
+        var seconds = date.getSeconds().toString().padStart(2, '0');
+
+        var formattedTimestamp = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+        // Send the message
+        try {
+            $.ajax({
+                url: "{{ env('CHATBOT_ENDPOINT') }}",
+                type: 'POST',
+                data: JSON.stringify({
+                    uid: custId,
+                    message: message
+                }),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function(response) {
+                    var chatbotMessage = response.message;
+                    if (chatbotMessage != null) {
+                        database.ref('chats/' + custId + '-' + courId).push().set({
+                            msgs: {
+                                role: 'courier',
+                                msg: chatbotMessage,
+                                timestamp: formattedTimestamp
+                            }
+                        });
+                        var chatRef = database.ref('chats/' + custId + '-' + courId + '/courNewMssg');
+                        chatRef.transaction(function(currentValue) {
+                            return (currentValue || 0) + 1;
+                        });
+                    }
+                }
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     // Function to send a message
     function sendMessage(message) {
         var date = new Date();
@@ -134,6 +179,7 @@
         var message = $('#message-input').val().trim();
         if (message !== '') {
             sendMessage(message);
+            sendChatbotMessage(message);
             $('#message-input').val(''); // Clear input field after sending
         }
     });
