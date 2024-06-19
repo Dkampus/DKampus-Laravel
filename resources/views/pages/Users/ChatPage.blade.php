@@ -8,13 +8,14 @@
         <h1 class="font-bold text-black text-xl mb-1">Chat</h1>
     </a>
 </header>
-<main class="flex flex-col gap-5 px-5 mt-3">
+<main class="flex flex-col gap-5 px-2 mt-3">
     <form action="{{ route('room.chat') }}" method="POST">
         @csrf
-        <div class="flex flex-col gap-5" id="chat-list">
-            {{-- Chat list will be dynamically updated here --}}
+        <div id="chat-list" class="mx-auto overflow-hidden md:max-w-lg">
+            {{-- Chat items will be added here --}}
         </div>
     </form>
+</main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -135,13 +136,17 @@
             var minutes = date.getMinutes().toString().padStart(2, '0');
             var formattedTimestamp = hours + ':' + minutes;
 
-            var containerDiv = $('<div>').addClass('chat-item').attr('data-cour-id', courId);
+            var containerDiv = $('<div>').addClass('chat-item mb-5').attr('data-cour-id', courId);
             var chatItemDiv = $('<div>').addClass('flex justify-between items-center gap-3');
 
-            var senderInfoDiv = $('<div>').addClass('flex flex-col gap-1 items-start');
+            var senderInfoDiv = $('<div>').addClass('flex flex-row gap-1 items-start');
+            var svgIconPerson = $('<div class="w-10 h-10 rounded-full flex items-center justify-center">').html('<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#F9832A" class="bi bi-person-circle" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1z" /><path d="M8 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" /><path d="M8 10a5 5 0 0 0-4 2l1.5.5a4 4 0 0 1 6 0l1.5-.5a5 5 0 0 0-4-2z" /></svg>');
+            var senderNameAndMessageDiv = $('<div>').addClass('flex flex-col gap-1 items-start');
             var senderName = $('<h1>').addClass('font-bold text-black').text(sender);
-            var messageText = $('<p>').addClass('text-gray-400 message').text(message);
-            senderInfoDiv.append(senderName, messageText);
+            var maxLength = 25; // Maxlength of message text
+            var messageText = $('<p>').addClass('text-gray-400 message truncate').text(message.length > maxLength ? message.substring(0, maxLength) + '...' : message);
+            senderNameAndMessageDiv.append(senderName, messageText);
+            senderInfoDiv.append(svgIconPerson, senderNameAndMessageDiv);
 
             var timestampDiv = $('<div>').addClass('flex flex-col items-end gap-1 right-info');
             var timestampText = $('<p>').addClass('text-gray-400 timestamp').text(formattedTimestamp).attr('value', timestamp);
@@ -172,5 +177,4 @@
             return submitButton;
         }
     </script>
-</main>
 @endsection
