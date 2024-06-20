@@ -13,16 +13,16 @@
 </button>
 @endauth
 
-<div id="bar-menu" class="h-screen bg-white shadow-xl overflow-auto transition-all duration-500 fixed w-0 top-0 right-0 z-[100]">
-     @guest
-            <a href="/masuk"
-                class="bg-[#F9832A] w-40 h-[3.4rem] rounded-2xl text-center text-white flex items-center justify-center font-semibold text-lg">Masuk</a>
+<div id="bar-menu" class="h-screen bg-white shadow-xl overflow-y-auto transition-all duration-500 fixed w-0 top-0 right-0 z-[100]">
+    @guest
+        <a href="/masuk"
+           class="bg-[#F9832A] w-40 h-[3.4rem] rounded-2xl text-center text-white flex items-center justify-center font-semibold text-lg">Masuk</a>
     @endguest
-    <header class="flex flex-row absolute top-8 right-5 gap-10 justify-end items-center w-full">
+    <header class="absolute top-8 right-5 gap-10 justify-end items-center w-full flex flex-row">
         <h1 class="text-xl font-semibold">Menu Utama</h1>
         <button onclick="hideMenu()" class="font-bold text-xl text-[#FF9240]">
             <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#FF9240]" height="1.5em"
-                viewBox="0 0 448 512">
+                 viewBox="0 0 448 512">
                 <path
                     d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
             </svg>
@@ -31,7 +31,7 @@
 
     <main class="mt-24 w-full">
         <div id="profile"
-            class="relative shadow-md w-[22rem] h-28 flex flex-row items-start border rounded-lg mx-auto px-3 pt-5">
+             class="relative shadow-md w-[22rem] h-28 flex flex-row items-start border rounded-lg mx-auto px-3 pt-5">
             <button>
                 <img src="Avatar/Large.svg" alt="" class="w-[4.5rem]">
             </button>
