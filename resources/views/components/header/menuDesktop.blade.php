@@ -45,7 +45,9 @@
                 {{--Alamat pengguna--}}
                 <div id="location" class="flex flex-row gap-1 items-center">
                     <img src="markLocation.svg" alt="" class="w-4">
-                    <h1 class="text-wrapper-location-profile">{{ Auth::user()->addresses->where('utama', 1)->first()->nama_alamat ?? 'null' }}</h1>
+                    @if (Auth::user() != null)
+                        <h1 class="">{{ Auth::user()->addresses->where('utama', 1)->first()->nama_alamat ?? 'address' }}</h1>
+                    @endif
                 </div>
             </div>
 {{--            <a href="/settings">--}}
