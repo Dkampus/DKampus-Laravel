@@ -24,10 +24,14 @@
     </div>
 </main>
 <footer class="fixed bottom-0 left-0 w-full bg-white z-10 shadow-md py-2 px-4">
-    <form id="message-form" action="#" method="POST">
+    <form id="message-form" action="#" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="flex items-center mb-2">
             <input id="message-input" type="text" name="message" placeholder="Type a message" class="flex-grow border rounded-lg p-3 mr-2">
+            <input id="image-input" type="file" name="image" accept="image/*" class="hidden">
+            <button type="submit" id="image-btn" class="bg-[#F9832A] rounded-lg p-2 mr-2">
+                <img src="{{ asset('/image-icon.svg') }}" width="24" height="24" class="bi bi-image">
+            </button>
             <button type="submit" id="send-btn" class="bg-[#F9832A] rounded-lg p-2">
                 <img src="{{ asset('/send.svg') }}" width="24" height="24" class="bi bi-box-arrow-in-right">
             </button>
@@ -86,7 +90,12 @@
         // Create message elements
         var messageDiv = $('<div>').addClass('flex flex-col mb-3 m-4')
         var containerDiv = $('<div>').addClass('rounded-lg p-3');
-        var messageText = $('<p>').text(message);
+        if (isImageFile(message)) {
+            var imageUrl = `/storage/chatsImg/${message}`;
+            var messageText = $('<img>').attr('src', imageUrl).addClass('mt-2 max-w-xs rounded-lg');
+        } else {
+            var messageText = $('<p>').text(message);
+        }
         var timestampText = $('<p>').addClass('text-xs').text(timestamp);
 
         if (role === 'driver') {
@@ -128,10 +137,53 @@
         event.preventDefault(); // Prevent form submission
 
         var message = $('#message-input').val().trim();
-        if (message !== '') {
+        var imageFile = $('#image-input')[0].files[0];
+
+        if (imageFile) {
+            var formData = new FormData();
+            formData.append('image', imageFile);
+            formData.append('_token', $('meta[name="csrf-token"]').attr('content')); // Add CSRF token if needed
+            $.ajax({
+                url: '/courier/uploadChatImageCour',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        var imageUrl = response.imageUrl;
+                        sendMessage(imageUrl.split('/').pop());
+                        console.log('success');
+                    } else {
+                        console.log('Image upload failed');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error: ' + error);
+                }
+            });
+        } else if (message !== '') {
             sendMessage(message);
-            $('#message-input').val(''); // Clear input field after sending
         }
+
+        $('#message-input').val('');
+        $('#image-input').val('');
     });
+
+    $('#image-btn').click(function() {
+        $('#image-input').click();
+    });
+
+    $('#image-input').change(function() {
+        $('#message-form').submit();
+    });
+
+    function isImageFile(fileName) {
+        const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'heic', 'webp'];
+
+        const fileExtension = fileName.split('.').pop().toLowerCase();
+
+        return imageExtensions.includes(fileExtension);
+    }
 </script>
 @endsection

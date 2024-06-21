@@ -317,6 +317,7 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     // User Chat page
     Route::get('/chats', [ChatController::class, 'listChat']);
     Route::post('/room-chat', [ChatController::class, 'roomChat'])->name('room.chat');
+    Route::post('/uploadChatImage', [ChatController::class, 'uploadChatImage']);
     Route::post('/chatbot', [CsController::class, 'bot'])->name('chatbot');
     // Daftar Alamat
     Route::get('/daftar-alamat', [UserController::class, 'indexAlamat'])->name('alamat');
@@ -340,6 +341,7 @@ Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')
     Route::get('/dashboard', [CourierController::class, 'index'])->name('dashboardCourier');
     Route::get('/chats', [CourierController::class, 'listChat'])->name('chatpage');
     Route::post('/room-chat', [CourierController::class, 'roomChat'])->name('room.chat.courier');
+    Route::post('/uploadChatImageCour', [CourierController::class, 'uploadChatImageCour']);
     Route::get('/history', [CourierController::class, 'history'])->name('cour.history');
     Route::post('/detail-history', [CourierController::class, 'detailHistory'])->name('historydetail');
     Route::view(

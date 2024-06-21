@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Data_umkm;
 use App\Models\history;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\FuncCall;
 
 class CourierController extends Controller
@@ -205,6 +206,18 @@ class CourierController extends Controller
         } catch (Exception $e) {
             return redirect()->back()->with('error2', 'Error');
         }
+    }
+
+    public function uploadChatImageCour(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/chatsImg');
+            $url = Storage::url($path);
+
+            return response()->json(['success' => true, 'imageUrl' => $url]);
+        }
+
+        return response()->json(['success' => false, 'error' => 'No image uploaded']);
     }
 
     public function completeOrder(Request $request)

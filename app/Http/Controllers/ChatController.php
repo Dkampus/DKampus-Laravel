@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ChatController extends Controller
 {
@@ -53,5 +54,17 @@ class ChatController extends Controller
             // dd($e);
             return redirect()->back()->with('error2', 'Error');
         }
+    }
+
+    public function uploadChatImage(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/chatsImg');
+            $url = Storage::url($path);
+
+            return response()->json(['success' => true, 'imageUrl' => $url]);
+        }
+
+        return response()->json(['success' => false, 'error' => 'No image uploaded']);
     }
 }
