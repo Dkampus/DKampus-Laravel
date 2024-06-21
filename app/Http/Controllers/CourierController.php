@@ -112,8 +112,8 @@ class CourierController extends Controller
             $database = app('firebase.database');
             if ($database->getReference('onProgress')->getSnapshot()->exists() && $database->getReference('onProgress')->getSnapshot()->hasChildren()) {
                 $refId = $database->getReference('onProgress')->getChildKeys();
-                foreach ($refId as $id) {
-                    $parts = explode("-", $id);
+                foreach ($refId as $ids) {
+                    $parts = explode("-", $ids);
                     $custId = $parts[0];
                     $refOP = $database->getReference('onProgress/' . $custId . '-' . $courId)->getSnapshot()->exists();
                     if (!$refOP) {

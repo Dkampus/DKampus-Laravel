@@ -104,6 +104,8 @@
 
     // Function to send a message
     function sendMessage(message) {
+        var startTime = performance.now();
+
         var date = new Date();
         var year = date.getFullYear();
         var month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -119,6 +121,10 @@
                 msg: message,
                 timestamp: formattedTimestamp
             }
+        }).then(function() {
+            var endTime = performance.now(); // Ambil waktu selesai pengiriman pesan
+            var duration = endTime - startTime; // Hitung durasi pengiriman dalam milidetik
+            console.log('Pengiriman pesan selesai dalam ' + duration + ' milidetik');
         });
         var chatRef = database.ref('chats/' + custId + '-' + courId + '/custNewMssg');
         chatRef.transaction(function(currentValue) {
@@ -158,6 +164,7 @@
 
     // Listen for new messages
     database.ref('chats/' + custId + '-' + courId).on('child_added', function(snapshot) {
+        var startTime = performance.now();
         var messageData = snapshot.val();
 
         if (messageData.msgs) {
@@ -169,7 +176,11 @@
             var minutes = date.getMinutes().toString().padStart(2, '0');
             var formattedTimestamp = hours + ':' + minutes;
             displayMessage(role, message, formattedTimestamp);
+            var endTime = performance.now();
+            var duration = endTime - startTime;
+            console.log('Penerimaan pesan selesai dalam ' + duration + ' milidetik');
         }
+
     });
 
     // Send message when form is submitted
