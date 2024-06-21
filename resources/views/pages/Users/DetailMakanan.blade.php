@@ -13,7 +13,7 @@
         </a>
 
         {{-- Title --}}
-        <h1 id="titleDetail" class="text-white font-semibold text-lg uppercase invisible">{{$nama_makanan}}</h1>
+        {{--<h1 id="titleDetail" class="text-white font-semibold text-lg uppercase invisible">{{$nama_makanan}}</h1>--}}
 
         {{-- Favorit --}}
         <label for="NavCheckbox" id="NavLikeButton" class="w-12 h-12 bg-white flex flex-col justify-center items-center rounded-full">
@@ -68,7 +68,7 @@
     </div>
 
     {{-- line --}}
-    <div class="bg-[#D9D9D9] w-[31rem] mx-auto px-5 h-0.5"></div>
+    <div class="bg-[#D9D9D9] w-full mx-auto px-5 h-0.5"></div>
 
     {{-- deskripsi --}}
     <div class="mx-5 my-7 flex flex-col gap-2">
@@ -77,7 +77,7 @@
     </div>
 
     {{-- line --}}
-    <div class="bg-[#D9D9D9] w-[31rem] mx-auto px-5 h-0.5"></div>
+    <div class="bg-[#D9D9D9] w-full mx-auto px-5 h-0.5"></div>
 
     <form action="{{ url('/detail-makanan/' . $menu_id) }}" method="post">
         @csrf
