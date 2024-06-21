@@ -3,7 +3,7 @@
     {{-- Logo --}}
     <div class="flex flex-row items-center md:gap-2">
         <a href="/">
-            <img src="logoDkampus.svg" alt="" class="min-w-[120%] max-w-[120%] md:min-w-[2vw]">
+            <img src="logoDkampus.svg" alt="" class="min-w-[120%] max-w-[120%] md:min-w-[2vw] sm:max-w-[10vw] md:max-w-[10vw]">
         </a>
         <h1 class="font-bold text-[#F9832A] text-2xl hidden md:flex">Dkampus</h1>
     </div>
