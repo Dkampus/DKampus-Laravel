@@ -29,7 +29,7 @@
         </button>
     </header>
 
-    <main class="mt-24 w-full">
+    <main class="mt-24 w-full overflow-y-auto">
         <div id="profile"
              class="relative shadow-md w-[22rem] h-28 flex flex-row items-start border rounded-lg mx-auto px-3 pt-5">
             <button>
@@ -90,24 +90,23 @@
             </div>
         </div>
 
-    </main>
-
-    <footer class="flex flex-row gap-10 mt-10 mb-5 px-3 justify-between w-[22rem] mx-auto items-center">
-        <div id="copyright" class="flex flex-row items-center">
-            <img src="copyright.svg" alt="" class="w-4">
-            <h1>Copyright Dkampus 2024</h1>
+        <div class="flex flex-row gap-10 mt-10 mb-5 px-3 justify-between w-[22rem] mx-auto items-center">
+            <div id="copyright" class="flex flex-row items-center">
+                <img src="copyright.svg" alt="" class="w-4">
+                <h1>Copyright Dkampus 2024</h1>
+            </div>
+            @auth
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button onclick="" class="flex flex-row items-center border-b-2 border-[#FE8787]">
+                        <img src="logOut.svg" alt="">
+                        <h1 class="text-[#FE8787] font-semibold text-lg">Keluar</h1>
+                    </button>
+                </form>
+            @endauth
         </div>
-        @auth
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button onclick="" class="flex flex-row items-center border-b-2 border-[#FE8787]">
-                    <img src="logOut.svg" alt="">
-                    <h1 class="text-[#FE8787] font-semibold text-lg">Keluar</h1>
-                </button>
-            </form>
-        @endauth
-    </footer>
 
+    </main>
 </div>
 <div onclick="hideMenu()" id="overlay-menu"
     class="fixed bg-black/20 invisible transition-all duration-500 opacity-0 w-full h-screen z-[60] top-0 left-0">
