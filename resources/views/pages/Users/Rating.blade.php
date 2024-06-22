@@ -12,11 +12,11 @@
         {{-- Infomasi UMKM --}}
         <div class="flex items-center gap-x-2">
             <img src="{{ asset('shop-orange.svg') }}" alt="" class="w-10 h-10 sm:w-6 sm:h-6">
-            <p class="font-bold text-black text-l sm:text-base">{{ $dataUMKM->nama_umkm }}</p>
+            <p class="font-bold text-black text-l sm:text-base">{{ $dataUMKM->nama_umkm ?? 'Jastip' }}</p>
         </div>
             {{-- Image cover UMKM --}}
         <div class="flex justify-center mt-4">
-            <img src="{{ Storage::url($dataUMKM->logo_umkm) }}" alt="" class="w-32 h-32 sm:w-32 sm:h-32 rounded-full object-cover bg-gray-300">
+            <img src="{{ Storage::url($dataUMKM->logo_umkm??'') }}" alt="" class="w-32 h-32 sm:w-32 sm:h-32 rounded-full object-cover bg-gray-300">
         </div>
 
         <div class="w-full h-px bg-gray-300 my-3"></div>
