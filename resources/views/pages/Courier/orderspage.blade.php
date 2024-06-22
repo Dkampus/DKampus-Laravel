@@ -135,6 +135,8 @@
                 </div>`;
         }
 
+        var total = orderData.total + orderData.ongkir;
+
         var orderDetailsHtml = `
         <div class="flex flex-col">
             <h1 class="text-l font-bold">Nama Penerima:</h1>
@@ -150,7 +152,7 @@
         </div>
         <div class="flex flex-col">
             <h1 class="text-l font-bold">Total:</h1>
-            <p class="text-l">Rp. ${ orderData.total.toLocaleString('id-ID') }</p>
+            <p class="text-l">Rp. ${ total.toLocaleString('id-ID') }</p>
         </div>
         <div class="flex flex-col">
             <h1 class="text-l font-bold">Orders:</h1>
