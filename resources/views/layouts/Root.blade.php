@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <title>{{ $Title }} - Welcome & Enjoy what you need</title>
     @vite('resources/css/app.css')
-    <link rel="stylesheet" href="/build/assets/app-718e4e84.css">
+    <link rel="stylesheet" href="/build/assets/app-c9100832.css">
 </head>
 
 <body>
@@ -166,8 +166,7 @@
 
         Toast.fire({
             icon: 'error',
-            title: '{{ session('
-            error2 ') }}'
+            title: "{{ session('error2') }}"
         })
     </script>
     @endif
@@ -187,8 +186,7 @@
 
         ToastSuccess.fire({
             icon: 'success',
-            title: '{{ session('
-            success ') }}'
+            title: "{{ session('success') }}"
         })
     </script>
     @endif

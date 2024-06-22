@@ -15,7 +15,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="/build/assets/app-718e4e84.css">
+    <link rel="stylesheet" href="/build/assets/app-c9100832.css">
     <script type="module" src="/build/assets/app-5db491ae.js"></script>
 
     <style>
