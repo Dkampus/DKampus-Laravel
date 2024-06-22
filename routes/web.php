@@ -398,10 +398,10 @@ Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->gr
     })->name('product.edit');
 
     //data from edit product form
-    Route::put('/product/{id}', [MenuController::class, 'update'])->name('product.update');
+    Route::put('/product/{id}', [MenuController::class, 'update'])->name('productUpdate');
     //delete product
 
-    Route::delete('/product/{menu}', [MenuController::class, 'destroy'])->name('product.destroy');
+    Route::delete('/product/{menu}', [MenuController::class, 'destroy'])->name('productDestroy');
 
     // edit & delete umkm route
 
