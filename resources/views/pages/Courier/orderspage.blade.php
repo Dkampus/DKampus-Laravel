@@ -151,7 +151,7 @@
             <p class="text-l">${ orderData.notesAlamat }</p>
         </div>
         <div class="flex flex-col">
-            <h1 class="text-l font-bold">Total:</h1>
+            <h1 class="text-l font-bold">Total + Ongkir:</h1>
             <p class="text-l">Rp. ${ total.toLocaleString('id-ID') }</p>
         </div>
         <div class="flex flex-col">
