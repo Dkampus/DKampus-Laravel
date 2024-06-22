@@ -46,7 +46,7 @@
                                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editUser(this)" data-id="{{ $umkm->id }}" data-nama_umkm="{{ $umkm->nama_umkm }}" data-alamat="{{ $umkm->alamat }}" data-open_time="{{ $umkm->open_time }}" data-close_time="{{ $umkm->close_time }}" data-no_telp_umkm="{{ $umkm->no_telp_umkm }}" data-vip="{{ $umkm->vip }}" data-link="{{ $umkm->link }}" data-geo="{{ $umkm->geo }}">
                                                 Edit
                                             </button>
-                                            <form id="deleteForm{{ $umkm->id }}" action="{{ route('umkm.destroy', $umkm->id) }}" method="POST">
+                                            <form id="deleteForm{{ $umkm->id }}" action="{{ route('umkmDestroy', $umkm->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onclick="confirmDelete('{{ $umkm->id }}', '{{ $umkm->nama_umkm }}')">
@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="{{ route('umkm.update', $umkm->id) }}" method="POST" id="editForm" enctype="multipart/form-data">
+                            <form action="{{ route('umkmUpdate', $umkm->id) }}" method="POST" id="editForm" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
@@ -351,7 +351,7 @@
 
             // Update the form action to point to the update route
             var form = document.querySelector('#editForm');
-            form.action = '{{ route("umkm.update", ["id" => ":id"]) }}'.replace(':id', id);
+            form.action = '{{ route("umkmUpdate", ["id" => ":id"]) }}'.replace(':id', id);
 
             // Show the modal
             document.getElementById('modal-edit').classList.remove('hidden');

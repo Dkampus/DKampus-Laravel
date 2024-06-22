@@ -411,13 +411,13 @@ Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->gr
             'umkm' => $umkm,
             'products' => Menu::where('data_umkm_id', $umkm->id)->get(),
         ]);
-    })->name('umkm.edit');
+    })->name('umkmEdit');
 
     //data from edit umkm form
-    Route::put('/umkm/{id}', [UmkmController::class, 'update'])->name('umkm.update');
+    Route::put('/umkm/{id}', [UmkmController::class, 'update'])->name('umkmUpdate');
     //delete umkm
 
-    Route::delete('/umkm/{id}', [UmkmController::class, 'destroy'])->name('umkm.destroy');
+    Route::delete('/umkm/{id}', [UmkmController::class, 'destroy'])->name('umkmDestroy');
 
     //transaction route
     Route::get('/transaction', [AdminController::class, 'transacation'])->name('transaction');
