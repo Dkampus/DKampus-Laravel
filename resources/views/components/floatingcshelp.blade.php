@@ -26,9 +26,11 @@
                         <input type="text" name="pertanyaan" id="pertanyaan" class="border-2 rounded-md p-2" placeholder="Masukkan pertanyaan, keluhan, atau saran kamu">
                     </div>
                     <spam class="text-xs text-[#787878]">*Chat akan dijawab oleh bot dan akan diarahkan ke customer service</spam>
+                    {{-- Info development --}}
+                    <a class="text-xs text-red-600"><br>*Fitur ini masih dalam tahap pengembangan, jika ada pertanyaan lebih lanjut silahkan hubungi admin melalui WhatsApp.</a>
                     {{-- button untuk submit pertanyaan --}}
                     <div class="flex justify-end mt-5">
-                        <button type="submit" class="bg-[#F9832A] w-20 h-10 rounded-2xl text-white font-semibold text-lg">Kirim</button>
+                        <button type="submit" class="bg-[#F9832A] w-20 h-10 rounded-2xl text-white font-semibold text-lg cursor-not-allowed" disabled>Kirim</button>
                     </div>
                 </form>
             </div>
