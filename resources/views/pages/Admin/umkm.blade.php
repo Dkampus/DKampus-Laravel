@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             @auth
-                            <form action="{{ route('umkm.store') }}" method="POST" id="umkmForm" enctype="multipart/form-data">
+                            <form action="{{ route('umkm.save') }}" method="POST" id="umkmForm" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                                 <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
