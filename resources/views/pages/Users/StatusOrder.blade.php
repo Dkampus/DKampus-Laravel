@@ -12,7 +12,7 @@
     <div class="flex flex-col items-center justify-start gap-1">
         <p class="font-bold text-[#F9832A] text-lg sm:text-xl">{{ ucfirst($status) }}</p>
         <p class="text-gray-400 text-xs">
-            <a href="#" class="text-[#F9832A]">2024-12-12 12:12:12</a>
+            <a href="#" class="text-[#F9832A]">{{$date}}</a>
         </p>
     </div>
     @if ($nama_driver != null)

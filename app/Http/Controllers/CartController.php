@@ -100,6 +100,7 @@ class CartController extends Controller
                 $dataCourId[] = $history->cour_id;
                 $namaUmkm[] = $history->umkm_id == 0 ? "Jastip" : Data_umkm::find($history->umkm_id)->nama_umkm;
             }
+            //dd($data);
             return view('pages.Users.Status', [
                 'Title' => 'Status',
                 'NavPesanan' => 'Status',
@@ -188,18 +189,18 @@ class CartController extends Controller
             $id = request()->id;
             $custId = Auth::user()->id;
             $data = User::find($custId)->custHistory;
-
             foreach ($data as $history) {
                 if ($history->user_id == $custId && $id == $history->id) {
                     $nama_umkm = $history->umkm_id == 0 ? "Jastip" : Data_umkm::find($history->umkm_id)->nama_umkm;
                     $nama_driver = User::find($courId)->nama_user;
-
+                    $date = $date = date('d F Y H:i', strtotime($history->created_at));
                     return view('pages.Users.StatusOrder', [
                         'Title' => 'Detail Order',
                         'NavPesanan' => 'Detail Order',
                         'id' => $custId,
                         'orderId' => $history->order_id,
                         'status' => $history->status,
+                        'date' => $date,
                         'subTotal' => $history->harga,
                         'ongkir' => $history->ongkir,
                         'total' => $history->ongkir + $history->harga,
@@ -213,6 +214,43 @@ class CartController extends Controller
         } catch (Exception $e) {
             return redirect()->back()->with('error2', 'Error');
         }
+    }
+
+    public function rating()
+    {
+        try{
+            $dataID = request()->id;
+            $id = Auth::user()->id;
+            $data = User::find($id)->custHistory->where('id', $dataID)->first();
+            $dataUMKM = Data_umkm::find($data->umkm_id);
+            $itemOrdersRaw = $data->item;
+            // Memisahkan string menjadi array berdasarkan koma
+            // data raw sebagai berikut : 2 Mie Ayam (-), 4 Bakmie Ayam (-), 1 Bakso (-) dst.
+            // trim untuk nama menu dan quantitynya
+            $itemsOrders = explode(', ', $itemOrdersRaw);
+            $Orders = [];
+            foreach ($itemsOrders as $item) {
+                $item = explode(' ', $item);
+                $quantity = $item[0];
+                $name = $item[1];
+                $Orders[] = [
+                    'quantity' => $quantity,
+                    'name' => $name,
+                ];
+            }
+        } catch (Exception $e) {
+            return redirect()->back()->with('error2', 'Error');
+        }
+        return view('pages.Users.Rating', [
+            'Title' => 'Rating',
+            'NavPesanan' => 'Rating',
+            'id' => $id,
+            'data' => $data,
+            'dataUMKM' => $dataUMKM,
+            'Orders' => $Orders,
+            'PengaturanAkun' => HomeModel::pengaturanAkun(),
+            'SeputarDkampus' => HomeModel::seputarDkampus(),
+        ]);
     }
 
     public function updateQuantity(Request $request)

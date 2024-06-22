@@ -44,6 +44,15 @@
                                 <input type="text" class="hidden" value="{{ $history->cour_id }}" name="courId">
                                 <input type="text" class="hidden" value="{{ $history->id }}" name="id">
                             </form>
+                            {{--Button rating--}}
+                            <form action=" {{ route('rating') }}" method="POST" class="mr-2 mt-2">
+                                @csrf
+                                <button type="submit" class="bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-full text-sm">
+                                    Rating
+                                </button>
+                                <input type="text" class="hidden" value="{{ $history->id }}" name="id">
+                            </form>
+                            {{--Button chat--}}
                             <form action="{{ route('room.chat') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="w-7 h-7 mt-2.5">
@@ -100,7 +109,7 @@
             var orders = snapshot.ref.orderByChild('timestamp');
             var data = snapshot.val();
             var nama_umkm = data.nama_umkm;
-            var tanggal = data.timestamp;
+            var tanggal = date('d F Y H:i', strtotime(data.timestamp));
             var orderNames = Object.values(data.orders).map(function(item) {
                 return item.jumlah + ' ' + item.nama;
             });
@@ -111,7 +120,6 @@
             var formattedTotal = "Rp. " + jumlah.toLocaleString('id-ID');
             var status = data.status;
             display(nama_umkm, tanggal, status, items, orderId, formattedTotal, courId, id);
-
         }
     });
 
@@ -139,7 +147,7 @@
             var orders = snapProgress.ref.orderByChild('timestamp');
             var data = snapProgress.val();
             var nama_umkm = data.nama_umkm;
-            var tanggal = data.timestamp;
+            var tanggal = date('d F Y H:i', strtotime(data.timestamp));
             var status = data.status;
             var orderNames = Object.values(data.orders).map(function(item) {
                 return item.jumlah + ' ' + item.nama;
