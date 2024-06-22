@@ -299,7 +299,7 @@ Route::middleware(['check.customer.role'])->group(
 
 
 
-Route::middleware(['auth', 'verified', 'check.hasloggin', 'web'])->group(function () {
+Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     //Pesanan Routes
     Route::get('/pesanan', [CartController::class, 'index']);
     Route::post('/detail-makanan/{id}', [MenuController::class, 'simpan']);
@@ -336,7 +336,7 @@ Route::middleware(['auth', 'verified', 'check.hasloggin', 'web'])->group(functio
 
 
 // Courier Routes
-Route::middleware(['auth', 'verified', 'check.courier.role', 'web'])->prefix('courier')->group(function () {
+Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')->group(function () {
     Route::post('/orders/delete', [CourierController::class, 'cancelOrder'])->name('delete.orders');
     Route::post('orders/complete', [CourierController::class, 'completeOrder'])->name('complete.orders');
     Route::get('/dashboard', [CourierController::class, 'index'])->name('dashboardCourier');
@@ -365,7 +365,7 @@ Route::middleware(['auth', 'verified', 'check.courier.role', 'web'])->prefix('co
 
 // Admin Routes
 Route::resource('umkm', 'UmkmController');
-Route::middleware(['auth', 'verified', 'check.admin.role', 'web'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::view('/umkm', 'pages/Admin/umkm', [
         'umkms' => Data_umkm::paginate(10),
@@ -439,7 +439,7 @@ Route::middleware(['auth', 'verified', 'check.admin.role', 'web'])->prefix('admi
     )->name('chatpage.admin');
 });
 
-Route::middleware('auth', 'web')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
