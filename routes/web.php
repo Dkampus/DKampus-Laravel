@@ -370,7 +370,7 @@ Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->gr
     Route::view('/umkm', 'pages/Admin/umkm', [
         'umkms' => Data_umkm::paginate(10),
     ])->name('umkm');
-    Route::post('/umkm', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
+    Route::post('/umkm-save', [UmkmController::class, 'storeUmkm'])->name('umkm.store');
     Route::post('/products', [UmkmController::class, 'addProduct'])->name('save.product');
     Route::get('/product', function () {
         return view('pages/Admin/product', [
