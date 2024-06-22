@@ -9,7 +9,7 @@
     </a>
 </header>
 <main class="bg-[#F0F3F8] py-2 px-2 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:items-center h-screen" id="card">
-    <div id="orderContainer" class="bg-white rounded-lg shadow-md overflow-hidden mx-4 my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div id="orderContainer" class="bg-white rounded-lg shadow-md overflow-hidden mx-4 my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
         {{-- Data Orders list will rendered here --}}
     </div>
     {{-- Modal for order details --}}

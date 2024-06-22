@@ -1,6 +1,6 @@
 @extends('layouts.PesananLayout')
 @section('pesananContent')
-<main class="bg-[#F0F3F8] py-2 px-2 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:items-center" id="card">
+<main class="bg-[#F0F3F8] h-screen py-2 px-2 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:items-center" id="card">
     @csrf
     @if ($data != null)
     @foreach ($data->sortByDesc('created_at') as $history)
@@ -96,7 +96,11 @@
     var database = firebase.database();
     custId = "{{ $custId }}"
 
+    //var ongoing order
+    var onGoingOrder = false;
+
     database.ref('onProgress').on('child_added', function(snapshot) {
+        onGoingOrder = true;
         var id = snapshot.key.split('-')[0];
         if (id == custId) {
             var courId = snapshot.key.split('-')[1];
@@ -131,7 +135,7 @@
     });
 
     database.ref('needToDeliver').on('child_added', function(snapProgress) {
-        console.log('ada');
+        onGoingOrder = true;
         var ids = snapProgress.key.split('-')[0];
         if (ids == custId) {
             database.ref('needToDeliver/' + custId + '-').on('child_changed', function(snapStatus) {
@@ -293,5 +297,12 @@
         divContent.append(divInner);
 
         $('#card').prepend(divContent);
+
+        if (!onGoingOrder && data == null) {
+            var div = $('<div>').addClass('flex items-center justify-center');
+            var h1 = $('<h1>').addClass('text-center text-black font-semibold text-lg').text('Ups, Kamu belum pernah melakukan transaksi');
+            div.append(h1);
+            $('#card').prepend(div);
+        }
     }
 </script>
