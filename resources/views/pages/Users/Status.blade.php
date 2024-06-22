@@ -47,7 +47,7 @@
                     {{--Button rating--}}
                     <form action=" {{ route('rating') }}" method="POST" class="mr-2 mt-2">
                         @csrf
-                        <button type="submit" class="bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-full text-sm">
+                        <button type="submit" class="bg-[#F9832A] hover:bg-[#d87525] text-white font-bold py-2 px-4 rounded-full text-sm cursor-not-allowed" disabled>
                             Rating
                         </button>
                         <input type="text" class="hidden" value="{{ $history->id }}" name="id">
