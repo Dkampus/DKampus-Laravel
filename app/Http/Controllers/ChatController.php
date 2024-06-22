@@ -41,8 +41,8 @@ class ChatController extends Controller
             $database = app('firebase.database');
             $cour_name = $database->getReference('chats/' . $custId . '-' . $courId . '/cour_name')->getValue();
             $refKey = $database->getReference('chats/' . $custId . '-' . $courId)->getChildKeys();
-            $date = $database->getReference('chats/' . $custId . '-' . $courId . '/' . $refKey[0] . '/msgs/timestamp')->getValue();
-            // dd($date);
+            $date = $database->getReference('chats/' . $custId . '-' . $courId . '/' . $refKey[2] . '/msgs/timestamp')->getValue();
+            // dd($refKey);
             return view('pages/Users/ChatRoomPage', [
                 'Title' => 'room-chat',
                 'cour_name' => $cour_name,
