@@ -54,13 +54,13 @@
                             <div class="flex flex-row gap-2">
                                 {{-- {{ route('complete.orders') }} --}}
                                 <div>
-                                    <button type="submit" id="triggerModalButton" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full text-sm">
+                                    <button type="submit" class="triggerModalButton bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full text-sm">
                                         Selesaikan
                                     </button>
                                     <input type="hidden" value="{{ $custId[$i] }}" name="custId">
                                 </div>
                                 <div>
-                                    <button type="submit" id="triggerCancelModal" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full text-sm">
+                                    <button type="submit" class="triggerCancelModal bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full text-sm">
                                         Batalkan
                                     </button>
                                     <input type="hidden" value="{{ $custId[$i] }}" name="custId">
@@ -227,10 +227,12 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var modal = document.getElementById('modalConfirmation');
-        var triggerButton = document.getElementById('triggerModalButton');
+        var triggerButtons = document.querySelectorAll('.triggerModalButton');
 
-        triggerButton.addEventListener('click', function() {
-            modal.classList.remove('hidden');
+        triggerButtons.forEach(function(triggerButton) {
+            triggerButton.addEventListener('click', function() {
+                modal.classList.remove('hidden');
+            });
         });
 
         var closeButton = document.getElementById('closeModal');
@@ -274,15 +276,16 @@
     });
 
     document.addEventListener('DOMContentLoaded', function() {
-        var cancelButton = document.getElementById('triggerCancelModal');
         var cancelModal = document.getElementById('cancelModal');
-        var closeCancelModal = document.getElementById('closeCancelModal');
-        var confirmCancel = document.getElementById('confirmCancel');
+        var triggerCancelButtons = document.querySelectorAll('.triggerCancelModal');
 
-        cancelButton.addEventListener('click', function() {
-            cancelModal.classList.remove('hidden');
+        triggerCancelButtons.forEach(function(triggerButton) {
+            triggerButton.addEventListener('click', function() {
+                cancelModal.classList.remove('hidden');
+            });
         });
 
+        var closeCancelModal = document.getElementById('closeCancelModal');
         closeCancelModal.addEventListener('click', function() {
             cancelModal.classList.add('hidden');
         });
