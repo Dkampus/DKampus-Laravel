@@ -48,7 +48,7 @@
                                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editProduct(this)" data-id="{{ $menu->id }}" data-umkm="{{ $menu->data_umkm_id }}" data-nama_makanan="{{ $menu->nama_makanan }}" data-deskripsi="{{ $menu->deskripsi }}" data-harga="{{ $menu->harga }}" data-promo="{{ $menu->diskon }} " data-category="{{ $menu->category }}">
                                             Edit
                                         </button>
-                                        <form action="{{ route('product.destroy', $menu->id) }}" method="post" class="inline">
+                                        <form action="{{ route('productDestroy', $menu->id) }}" method="post" class="inline">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</button>
@@ -153,7 +153,7 @@
                                         </h3>
                                     </div>
                                 </div>
-                                <form action="{{ route('product.update', ['id' => $menu->id]) }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('productUpdate', ['id' => $menu->id]) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-4 mt-4">

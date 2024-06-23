@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h1 class="text-2xl font-bold mb-4">Form Edit Menu</h1>
                     {!! Form::model($model, [
-                    'route' => ['product.update', $model->id],
+                    'route' => ['productUpdate', $model->id],
                     'method' => 'put',
                     'files' => true,
                     'class' => 'space-y-4'
