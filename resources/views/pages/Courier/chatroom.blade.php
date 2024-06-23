@@ -78,7 +78,11 @@
                 msg: message,
                 timestamp: formattedTimestamp
             }
+        }).then(function() {
+            console.log('try send notif');
+            sendNotificationToServer(custId, "New Message", message);
         });
+
         var chatRef = database.ref('chats/' + custId + '-' + courId + '/courNewMssg');
         chatRef.transaction(function(currentValue) {
             return (currentValue || 0) + 1;
@@ -184,6 +188,25 @@
         const fileExtension = fileName.split('.').pop().toLowerCase();
 
         return imageExtensions.includes(fileExtension);
+    }
+
+    function sendNotificationToServer(userId, title, body) {
+        $.ajax({
+            url: '{{ route("send.notification") }}',
+            type: 'POST',
+            data: {
+                user_id: userId,
+                title: title,
+                body: body,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                console.log('Notification sent successfully:', response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error sending notification:', error);
+            }
+        });
     }
 </script>
 @endsection

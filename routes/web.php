@@ -18,6 +18,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UntukKamuController;
 use App\Http\Controllers\CsController;
@@ -467,6 +468,8 @@ Route::get('/search', function (Request $request) {
     ]);
 });
 
+Route::post('/register-token', [NotificationController::class, 'registerToken'])->name('register.token');
+Route::post('/send-notification', [NotificationController::class, 'sendNotification'])->name('send.notification');
 
 // User Route
 Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () {

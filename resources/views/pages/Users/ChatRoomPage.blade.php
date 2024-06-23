@@ -129,6 +129,8 @@
             var endTime = performance.now(); // Ambil waktu selesai pengiriman pesan
             var duration = endTime - startTime; // Hitung durasi pengiriman dalam milidetik
             console.log('Pengiriman pesan selesai dalam ' + duration + ' milidetik');
+
+            sendNotificationToServer(courId, "New Message", message);
         });
         var chatRef = database.ref('chats/' + custId + '-' + courId + '/custNewMssg');
         chatRef.transaction(function(currentValue) {
@@ -245,6 +247,25 @@
         const fileExtension = fileName.split('.').pop().toLowerCase();
 
         return imageExtensions.includes(fileExtension);
+    }
+
+    function sendNotificationToServer(userId, title, body) {
+        $.ajax({
+            url: '{{ route("send.notification") }}',
+            type: 'POST',
+            data: {
+                user_id: userId,
+                title: title,
+                body: body,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                console.log('Notification sent successfully:', response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error sending notification:', error);
+            }
+        });
     }
 </script>
 @endsection
