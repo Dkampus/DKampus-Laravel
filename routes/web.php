@@ -470,7 +470,7 @@ Route::get('/search', function (Request $request) {
 
 Route::post('/register-token', [NotificationController::class, 'registerToken'])->name('register.token');
 Route::post('/send-notification', [NotificationController::class, 'sendNotification'])->name('send.notification');
-Route::post('/send-notification', [NotificationController::class, 'sendNotificationToCouriers'])->name('send.notificationCour');
+Route::post('/send-notification-cour', [NotificationController::class, 'sendNotificationToCouriers'])->name('send.notificationCour');
 
 // User Route
 Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () {
