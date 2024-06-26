@@ -28,7 +28,7 @@
         @csrf
         <div class="flex items-center mb-2">
             <input id="message-input" type="text" name="message" placeholder="Type a message" class="flex-grow border rounded-lg p-3 mr-2">
-            <input id="image-input" type="file" name="image" accept="image/*" capture="camera" class="hidden">
+            <input id="image-input" type="file" name="image" accept="image/*" class="hidden">
             <button type="button" id="image-btn" class="bg-[#F9832A] rounded-lg p-2 mr-2">
                 <img src="{{ asset('/image-icon.svg') }}" width="24" height="24" class="bi bi-image">
             </button>

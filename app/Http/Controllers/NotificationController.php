@@ -110,4 +110,17 @@ class NotificationController extends Controller
         // Decode and return the response
         return json_decode($response->getBody(), true);
     }
+
+    public function sendNotificationToCouriers()
+    {
+        $couriers = User::where('role', 'courier')->get();
+
+        $title = "Pesanan Baru Masuk";
+        $body = "Halo DKurir, ada pesanan baru yang siap untuk diambil. Mohon segera periksa aplikasi Anda untuk detail lebih lanjut dan ambil pesanan tersebut. Terima kasih atas kerjasamanya!";
+        foreach ($couriers as $courier) {
+            if ($courier->fcm_token) {
+                $this->sendFirebaseNotification($courier->fcm_token, $title, $body);
+            }
+        }
+    }
 }

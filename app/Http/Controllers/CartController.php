@@ -339,6 +339,7 @@ class CartController extends Controller
             if ($response->getStatusCode() === 200) {
                 $data = json_decode($response->getBody(), true);
                 $distance = $data['rows'][0]['elements'][0]['distance']['value'];
+                // dd($data);
                 $ongkir = 0;
                 if ($distance > 1000 && $distance < 1500) {
                     return $ongkir = 6000;

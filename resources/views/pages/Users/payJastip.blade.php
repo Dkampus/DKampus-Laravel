@@ -85,12 +85,12 @@
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
     <div class="justify-center items-center p-5">
         {{-- upload file --}}
-        <form action="{{ route('order') }}" method="POST" enctype="multipart/form-data">
+        <form id="myForm" action="{{ route('order') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="file" name="bukti" id="bukti" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;" accept=".jpg,.jpeg,.png" required>
             <button type="button" id="uploadButton" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Pilih File</button>
             <span id="uploadFileName" class="text-xs text-gray-500">*File belum dipilih</span>
-            <button type="submit" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Unggah Bukti Pembayaran</button>
+            <button id="submitOrder" type="submit" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Unggah Bukti Pembayaran</button>
         </form>
         <div class="flex flex-col items-center mt-2">
             <span class="text-xs font-bold text-gray-500">*Unggah bukti pembayaran setelah melakukan pembayaran</span>
@@ -169,5 +169,23 @@
                 document.getElementById('uploadFileName').innerHTML = '*File harus berformat .jpg, .jpeg, .png';
         }
     });
+
+    $(document).ready(function() {
+        $('#submitOrder').click(function() {
+            $.ajax({
+                url: '{{ route("send.notificationCour") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    console.log('Notification sent successfully:', response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error sending notification:', error);
+                }
+            });
+        });
+    })
 </script>
 @endsection
