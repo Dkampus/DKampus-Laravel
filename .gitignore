@@ -19,5 +19,6 @@ package-lock.json
 /.idea
 /.vscode
 /storage
+/storage/framework/maintenance.php
 tester-6b415-firebase-adminsdk-uzoft-17b227385e.json
 dkampus-cf39c-firebase-adminsdk-ig571-8a16619403.json
