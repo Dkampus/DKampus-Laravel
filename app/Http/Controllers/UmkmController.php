@@ -182,7 +182,7 @@ class UmkmController extends Controller
             // Check if a new logo is uploaded
             if ($request->hasFile('logo_umkm')) {
                 // Store the new logo and update the logo_umkm attribute
-                $umkm->logo_umkm = $request->logo_umkm->store($umkm->nama_umkm);
+                $umkm->logo_umkm = $request->logo_umkm->storePublicly($umkm->nama_umkm, 'public');
             }
 
             $umkm->save();
