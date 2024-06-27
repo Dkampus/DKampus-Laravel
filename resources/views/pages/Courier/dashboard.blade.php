@@ -76,7 +76,7 @@
                 <h1 class="text-xl font-bold text-black">Ups, kamu belum mengambil pesanan</h1>
                 @endif
             </div>
-                <a href="{{ route('courierorder') }}" class="text-blue-500 mb-25">Lihat semua pesanan</a>
+                {{--<a href="{{ route('courierorder') }}" class="text-blue-500 mb-25">Lihat semua pesanan</a>--}}
         </div>
     </div>
     {{-- Cancel Order Modal --}}
