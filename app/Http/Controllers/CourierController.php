@@ -194,8 +194,13 @@ class CourierController extends Controller
             $database = app('firebase.database');
             $cust_name = $database->getReference('chats/' . $custId . '-' . $courId . '/cust_name')->getValue();
             $refKey = $database->getReference('chats/' . $custId . '-' . $courId)->getChildKeys();
-            $date = $database->getReference('chats/' . $custId . '-' . $courId . '/' . $refKey[2] . '/msgs/timestamp')->getValue();
             // dd($date);
+            foreach ($refKey as $key) {
+                $date = $database->getReference('chats/' . $custId . '-' . $courId . '/' . $key . '/msgs/timestamp')->getValue();
+                if ($date != null) {
+                    break;
+                }
+            }
             return view('pages/Courier/chatroom', [
                 'Title' => 'room-chat',
                 'custId' => $custId,

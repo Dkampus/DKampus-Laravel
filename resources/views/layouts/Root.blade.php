@@ -21,8 +21,9 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <title>{{ $Title }} - Welcome & Enjoy what you need</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="/build/assets/app-c9100832.css">
+    <script type="module" src="/build/assets/app-5db491ae.js"></script>
 </head>
 
 <body>

@@ -16,9 +16,6 @@
     </a>
 </header>
 <main>
-    <div class="text-center my-2">
-        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{ date('l, d F Y', strtotime($date)) }}</span>
-    </div>
     <div id="chat-messages" class="flex flex-col gap-3 m-4 overflow-y-auto pb-16">
         {{-- Chat messages will be displayed here --}}
     </div>
@@ -89,23 +86,60 @@
         });
     }
 
-    // Function to display messages
+    var lastDisplayedDate = null;
+
     function displayMessage(role, message, timestamp) {
         // Create message elements
-        var messageDiv = $('<div>').addClass('flex flex-col mb-3 m-4')
+        var date = new Date(timestamp);
+        var today = new Date();
+        var hours = date.getHours().toString().padStart(2, '0');
+        var minutes = date.getMinutes().toString().padStart(2, '0');
+        var formattedTimestamp = hours + ':' + minutes;
+
+        // Format the date for display
+        var messageDate = date.toDateString();
+        var yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+
+        var dateLabel;
+        if (messageDate === today.toDateString()) {
+            dateLabel = "Today";
+        } else if (messageDate === yesterday.toDateString()) {
+            dateLabel = "Yesterday";
+        } else {
+            dateLabel = date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Check if we need to add a new date div
+        if (lastDisplayedDate !== messageDate) {
+            var dateDiv = $('<div>').addClass('text-center my-2 date-label');
+            var dateSpan = $('<span>').addClass('inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700').text(dateLabel);
+            dateDiv.append(dateSpan);
+            $('#chat-messages').append(dateDiv);
+            // Update the last displayed date
+            lastDisplayedDate = messageDate;
+        }
+
+        var messageDiv = $('<div>').addClass('flex flex-col mb-3 m-4');
         var containerDiv = $('<div>').addClass('rounded-lg p-3');
+
         if (isImageFile(message)) {
             var imageUrl = `/storage/chatsImg/${message}`;
             var messageText = $('<img>').attr('src', imageUrl).addClass('mt-2 max-w-xs rounded-lg');
         } else {
             var messageText = $('<p>').text(message);
         }
-        var timestampText = $('<p>').addClass('text-xs').text(timestamp);
+
+        var timestampText = $('<p>').addClass('text-xs').text(formattedTimestamp);
 
         if (role === 'driver') {
             messageDiv.addClass('items-end');
             containerDiv.addClass('bg-[#F8832B]');
-
         } else {
             messageDiv.addClass('items-start');
             containerDiv.addClass('bg-[#FFE6D4]');
@@ -128,11 +162,7 @@
             var role = messageData.msgs.role;
             var message = messageData.msgs.msg;
             var timestamp = messageData.msgs.timestamp;
-            var date = new Date(timestamp);
-            var hours = date.getHours().toString().padStart(2, '0');
-            var minutes = date.getMinutes().toString().padStart(2, '0');
-            var formattedTimestamp = hours + ':' + minutes;
-            displayMessage(role, message, formattedTimestamp);
+            displayMessage(role, message, timestamp);
         }
     });
 
