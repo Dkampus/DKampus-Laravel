@@ -113,6 +113,9 @@
 
     {{-- Slider Rekomendasi Makanan --}}
     <x-list.slider-makanan>
+        @if ($RekomendasiMakanan->isEmpty())
+            <p class="text-center px-5 py-5">Data is not Found</p>
+        @endif
         @foreach ($RekomendasiMakanan as $menu)
         @php $harga = number_format($menu->harga, 0, ',', '.'); @endphp
         <swiper-slide class="h-[20rem] w-96 flex flex-col relative justify-between bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">
@@ -144,6 +147,11 @@
 
     {{-- Card list Rekomendasi Makanan --}}
     <x-list-food.slider>
+        @if ($RekomendasiMakanan->isEmpty())
+            <div class="flex flex-row justify-center items-center w-full h-96">
+                <p class="text-center px-5 py-5">Data is not Found</p>
+            </div>
+        @endif
         @foreach ($RekomendasiMakanan as $menu)
         @php $harga = number_format($menu->harga, 0, ',', '.'); @endphp
         <div class="food-list-scrollTrigger w-full h-max flex flex-col relative justify-evenly bg-white border-2 rounded-xl overflow-hidden transition-all duration-300 my-2 hover:shadow-md">

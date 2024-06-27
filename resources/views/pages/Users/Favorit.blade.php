@@ -59,7 +59,7 @@
                 </a>
             </swiper-slide>
         @empty
-        <p>Data is not Found</p>
+            <p class="hidden md:block">Data is not Found</p>
         @endforelse
     </x-list.slider>
 
@@ -115,6 +115,7 @@
                 </a>
             </swiper-slide>
         @empty
+            <p class="lg:hidden">Data is not Found</p>
         @endforelse
     </x-promo-slider.carousel>
 

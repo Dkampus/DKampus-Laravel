@@ -57,6 +57,11 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                @if ($umkms->isEmpty())
+                                <tr>
+                                    <td colspan="7" class="text-center">Tidak ada data UMKM</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -148,7 +153,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="{{ route('umkmUpdate', $umkm->id) }}" method="POST" id="editForm" enctype="multipart/form-data">
+                            <form action="{{ route('umkmUpdate', $umkm->id ?? '0') }}" method="POST" id="editForm" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
