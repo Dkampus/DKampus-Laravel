@@ -17,7 +17,7 @@
                     </button>
 
                     <!-- Table for displaying UMKM data -->
-                    <div class="overflow-auto">
+                    <div class="overflow-x-auto sm:overflow-visible">
                         <table class="min-w-full divide-y divide-gray-200 space-x-4">
                             <thead>
                                 <tr>
@@ -44,8 +44,8 @@
                                     </td>
                                     <td class="text-center">{{ $menu->diskon }}%</td>
                                     <td class="text-center">{{ ucfirst($menu->category ?? 'Tidak ada kategori') }}</td>
-                                    <td class="text-center">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editProduct(this)" data-id="{{ $menu->id }}" data-umkm="{{ $menu->data_umkm_id }}" data-nama_makanan="{{ $menu->nama_makanan }}" data-deskripsi="{{ $menu->deskripsi }}" data-harga="{{ $menu->harga }}" data-promo="{{ $menu->diskon }} " data-category="{{ $menu->category }}">
+                                    <td class="text-center whitespace-nowrap">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2" onclick="editProduct(this)" data-id="{{ $menu->id }}" data-umkm="{{ $menu->data_umkm_id }}" data-nama_makanan="{{ $menu->nama_makanan }}" data-deskripsi="{{ $menu->deskripsi }}" data-harga="{{ $menu->harga }}" data-promo="{{ $menu->diskon }} " data-category="{{ $menu->category }}">
                                             Edit
                                         </button>
                                         <form action="{{ route('productDestroy', $menu->id) }}" method="post" class="inline">
@@ -56,6 +56,11 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                @if($menus->isEmpty())
+                                <tr>
+                                    <td colspan="7" class="text-center">Tidak ada data</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -153,7 +158,7 @@
                                         </h3>
                                     </div>
                                 </div>
-                                <form action="{{ route('productUpdate', ['id' => $menu->id]) }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('productUpdate', ['id' => $menu->id ?? '0']) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-4 mt-4">

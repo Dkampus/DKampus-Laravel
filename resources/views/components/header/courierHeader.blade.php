@@ -5,7 +5,7 @@
         <a href="/">
             <img src="{{asset('logoDkampus.svg')}}" alt="" class="min-w-[5vw] max-w-[5vw] md:min-w-[2vw]">
         </a>
-        <h1 class="font-bold text-[#F9832A] text-2xl md:block">Dkampus Courier</h1>
+        <h1 class="font-bold text-[#F9832A] text-2xl md:block">Dsquad Freelancer</h1>
     </div>
 
     {{-- Sidebar Only Chatbutton --}}

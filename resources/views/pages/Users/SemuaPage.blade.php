@@ -36,6 +36,7 @@
         </a>
     </swiper-slide>
    @empty
+         <p class="lg:hidden text-center px-5 py-5">Data is not Found</p>
    @endforelse
 </x-promo-slider.carousel>
 
@@ -70,7 +71,7 @@
          </div>
      </swiper-slide>
     @empty
-
+        <p class="text-center px-5 py-5">Data is not Found</p>
     @endforelse
  </x-promo-slider.semua-promo-carousel>
 
@@ -102,6 +103,10 @@
         </div>
     </div>
 @endforeach
+{{-- If empty --}}
+@if($UmkmHavePromo->isEmpty())
+    <p class="md:hidden lg:hidden text-center px-5 py-5">Data is not Found</p>
+@endif
 
 
 {{-- Title Promo Mingguan Desktop --}}
@@ -140,7 +145,7 @@
          </div>
      </swiper-slide>
     @empty
-
+        <p class="md:block text-center px-5 py-5">Data is not Found</p>
     @endforelse
  </x-promo-slider.semua-promo-carousel>
 @endsection

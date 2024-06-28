@@ -78,6 +78,9 @@
             <a href="/promo/special" class="text-[#F9832A] text-lg w-max">Lihat semua</a>
         </div>
         <x-promo-slider.carousel>
+            @if($PromoTerlarisSlider->isEmpty())
+                <p class="text-center px-5 py-5">Data is not Found</p>
+            @endif
             @forelse ($PromoTerlarisSlider as $Item)
              <swiper-slide class="border transition-all duration-300 w-max h-60 rounded-xl overflow-hidden shadow-md">
 
@@ -107,7 +110,6 @@
                  </div>
              </swiper-slide>
             @empty
-
             @endforelse
          </x-promo-slider.carousel>
     </div>
@@ -124,6 +126,9 @@
                 <a href="" class="text-[#F9832A] text-lg w-max">Lihat semua</a>
             </div>
             <x-promo-slider.carousel>
+                @if($PromoTerlarisSlider->isEmpty())
+                    <p class="text-center px-5 py-5">Data is not Found</p>
+                @endif
                 @forelse ($PromoTerlarisSlider as $Item)
                  <swiper-slide class="border transition-all duration-300 w-max h-60 rounded-xl overflow-hidden shadow-md">
 

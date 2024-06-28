@@ -66,9 +66,13 @@
     <h1 class="w-max text-2xl font-semibold my-5 mx-5">List Makanan</h1>
 
     {{-- List Makanan --}}
+    @if ($CardFood->isEmpty())
+        <div class="flex flex-col items-center justify-center">
+            <h1 class="text-center text-lg font-semibold mt-5">Data is not Found</h1>
+        </div>
+    @endif
     <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-5 mx-6 place-content-center place-items-center">
         {{-- Card Makanan --}}
-        {{-- @dd($CardFood) --}}
         @forelse ($CardFood as $food)
             @php $harga = number_format($food->harga, 0, ',', '.'); @endphp
             <div class="w-full sm:w-[15rem] relative mb-2 border rounded-2xl transition-all duration-300 overflow-hidden hover:shadow-md">
