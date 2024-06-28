@@ -11,7 +11,7 @@
                 <path d="M8 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
                 <path d="M8 10a5 5 0 0 0-4 2l1.5.5a4 4 0 0 1 6 0l1.5-.5a5 5 0 0 0-4-2z" />
             </svg>
-            <h1 class="font-bold text-black text-l">{{ $cour_name }}</h1>
+            <h1 class="font-bold text-black text-l">{{ $cust_name }}</h1>
         </div>
     </a>
     <a href="{{ url('wa.me/' . $wa) }}" class="mr-5">
