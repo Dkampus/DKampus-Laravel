@@ -9,109 +9,112 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h1 class="text-2xl font-bold mb-4">List Transaction</h1>
+                    <div class="flex justify-between items-center mb-4">
+                        <h1 class="text-2xl font-bold">List Transaction</h1>
+                        <a href="{{ url('/spreadsheets') }}" class="text-blue-500 hover:text-blue-700">Spreadsheets</a>
+                    </div>
 
                     {{--Table data--}}
                     <div class="overflow-auto">
                         <table class="table w-full divide-y divide-gray-200 space-x-4">
                             <thead>
-                            <tr>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Transaction ID</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Date</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Total</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Payment</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Status</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Action</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Transaction ID</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Date</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Total</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Payment</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Status</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Action</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @if ($dataNTD !== null)
+                                @if ($dataNTD !== null)
                                 @foreach($dataNTD as $key => $data)
-                                    <tr>
-                                        <td class="uppercase">#TRX{{ucfirst(substr($data['orderID'], 0, 10))}}</td>
-                                        <td class="text-center">{{ $data['timestamp'] }}</td>
-                                        <td class="text-center">
-                                            Rp. {{number_format($data['total'] + $data['ongkir']), 0, ',', '.' }}
-                                        </td>
-                                        <td class="text-center">QRIS</td>
-                                        <td class="text-center">
-                                            @if ($data['status'] == 'completed')
-                                                <span class="text-green-400 font-bold">{{ ucfirst($data['status']) }}</span>
-                                            @elseif ($data['status'] == 'on Delivery' || $data['status'] == 'searching')
-                                                <span class="text-yellow-400 font-bold">{{ ucfirst($data['status']) }}</span>
-                                            @else
-                                                <span class="text-red-400 font-bold">{{ ucfirst($data['status']) }}</span>
+                                <tr>
+                                    <td class="uppercase">#TRX{{ucfirst(substr($data['orderID'], 0, 10))}}</td>
+                                    <td class="text-center">{{ $data['timestamp'] }}</td>
+                                    <td class="text-center">
+                                        Rp. {{number_format($data['total'] + $data['ongkir']), 0, ',', '.' }}
+                                    </td>
+                                    <td class="text-center">QRIS</td>
+                                    <td class="text-center">
+                                        @if ($data['status'] == 'completed')
+                                        <span class="text-green-400 font-bold">{{ ucfirst($data['status']) }}</span>
+                                        @elseif ($data['status'] == 'on Delivery' || $data['status'] == 'searching')
+                                        <span class="text-yellow-400 font-bold">{{ ucfirst($data['status']) }}</span>
+                                        @else
+                                        <span class="text-red-400 font-bold">{{ ucfirst($data['status']) }}</span>
                                         @endif
-                                        <td class="text-center">
-                                            @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data['nama_penerima'] }}" data-cour="Not Taken Yet" data-jarak="{{ $data['jarak'] }}" data-bukti-akhir="{{ null }}">
-                                                Details
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <td class="text-center">
+                                        @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data['nama_penerima'] }}" data-cour="Not Taken Yet" data-jarak="{{ $data['jarak'] }}" data-bukti-akhir="{{ null }}">
+                                            Details
+                                        </button>
+                                    </td>
+                                </tr>
                                 @endforeach
-                            @endif
+                                @endif
 
-                            @if ($dataOP !== null)
+                                @if ($dataOP !== null)
                                 @foreach($dataOP as $key => $data)
-                                    <tr>
-                                        <td>#TRX{{ucfirst(substr($data['orderID'], 0, 10))}}</td>
-                                        <td class=" text-center">{{ $data['timestamp'] }}
-                                        </td>
-                                        <td class="text-center">
-                                            Rp. {{number_format($data['total'] + $data['ongkir']), 0, ',', '.' }}
-                                        </td>
-                                        <td class="text-center">QRIS</td>
-                                        <td class="text-center">
-                                            @if ($data['status'] == 'completed')
-                                                <span class="text-green-400 font-bold">{{ ucfirst($data['status']) }}</span>
-                                            @elseif ($data['status'] == 'on Delivery')
-                                                <span class="text-yellow-400 font-bold">{{ ucfirst($data['status']) }}</span>
-                                            @else
-                                                <span class="text-red-400 font-bold">{{ ucfirst($data['status']) }}</span>
+                                <tr>
+                                    <td>#TRX{{ucfirst(substr($data['orderID'], 0, 10))}}</td>
+                                    <td class=" text-center">{{ $data['timestamp'] }}
+                                    </td>
+                                    <td class="text-center">
+                                        Rp. {{number_format($data['total'] + $data['ongkir']), 0, ',', '.' }}
+                                    </td>
+                                    <td class="text-center">QRIS</td>
+                                    <td class="text-center">
+                                        @if ($data['status'] == 'completed')
+                                        <span class="text-green-400 font-bold">{{ ucfirst($data['status']) }}</span>
+                                        @elseif ($data['status'] == 'on Delivery')
+                                        <span class="text-yellow-400 font-bold">{{ ucfirst($data['status']) }}</span>
+                                        @else
+                                        <span class="text-red-400 font-bold">{{ ucfirst($data['status']) }}</span>
                                         @endif
-                                        <td class="text-center">
-                                            @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data['nama_penerima'] }}" data-cour="{{ null }}" data-jarak="{{ $data['jarak'] }}" data-bukti-akhir="{{ null }}">
-                                                Details
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <td class="text-center">
+                                        @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data['nama_penerima'] }}" data-cour="{{ null }}" data-jarak="{{ $data['jarak'] }}" data-bukti-akhir="{{ null }}">
+                                            Details
+                                        </button>
+                                    </td>
+                                </tr>
                                 @endforeach
-                            @endif
+                                @endif
 
-                            @if ($datas !== null)
+                                @if ($datas !== null)
                                 @foreach($datas->sortByDesc('created_at') as $key => $data)
-                                    <tr>
-                                        <td class=" uppercase">#TRX{{substr($data->order_id, 0, 10)}}
-                                        </td>
-                                        <td class=" text-center">{{ $data->created_at }}
-                                        </td>
-                                        <td class="text-center">
-                                            Rp. {{number_format($data->harga + $data->ongkir), 0, ',', '.' }}
-                                        </td>
-                                        <td class="text-center">QRIS</td>
-                                        <td class="text-center">
-                                            @if ($data->status == 'completed')
-                                                <span class="text-green-400 font-bold">{{ ucfirst($data->status) }}</span>
-                                            @elseif ($data->status == 'Pending')
-                                                <span class="text-yellow-400 font-bold">{{ ucfirst($data->status) }}</span>
-                                            @else
-                                                <span class="text-red-400 font-bold">{{ ucfirst($data->status) }}</span>
+                                <tr>
+                                    <td class=" uppercase">#TRX{{substr($data->order_id, 0, 10)}}
+                                    </td>
+                                    <td class=" text-center">{{ $data->created_at }}
+                                    </td>
+                                    <td class="text-center">
+                                        Rp. {{number_format($data->harga + $data->ongkir), 0, ',', '.' }}
+                                    </td>
+                                    <td class="text-center">QRIS</td>
+                                    <td class="text-center">
+                                        @if ($data->status == 'completed')
+                                        <span class="text-green-400 font-bold">{{ ucfirst($data->status) }}</span>
+                                        @elseif ($data->status == 'Pending')
+                                        <span class="text-yellow-400 font-bold">{{ ucfirst($data->status) }}</span>
+                                        @else
+                                        <span class="text-red-400 font-bold">{{ ucfirst($data->status) }}</span>
                                         @endif
-                                        <td class="text-center">
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data->order_id }}" data-date="{{ $data->created_at }}" data-total="{{ $data->harga + $data->ongkir }}" data-ongkir="{{$data->ongkir}}" data-umkm="{{\App\Models\Data_umkm::find($data->umkm_id)->nama_umkm ?? 'Jastip'}}" data-payment="QRIS" data-status="{{ $data->status }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data->customer->nama_user }}" data-cour="{{ $data->courier->nama_user }}" data-jarak="{{ $data->jarak }}" data-bukti-akhir="{{ Storage::url('public/payment/driver/' . $data['bukti_akhir']) }}">
-                                                Details
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <td class="text-center">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data->order_id }}" data-date="{{ $data->created_at }}" data-total="{{ $data->harga + $data->ongkir }}" data-ongkir="{{$data->ongkir}}" data-umkm="{{\App\Models\Data_umkm::find($data->umkm_id)->nama_umkm ?? 'Jastip'}}" data-payment="QRIS" data-status="{{ $data->status }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data->customer->nama_user ?? 'cek' }}" data-cour="{{ $data->courier->nama_user ?? 'cek' }}" data-jarak="{{ $data->jarak }}" data-bukti-akhir="{{ Storage::url('public/payment/driver/' . $data['bukti_akhir']) }}">
+                                            Details
+                                        </button>
+                                    </td>
+                                </tr>
                                 @endforeach
-                            @endif
-                            @if ($dataNTD == null && $dataOP == null && $datas == null)
+                                @endif
+                                @if ($dataNTD == null && $dataOP == null && $datas == null)
                                 <tr>
                                     <td colspan="6" class="text-center">No data available</td>
                                 </tr>
-                            @endif
+                                @endif
                             </tbody>
                         </table>
                     </div>

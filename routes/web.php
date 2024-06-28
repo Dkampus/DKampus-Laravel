@@ -473,6 +473,7 @@ Route::post('/register-token', [NotificationController::class, 'registerToken'])
 Route::post('/send-notification', [NotificationController::class, 'sendNotification'])->name('send.notification');
 Route::post('/send-notification-cour', [NotificationController::class, 'sendNotificationToCouriers'])->name('send.notificationCour');
 Route::get('/wa.me/{phone}', [ChatController::class, 'redirectWhatsApp']);
+Route::get('/spreadsheets', [AdminController::class, 'spreadsheets']);
 
 // User Route
 Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () {

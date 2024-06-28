@@ -159,4 +159,9 @@ class AdminController extends Controller
         $data = DB::table('histories')->get();
         return response()->json($data);
     }
+
+    public function spreadsheets()
+    {
+        return redirect("https://docs.google.com/spreadsheets/d/1_NFV2Ih7UnwU4_dyidhky2tlBaQeW7aSQOMf494hckY/edit?usp=sharing");
+    }
 }
