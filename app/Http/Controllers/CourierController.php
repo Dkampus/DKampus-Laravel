@@ -201,7 +201,7 @@ class CourierController extends Controller
                     break;
                 }
             }
-            $wa = Auth::user()->no_telp;
+            $wa = User::find($custId)->no_telp;
             if (substr($wa, 0, 2) === '08') {
                 $convertedNumber = '+62' . substr($wa, 1);
             } else {

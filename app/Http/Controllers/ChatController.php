@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class ChatController extends Controller
 {
@@ -47,7 +48,7 @@ class ChatController extends Controller
                     break;
                 }
             }
-            $wa = Auth::user()->no_telp;
+            $wa = User::find($courId)->no_telp;
             if (substr($wa, 0, 2) === '08') {
                 $convertedNumber = '+62' . substr($wa, 1);
             } else {
