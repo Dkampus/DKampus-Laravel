@@ -119,7 +119,7 @@ class UmkmController extends Controller
             Data_umkm::create([
                 'user_id' => $request->user_id,
                 'nama_umkm' => $request->nama_umkm,
-                'logo_umkm' => $request->logo_umkm->store('public'),
+                'logo_umkm' => $request->logo_umkm->storePublicly($request->nama_umkm, 'public'),
                 'alamat' => $request->alamat,
                 'open_time' => $staticDate . $request->open_time . ':00',
                 'close_time' => $staticDate . $request->close_time . ':00',
@@ -153,7 +153,7 @@ class UmkmController extends Controller
                 "nama_makanan" => $request->nama_makanan,
                 "deskripsi" => $request->deskripsi,
                 "harga" => $request->harga,
-                "image" => $request->image->store(),
+                "image" => $request->image->storePublicly('public/' . Data_umkm::find($request->umkm)->nama_umkm),
                 "rating" => 0,
                 "slug" => "",
                 "diskon" => $request->promo,
@@ -201,7 +201,7 @@ class UmkmController extends Controller
         try {
             $umkm = Data_umkm::find($id);
             Data_umkm::findOrFail($umkm->id)->delete();
-            Storage::deleteDirectory($umkm->logo_umkm);
+            Storage::delete($umkm->nama_umkm . '/' . $umkm->logo_umkm);
             session()->flash('success', 'Umkm ' . $umkm->nama_umkm . ' Berhasil Dihapus');
             return redirect()->back();
         } catch (\Exception $e) {
