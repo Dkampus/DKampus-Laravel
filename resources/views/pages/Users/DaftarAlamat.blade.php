@@ -5,6 +5,36 @@
     .pac-container:after {
         content: none !important;
     }
+
+    /* Add this to your CSS file or <style> tag */
+    .switch-button:focus .switch-track,
+    .switch-button:focus-visible .switch-track {
+        /* Style focus state */
+        box-shadow: 0 0 0 3px rgba(249, 131, 42, 0.4);
+    }
+
+    /* Ensure the address is fully visible */
+    .pac-item {
+        white-space: normal;
+        line-height: 1.5;
+    }
+
+    /* Adjust the container to allow more space for the address */
+    .pac-container {
+        max-height: 400px;
+        /* Adjust the height as needed */
+        overflow-y: auto;
+    }
+
+    /* Hide the location icon on the left side of the address suggestions */
+    .pac-item .pac-icon {
+        display: none;
+    }
+
+    /* Optional: Better spacing for address items */
+    .pac-item-query {
+        margin-bottom: 5px;
+    }
 </style>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy7Wqkn0A1tWbQf9-LnGum9UucUooaQXY&libraries=places&callback=initAutocomplete" defer></script>
 <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10 shadow-md py-8">
