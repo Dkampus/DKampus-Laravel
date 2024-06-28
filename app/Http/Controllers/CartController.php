@@ -345,10 +345,14 @@ class CartController extends Controller
                     return $ongkir = 6000;
                 } elseif ($distance < 1000 && $distance > 0) {
                     return $ongkir = 4000;
-                } elseif ($distance > 1500 && $distance <= 2000) {
+                } elseif ($distance > 1500 && $distance < 2000) {
                     return $ongkir = 8000;
+                } elseif ($distance > 2000 && $distance < 2500) {
+                    return $ongkir = 10000;
+                } elseif ($distance > 2500 && $distance <= 3000) {
+                    return $ongkir = 12000;
                 } else {
-                    return redirect()->back()->with('error2', 'Your distance is to far max 2km');
+                    return redirect()->back()->with('error2', 'Your distance is to far max 3km');
                 }
             } else {
                 return redirect()->back()->with('error2', 'Failed to calculate distance.');
