@@ -41,7 +41,18 @@ class ChatController extends Controller
             $database = app('firebase.database');
             $cour_name = $database->getReference('chats/' . $custId . '-' . $courId . '/cour_name')->getValue();
             $refKey = $database->getReference('chats/' . $custId . '-' . $courId)->getChildKeys();
-            $date = $database->getReference('chats/' . $custId . '-' . $courId . '/' . $refKey[2] . '/msgs/timestamp')->getValue();
+            foreach ($refKey as $key) {
+                $date = $database->getReference('chats/' . $custId . '-' . $courId . '/' . $key . '/msgs/timestamp')->getValue();
+                if ($date != null) {
+                    break;
+                }
+            }
+            $wa = Auth::user()->no_telp;
+            if (substr($wa, 0, 2) === '08') {
+                $convertedNumber = '+62' . substr($wa, 1);
+            } else {
+                $convertedNumber = 'Invalid phone number format';
+            }
             // dd($refKey);
             return view('pages/Users/ChatRoomPage', [
                 'Title' => 'room-chat',
@@ -49,6 +60,7 @@ class ChatController extends Controller
                 'custId' => $custId,
                 'courId' => $courId,
                 'date' => $date,
+                'wa' => $convertedNumber
             ]);
         } catch (Exception $e) {
             // dd($e);
@@ -66,5 +78,15 @@ class ChatController extends Controller
         }
 
         return response()->json(['success' => false, 'error' => 'No image uploaded']);
+    }
+
+    public function redirectWhatsApp($phone)
+    {
+        if ($phone != null) {
+            // Redirect to WhatsApp link
+            return redirect("https://wa.me/{$phone}");
+        } else {
+            return redirect('/')->withErrors(['phone' => 'Invalid phone number format']);
+        }
     }
 }

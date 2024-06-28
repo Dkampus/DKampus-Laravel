@@ -53,14 +53,14 @@ class NotificationController extends Controller
             'body' => $request->body,
         ]);
 
-
         $user = User::find($request->user_id);
 
         if ($user && $user->fcm_token) {
             $response = $this->sendFirebaseNotification($user->fcm_token, $request->title, $request->body);
-
+            Log::info('Notification sent successfully: ', ['response' => $response]);
             return response()->json(['success' => true, 'response' => $response]);
         } else {
+            Log::error('User does not have a valid FCM token');
             return response()->json(['success' => false, 'message' => 'User does not have a valid FCM token']);
         }
     }
@@ -116,7 +116,7 @@ class NotificationController extends Controller
         $couriers = User::where('role', 'courier')->get();
 
         $title = "Pesanan Baru Masuk";
-        $body = "Halo DKurir, ada pesanan baru yang siap untuk diambil. Mohon segera periksa aplikasi Anda untuk detail lebih lanjut dan ambil pesanan tersebut. Terima kasih atas kerjasamanya!";
+        $body = "Halo DSquad, ada pesanan baru yang siap untuk diambil. Mohon segera periksa aplikasi Anda untuk detail lebih lanjut dan ambil pesanan tersebut. Terima kasih atas kerjasamanya!";
         foreach ($couriers as $courier) {
             if ($courier->fcm_token) {
                 $this->sendFirebaseNotification($courier->fcm_token, $title, $body);

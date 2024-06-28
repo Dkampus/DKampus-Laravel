@@ -194,7 +194,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    console.log('Token registered successfully');
+                    console.log(response);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error registering token:', error);

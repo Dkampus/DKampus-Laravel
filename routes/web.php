@@ -22,6 +22,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UntukKamuController;
 use App\Http\Controllers\CsController;
+use App\Models\Chat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -471,6 +472,7 @@ Route::get('/search', function (Request $request) {
 Route::post('/register-token', [NotificationController::class, 'registerToken'])->name('register.token');
 Route::post('/send-notification', [NotificationController::class, 'sendNotification'])->name('send.notification');
 Route::post('/send-notification-cour', [NotificationController::class, 'sendNotificationToCouriers'])->name('send.notificationCour');
+Route::get('/wa.me/{phone}', [ChatController::class, 'redirectWhatsApp']);
 
 // User Route
 Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () {

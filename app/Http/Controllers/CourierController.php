@@ -201,12 +201,19 @@ class CourierController extends Controller
                     break;
                 }
             }
+            $wa = Auth::user()->no_telp;
+            if (substr($wa, 0, 2) === '08') {
+                $convertedNumber = '+62' . substr($wa, 1);
+            } else {
+                $convertedNumber = 'Invalid phone number format';
+            }
             return view('pages/Courier/chatroom', [
                 'Title' => 'room-chat',
                 'custId' => $custId,
                 'courId' => $courId,
                 'date' => $date,
                 'cust_name' => $cust_name,
+                'wa' => $convertedNumber,
             ]);
         } catch (Exception $e) {
             return redirect()->back()->with('error2', 'Error');
