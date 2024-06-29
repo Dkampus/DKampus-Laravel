@@ -46,7 +46,6 @@
     var database = firebase.database();
 
     function renderOrder(orderData, id) {
-        console.log(id);
         var idOrder = id;
         var nama_penerima = orderData.nama_penerima;
         var nama_umkm = orderData.nama_umkm;
@@ -74,7 +73,7 @@
                     <span class="font-semibold text-l">${combinedOrderNames}</span>
                 </div>`;
         }
-
+        var timestamp = orderData.timestamp;
         var formattedTotal = "Rp. " + total.toLocaleString('id-ID');
         var html = `
             <div class="p-4" id="${idOrder}">
@@ -88,7 +87,7 @@
                     </svg>
                     <div class="ml-2">
                         <span class="font-semibold text-lg text-gray-800">${nama_umkm}</span>
-                        <p class="text-sm text-gray-600">2024-12-12 12:12:12</p>
+                        <p class="text-sm text-gray-600">${timestamp}</p>
                     </div>
                 </div>
                 <span class="px-3 py-1 rounded-full text-sm font-semibold text-[#FF6E00] bg-[#FFEEE1]">Waiting For Driver</span>

@@ -47,8 +47,8 @@
 
                         <div class="flex items-center justify-between">
                             <div class="text-sm text-gray-600">
-                                <p><span class="font-semibold">Subtotal:</span> Rp. {{ number_format($item['total'], 0, ',', '.') }}</p>
-                                <p><span class="font-semibold">Ongkir:</span> Rp. {{ number_format($item['ongkir'], 0, ',', '.') }}</p>
+                                <p><span class="font-semibold">Ongkir:</span> Rp. {{ number_format($item['total'], 0, ',', '.') }}</p>
+                                <p><span class="font-semibold">Total Ongkir:</span> Rp. {{ number_format($item['ongkir'], 0, ',', '.') }}</p>
                             </div>
 
                             <div class="flex flex-row gap-2">

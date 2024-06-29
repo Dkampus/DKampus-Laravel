@@ -200,7 +200,7 @@ class MenuController extends Controller
                 "nama_makanan" => $request->nama_makanan,
                 "deskripsi" => $request->deskripsi,
                 "harga" => $request->harga,
-                "image" => $request->image->store('public'),
+                "image" => $request->image->storePublicly('public/' . $findUmkm->nama_umkm),
                 "rating" => 0,
                 "promo" => $request->promo,
                 "category" => $request->category,
@@ -244,7 +244,7 @@ class MenuController extends Controller
                 session()->flash('error2', 'Product ' . $menu->nama_makanan . ' Gagal Dihapus, karena UMKM ' . $menu->data_umkm->nama_umkm . ' hanya memiliki 1 product');
             }
             Menu::findOrFail($menu->id)->delete();
-            Storage::delete("public/{$menu->data_umkm->nama_umkm}/{$menu->image}");
+            Storage::delete('public/' . $menu->data_umkm->nama_umkm . '/' . $menu->image);
             DB::commit();
             session()->flash('success', 'Product ' . $menu->nama_makanan . ' Berhasil Dihapus');
             return redirect()->back();

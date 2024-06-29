@@ -62,7 +62,13 @@
         <swiper-slide class="w-96 h-[17rem] mx-0.5 relative border-2 rounded-xl transition-all duration-300 hover:shadow-md">
             {{--<img src="/discount50%.svg" alt="" class="fixed z-[60] top-5 w-16 -left-2.5 md:w-[4vw]">--}}
             <a href="/detail-warung/{{ $item->nama_umkm }}" class="w-full h-full bg-white overflow-hidden">
-                <img src="{{ Storage::url($item->logo_umkm) }}" alt="" class="w-[45rem] h-40 object-cover rounded-xl">
+                @php $timeNow = date('H:i'); @endphp
+                @if ($timeNow < date('H:i', strtotime($item->open_time)) || $timeNow > date('H:i', strtotime($item->close_time)))
+                    <img src="{{ Storage::url($item->logo_umkm) }}" alt="" class="w-[45rem] h-40 object-cover rounded-xl relative top-0 filter grayscale opacity-50">
+                @else
+                    <img src="{{ Storage::url($item->logo_umkm) }}" alt="" class="w-[45rem] h-40 object-cover rounded-xl relative top-0">
+                @endif
+                {{-- Description Card --}}
                 <div class="flex flex-col px-3 h-24 justify-center">
                     <div class="flex w-max flex-row gap-1">
                         <img src=clock.svg alt="" class="w-5">
@@ -191,6 +197,35 @@
     @if (Auth::user() != null)
         <x-floatingcshelp />
     @endif
+    {{-- Popup info dev --}}
+    <div id="developmentModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                Informasi
+                            </h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">
+                                    Website ini masih dalam tahap pengembangan. Terima kasih atas pengertian nya ❤️.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#F9832A] text-base font-medium text-white hover:bg-[#ED6600] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F9832A] sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="document.getElementById('developmentModal').classList.add('hidden')">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>
 
 <footer class="md:grid hidden grid-cols-4 w-full bg-gradient-to-t from-[#ED6600] to-[#F9832A] text-white h-[40vh] place-content-evenly px-10 place-items-stretch">
@@ -256,7 +291,26 @@
     </div>
 
 </footer>
+<script>
+    window.onload = function() {
+        var lastShown = localStorage.getItem('lastShown');
 
+        if (!lastShown) {
+            document.getElementById('developmentModal').classList.remove('hidden');
+            localStorage.setItem('lastShown', new Date().getTime());
+        } else {
+            if (new Date().getTime() - lastShown > 3600000) {
+                // Jika sudah lebih dari 1 jam, tampilkan modal dan perbarui waktu terakhir modal ditampilkan di localStorage
+                document.getElementById('developmentModal').classList.remove('hidden');
+                localStorage.setItem('lastShown', new Date().getTime());
+            }
+        }
+
+        document.getElementById('closeModalButton').addEventListener('click', function() {
+            document.getElementById('developmentModal').classList.add('hidden');
+        });
+    };
+</script>
 {{-- Scroll Behaviour --}}
 @include('components.scrollBehaviourr.scroll-behaviour')
 
