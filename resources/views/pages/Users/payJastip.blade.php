@@ -87,7 +87,7 @@
         {{-- upload file --}}
         <form id="myForm" action="{{ route('order') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="file" name="bukti" id="bukti" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;" accept=".jpg,.jpeg,.png" required>
+            <input type="file" name="bukti" id="bukti" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;" accept="image/*" required>
             <button type="button" id="uploadButton" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Pilih File</button>
             <span id="uploadFileName" class="text-xs text-gray-500">*File belum dipilih</span>
             <button id="submitOrder" type="submit" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Unggah Bukti Pembayaran</button>
