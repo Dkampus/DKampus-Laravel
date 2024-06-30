@@ -175,7 +175,7 @@ class AdminController extends Controller
 
         // Fetch users based on provided user IDs
         $userIds = $request->input('user_ids');
-        $users = User::whereIn('id', $userIds)->get(['id', 'name']);
+        $users = User::whereIn('id', $userIds)->get(['id', 'nama_user']);
 
         return response()->json($users);
     }
