@@ -167,15 +167,16 @@ class AdminController extends Controller
 
     public function getUserDetails(Request $request)
     {
-        // Validate the request to ensure user_ids is provided and is an array
+        // Validate that user_ids parameter is provided
         $request->validate([
-            'user_ids' => 'required|array',
-            'user_ids.*' => 'exists:users,id'
+            'user_ids' => 'required|string'
         ]);
 
+        // Convert the comma-separated list of user_ids into an array
+        $userIds = explode(',', $request->input('user_ids'));
+
         // Fetch users based on provided user IDs
-        $userIds = $request->input('user_ids');
-        $users = User::whereIn('id', $userIds)->get(['id', 'nama_user']);
+        $users = User::whereIn('id', $userIds)->get(['id', 'nama_user', 'no_telp']);
 
         return response()->json($users);
     }

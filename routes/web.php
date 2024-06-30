@@ -474,7 +474,7 @@ Route::post('/send-notification', [NotificationController::class, 'sendNotificat
 Route::post('/send-notification-cour', [NotificationController::class, 'sendNotificationToCouriers'])->name('send.notificationCour');
 Route::get('/wa.me/{phone}', [ChatController::class, 'redirectWhatsApp']);
 Route::get('/spreadsheets', [AdminController::class, 'spreadsheets']);
-Route::post('/userDetails', [AdminController::class, 'getUserDetails']);
+Route::get('/userDetails', [AdminController::class, 'getUserDetails']);
 
 
 require __DIR__ . '/auth.php';
