@@ -474,34 +474,7 @@ Route::post('/send-notification', [NotificationController::class, 'sendNotificat
 Route::post('/send-notification-cour', [NotificationController::class, 'sendNotificationToCouriers'])->name('send.notificationCour');
 Route::get('/wa.me/{phone}', [ChatController::class, 'redirectWhatsApp']);
 Route::get('/spreadsheets', [AdminController::class, 'spreadsheets']);
-
-// User Route
-Route::middleware(['auth', 'UserAccess:user,admin,courier'])->group(function () {
-    Route::name('user.')->group(function () {
-        // insert route here
-        Route::get('/uhuy', function () {
-            return view("uhuy");
-        });
-    });
-});
-
-// Admin Route
-Route::middleware(['auth', 'UserAccess:admin'])->group(function () {
-    Route::prefix('admin')->group(function () {
-        Route::name('.admin')->group(function () {
-            // insert route here
-        });
-    });
-});
-
-// Courier Route
-Route::middleware(['auth', 'UserAccess:courier,admin'])->group(function () {
-    Route::prefix('courier')->group(function () {
-        Route::name('courier.')->group(function () {
-            // Add more routes as needed
-        });
-    });
-});
+Route::post('/userDetails', [AdminController::class, 'getUserDetails']);
 
 
 require __DIR__ . '/auth.php';

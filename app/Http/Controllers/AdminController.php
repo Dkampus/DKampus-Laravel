@@ -164,4 +164,19 @@ class AdminController extends Controller
     {
         return redirect("https://docs.google.com/spreadsheets/d/1_NFV2Ih7UnwU4_dyidhky2tlBaQeW7aSQOMf494hckY/edit?usp=sharing");
     }
+
+    public function getUserDetails(Request $request)
+    {
+        // Validate the request to ensure user_ids is provided and is an array
+        $request->validate([
+            'user_ids' => 'required|array',
+            'user_ids.*' => 'exists:users,id'
+        ]);
+
+        // Fetch users based on provided user IDs
+        $userIds = $request->input('user_ids');
+        $users = User::whereIn('id', $userIds)->get(['id', 'name']);
+
+        return response()->json($users);
+    }
 }
