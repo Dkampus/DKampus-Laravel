@@ -475,6 +475,7 @@ Route::post('/send-notification-cour', [NotificationController::class, 'sendNoti
 Route::get('/wa.me/{phone}', [ChatController::class, 'redirectWhatsApp']);
 Route::get('/spreadsheets', [AdminController::class, 'spreadsheets']);
 Route::get('/userDetails', [AdminController::class, 'getUserDetails']);
+// Route::get('/sendTeleGroup', [CartController::class, 'sendToTeleGroup'])->name('sendNotifTele');
 
 
 require __DIR__ . '/auth.php';
