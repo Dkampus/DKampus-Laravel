@@ -240,7 +240,7 @@ class CourierController extends Controller
             $database = app('firebase.database');
 
             $check = $request->validate([
-                'bukti' => 'required|file|mimes:jpeg,jpg,png,heic|max:2048',
+                'bukti' => 'required|file|mimes:jpeg,jpg,png,heic|max:4096',
             ]);
 
             if ($check) {
@@ -251,7 +251,7 @@ class CourierController extends Controller
                 $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
                 $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
                 $orderId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orderID')->getValue();
-                $bukti = $database->getReference('onProgress/' . $custId . '-' . $courId . '/bukti')->getValue();
+                // $bukti = $database->getReference('onProgress/' . $custId . '-' . $courId . '/bukti')->getValue();
                 $jarak = $database->getReference('onProgress/' . $custId . '-' . $courId . '/jarak')->getValue();
                 $kategori = $database->getReference('onProgress/' . $custId . '-' . $courId . '/kategori')->getValue();
                 // dd($item);
@@ -272,7 +272,7 @@ class CourierController extends Controller
                     'ongkir' => $ongkir,
                     'jarak' => $jarak,
                     'status' => 'completed',
-                    'bukti' => $bukti,
+                    'bukti' => null,
                     'bukti_akhir' => $fileName,
                     'alasan' => null,
                     'total_driver' => $request->input('total-price'),
@@ -299,7 +299,7 @@ class CourierController extends Controller
             $database = app('firebase.database');
 
             $check = $request->validate([
-                'bukti_batal' => 'required|file|mimes:jpeg,jpg,png,heic|max:2048',
+                'bukti_batal' => 'required|file|mimes:jpeg,jpg,png,heic|max:4096',
             ]);
 
             if ($check) {
@@ -310,7 +310,7 @@ class CourierController extends Controller
                 $ongkir = $database->getReference('onProgress/' . $custId . '-' . $courId . '/ongkir')->getValue();
                 $jarak = $database->getReference('onProgress/' . $custId . '-' . $courId . '/jarak')->getValue();
                 $item = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getValue();
-                $bukti = $database->getReference('onProgress/' . $custId . '-' . $courId . '/bukti')->getValue();
+                // $bukti = $database->getReference('onProgress/' . $custId . '-' . $courId . '/bukti')->getValue();
                 $itemNum = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders')->getChildKeys();
                 $kategori = $database->getReference('onProgress/' . $custId . '-' . $courId . '/kategori')->getValue();
                 $umkmId = $database->getReference('onProgress/' . $custId . '-' . $courId . '/orders' . '/' . $itemNum[0] . '/umkm_id')->getValue();
@@ -329,7 +329,7 @@ class CourierController extends Controller
                     'ongkir' => $ongkir,
                     'jarak' => $jarak,
                     'status' => 'canceled',
-                    'bukti' => $bukti,
+                    'bukti' => null,
                     'bukti_akhir' => $fileName,
                     'alasan' => $request->input('alasan'),
                     'total_driver' => $request->input('total-price-cancel'),
