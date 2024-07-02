@@ -155,6 +155,12 @@
 
         // Append container to chat messages
         $('#chat-messages').append(messageDiv);
+
+        var chatWindow = document.getElementById('chat-messages');
+        var latestMessage = chatWindow.lastElementChild;
+        latestMessage.scrollIntoView({
+            behavior: 'smooth'
+        });
     }
 
     // Listen for new messages
