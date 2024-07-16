@@ -194,12 +194,12 @@
         var timestampText = $('<p>').addClass('text-xs').text(formattedTimestamp);
 
         if (role === 'driver') {
-            messageDiv.addClass('items-end');
-            containerDiv.addClass('bg-[#F8832B]');
-        } else {
             messageDiv.addClass('items-start');
             containerDiv.addClass('bg-[#FFE6D4]');
             timestampText.addClass('text-gray-500');
+        } else {
+            messageDiv.addClass('items-end');
+            containerDiv.addClass('bg-[#F8832B]');
         }
 
         // Append elements to container
