@@ -15,7 +15,7 @@
         </div>
     </a>
     <a href="{{ url('wa.me/' . $wa) }}" class="mr-5">
-        <img src="whatsapp.svg" alt="WhatsApp" width="24" height="24">
+        <img src="/whatsapp.svg" alt="WhatsApp" width="24" height="24">
     </a>
 </header>
 <main>
