@@ -13,18 +13,18 @@
                     <div class="overflow-auto">
                         <table class="min-w-full divide-y divide-gray-200 space-x-4">
                             <thead>
-                            <tr>
-                                <th scope="col" class="px-6 py-3 tracking-wider">User ID</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Name</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Email</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Phone Number</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Role</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Restriction</th>
-                                <th scope="col" class="px-6 py-3 tracking-wider">Action</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">User ID</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Name</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Email</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Phone Number</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Role</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Restriction</th>
+                                    <th scope="col" class="px-6 py-3 tracking-wider">Action</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $user)
+                                @foreach($users as $user)
                                 <tr>
                                     <td class="text-center">{{ $user->id ?? 'null' }}</td>
                                     <td>{{ $user->nama_user ?? 'null' }}</td>
@@ -33,19 +33,12 @@
                                     <td class="text-center">{{ ucfirst($user->role) ?? 'null' }}</td>
                                     <td class="text-center">{{ $user->restriction ? 'True' : 'False' ?? 'null' }}</td>
                                     <td class="text-center">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                                onclick="editUser(this)"
-                                                data-id="{{ $user->id }}"
-                                                data-nama_user="{{ $user->nama_user }}"
-                                                data-email="{{ $user->email }}"
-                                                data-no_telp="{{ $user->no_telp }}"
-                                                data-role="{{ $user->role }}"
-                                                data-restriction="{{ $user->restriction }}">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="editUser(this)" data-id="{{ $user->id }}" data-nama_user="{{ $user->nama_user }}" data-email="{{ $user->email }}" data-no_telp="{{ $user->no_telp }}" data-role="{{ $user->role }}" data-restriction="{{ $user->restriction }}">
                                             Edit
                                         </button>
                                     </td>
                                 </tr>
-                            @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -67,9 +60,10 @@
                             </h3>
                         </div>
                     </div>
-                    <form action="#" method="POST">
+                    <form action="{{ route('editUser') }}" method="POST">
                         @csrf
-                        @method('PUT')
+                        @method('POST')
+                        <input type="text" name="id_user" value="{{ $user->id }}" class="hidden">
                         <div class="mb-4 mt-4">
                             <label for="nama_user" class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2">Name</label>
                             <input type="text" name="nama_user" id="nama_user" class="block w-full" value="{{ $user->nama_user }}">
@@ -112,7 +106,6 @@
     </div>
 </x-app-layout>
 <script>
-
     function editUser(button) {
         // Get data from data-* attributes
         var id = button.getAttribute('data-id');
