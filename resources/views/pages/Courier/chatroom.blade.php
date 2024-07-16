@@ -41,6 +41,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ mix('js/performanceFirebase.js') }}" defer></script>
 <script>
     // Initialize Firebase
     var firebaseConfig = {
@@ -63,6 +64,9 @@
 
     // Function to send a message
     function sendMessage(message) {
+        const trace = perf.trace('send_message');
+        trace.start();
+
         var date = new Date();
         var year = date.getFullYear();
         var month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -80,6 +84,7 @@
             }
         }).then(function() {
             console.log('try send notif');
+            trace.stop();
             sendNotificationToServer(custId, "New Message", message);
         });
 
@@ -87,6 +92,7 @@
         chatRef.transaction(function(currentValue) {
             return (currentValue || 0) + 1;
         });
+
     }
 
     var lastDisplayedDate = null;
@@ -165,6 +171,9 @@
 
     // Listen for new messages
     database.ref('chats/' + custId + '-' + courId).on('child_added', function(snapshot) {
+        const trace = perf.trace('listen_message');
+        trace.start();
+
         var messageData = snapshot.val();
 
         if (messageData.msgs) {
@@ -172,7 +181,9 @@
             var message = messageData.msgs.msg;
             var timestamp = messageData.msgs.timestamp;
             displayMessage(role, message, timestamp);
+            trace.stop();
         }
+
     });
 
     // Send message when form is submitted

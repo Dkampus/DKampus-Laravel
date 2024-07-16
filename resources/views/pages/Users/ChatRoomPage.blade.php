@@ -41,6 +41,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ mix('js/performanceFirebase.js') }}" defer></script>
 <script>
     // Initialize Firebase
     var firebaseConfig = {
@@ -110,6 +111,9 @@
     function sendMessage(message) {
         var startTime = performance.now();
 
+        const trace = perf.trace('send_message');
+        trace.start();
+
         var date = new Date();
         var year = date.getFullYear();
         var month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -129,7 +133,7 @@
             var endTime = performance.now(); // Ambil waktu selesai pengiriman pesan
             var duration = endTime - startTime; // Hitung durasi pengiriman dalam milidetik
             console.log('Pengiriman pesan selesai dalam ' + duration + ' milidetik');
-
+            trace.stop();
             sendNotificationToServer(courId, "New Message", message);
         });
         var chatRef = database.ref('chats/' + custId + '-' + courId + '/custNewMssg');
@@ -217,6 +221,9 @@
         var startTime = performance.now();
         var messageData = snapshot.val();
 
+        const trace = perf.trace('listen_message');
+        trace.start();
+
         if (messageData.msgs) {
             var role = messageData.msgs.role;
             var message = messageData.msgs.msg;
@@ -225,6 +232,7 @@
             var endTime = performance.now();
             var duration = endTime - startTime;
             console.log('Penerimaan pesan selesai dalam ' + duration + ' milidetik');
+            trace.stop();
         }
     });
 
