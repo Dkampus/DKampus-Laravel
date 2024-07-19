@@ -52,7 +52,8 @@ class ChatController extends Controller
             if (substr($wa, 0, 2) === '08') {
                 $convertedNumber = '+62' . substr($wa, 1);
             } else {
-                $convertedNumber = 'Invalid phone number format';
+                //invalid number.
+                $convertedNumber = '0';
             }
             // dd($refKey);
             return view('pages/Users/ChatRoomPage', [
