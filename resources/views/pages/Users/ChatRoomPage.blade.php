@@ -14,7 +14,7 @@
             <h1 class="font-bold text-black text-l">{{ $cour_name }}</h1>
         </div>
     </a>
-    <a href="{{ url('wa.me/' . $wa) }}" class="mr-5">
+    <a href="{{ url('wa.me/' . $wa ?? '') }}" class="mr-5">
         <img src="whatsapp.svg" alt="WhatsApp" width="24" height="24">
     </a>
 </header>
@@ -189,7 +189,7 @@
 
         var timestampText = $('<p>').addClass('text-xs').text(formattedTimestamp);
 
-        if (role === 'driver') {
+        if (role === 'customer') {
             messageDiv.addClass('items-end');
             containerDiv.addClass('bg-[#F8832B]');
         } else {
@@ -210,6 +210,7 @@
     database.ref('chats/' + custId + '-' + courId).on('child_added', function(snapshot) {
         var startTime = performance.now();
         var messageData = snapshot.val();
+        console.log(messageData);
 
         if (messageData.msgs) {
             var role = messageData.msgs.role;
