@@ -368,6 +368,7 @@ Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')
 // Admin Routes
 Route::resource('umkm', 'UmkmController');
 Route::middleware(['auth', 'verified', 'check.admin.role'])->prefix('admin')->group(function () {
+    Route::post('/updateUser', [AdminController::class, 'editUser'])->name('editUser');
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::view('/umkm', 'pages/Admin/umkm', [
         'umkms' => Data_umkm::paginate(10),
@@ -475,6 +476,7 @@ Route::post('/send-notification-cour', [NotificationController::class, 'sendNoti
 Route::get('/wa.me/{phone}', [ChatController::class, 'redirectWhatsApp']);
 Route::get('/spreadsheets', [AdminController::class, 'spreadsheets']);
 Route::get('/userDetails', [AdminController::class, 'getUserDetails']);
+// Route::get('/sendTeleGroup', [CartController::class, 'sendToTeleGroup'])->name('sendNotifTele');
 
 
 require __DIR__ . '/auth.php';

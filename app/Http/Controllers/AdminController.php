@@ -180,4 +180,23 @@ class AdminController extends Controller
 
         return response()->json($users);
     }
+
+    public function editUser(Request $request)
+    {
+        $id = $request->id_user;
+
+        $request->validate([
+            'role' => 'required|in:admin,customer,courier',
+            'restriction' => 'required|boolean',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $user->role = $request->role;
+        $user->restriction = $request->restriction;
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'User updated successfully.');
+    }
 }

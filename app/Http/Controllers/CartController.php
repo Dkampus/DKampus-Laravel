@@ -502,39 +502,40 @@ class CartController extends Controller
             $userID = Auth::user()->id;
             $database = app('firebase.database');
 
-            $request->validate([
-                'bukti' => 'required|file|mimes:jpeg,jpg,png,heic,heif|max:4096',
-            ]);
+            // $request->validate([
+            //     'bukti' => 'required|file|mimes:jpeg,jpg,png,heic,heif|max:4096',
+            // ]);
 
-            if ($request->file('bukti')->isValid()) {
-                $filePath = $request->file('bukti')->store('/public/payment');
-                $fileName = basename($filePath);
-                $order = $database->getReference('cart/' . $userID)->getValue();
-                if ($order) {
-                    $database->getReference('needToDeliver/' . $userID . '-')->set($order);
-                    $database->getReference('needToDeliver/' . $userID . '-/status')->set('searching');
-                    $nama_penerima = Auth::user()->nama_user;
-                    $item = $database->getReference('needToDeliver/' . $userID . '-/orders')->getChildKeys();
-                    $idumkm = $database->getReference('needToDeliver/' . $userID . '-/orders' . '/' . $item[0] . '/umkm_id')->getValue();
-                    if ($idumkm == 'Jastip') {
-                        $namaUMKM = 'Jastip';
-                    } else {
-                        $namaUMKM = Data_umkm::find($idumkm)->nama_umkm;
-                    }
-                    $database->getReference('needToDeliver/' . $userID . '-/nama_penerima')->set($nama_penerima);
-                    $database->getReference('needToDeliver/' . $userID . '-/nama_umkm')->set($namaUMKM);
-                    date_default_timezone_set('Asia/Jakarta');
-                    $timestamp = date('Y-m-d H:i:s');
-                    $database->getReference('needToDeliver/' . $userID . '-/timestamp')->set($timestamp);
-                    $database->getReference('needToDeliver/' . $userID . '-/bukti')->set($fileName);
-                    $database->getReference('cart/' . $userID)->remove();
-                    return redirect('/pesanan/status');
+            // if ($request->file('bukti')->isValid()) {
+            //     $filePath = $request->file('bukti')->store('/public/payment');
+            //     $fileName = basename($filePath);
+            $order = $database->getReference('cart/' . $userID)->getValue();
+            if ($order) {
+                $database->getReference('needToDeliver/' . $userID . '-')->set($order);
+                $database->getReference('needToDeliver/' . $userID . '-/status')->set('searching');
+                $nama_penerima = Auth::user()->nama_user;
+                $item = $database->getReference('needToDeliver/' . $userID . '-/orders')->getChildKeys();
+                $idumkm = $database->getReference('needToDeliver/' . $userID . '-/orders' . '/' . $item[0] . '/umkm_id')->getValue();
+                if ($idumkm == 'Jastip') {
+                    $namaUMKM = 'Jastip';
                 } else {
-                    return redirect('/jastip')->with('error2', 'Error');
+                    $namaUMKM = Data_umkm::find($idumkm)->nama_umkm;
                 }
+                $database->getReference('needToDeliver/' . $userID . '-/nama_penerima')->set($nama_penerima);
+                $database->getReference('needToDeliver/' . $userID . '-/nama_umkm')->set($namaUMKM);
+                date_default_timezone_set('Asia/Jakarta');
+                $timestamp = date('Y-m-d H:i:s');
+                $database->getReference('needToDeliver/' . $userID . '-/timestamp')->set($timestamp);
+                // $database->getReference('needToDeliver/' . $userID . '-/bukti')->set($fileName);
+                $database->getReference('cart/' . $userID)->remove();
+                $this->sendToTeleGroup();
+                return redirect('/pesanan/status');
             } else {
-                return redirect()->back()->withErrors('error2', 'Invalid file uploaded.');
+                return redirect('/jastip')->with('error2', 'Error');
             }
+            // } else {
+            //     return redirect()->back()->withErrors('error2', 'Invalid file uploaded.');
+            // }
         } catch (Exception $e) {
             return redirect('/pesanan')->with('error2', 'Error');
         }
@@ -757,5 +758,88 @@ class CartController extends Controller
         } catch (Exception $e) {
             return redirect('/')->with('error2', 'Terjadi kesalahan');
         }
+    }
+
+    private function sendToTeleGroup()
+    {
+        $userId = Auth::user()->id;
+        $database = app('firebase.database');
+        $orderData = $database->getReference('needToDeliver/' . $userId . '-/')->getValue();
+        // if ($database->getReference('cart/' . $userId . '/')->getSnapshot()->exists()) {
+        //     $orderData = $database->getReference('cart/' . $userId . '/')->getValue();
+        // } else if ($database->getReference('needToDeliver/' . $userId . '-/')->getSnapshot()->exists()) {
+        //     $orderData = $database->getReference('needToDeliver/' . $userId . '-/')->getValue();
+        // }
+
+        $orderDetails = "Halo DSquad! 🎉\n\n"
+            . "Order Baru dari: *" . $orderData['nama_penerima'] . "*\n"
+            . "Alamat Pengiriman: " . $orderData['cust_address'] . "\n"
+            . "Alamat Umkm: " . $orderData['umkm_address'] . "\n\n"
+            . "📦 *Detail Pesanan*\n";
+        $prevCatatan = '';
+        $tempIdUmkm = '';
+
+        foreach ($orderData['orders'] as $key => $orders) {
+            if ($orders['umkm_id'] == 'Jastip') {
+                $tempIdUmkm = $orders['umkm_id'];
+                if ($orders['catatan'] !== $prevCatatan) {
+                    $orderDetails .= "Umkm: " . $orders['catatan'] . "\n";
+                    $prevCatatan = $orders['catatan'];
+                }
+                $orderDetails .= "- " . $orders['nama'] . " ( Jumlah: " . $orders['jumlah'] . " )\n";
+            } else {
+                $orderDetails .= "- " . $orders['nama'] . " ( Jumlah: " . $orders['jumlah'] . " )\n";
+            }
+        }
+
+        if ($tempIdUmkm == 'Jastip') {
+            $orderDetails .= "\n"
+                . "Ongkir: Rp " . number_format($orderData['ongkir'], 0, ',', '.') . "\n"
+                . "Total Ongkir: Rp " . number_format($orderData['total'] + $orderData['ongkir'], 0, ',', '.') . "\n\n"
+                . "Silahkan Ambil Order Pada Website dkmapus.my.id Terimakasih! 😊";
+            // if ($orderData['total'] == 3000) {
+            //     $orderDetails .= "Total Pembayaran 2 Umkm: Rp " . number_format($orderData['total'], 0, ',', '.') . "\n\n"
+            //         . "Silahkan Ambil Order Pada Website dkmapus.my.id Terimakasih! 😊";
+            // } else if ($orderData['total'] == 6000) {
+            //     $orderDetails .= "Total Pembayaran 3 Umkm: Rp " . number_format($orderData['total'], 0, ',', '.') . "\n\n"
+            //         . "Silahkan Ambil Order Pada Website dkmapus.my.id Terimakasih! 😊";
+            // } else if ($orderData['total'] == 9000) {
+            //     $orderDetails .= "Total Pembayaran 4 Umkm: Rp " . number_format($orderData['total'], 0, ',', '.') . "\n\n"
+            //         . "Silahkan Ambil Order Pada Website dkmapus.my.id Terimakasih! 😊";
+            // } else if ($orderData['total'] == 12000) {
+            //     $orderDetails .= "Total Pembayaran 5 Umkm: Rp " . number_format($orderData['total'], 0, ',', '.') . "\n\n"
+            //         . "Silahkan Ambil Order Pada Website dkmapus.my.id Terimakasih! 😊";
+            // } else {
+            //     $orderDetails .= "\n"
+            //         . "Silahkan Ambil Order Pada Website dkmapus.my.id Terimakasih! 😊";
+            // }
+        } else {
+            $orderDetails .= "\n"
+                . "Ongkir: Rp " . number_format($orderData['ongkir'], 0, ',', '.') . "\n"
+                . "Total Pembayaran: Rp " . number_format($orderData['total'], 0, ',', '.') . "\n\n"
+                . "Silahkan Ambil Order Pada Website dkmapus.my.id Terimakasih! 😊";
+        }
+
+        $this->sendTelegramMessage($orderDetails);
+
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    private function sendTelegramMessage($message)
+    {
+        $client = new Client();
+        $botToken = env('TELEGRAM_BOT_TOKEN');
+        $chatId = env('TELEGRAM_CHAT_ID');
+        $url = "https://api.telegram.org/bot{$botToken}/sendMessage";
+
+        $response = $client->post($url, [
+            'form_params' => [
+                'chat_id' => $chatId,
+                'text' => $message,
+                'parse_mode' => 'Markdown'
+            ]
+        ]);
+
+        return json_decode($response->getBody()->getContents());
     }
 }

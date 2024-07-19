@@ -65,7 +65,7 @@
         </div>
     </div>
     {{-- Time Remaining --}}
-    <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
+    <!-- <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
     <div class="flex justify-between items-center p-5">
         <p class="text-sm text-gray-500">Silahkan selesaikan<br>pembayaranan anda dalam</p>
         <div id="timer" class="text-2xl font-bold text-black"></div>
@@ -77,25 +77,26 @@
     <div class="flex flex-col items-center">
         {{-- Temporary QR Code --}}
         <img src="{{ asset('qrcode-payment.png') }}" alt="QR Code" class="w-52 h-52">
-    </div>
-    <button onclick="downloadQRImage()" class="flex justify-center items-center w-full h-12 mt-2">
+    </div> -->
+    <!-- <button onclick="downloadQRImage()" class="flex justify-center items-center w-full h-12 mt-2">
         <h1 class="text-[#F8832B] text-s">Simpan Kode QR</h1>
-    </button>
+    </button> -->
     {{-- Upload Bukti Pembayaran --}}
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
     <div class="justify-center items-center p-5">
         {{-- upload file --}}
         <form id="myForm" action="{{ route('order') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="file" name="bukti" id="bukti" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;" accept="image/*" required>
+            <!-- <input type="file" name="bukti" id="bukti" class="w-full h-12 border-2 border-[#F9832A] rounded-xl" style="display: none;" accept="image/*" required>
             <button type="button" id="uploadButton" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Pilih File</button>
-            <span id="uploadFileName" class="text-xs text-gray-500">*File belum dipilih</span>
-            <button id="submitOrder" type="submit" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Unggah Bukti Pembayaran</button>
+            <span id="uploadFileName" class="text-xs text-gray-500">*File belum dipilih</span> -->
+            <!-- <button id="submitOrder" type="submit" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Unggah Bukti Pembayaran</button> -->
+            <button id="submitOrder" type="submit" class="w-full h-12 bg-[#F9832A] text-white font-bold rounded-xl mt-2">Pesan Sekarang</button>
         </form>
-        <div class="flex flex-col items-center mt-2">
+        <!-- <div class="flex flex-col items-center mt-2">
             <span class="text-xs font-bold text-gray-500">*Unggah bukti pembayaran setelah melakukan pembayaran</span>
             <span class="text-xs text-gray-500">*File harus berformat .jpg, .jpeg, .png dan tidak lebih dari 2MB</span>
-        </div>
+        </div> -->
     </div>
     {{-- Tos --}}
     <div class="flex flex-col w-full h-auto px-1 py-1 bg-gray-200"></div>
@@ -110,65 +111,65 @@
     </div>
 </main>
 <script>
-    var countDownDate = new Date().getTime() + 180000; //in milliseconds
-    var x = setInterval(function() {
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-        document.getElementById("timer").innerHTML = minutes + ":" + seconds;
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("timer").innerHTML = "EXPIRED";
-        }
-    }, 1000);
+    // var countDownDate = new Date().getTime() + 180000; //in milliseconds
+    // var x = setInterval(function() {
+    //     var now = new Date().getTime();
+    //     var distance = countDownDate - now;
+    //     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    //     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    //     minutes = minutes < 10 ? '0' + minutes : minutes;
+    //     seconds = seconds < 10 ? '0' + seconds : seconds;
+    //     document.getElementById("timer").innerHTML = minutes + ":" + seconds;
+    //     if (distance < 0) {
+    //         clearInterval(x);
+    //         document.getElementById("timer").innerHTML = "EXPIRED";
+    //     }
+    // }, 1000);
 
-    //if countdown expired, redirect to /pesanan
-    setTimeout(function() {
-        window.location.href = "{{url('/jastip')}}";
-    }, 180000);
+    // //if countdown expired, redirect to /pesanan
+    // setTimeout(function() {
+    //     window.location.href = "{{url('/jastip')}}";
+    // }, 180000);
 
-    //function download qr image
-    function downloadQRImage() {
-        var a = document.createElement('a');
-        a.href = "{{ asset('qrcode-payment.png') }}";
-        a.download = 'dkampus-qrcode-payment.png';
-        a.click();
-    }
+    // //function download qr image
+    // function downloadQRImage() {
+    //     var a = document.createElement('a');
+    //     a.href = "{{ asset('qrcode-payment.png') }}";
+    //     a.download = 'dkampus-qrcode-payment.png';
+    //     a.click();
+    // }
 
-    document.getElementById('uploadButton').addEventListener('click', function() {
-        document.getElementById('bukti').click();
-        //change file name on element
-        document.getElementById('bukti').addEventListener('change', function() {
-            document.getElementById('uploadFileName').innerHTML = this.files[0].name;
-        });
-    });
+    // document.getElementById('uploadButton').addEventListener('click', function() {
+    //     document.getElementById('bukti').click();
+    //     //change file name on element
+    //     document.getElementById('bukti').addEventListener('change', function() {
+    //         document.getElementById('uploadFileName').innerHTML = this.files[0].name;
+    //     });
+    // });
 
-    //if file size more than 2MB
-    document.getElementById('bukti').addEventListener('change', function() {
-        if (this.files[0].size > 2000000) {
-            this.value = '';
-            document.getElementById('uploadFileName').style.color = 'red';
-            document.getElementById('uploadFileName').innerHTML = '*File terlalu besar';
-        }
-    });
+    // //if file size more than 2MB
+    // document.getElementById('bukti').addEventListener('change', function() {
+    //     if (this.files[0].size > 2000000) {
+    //         this.value = '';
+    //         document.getElementById('uploadFileName').style.color = 'red';
+    //         document.getElementById('uploadFileName').innerHTML = '*File terlalu besar';
+    //     }
+    // });
 
-    //if file format not jpg, jpeg, png
-    document.getElementById('bukti').addEventListener('change', function() {
-        var ext = this.value.match(/\.([^\.]+)$/)[1];
-        switch (ext) {
-            case 'jpg':
-            case 'jpeg':
-            case 'png':
-                break;
-            default:
-                this.value = '';
-                document.getElementById('uploadFileName').style.color = 'red';
-                document.getElementById('uploadFileName').innerHTML = '*File harus berformat .jpg, .jpeg, .png';
-        }
-    });
+    // //if file format not jpg, jpeg, png
+    // document.getElementById('bukti').addEventListener('change', function() {
+    //     var ext = this.value.match(/\.([^\.]+)$/)[1];
+    //     switch (ext) {
+    //         case 'jpg':
+    //         case 'jpeg':
+    //         case 'png':
+    //             break;
+    //         default:
+    //             this.value = '';
+    //             document.getElementById('uploadFileName').style.color = 'red';
+    //             document.getElementById('uploadFileName').innerHTML = '*File harus berformat .jpg, .jpeg, .png';
+    //     }
+    // });
 
     $(document).ready(function() {
         $('#submitOrder').click(function() {
@@ -185,7 +186,8 @@
                     console.error('Error sending notification:', error);
                 }
             });
+
         });
-    })
+    });
 </script>
 @endsection

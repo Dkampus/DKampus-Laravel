@@ -16,6 +16,9 @@
     </a>
     <a href="{{ url('wa.me/' . $wa ?? '') }}" class="mr-5">
         <img src="whatsapp.svg" alt="WhatsApp" width="24" height="24">
+    <a href="{{ url('wa.me/' . $wa) }}" class="mr-5">
+        <img src="/whatsapp.svg" alt="WhatsApp" width="24" height="24">
+    </a>
     </a>
 </header>
 <main>
@@ -41,6 +44,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ mix('js/performanceFirebase.js') }}" defer></script>
 <script>
     // Initialize Firebase
     var firebaseConfig = {
@@ -110,6 +114,9 @@
     function sendMessage(message) {
         var startTime = performance.now();
 
+        const trace = perf.trace('send_message');
+        trace.start();
+
         var date = new Date();
         var year = date.getFullYear();
         var month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -129,7 +136,7 @@
             var endTime = performance.now(); // Ambil waktu selesai pengiriman pesan
             var duration = endTime - startTime; // Hitung durasi pengiriman dalam milidetik
             console.log('Pengiriman pesan selesai dalam ' + duration + ' milidetik');
-
+            trace.stop();
             sendNotificationToServer(courId, "New Message", message);
         });
         var chatRef = database.ref('chats/' + custId + '-' + courId + '/custNewMssg');
@@ -189,13 +196,13 @@
 
         var timestampText = $('<p>').addClass('text-xs').text(formattedTimestamp);
 
-        if (role === 'customer') {
-            messageDiv.addClass('items-end');
-            containerDiv.addClass('bg-[#F8832B]');
-        } else {
+        if (role === 'driver') {
             messageDiv.addClass('items-start');
             containerDiv.addClass('bg-[#FFE6D4]');
             timestampText.addClass('text-gray-500');
+        } else {
+            messageDiv.addClass('items-end');
+            containerDiv.addClass('bg-[#F8832B]');
         }
 
         // Append elements to container
@@ -204,6 +211,12 @@
 
         // Append container to chat messages
         $('#chat-messages').append(messageDiv);
+
+        var chatWindow = document.getElementById('chat-messages');
+        var latestMessage = chatWindow.lastElementChild;
+        latestMessage.scrollIntoView({
+            behavior: 'smooth'
+        });
     }
 
     // Listen for new messages
@@ -211,6 +224,9 @@
         var startTime = performance.now();
         var messageData = snapshot.val();
         console.log(messageData);
+
+        const trace = perf.trace('listen_message');
+        trace.start();
 
         if (messageData.msgs) {
             var role = messageData.msgs.role;
@@ -220,8 +236,8 @@
             var endTime = performance.now();
             var duration = endTime - startTime;
             console.log('Penerimaan pesan selesai dalam ' + duration + ' milidetik');
+            trace.stop();
         }
-
     });
 
     // Send message when form is submitted
