@@ -220,6 +220,7 @@
     database.ref('chats/' + custId + '-' + courId).on('child_added', function(snapshot) {
         var startTime = performance.now();
         var messageData = snapshot.val();
+        console.log(messageData);
 
         const trace = perf.trace('listen_message');
         trace.start();

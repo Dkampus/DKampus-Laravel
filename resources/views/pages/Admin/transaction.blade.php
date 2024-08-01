@@ -47,7 +47,7 @@
                                         @endif
                                     <td class="text-center">
                                         @php $total_ongkir = $data['total'] + $data['ongkir'] @endphp
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ Storage::url('public/payment/' . $data['bukti']) }}" data-user="{{ $data['nama_penerima'] }}" data-cour="Not Taken Yet" data-jarak="{{ $data['jarak'] }}" data-bukti-akhir="{{ null }}">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline detail-button" data-order-id="{{ $data['orderID'] }}" data-date="{{ $data['timestamp'] }}" data-total="{{ $total_ongkir }}" data-payment="QRIS" data-status="{{ $data['status'] }}" data-bukti="{{ null }}" data-user="{{ $data['nama_penerima'] }}" data-cour="Not Taken Yet" data-jarak="{{ $data['jarak'] }}" data-bukti-akhir="{{ null }}">
                                             Details
                                         </button>
                                     </td>
