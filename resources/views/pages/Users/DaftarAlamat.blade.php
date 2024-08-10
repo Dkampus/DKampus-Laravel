@@ -36,7 +36,7 @@
         margin-bottom: 5px;
     }
 </style>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy7Wqkn0A1tWbQf9-LnGum9UucUooaQXY&libraries=places&callback=initAutocomplete" defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3zz718wI8G9tqVt4YkjjRSv_YHg9yPag&libraries=places&callback=initAutocomplete" defer></script>
 <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10 shadow-md py-8">
     <a href="{{'/'}}" class="absolute top-5 left-5 flex items-center gap-x-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#F9832A" class="bi bi-arrow-left" viewBox="0 0 16 16">

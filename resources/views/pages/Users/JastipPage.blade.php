@@ -3,7 +3,7 @@
 <header class="sticky top-0 left-0 flex justify-center w-full bg-white z-10">
     {{-- Topbar --}}
     @include('components.header.topbar')
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy7Wqkn0A1tWbQf9-LnGum9UucUooaQXY&libraries=places&callback=initAutocomplete" defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3zz718wI8G9tqVt4YkjjRSv_YHg9yPag&libraries=places&callback=initAutocomplete" defer></script>
 </header>
 <main class="px-3 md:mx-2 md:mb-40">
     <section class="bg-white rounded-lg shadow-md p-6 md:p-8 h-auto h-screen mb-28 overflow-y-auto">
