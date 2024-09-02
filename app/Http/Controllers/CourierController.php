@@ -395,4 +395,16 @@ class CourierController extends Controller
             return redirect()->back()->with('error2', 'Error');
         }
     }
+
+    public function waCour(Request $request)
+    {
+        $custId = $request->input('custId');
+        $wa = User::find($custId)->no_telp;
+        if (substr($wa, 0, 2) === '08') {
+            $convertedNumber = '+62' . substr($wa, 1);
+        } else {
+            $convertedNumber = 'Invalid phone number format';
+        }
+        return redirect()->away('https://wa.me/' . $convertedNumber);
+    }
 }

@@ -9,7 +9,7 @@
     </a>
 </header>
 <main class="flex flex-col gap-5 px-2 mt-3">
-    <form action="{{ route('room.chat') }}" method="POST">
+    <form action="{{ route('chatWa') }}" method="POST">
         @csrf
         <div id="chat-list" class="mx-auto overflow-hidden md:max-w-lg">
             {{-- Chat items will be added here --}}
@@ -58,19 +58,19 @@
         if (id == custId) {
             courId = snapshot.key.split('-')[1];
             (function(courId) {
-                database.ref('chats/' + custId + '-' + courId).on('value', function(csnapshot) {
-                    countMssg = csnapshot.val().courNewMssg;
-                });
-                database.ref('chats/' + custId + '-' + courId + '/courNewMssg').on('child_changed', function(countsnapshot) {
-                    countMssg = countsnapshot.val();
-                    if (countMssg != 0) {
-                        $('div[data-count-id="' + courId + '"] .count-message').empty();
-                        $('div[data-count-id="' + courId + '"] .count-message').text(countMssg);
-                        $('div[data-count-id="' + courId + '"]').removeClass('hidden');
-                    } else {
-                        $('div[data-count-id="' + courId + '"]').addClass('hidden');
-                    }
-                });
+                // database.ref('chats/' + custId + '-' + courId).on('value', function(csnapshot) {
+                //     countMssg = csnapshot.val().courNewMssg;
+                // });
+                // database.ref('chats/' + custId + '-' + courId + '/courNewMssg').on('child_changed', function(countsnapshot) {
+                //     countMssg = countsnapshot.val();
+                //     if (countMssg != 0) {
+                //         $('div[data-count-id="' + courId + '"] .count-message').empty();
+                //         $('div[data-count-id="' + courId + '"] .count-message').text(countMssg);
+                //         $('div[data-count-id="' + courId + '"]').removeClass('hidden');
+                //     } else {
+                //         $('div[data-count-id="' + courId + '"]').addClass('hidden');
+                //     }
+                // });
                 lastMessageQuery.on('child_added', function(lastMessageSnapshot) {
                     console.log(lastMessageSnapshot.val())
                     var mssgData = lastMessageSnapshot.val();
@@ -144,26 +144,28 @@
         var senderNameAndMessageDiv = $('<div>').addClass('flex flex-col gap-1 items-start');
         var senderName = $('<h1>').addClass('font-bold text-black').text(sender);
         var maxLength = 25; // Maxlength of message text
-        if (isImageFile(message)) {
-            var messageText = $('<p>').addClass('text-gray-400 message truncate').text("image");
-        } else {
-            var messageText = $('<p>').addClass('text-gray-400 message truncate').text(message.length > maxLength ? message.substring(0, maxLength) + '...' : message);
-        }
-        senderNameAndMessageDiv.append(senderName, messageText);
+        // if (isImageFile(message)) {
+        //     var messageText = $('<p>').addClass('text-gray-400 message truncate').text("image");
+        // } else {
+        //     var messageText = $('<p>').addClass('text-gray-400 message truncate').text(message.length > maxLength ? message.substring(0, maxLength) + '...' : message);
+        // }
+        // senderNameAndMessageDiv.append(senderName, messageText);
+        senderNameAndMessageDiv.append(senderName);
         senderInfoDiv.append(svgIconPerson, senderNameAndMessageDiv);
 
-        var timestampDiv = $('<div>').addClass('flex flex-col items-end gap-1 right-info');
-        var timestampText = $('<p>').addClass('text-gray-400 timestamp').text(formattedTimestamp).attr('value', timestamp);
-        if (countMssg != 0) {
-            var unreadCountDiv = $('<div>').addClass('w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center').attr('data-count-id', courId);
-            var unreadCount = $('<a>').addClass('text-white text-xs font-bold count-message').text(countMssg);
-            unreadCountDiv.append(unreadCount);
-            timestampDiv.append(timestampText, unreadCountDiv);
-        } else {
-            timestampDiv.append(timestampText);
-        }
+        // var timestampDiv = $('<div>').addClass('flex flex-col items-end gap-1 right-info');
+        // var timestampText = $('<p>').addClass('text-gray-400 timestamp').text(formattedTimestamp).attr('value', timestamp);
+        // if (countMssg != 0) {
+        //     var unreadCountDiv = $('<div>').addClass('w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center').attr('data-count-id', courId);
+        //     var unreadCount = $('<a>').addClass('text-white text-xs font-bold count-message').text(countMssg);
+        //     unreadCountDiv.append(unreadCount);
+        //     timestampDiv.append(timestampText, unreadCountDiv);
+        // } else {
+        //     timestampDiv.append(timestampText);
+        // }
 
-        chatItemDiv.append(senderInfoDiv, timestampDiv);
+        // chatItemDiv.append(senderInfoDiv, timestampDiv);
+        chatItemDiv.append(senderInfoDiv);
 
         var submitButton = $('<button>')
             .attr('type', 'submit').attr('data-del-id', courId)

@@ -65,7 +65,6 @@ class ChatController extends Controller
                 'wa' => $convertedNumber
             ]);
         } catch (Exception $e) {
-            // dd($e);
             return redirect()->back()->with('error2', 'Error');
         }
     }
@@ -90,5 +89,17 @@ class ChatController extends Controller
         } else {
             return redirect('/')->withErrors(['phone' => 'Invalid phone number format']);
         }
+    }
+
+    public function wa(Request $request)
+    {
+        $courId = $request->input('courId');
+        $wa = User::find($courId)->no_telp;
+        if (substr($wa, 0, 2) === '08') {
+            $convertedNumber = '+62' . substr($wa, 1);
+        } else {
+            $convertedNumber = 'Invalid phone number format';
+        }
+        return redirect()->away('https://wa.me/' . $convertedNumber);
     }
 }

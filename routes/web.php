@@ -320,6 +320,7 @@ Route::middleware(['auth', 'verified', 'check.hasloggin'])->group(function () {
     // User Chat page
     Route::get('/chats', [ChatController::class, 'listChat']);
     Route::post('/room-chat', [ChatController::class, 'roomChat'])->name('room.chat');
+    Route::post('/chatWa', [ChatController::class, 'wa'])->name('chatWa');
     Route::post('/uploadChatImage', [ChatController::class, 'uploadChatImage']);
     Route::post('/chatbot', [CsController::class, 'bot'])->name('chatbot');
     // Daftar Alamat
@@ -343,6 +344,7 @@ Route::middleware(['auth', 'verified', 'check.courier.role'])->prefix('courier')
     Route::post('orders/complete', [CourierController::class, 'completeOrder'])->name('complete.orders');
     Route::get('/dashboard', [CourierController::class, 'index'])->name('dashboardCourier');
     Route::get('/chats', [CourierController::class, 'listChat'])->name('chatpage');
+    Route::post('/chatWaCour', [CourierController::class, 'waCour'])->name('chatWaCour');
     Route::post('/room-chat', [CourierController::class, 'roomChat'])->name('room.chat.courier');
     Route::post('/uploadChatImageCour', [CourierController::class, 'uploadChatImageCour']);
     Route::get('/history', [CourierController::class, 'history'])->name('cour.history');
