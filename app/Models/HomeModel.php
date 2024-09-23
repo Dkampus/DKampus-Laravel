@@ -10,10 +10,10 @@ class HomeModel
 {
     //use HasFactory;
     private static $Banner = [
-        [
-            'Img' => 'bannerWelcome.jpg',
-            'link' => '#'
-        ],
+//        [
+//            'Img' => 'bannerWelcome.jpg',
+//            'link' => '#'
+//        ],
         [
             'Img' => 'bannerJastip.png',
             'link' => 'jastip'
@@ -247,12 +247,12 @@ class HomeModel
             'Desc' => 'Amankan akun dengan mengganti kata sandi.',
             'Url' => '/change-password'
         ],
-        [
-            'Icon' => 'bersihkanCache.svg',
-            'Title' => 'Bersihkan Cache',
-            'Desc' => 'Menghapus data sementara untuk meningkatkan kinerja.',
-            'Url' => '/bersihkan-cache'
-        ],
+//        [
+//            'Icon' => 'bersihkanCache.svg',
+//            'Title' => 'Bersihkan Cache',
+//            'Desc' => 'Menghapus data sementara untuk meningkatkan kinerja.',
+//            'Url' => '/bersihkan-cache'
+//        ],
     ];
 
     private static $seputarDkampus = [
